@@ -1,0 +1,445 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon ECS Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon ECS Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon ECS Environment",
+                        "Name": "Amazon ECS Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "ECS Overview",
+                                        "NewGroup": false,
+                                        "Color": "#dd5900"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon ECS",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://docs.bindplane.bluemedora.com/docs/ecs"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon ECS is a highly scalable, high-performance container orchestration service."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon ECS, it is imoprtant to monitor the cpu and memory utilization of a cluster, in order to ensure that containers have been appropriately provisioned for their workload.\n\nLikewise, it is also important to track the number of active services and tasks running in a cluster."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster CPU",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL  | where ${Cluster} | summarize avg(coalesce(cpu_utilization_d,0.0)) by amazon_ecs_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Avg Cpu",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "Percentage",
+                                                "baseUnit": "ZeroToOne",
+                                                "displayUnit": "ZeroToOne"
+                                            },
+                                            "customLabel": "CPU"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL  | where ${Cluster} | summarize avg(coalesce(cpu_utilization_d,0.0)) by amazon_ecs_cluster_name_s",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "CPU"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Memory",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Cluster} | summarize avg(coalesce(memory_utilization_d,0.0)) by amazon_ecs_cluster_name_s | order by avg_ desc",
+                                        "Callout": {
+                                            "Title": "Avg Memory",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "Percentage",
+                                                "baseUnit": "ZeroToOne",
+                                                "displayUnit": "ZeroToOne"
+                                            },
+                                            "customLabel": "Memory"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Cluster} | summarize avg(coalesce(memory_utilization_d,0.0)) by amazon_ecs_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Memory"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutStackedBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Tasks",
+                                        "newGroup": false
+                                    },
+                                    "charts": [
+                                        {
+                                            "Header": {
+                                                "Title": "Active Services",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_ecs_cluster_CL | where ${Cluster} | summarize avg(active_services_d) by amazon_ecs_cluster_name_s | order by avg_active_services_d desc",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "",
+                                                        "baseUnit": "",
+                                                        "displayUnit": ""
+                                                    },
+                                                    "customLabel": "Active Services"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        },
+                                        {
+                                            "Header": {
+                                                "Title": "Running Tasks",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_ecs_cluster_CL | where ${Cluster} | summarize avg(running_tasks_count_d) by amazon_ecs_cluster_name_s | order by avg_running_tasks_count_d desc",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "",
+                                                        "baseUnit": "",
+                                                        "displayUnit": ""
+                                                    },
+                                                    "customLabel": "Tasks"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        },
+                                        {
+                                            "Header": {
+                                                "Title": "Pending Tasks",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_ecs_cluster_CL | where ${Cluster} | summarize avg(pending_ec2_tasks_count_d) by amazon_ecs_cluster_name_s | order by avg_pending_ec2_tasks_count_d desc",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "",
+                                                        "baseUnit": "",
+                                                        "displayUnit": ""
+                                                    },
+                                                    "customLabel": "Tasks"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "TwoNumberTileListBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Status",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Tile": {
+                                        "Legend": "Active Containers",
+                                        "Query": "amazon_ecs_container_instance_CL | where ${Container} and ${Cluster} | join kind= inner (    amazon_ecs_container_instance_CL    | summarize TimeGenerated=max(TimeGenerated) by amazon_ecs_container_instance_name_g ) on TimeGenerated, amazon_ecs_container_instance_name_g | where status_s == 'ACTIVE' | count"
+                                    },
+                                    "SecondTile": {
+                                        "Legend": "Inactive Containers",
+                                        "Query": "amazon_ecs_container_instance_CL | where ${Container} and ${Cluster} | join kind= inner (    amazon_ecs_container_instance_CL    | summarize TimeGenerated=max(TimeGenerated) by amazon_ecs_container_instance_name_g ) on TimeGenerated, amazon_ecs_container_instance_name_g | where status_s != 'ACTIVE' | count"
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_container_instance_CL | where ${Container} and ${Cluster} | project amazon_ecs_container_instance_name_g, status=iif(status_s=='ACTIVE',100.0,0.0), TimeGenerated | summarize avg(status) by amazon_ecs_container_instance_name_g",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container",
+                                            "Value": "Active"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    },
+                                    "Blade": {
+                                        "NavigationSelect": {}
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+                                        {
+                                            "query": "amazon_ecs_cluster_CL | distinct cluster_name_s, arn_s",
+                                            "displayName": "Cluster ARN"
+                                        },
+                                        {
+                                            "query": "amazon_ecs_cluster_CL | join kind= inner (     amazon_ecs_cluster_CL     | summarize TimeGenerated=max(TimeGenerated) by amazon_ecs_cluster_name_s ) on TimeGenerated, amazon_ecs_cluster_name_s | project amazon_ecs_cluster_name_s, cpu_reservation_d, memory_reservation_d",
+                                            "displayName": "Cluster Resource Reservation"
+                                        },
+                                        {
+                                            "query": "amazon_ecs_container_instance_CL | join kind= inner (     amazon_ecs_container_instance_CL     | summarize TimeGenerated=max(TimeGenerated) by amazon_ecs_container_instance_name_g ) on TimeGenerated, amazon_ecs_container_instance_name_g | project amazon_ecs_container_instance_name_g, docker_version_s, arn_s",
+                                            "displayName": "Container Configuration"
+                                        },
+                                        {
+                                            "query": "amazon_ecs_container_instance_CL | join kind= inner (     amazon_ecs_container_instance_CL     | summarize TimeGenerated=max(TimeGenerated) by amazon_ecs_container_instance_name_g ) on TimeGenerated, amazon_ecs_container_instance_name_g | project amazon_ecs_container_instance_name_g, agent_connected_d, agent_hash_s, agent_version_s",
+                                            "displayName": "Container Agents"
+                                        },
+                                        {
+                                            "query": "amazon_ecs_container_instance_CL | join kind= inner (     amazon_ecs_container_instance_CL     | summarize TimeGenerated=max(TimeGenerated) by amazon_ecs_container_instance_name_g ) on TimeGenerated, amazon_ecs_container_instance_name_g | project amazon_ecs_container_instance_name_g, running_tasks_count_d, pending_tasks_count_d",
+                                            "displayName": "Container Tasks"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [
+                            {
+                                "FieldName": "amazon_ecs_cluster_name_s",
+                                "QueryForValues": "amazon_ecs_cluster_CL | distinct amazon_ecs_cluster_name_s",
+                                "Title": "Cluster"
+                            },
+                            {
+                                "FieldName": "amazon_ecs_container_instance_name_g",
+                                "QueryForValues": "amazon_ecs_container_instance_CL | distinct amazon_ecs_container_instance_name_g",
+                                "Title": "Container"
+                            }
+                        ],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "amazon_ecs_cluster_CL | summarize avg(cpu_utilization_d) by amazon_ecs_cluster_name_s",
+                                    "Callout": {
+                                        "Title": "Average CPU",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "Percentage",
+                                            "baseUnit": "ZeroToOne",
+                                            "displayUnit": "ZeroToOne"
+                                        },
+                                        "customLabel": "CPU"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

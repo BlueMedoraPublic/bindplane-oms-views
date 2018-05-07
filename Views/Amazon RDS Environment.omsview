@@ -1,0 +1,440 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon RDS Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon RDS Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon RDS Environment",
+                        "Name": "Amazon RDS Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "RDS Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon RDS",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://docs.bindplane.bluemedora.com/docs/rds"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon RDS is a cloud hosted service for creating and managing relational databases."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon RDS, it's important to monitor the number of connections to a database instance. This is an early indicator of instance load.\n\nLikewise, it's also important to monitor the CPU, IOPS, and throughput of an instance to troublshoot potential bottlenecks."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "TwoNumberTileListBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "RDS Snapshots",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Tile": {
+                                        "Legend": "Instances",
+                                        "Query": "amazon_rds_instance_CL | distinct amazon_rds_instance_id_g, amazon_rds_instance_id_s | count"
+                                    },
+                                    "SecondTile": {
+                                        "Legend": "Snapshots",
+                                        "Query": "amazon_rds_snapshot_CL | distinct amazon_rds_snapshot_id_g, amazon_rds_snapshot_id_s | count"
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_snapshot_CL | distinct amazon_rds_snapshot_id_g, amazon_rds_snapshot_id_s, db_instance_identifier_s | summarize count() by db_instance_identifier_s | order by count_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": false,
+                                        "operation": "Summary",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Snapshots"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    },
+                                    "Blade": {
+                                        "NavigationSelect": {}
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "LineChartBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "RDS Connections",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connections",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | extend Connections = database_connections_d, Type = engine_s, Name = amazon_rds_instance_name_s | summarize round(avg(Connections),0) by Name, Type",
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | extend Connections = database_connections_d, Type = engine_s, Name = amazon_rds_instance_name_s | summarize round(avg(Connections),0) by Name, Type",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Connections"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutStackedBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "RDS CPU",
+                                        "newGroup": false
+                                    },
+                                    "charts": [
+                                        {
+                                            "Header": {
+                                                "Title": "CPU Utilization",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | summarize avg(cpu_utilization_d) by amazon_rds_instance_name_s",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "Percentage",
+                                                        "baseUnit": "ZeroToOne",
+                                                        "displayUnit": "ZeroToOne"
+                                                    },
+                                                    "customLabel": "Utilization"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        },
+                                        {
+                                            "Header": {
+                                                "Title": "CPU Credit Usage",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | summarize avg(cpu_credit_usage_d) by amazon_rds_instance_name_s",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "",
+                                                        "baseUnit": "",
+                                                        "displayUnit": ""
+                                                    },
+                                                    "customLabel": "Credits"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        },
+                                        {
+                                            "Header": {
+                                                "Title": "CPU Credit Balance",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | summarize avg(cpu_credit_balance_d) by amazon_rds_instance_name_s",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "",
+                                                        "baseUnit": "",
+                                                        "displayUnit": ""
+                                                    },
+                                                    "customLabel": "Credits"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutStackedBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "RDS Operations",
+                                        "newGroup": false
+                                    },
+                                    "charts": [
+                                        {
+                                            "Header": {
+                                                "Title": "Total Latency",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | extend Latency = (read_latency_d + write_latency_d)*1000, Instance = amazon_rds_instance_name_s | summarize avg(Latency) by Instance",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "TimeRange",
+                                                        "baseUnit": "Milliseconds",
+                                                        "displayUnit": "AUTO"
+                                                    },
+                                                    "customLabel": "Latency"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        },
+                                        {
+                                            "Header": {
+                                                "Title": "Total IOPS",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | extend IOPS = read_iops_d + write_iops_d, Instance = amazon_rds_instance_name_s | summarize avg(IOPS) by Instance",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "",
+                                                        "baseUnit": "",
+                                                        "displayUnit": ""
+                                                    },
+                                                    "customLabel": "IOPS"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        },
+                                        {
+                                            "Header": {
+                                                "Title": "Total Throughput",
+                                                "Subtitle": ""
+                                            },
+                                            "LineChart": {
+                                                "Query": "amazon_rds_instance_CL | where ${Instance} and ${Cluster} | extend Throughput = read_throughput_d + write_throughput_d, Instance = amazon_rds_instance_name_s | summarize avg(Throughput) by Instance",
+                                                "yAxis": {
+                                                    "isLogarithmic": false,
+                                                    "units": {
+                                                        "baseUnitType": "Bits",
+                                                        "baseUnit": "Bytes",
+                                                        "displayUnit": "AUTO"
+                                                    },
+                                                    "customLabel": "Throughput"
+                                                },
+                                                "NavigationSelect": {}
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+                                        {
+                                            "query": "amazon_rds_instance_CL  | join kind= inner (    amazon_rds_instance_CL    | summarize TimeGenerated=max(TimeGenerated) by amazon_rds_instance_name_s ) on TimeGenerated, amazon_rds_instance_name_s | project amazon_rds_instance_name_s, storage_encrypted_d, storage_type_s, allocated_storage_d, free_storage_space_d",
+                                            "displayName": "RDS Storage"
+                                        },
+                                        {
+                                            "query": "amazon_rds_instance_CL | distinct  amazon_rds_instance_name_s, engine_s, engine_version_s, endpoint_address_s, endpoint_port_d",
+                                            "displayName": "RDS Database Configuration"
+                                        },
+                                        {
+                                            "query": "amazon_rds_instance_CL  | distinct amazon_rds_instance_name_s, availability_zone_s, secondary_availability_zone_s, multi_az_d",
+                                            "displayName": "RDS Availability Zone"
+                                        },
+                                        {
+                                            "query": "amazon_rds_instance_CL  | distinct subnet_group_name_s, amazon_rds_instance_name_s, subnet_group_vpc_id_s, subnet_group_description_s, subnet_group_status_s ",
+                                            "displayName": "RDS Subnet Info"
+                                        },
+                                        {
+                                            "query": "amazon_rds_snapshot_CL | distinct amazon_rds_snapshot_name_s, db_instance_identifier_s, snapshot_create_time_s, snapshot_type_s, provisioned_iops_d",
+                                            "displayName": "RDS Snapshots"
+                                        },
+                                        {
+                                            "query": "amazon_rds_tag_CL | distinct amazon_rds_rds_instance_name_s, amazon_rds_tag_name_s, value_s | order by amazon_rds_rds_instance_name_s desc",
+                                            "displayName": "RDS Tags"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [
+                            {
+                                "FieldName": "amazon_rds_cluster_name_s",
+                                "QueryForValues": "amazon_rds_cluster_CL | distinct amazon_rds_cluster_name_s",
+                                "Title": "Cluster"
+                            },
+                            {
+                                "FieldName": "amazon_rds_instance_name_s",
+                                "QueryForValues": "amazon_rds_instance_CL | distinct amazon_rds_instance_name_s",
+                                "Title": "Instance"
+                            }
+                        ],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "amazon_rds_instance_CL | extend Connections = database_connections_d, Type = engine_s, Name = amazon_rds_instance_name_s | summarize round(avg(Connections),0) by Name, Type",
+                                    "Callout": {
+                                        "Title": "Average Connections",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Connections"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
