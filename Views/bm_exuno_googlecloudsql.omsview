@@ -1,0 +1,685 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Google Cloud SQL Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Google Cloud SQL Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Google Cloud SQL Environment",
+                        "Name": "Google Cloud SQL Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Google Cloud SQL Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Google Cloud SQL",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Google Cloud SQL is a database service that helps set up, maintain, manage, and administer databases on the Google Cloud Platform."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Google Cloud SQL, it is important to monitor the cpu, disk, and memory of the database instances in order to ensure the database is performing efficiently."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by google_cloudsql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_cloudsql_instance_CL  | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by google_cloudsql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Disk Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('disk_utilization_d',0.0), 0.0)) by google_cloudsql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_cloudsql_instance_CL  | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('disk_utilization_d',0.0), 0.0)) by google_cloudsql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Disk Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by google_cloudsql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_cloudsql_instance_CL  | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by google_cloudsql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Read Operations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Operations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('read_operations_d',0.0), 0.0)) by google_cloudsql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Operations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Reads"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_cloudsql_instance_CL  | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('read_operations_d',0.0), 0.0)) by google_cloudsql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Read Operations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Write Operations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Operations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('write_operations_d',0.0), 0.0)) by google_cloudsql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Operations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Writes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_cloudsql_instance_CL  | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance} | summarize avg(coalesce(columnifexists('write_operations_d',0.0), 0.0)) by google_cloudsql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Write Operations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "google_cloudsql_instance_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=google_cloudsql_instance_name_s",
+                                            "displayName": "Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_instance_CL | summarize([\"Last Update Time\"], ['Disk Utilization'], ['Read Operations'], ['Write Operations'])=arg_max(TimeGenerated,columnifexists('disk_utilization_d', ''),columnifexists('read_operations_d', ''),columnifexists('write_operations_d', '')) by Name=google_cloudsql_instance_name_s",
+                                            "displayName": "Instance Disk"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_instance_CL | summarize([\"Last Update Time\"], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', '')) by Name=google_cloudsql_instance_name_s",
+                                            "displayName": "Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_instance_CL | summarize([\"Last Update Time\"], ['Data Disk Size'], [' Data Disk Type '], ['Database version'], ['Disk Quota'], ['Maximum Disk Size'], ['Memory Quota'], ['Type Of Instance'])=arg_max(TimeGenerated,columnifexists('data_disk_size_d', ''),columnifexists('data_disk_type_s', ''),columnifexists('database_version_s', ''),columnifexists('disk_quota_d', ''),columnifexists('maximum_disk_size_d', ''),columnifexists('memory_quota_d', ''),columnifexists('type_of_instance_s', '')) by Name=google_cloudsql_instance_name_s",
+                                            "displayName": "Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_backupRun_CL | summarize([\"Last Update Time\"], ['Description'], ['End Time'], ['Error Message'], ['Instance'], ['Kind'], ['Start Time'], ['Type'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('end_time_s', ''),columnifexists('error_message_s', ''),columnifexists('instance_s', ''),columnifexists('kind_s', ''),columnifexists('start_time_s', ''),columnifexists('type_s', '')) by Name=google_cloudsql_backupRun_name_s",
+                                            "displayName": "Backup Run Properties"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_flag_CL | summarize([\"Last Update Time\"], ['Value'])=arg_max(TimeGenerated,columnifexists('value_s', '')) by Name=google_cloudsql_flag_name_s",
+                                            "displayName": "Flag Properties"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_label_CL | summarize([\"Last Update Time\"], ['Value'])=arg_max(TimeGenerated,columnifexists('value_s', '')) by Name=google_cloudsql_label_name_s",
+                                            "displayName": "Label Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "tier_s",
+                            "QueryForValues": "google_cloudsql_instance_CL | distinct tier_s",
+                            "Title": "Tier"
+                          },{
+                            "FieldName": "data_disk_type_s",
+                            "QueryForValues": "google_cloudsql_instance_CL | distinct data_disk_type_s",
+                            "Title": " Data Disk Type "
+                          },{
+                            "FieldName": "type_of_instance_s",
+                            "QueryForValues": "google_cloudsql_instance_CL | distinct type_of_instance_s",
+                            "Title": "Type Of Instance"
+                          },{
+                            "FieldName": "google_cloudsql_instance_name_s",
+                            "QueryForValues": "union google_cloudsql_instance_CL, google_cloudsql_backupRun_CL, google_cloudsql_flag_CL, google_cloudsql_label_CL | distinct google_cloudsql_instance_name_s",
+                            "Title": "Instance"
+                          },{
+                            "FieldName": "google_cloudsql_backupRun_name_s",
+                            "QueryForValues": "google_cloudsql_backupRun_CL | distinct google_cloudsql_backupRun_name_s",
+                            "Title": "Backup Run"
+                          },{
+                            "FieldName": "google_cloudsql_flag_name_s",
+                            "QueryForValues": "google_cloudsql_flag_CL | distinct google_cloudsql_flag_name_s",
+                            "Title": "Flag"
+                          },{
+                            "FieldName": "google_cloudsql_label_name_s",
+                            "QueryForValues": "google_cloudsql_label_CL | distinct google_cloudsql_label_name_s",
+                            "Title": "Label"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

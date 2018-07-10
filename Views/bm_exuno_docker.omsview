@@ -1,0 +1,653 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Docker Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Docker Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Docker Environment",
+                        "Name": "Docker Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Docker Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Docker",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Docker is a container platform that makes applications portable to any infrastructure."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Docker, it's important to monitor the runtime resources of both the container and the container host. This will help determine if the environment is provisioned appropriately for the container workload.\n\nExamples of container runtime resources are CPU and memory usage."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container}  | project ['Total CPU Usage'] = columnifexists('total_cpu_usage_d', double(null)), ['Received Errors'] = columnifexists('received_errors_d', double(null)), ['Sent Errors'] = columnifexists('sent_errors_d', double(null)), TimeGenerated, Name=docker_container_name_s  | extend Healthy = case(isnotnull(['Total CPU Usage']) or isnotnull(['Received Errors']) or isnotnull(['Sent Errors']), (['Total CPU Usage'] < 95 or isnull(['Total CPU Usage'])) and (['Received Errors'] <= 0 or isnull(['Received Errors'])) and (['Sent Errors'] <= 0 or isnull(['Sent Errors'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container}  | project ['Total CPU Usage'] = columnifexists('total_cpu_usage_d', double(null)), ['Received Errors'] = columnifexists('received_errors_d', double(null)), ['Sent Errors'] = columnifexists('sent_errors_d', double(null)), TimeGenerated, Name=docker_container_name_s  | extend Healthy = case(isnotnull(['Total CPU Usage']) or isnotnull(['Received Errors']) or isnotnull(['Sent Errors']), (['Total CPU Usage'] < 95 or isnull(['Total CPU Usage'])) and (['Received Errors'] <= 0 or isnull(['Received Errors'])) and (['Sent Errors'] <= 0 or isnull(['Sent Errors'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "docker_container_CL | project ['Total CPU Usage'] = columnifexists('total_cpu_usage_d', double(null)), ['Received Errors'] = columnifexists('received_errors_d', double(null)), ['Sent Errors'] = columnifexists('sent_errors_d', double(null)), TimeGenerated, Name=docker_container_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Total CPU Usage']) or isnotnull(['Received Errors']) or isnotnull(['Sent Errors']), (['Total CPU Usage'] < 95 or isnull(['Total CPU Usage'])) and (['Received Errors'] <= 0 or isnull(['Received Errors'])) and (['Sent Errors'] <= 0 or isnull(['Sent Errors'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "docker_container_CL | project ['Total CPU Usage'] = columnifexists('total_cpu_usage_d', double(null)), ['Received Errors'] = columnifexists('received_errors_d', double(null)), ['Sent Errors'] = columnifexists('sent_errors_d', double(null)), TimeGenerated, Name=docker_container_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Total CPU Usage']) or isnotnull(['Received Errors']) or isnotnull(['Sent Errors']), (['Total CPU Usage'] < 95 or isnull(['Total CPU Usage'])) and (['Received Errors'] <= 0 or isnull(['Received Errors'])) and (['Sent Errors'] <= 0 or isnull(['Sent Errors'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Total CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('total_cpu_usage_d',0.0), 0.0)) by docker_container_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "docker_container_CL  | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('total_cpu_usage_d',0.0), 0.0)) by docker_container_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container",
+                                            "Value": "Total CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by docker_container_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "docker_container_CL  | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by docker_container_name_s | order by avg_ asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container",
+                                            "Value": "Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Received Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Received Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('received_throughput_d',0.0), 0.0)) by docker_container_name_s",
+                                        "Callout": {
+                                            "Title": "Average Received Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "docker_container_CL  | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('received_throughput_d',0.0), 0.0)) by docker_container_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container",
+                                            "Value": "Received Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Sent Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Sent Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('sent_throughput_d',0.0), 0.0)) by docker_container_name_s",
+                                        "Callout": {
+                                            "Title": "Average Sent Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "docker_container_CL  | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('sent_throughput_d',0.0), 0.0)) by docker_container_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container",
+                                            "Value": "Sent Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Received Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Received Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "docker_container_CL | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('received_errors_d',0.0), 0.0)) by docker_container_name_s",
+                                        "Callout": {
+                                            "Title": "Average Received Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "docker_container_CL  | where ${Container Service} and ${Container} | summarize avg(coalesce(columnifexists('received_errors_d',0.0), 0.0)) by docker_container_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container",
+                                            "Value": "Received Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "1",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "docker_container_CL | summarize([\"Last Update Time\"], ['Total CPU Usage'])=arg_max(TimeGenerated,columnifexists('total_cpu_usage_d', '')) by Name=docker_container_name_s",
+                                            "displayName": "Container CPU"
+                                        }
+                                        ,{
+                                            "query": "docker_container_CL | summarize([\"Last Update Time\"], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', '')) by Name=docker_container_name_s",
+                                            "displayName": "Container Memory"
+                                        }
+                                        ,{
+                                            "query": "docker_container_CL | summarize([\"Last Update Time\"], ['Received Throughput'], ['Sent Throughput'], ['Received Errors'], ['Sent Errors'])=arg_max(TimeGenerated,columnifexists('received_throughput_d', ''),columnifexists('sent_throughput_d', ''),columnifexists('received_errors_d', ''),columnifexists('sent_errors_d', '')) by Name=docker_container_name_s",
+                                            "displayName": "Container Network"
+                                        }
+                                        ,{
+                                            "query": "docker_container_CL | summarize([\"Last Update Time\"], ['Number Of Cores'], ['Resource Alias'])=arg_max(TimeGenerated,columnifexists('number_of_cores_d', ''),columnifexists('resource_alias_s', '')) by Name=docker_container_name_s",
+                                            "displayName": "Container Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "docker_container_service_name_s",
+                            "QueryForValues": "union docker_container_CL, docker_container_service_CL | distinct docker_container_service_name_s",
+                            "Title": "Container Service"
+                          },{
+                            "FieldName": "docker_container_name_s",
+                            "QueryForValues": "docker_container_CL | distinct docker_container_name_s",
+                            "Title": "Container"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "docker_container_CL | project ['Total CPU Usage'] = columnifexists('total_cpu_usage_d', double(null)), ['Received Errors'] = columnifexists('received_errors_d', double(null)), ['Sent Errors'] = columnifexists('sent_errors_d', double(null)), TimeGenerated, Name=docker_container_name_s  | extend Healthy = case(isnotnull(['Total CPU Usage']) or isnotnull(['Received Errors']) or isnotnull(['Sent Errors']), (['Total CPU Usage'] < 95 or isnull(['Total CPU Usage'])) and (['Received Errors'] <= 0 or isnull(['Received Errors'])) and (['Sent Errors'] <= 0 or isnull(['Sent Errors'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Container",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

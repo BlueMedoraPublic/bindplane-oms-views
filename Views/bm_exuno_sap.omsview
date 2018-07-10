@@ -1,0 +1,709 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "SAP Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/SAP Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "SAP Environment",
+                        "Name": "SAP Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "SAP Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "SAP",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "SAP is software that manages business operations (ERP) and customer relations (CRM)."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In SAP it is important to monitor the instance performance to ensure a consistent user experience."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "System Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_system_CL | where ${System}  | project ['Total Available Capacity Consumed'] = columnifexists('total_available_capacity_consumed_d', double(null)), ['Total CPU Utilization'] = columnifexists('total_cpu_utilization_d', double(null)), TimeGenerated, Name=sap_system_name_s  | extend Healthy = case(isnotnull(['Total Available Capacity Consumed']) or isnotnull(['Total CPU Utilization']), (['Total Available Capacity Consumed'] < 90 or isnull(['Total Available Capacity Consumed'])) and (['Total CPU Utilization'] < 95 or isnull(['Total CPU Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_system_CL | where ${System}  | project ['Total Available Capacity Consumed'] = columnifexists('total_available_capacity_consumed_d', double(null)), ['Total CPU Utilization'] = columnifexists('total_cpu_utilization_d', double(null)), TimeGenerated, Name=sap_system_name_s  | extend Healthy = case(isnotnull(['Total Available Capacity Consumed']) or isnotnull(['Total CPU Utilization']), (['Total Available Capacity Consumed'] < 90 or isnull(['Total Available Capacity Consumed'])) and (['Total CPU Utilization'] < 95 or isnull(['Total CPU Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "System Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "sap_system_CL | project ['Total Available Capacity Consumed'] = columnifexists('total_available_capacity_consumed_d', double(null)), ['Total CPU Utilization'] = columnifexists('total_cpu_utilization_d', double(null)), TimeGenerated, Name=sap_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Total Available Capacity Consumed']) or isnotnull(['Total CPU Utilization']), (['Total Available Capacity Consumed'] < 90 or isnull(['Total Available Capacity Consumed'])) and (['Total CPU Utilization'] < 95 or isnull(['Total CPU Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "sap_system_CL | project ['Total Available Capacity Consumed'] = columnifexists('total_available_capacity_consumed_d', double(null)), ['Total CPU Utilization'] = columnifexists('total_cpu_utilization_d', double(null)), TimeGenerated, Name=sap_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Total Available Capacity Consumed']) or isnotnull(['Total CPU Utilization']), (['Total Available Capacity Consumed'] < 90 or isnull(['Total Available Capacity Consumed'])) and (['Total CPU Utilization'] < 95 or isnull(['Total CPU Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "ABAP Instance Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_abap_instance_CL | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${ABAP Instance} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by sap_abap_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Availability"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_abap_instance_CL  | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${ABAP Instance} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by sap_abap_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "ABAP Instance",
+                                            "Value": "Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "ABAP Instance CPU Usage Of Host",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage Of Host",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_abap_instance_CL | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${ABAP Instance} | summarize avg(coalesce(columnifexists('cpu_usage_of_host_d',0.0), 0.0)) by sap_abap_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage Of Host",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_abap_instance_CL  | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${ABAP Instance} | summarize avg(coalesce(columnifexists('cpu_usage_of_host_d',0.0), 0.0)) by sap_abap_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "ABAP Instance",
+                                            "Value": "CPU Usage Of Host"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "ABAP Instance Resident Memory Usage Of Host",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Resident Memory Usage Of Host",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_abap_instance_CL | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${ABAP Instance} | summarize avg(coalesce(columnifexists('resident_memory_usage_of_host_d',0.0), 0.0)) by sap_abap_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Resident Memory Usage Of Host",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_abap_instance_CL  | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${ABAP Instance} | summarize avg(coalesce(columnifexists('resident_memory_usage_of_host_d',0.0), 0.0)) by sap_abap_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "ABAP Instance",
+                                            "Value": "Resident Memory Usage Of Host"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Dual Stack Instance Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_dual_stack_instance_CL | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${Dual Stack Instance} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by sap_dual_stack_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Availability"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_dual_stack_instance_CL  | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${Dual Stack Instance} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by sap_dual_stack_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Dual Stack Instance",
+                                            "Value": "Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Dual Stack Instance CPU Usage Of Host",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage Of Host",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_dual_stack_instance_CL | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${Dual Stack Instance} | summarize avg(coalesce(columnifexists('cpu_usage_of_host_d',0.0), 0.0)) by sap_dual_stack_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage Of Host",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_dual_stack_instance_CL  | where ${System} and ${Host} and ${Host Name} and ${System Name} and ${Dual Stack Instance} | summarize avg(coalesce(columnifexists('cpu_usage_of_host_d',0.0), 0.0)) by sap_dual_stack_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Dual Stack Instance",
+                                            "Value": "CPU Usage Of Host"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "sap_system_CL | summarize([\"Last Update Time\"], ['Average Response Time Dialog'], ['Total Available Capacity Consumed'], ['Total CPU Utilization'])=arg_max(TimeGenerated,columnifexists('average_response_time_dialog_d', ''),columnifexists('total_available_capacity_consumed_d', ''),columnifexists('total_cpu_utilization_d', '')) by Name=sap_system_name_s",
+                                            "displayName": "System Rollup Metrics"
+                                        }
+                                        ,{
+                                            "query": "sap_java_instance_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=sap_java_instance_name_s",
+                                            "displayName": "Java Instance Status"
+                                        }
+                                        ,{
+                                            "query": "sap_java_instance_CL | summarize([\"Last Update Time\"], ['CPU Usage Of Host'])=arg_max(TimeGenerated,columnifexists('cpu_usage_of_host_d', '')) by Name=sap_java_instance_name_s",
+                                            "displayName": "Java Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "sap_java_instance_CL | summarize([\"Last Update Time\"], ['Resident Memory Usage Of Host'])=arg_max(TimeGenerated,columnifexists('resident_memory_usage_of_host_d', '')) by Name=sap_java_instance_name_s",
+                                            "displayName": "Java Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "sap_java_instance_CL | summarize([\"Last Update Time\"], ['Collector Operating System'], ['Hostname'], ['Instance Status'], ['Model'], ['Operating System Collector State'], ['Virtualization Method'])=arg_max(TimeGenerated,columnifexists('collector_operating_system_s', ''),columnifexists('hostname_s', ''),columnifexists('instance_status_s', ''),columnifexists('model_s', ''),columnifexists('operating_system_collector_state_s', ''),columnifexists('virtualization_method_s', '')) by Name=sap_java_instance_name_s",
+                                            "displayName": "Java Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "sap_abap_instance_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=sap_abap_instance_name_s",
+                                            "displayName": "ABAP Instance Status"
+                                        }
+                                        ,{
+                                            "query": "sap_abap_instance_CL | summarize([\"Last Update Time\"], ['CPU Usage Of Host'])=arg_max(TimeGenerated,columnifexists('cpu_usage_of_host_d', '')) by Name=sap_abap_instance_name_s",
+                                            "displayName": "ABAP Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "sap_abap_instance_CL | summarize([\"Last Update Time\"], ['Resident Memory Usage Of Host'])=arg_max(TimeGenerated,columnifexists('resident_memory_usage_of_host_d', '')) by Name=sap_abap_instance_name_s",
+                                            "displayName": "ABAP Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "sap_abap_instance_CL | summarize([\"Last Update Time\"], ['Collector Operating System'], ['Hostname'], ['Instance Status'], ['Model'], ['Operating System Collector State'], ['Virtualization Method'], ['VM Container Status'])=arg_max(TimeGenerated,columnifexists('collector_operating_system_s', ''),columnifexists('hostname_s', ''),columnifexists('instance_status_s', ''),columnifexists('model_s', ''),columnifexists('operating_system_collector_state_s', ''),columnifexists('virtualization_method_s', ''),columnifexists('vm_container_status_s', '')) by Name=sap_abap_instance_name_s",
+                                            "displayName": "ABAP Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "sap_dual_stack_instance_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=sap_dual_stack_instance_name_s",
+                                            "displayName": "Dual Stack Instance Status"
+                                        }
+                                        ,{
+                                            "query": "sap_dual_stack_instance_CL | summarize([\"Last Update Time\"], ['CPU Usage Of Host'])=arg_max(TimeGenerated,columnifexists('cpu_usage_of_host_d', '')) by Name=sap_dual_stack_instance_name_s",
+                                            "displayName": "Dual Stack Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "sap_dual_stack_instance_CL | summarize([\"Last Update Time\"], ['Resident Memory Usage Of Host'])=arg_max(TimeGenerated,columnifexists('resident_memory_usage_of_host_d', '')) by Name=sap_dual_stack_instance_name_s",
+                                            "displayName": "Dual Stack Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "sap_dual_stack_instance_CL | summarize([\"Last Update Time\"], ['Collector Operating System'], ['Hostname'], ['Instance Status'], ['Model'], ['Operating System Collector State'], ['Virtualization Method'], ['VM Container Status'])=arg_max(TimeGenerated,columnifexists('collector_operating_system_s', ''),columnifexists('hostname_s', ''),columnifexists('instance_status_s', ''),columnifexists('model_s', ''),columnifexists('operating_system_collector_state_s', ''),columnifexists('virtualization_method_s', ''),columnifexists('vm_container_status_s', '')) by Name=sap_dual_stack_instance_name_s",
+                                            "displayName": "Dual Stack Instance Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "sap_system_name_s",
+                            "QueryForValues": "union sap_system_CL, sap_java_instance_CL, sap_abap_instance_CL, sap_dual_stack_instance_CL | distinct sap_system_name_s",
+                            "Title": "System"
+                          },{
+                            "FieldName": "sap_host_name_s",
+                            "QueryForValues": "union sap_java_instance_CL, sap_abap_instance_CL, sap_dual_stack_instance_CL | distinct sap_host_name_s",
+                            "Title": "Host"
+                          },{
+                            "FieldName": "host_name_s",
+                            "QueryForValues": "union sap_java_instance_CL, sap_abap_instance_CL, sap_dual_stack_instance_CL | distinct host_name_s",
+                            "Title": "Host Name"
+                          },{
+                            "FieldName": "system_name_s",
+                            "QueryForValues": "union sap_java_instance_CL, sap_abap_instance_CL, sap_dual_stack_instance_CL | distinct system_name_s",
+                            "Title": "System Name"
+                          },{
+                            "FieldName": "sap_java_instance_name_s",
+                            "QueryForValues": "sap_java_instance_CL | distinct sap_java_instance_name_s",
+                            "Title": "Java Instance"
+                          },{
+                            "FieldName": "sap_abap_instance_name_s",
+                            "QueryForValues": "sap_abap_instance_CL | distinct sap_abap_instance_name_s",
+                            "Title": "ABAP Instance"
+                          },{
+                            "FieldName": "sap_dual_stack_instance_name_s",
+                            "QueryForValues": "sap_dual_stack_instance_CL | distinct sap_dual_stack_instance_name_s",
+                            "Title": "Dual Stack Instance"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "sap_system_CL | project ['Total Available Capacity Consumed'] = columnifexists('total_available_capacity_consumed_d', double(null)), ['Total CPU Utilization'] = columnifexists('total_cpu_utilization_d', double(null)), TimeGenerated, Name=sap_system_name_s  | extend Healthy = case(isnotnull(['Total Available Capacity Consumed']) or isnotnull(['Total CPU Utilization']), (['Total Available Capacity Consumed'] < 90 or isnull(['Total Available Capacity Consumed'])) and (['Total CPU Utilization'] < 95 or isnull(['Total CPU Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "System",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,709 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "HP Compute Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/HP Compute Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "HP Compute Environment",
+                        "Name": "HP Compute Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "HP Compute Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "HP Compute",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "HPE Servers are enterprise blade and rack servers which can run any OS, web stack, virtualization, or database."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring HPE Servers, it is important to monitor the health states of all components of the server provided by HP."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Chassis Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hp_compute_chassis_CL | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis}  | project ['Average CPU Temperature'] = columnifexists('average_cpu_temperature_d', double(null)), ['Average Memory Temperature'] = columnifexists('average_memory_temperature_d', double(null)), ['Fans Health Critical'] = columnifexists('fans_health_critical_d', double(null)), ['Fans Health Warning'] = columnifexists('fans_health_warning_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['Power Consumed'] = columnifexists('power_consumed_d', double(null)), ['Power Capacity'] = columnifexists('power_capacity_d', double(null)), TimeGenerated, Name=hp_compute_chassis_name_s  | extend Healthy = case(isnotnull(['Average CPU Temperature']) or isnotnull(['Average Memory Temperature']) or isnotnull(['Fans Health Critical']) or isnotnull(['Fans Health Warning']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Consumed']) or isnotnull(['Power Capacity']), (['Average CPU Temperature'] < 75 or isnull(['Average CPU Temperature'])) and (['Average Memory Temperature'] < 75 or isnull(['Average Memory Temperature'])) and (['Fans Health Critical'] < 1 or isnull(['Fans Health Critical'])) and (['Fans Health Warning'] < 1 or isnull(['Fans Health Warning'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Consumed'] < ['Power Capacity'] or isnull(['Power Consumed']) or isnull(['Power Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hp_compute_chassis_CL | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis}  | project ['Average CPU Temperature'] = columnifexists('average_cpu_temperature_d', double(null)), ['Average Memory Temperature'] = columnifexists('average_memory_temperature_d', double(null)), ['Fans Health Critical'] = columnifexists('fans_health_critical_d', double(null)), ['Fans Health Warning'] = columnifexists('fans_health_warning_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['Power Consumed'] = columnifexists('power_consumed_d', double(null)), ['Power Capacity'] = columnifexists('power_capacity_d', double(null)), TimeGenerated, Name=hp_compute_chassis_name_s  | extend Healthy = case(isnotnull(['Average CPU Temperature']) or isnotnull(['Average Memory Temperature']) or isnotnull(['Fans Health Critical']) or isnotnull(['Fans Health Warning']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Consumed']) or isnotnull(['Power Capacity']), (['Average CPU Temperature'] < 75 or isnull(['Average CPU Temperature'])) and (['Average Memory Temperature'] < 75 or isnull(['Average Memory Temperature'])) and (['Fans Health Critical'] < 1 or isnull(['Fans Health Critical'])) and (['Fans Health Warning'] < 1 or isnull(['Fans Health Warning'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Consumed'] < ['Power Capacity'] or isnull(['Power Consumed']) or isnull(['Power Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Chassis Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "hp_compute_chassis_CL | project ['Average CPU Temperature'] = columnifexists('average_cpu_temperature_d', double(null)), ['Average Memory Temperature'] = columnifexists('average_memory_temperature_d', double(null)), ['Fans Health Critical'] = columnifexists('fans_health_critical_d', double(null)), ['Fans Health Warning'] = columnifexists('fans_health_warning_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['Power Consumed'] = columnifexists('power_consumed_d', double(null)), ['Power Capacity'] = columnifexists('power_capacity_d', double(null)), TimeGenerated, Name=hp_compute_chassis_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average CPU Temperature']) or isnotnull(['Average Memory Temperature']) or isnotnull(['Fans Health Critical']) or isnotnull(['Fans Health Warning']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Consumed']) or isnotnull(['Power Capacity']), (['Average CPU Temperature'] < 75 or isnull(['Average CPU Temperature'])) and (['Average Memory Temperature'] < 75 or isnull(['Average Memory Temperature'])) and (['Fans Health Critical'] < 1 or isnull(['Fans Health Critical'])) and (['Fans Health Warning'] < 1 or isnull(['Fans Health Warning'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Consumed'] < ['Power Capacity'] or isnull(['Power Consumed']) or isnull(['Power Capacity'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "hp_compute_chassis_CL | project ['Average CPU Temperature'] = columnifexists('average_cpu_temperature_d', double(null)), ['Average Memory Temperature'] = columnifexists('average_memory_temperature_d', double(null)), ['Fans Health Critical'] = columnifexists('fans_health_critical_d', double(null)), ['Fans Health Warning'] = columnifexists('fans_health_warning_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['Power Consumed'] = columnifexists('power_consumed_d', double(null)), ['Power Capacity'] = columnifexists('power_capacity_d', double(null)), TimeGenerated, Name=hp_compute_chassis_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average CPU Temperature']) or isnotnull(['Average Memory Temperature']) or isnotnull(['Fans Health Critical']) or isnotnull(['Fans Health Warning']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Consumed']) or isnotnull(['Power Capacity']), (['Average CPU Temperature'] < 75 or isnull(['Average CPU Temperature'])) and (['Average Memory Temperature'] < 75 or isnull(['Average Memory Temperature'])) and (['Fans Health Critical'] < 1 or isnull(['Fans Health Critical'])) and (['Fans Health Warning'] < 1 or isnull(['Fans Health Warning'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Consumed'] < ['Power Capacity'] or isnull(['Power Consumed']) or isnull(['Power Capacity'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Chassis Power Consumed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Power Consumed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hp_compute_chassis_CL | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis} | summarize avg(coalesce(columnifexists('power_consumed_d',0.0), 0.0)) by hp_compute_chassis_name_s",
+                                        "Callout": {
+                                            "Title": "Average Power Consumed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Watts"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hp_compute_chassis_CL  | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis} | summarize avg(coalesce(columnifexists('power_consumed_d',0.0), 0.0)) by hp_compute_chassis_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Chassis",
+                                            "Value": "Power Consumed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Chassis Average CPU Temperature",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average CPU Temperature",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hp_compute_chassis_CL | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis} | summarize avg(coalesce(columnifexists('average_cpu_temperature_d',0.0), 0.0)) by hp_compute_chassis_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average CPU Temperature",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Celsius"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hp_compute_chassis_CL  | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis} | summarize avg(coalesce(columnifexists('average_cpu_temperature_d',0.0), 0.0)) by hp_compute_chassis_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Chassis",
+                                            "Value": "Average CPU Temperature"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "75.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "67.5",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Power Consumed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Power Consumed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hp_compute_rack_CL | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('power_consumed_d',0.0), 0.0)) by hp_compute_rack_name_s",
+                                        "Callout": {
+                                            "Title": "Average Power Consumed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Watts"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hp_compute_rack_CL  | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('power_consumed_d',0.0), 0.0)) by hp_compute_rack_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack",
+                                            "Value": "Power Consumed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Average CPU Temperature",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average CPU Temperature",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hp_compute_rack_CL | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('average_cpu_temperature_d',0.0), 0.0)) by hp_compute_rack_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average CPU Temperature",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Celsius"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hp_compute_rack_CL  | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('average_cpu_temperature_d',0.0), 0.0)) by hp_compute_rack_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack",
+                                            "Value": "Average CPU Temperature"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "75.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "67.5",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Fans Health Critical",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Fans Health Critical",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hp_compute_rack_CL | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('fans_health_critical_d',0.0), 0.0)) by hp_compute_rack_name_s",
+                                        "Callout": {
+                                            "Title": "Average Fans Health Critical",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hp_compute_rack_CL  | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('fans_health_critical_d',0.0), 0.0)) by hp_compute_rack_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack",
+                                            "Value": "Fans Health Critical"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.5",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "hp_compute_chassis_CL | summarize([\"Last Update Time\"], ['Power Consumed'])=arg_max(TimeGenerated,columnifexists('power_consumed_d', '')) by Name=hp_compute_chassis_name_s",
+                                            "displayName": "Chassis Details"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_chassis_CL | summarize([\"Last Update Time\"], ['Average CPU Temperature'])=arg_max(TimeGenerated,columnifexists('average_cpu_temperature_d', '')) by Name=hp_compute_chassis_name_s",
+                                            "displayName": "Chassis CPU"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_chassis_CL | summarize([\"Last Update Time\"], ['Fans Health Critical'], ['Fans Health Warning'], ['Power Supply Health Critical'], ['Power Supply Health Warning'])=arg_max(TimeGenerated,columnifexists('fans_health_critical_d', ''),columnifexists('fans_health_warning_d', ''),columnifexists('power_supply_health_critical_d', ''),columnifexists('power_supply_health_warning_d', '')) by Name=hp_compute_chassis_name_s",
+                                            "displayName": "Chassis Status"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_chassis_CL | summarize([\"Last Update Time\"], ['Asset Tag'], ['Bay Number'], ['Power Management Hardware Family'], ['SKU'], ['U Height'], ['U Location'], ['U Position'])=arg_max(TimeGenerated,columnifexists('asset_tag_s', ''),columnifexists('bay_number_d', ''),columnifexists('power_management_hardware_family_s', ''),columnifexists('sku_s', ''),columnifexists('u_height_d', ''),columnifexists('u_location_s', ''),columnifexists('u_position_s', '')) by Name=hp_compute_chassis_name_s",
+                                            "displayName": "Chassis Properties"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_blade_CL | summarize([\"Last Update Time\"], ['Network Adapter Health Critical'], ['Network Adapter Health Warning'])=arg_max(TimeGenerated,columnifexists('network_adapter_health_critical_d', ''),columnifexists('network_adapter_health_warning_d', '')) by Name=hp_compute_blade_name_s",
+                                            "displayName": "Blade Status"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_blade_CL | summarize([\"Last Update Time\"], ['Asset Tag'], ['BIOS Version'], ['Manufacturer'], ['Processor Model'], ['SKU'], ['SPS Firmware Version'], ['System PLD Firmware Version'])=arg_max(TimeGenerated,columnifexists('asset_tag_s', ''),columnifexists('bios_version_s', ''),columnifexists('manufacturer_s', ''),columnifexists('processor_model_s', ''),columnifexists('sku_s', ''),columnifexists('sps_firmware_version_s', ''),columnifexists('system_pld_firmware_version_s', '')) by Name=hp_compute_blade_name_s",
+                                            "displayName": "Blade Properties"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_rack_CL | summarize([\"Last Update Time\"], ['Power Consumed'])=arg_max(TimeGenerated,columnifexists('power_consumed_d', '')) by Name=hp_compute_rack_name_s",
+                                            "displayName": "Rack Details"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_rack_CL | summarize([\"Last Update Time\"], ['Average CPU Temperature'])=arg_max(TimeGenerated,columnifexists('average_cpu_temperature_d', '')) by Name=hp_compute_rack_name_s",
+                                            "displayName": "Rack CPU"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_rack_CL | summarize([\"Last Update Time\"], ['Fans Health Critical'], ['Power Supply Health Critical'], ['Fans Health Warning'], ['Power Supply Health Warning'], ['Network Adapter Health Critical'], ['Network Adapter Health Warning'])=arg_max(TimeGenerated,columnifexists('fans_health_critical_d', ''),columnifexists('power_supply_health_critical_d', ''),columnifexists('fans_health_warning_d', ''),columnifexists('power_supply_health_warning_d', ''),columnifexists('network_adapter_health_critical_d', ''),columnifexists('network_adapter_health_warning_d', '')) by Name=hp_compute_rack_name_s",
+                                            "displayName": "Rack Status"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_rack_CL | summarize([\"Last Update Time\"], ['Asset Tag'], ['Bay Number'], ['BIOS Version'], ['Power Management Hardware Family'], ['Processor Model'], ['SKU'])=arg_max(TimeGenerated,columnifexists('asset_tag_s', ''),columnifexists('bay_number_s', ''),columnifexists('bios_version_s', ''),columnifexists('power_management_hardware_family_s', ''),columnifexists('processor_model_s', ''),columnifexists('sku_s', '')) by Name=hp_compute_rack_name_s",
+                                            "displayName": "Rack Properties"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_power_supply_CL | summarize([\"Last Update Time\"], ['Average Power Output'])=arg_max(TimeGenerated,columnifexists('average_power_output_d', '')) by Name=hp_compute_power_supply_name_s",
+                                            "displayName": "Power Supply Details"
+                                        }
+                                        ,{
+                                            "query": "hp_compute_power_supply_CL | summarize([\"Last Update Time\"], ['Firmware Version'], ['Model'], ['Spare Part Number'], ['Type'])=arg_max(TimeGenerated,columnifexists('firmware_version_s', ''),columnifexists('model_s', ''),columnifexists('spare_part_number_s', ''),columnifexists('type_s', '')) by Name=hp_compute_power_supply_name_s",
+                                            "displayName": "Power Supply Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "hp_compute_enclosure_name_s",
+                            "QueryForValues": "hp_compute_chassis_CL | distinct hp_compute_enclosure_name_s",
+                            "Title": "Enclosure"
+                          },{
+                            "FieldName": "health_s",
+                            "QueryForValues": "union hp_compute_chassis_CL, hp_compute_blade_CL, hp_compute_rack_CL, hp_compute_power_supply_CL | distinct health_s",
+                            "Title": "Health"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "union hp_compute_chassis_CL, hp_compute_blade_CL, hp_compute_rack_CL, hp_compute_power_supply_CL | distinct model_s",
+                            "Title": "Model"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "union hp_compute_chassis_CL, hp_compute_rack_CL, hp_compute_power_supply_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "hp_compute_chassis_name_s",
+                            "QueryForValues": "union hp_compute_chassis_CL, hp_compute_blade_CL, hp_compute_power_supply_CL | distinct hp_compute_chassis_name_s",
+                            "Title": "Chassis"
+                          },{
+                            "FieldName": "hp_compute_blade_name_s",
+                            "QueryForValues": "hp_compute_blade_CL | distinct hp_compute_blade_name_s",
+                            "Title": "Blade"
+                          },{
+                            "FieldName": "hp_compute_rack_name_s",
+                            "QueryForValues": "union hp_compute_rack_CL, hp_compute_power_supply_CL | distinct hp_compute_rack_name_s",
+                            "Title": "Rack"
+                          },{
+                            "FieldName": "hp_compute_power_supply_name_s",
+                            "QueryForValues": "hp_compute_power_supply_CL | distinct hp_compute_power_supply_name_s",
+                            "Title": "Power Supply"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "hp_compute_chassis_CL | project ['Average CPU Temperature'] = columnifexists('average_cpu_temperature_d', double(null)), ['Average Memory Temperature'] = columnifexists('average_memory_temperature_d', double(null)), ['Fans Health Critical'] = columnifexists('fans_health_critical_d', double(null)), ['Fans Health Warning'] = columnifexists('fans_health_warning_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['Power Consumed'] = columnifexists('power_consumed_d', double(null)), ['Power Capacity'] = columnifexists('power_capacity_d', double(null)), TimeGenerated, Name=hp_compute_chassis_name_s  | extend Healthy = case(isnotnull(['Average CPU Temperature']) or isnotnull(['Average Memory Temperature']) or isnotnull(['Fans Health Critical']) or isnotnull(['Fans Health Warning']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Consumed']) or isnotnull(['Power Capacity']), (['Average CPU Temperature'] < 75 or isnull(['Average CPU Temperature'])) and (['Average Memory Temperature'] < 75 or isnull(['Average Memory Temperature'])) and (['Fans Health Critical'] < 1 or isnull(['Fans Health Critical'])) and (['Fans Health Warning'] < 1 or isnull(['Fans Health Warning'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Consumed'] < ['Power Capacity'] or isnull(['Power Consumed']) or isnull(['Power Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Chassis",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,649 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon SES Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon SES Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon SES Environment",
+                        "Name": "Amazon SES Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon SES Overview",
+                                        "NewGroup": false,
+                                        "Color": "#9b5f96"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon SES",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Simple Email Service (Amazon SES) is a cloud-based email sending service designed to help digital marketers and application developers send marketing, notification, and transactional emails."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the emails delivered to customers and whether they were rejected or bounced."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Email Service Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service}  | project ['Email Reputation Bounce Rate'] = columnifexists('email_reputation_bounce_rate_d', double(null)), ['Email Reputation Complaint Rate'] = columnifexists('email_reputation_complaint_rate_d', double(null)), TimeGenerated, Name=amazon_ses_email_service_name_s  | extend Healthy = case(isnotnull(['Email Reputation Bounce Rate']) or isnotnull(['Email Reputation Complaint Rate']), (['Email Reputation Bounce Rate'] < 0.1 or isnull(['Email Reputation Bounce Rate'])) and (['Email Reputation Complaint Rate'] < 0.1 or isnull(['Email Reputation Complaint Rate'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service}  | project ['Email Reputation Bounce Rate'] = columnifexists('email_reputation_bounce_rate_d', double(null)), ['Email Reputation Complaint Rate'] = columnifexists('email_reputation_complaint_rate_d', double(null)), TimeGenerated, Name=amazon_ses_email_service_name_s  | extend Healthy = case(isnotnull(['Email Reputation Bounce Rate']) or isnotnull(['Email Reputation Complaint Rate']), (['Email Reputation Bounce Rate'] < 0.1 or isnull(['Email Reputation Bounce Rate'])) and (['Email Reputation Complaint Rate'] < 0.1 or isnull(['Email Reputation Complaint Rate'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Email Service Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_ses_email_service_CL | project ['Email Reputation Bounce Rate'] = columnifexists('email_reputation_bounce_rate_d', double(null)), ['Email Reputation Complaint Rate'] = columnifexists('email_reputation_complaint_rate_d', double(null)), TimeGenerated, Name=amazon_ses_email_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Email Reputation Bounce Rate']) or isnotnull(['Email Reputation Complaint Rate']), (['Email Reputation Bounce Rate'] < 0.1 or isnull(['Email Reputation Bounce Rate'])) and (['Email Reputation Complaint Rate'] < 0.1 or isnull(['Email Reputation Complaint Rate'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_ses_email_service_CL | project ['Email Reputation Bounce Rate'] = columnifexists('email_reputation_bounce_rate_d', double(null)), ['Email Reputation Complaint Rate'] = columnifexists('email_reputation_complaint_rate_d', double(null)), TimeGenerated, Name=amazon_ses_email_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Email Reputation Bounce Rate']) or isnotnull(['Email Reputation Complaint Rate']), (['Email Reputation Bounce Rate'] < 0.1 or isnull(['Email Reputation Bounce Rate'])) and (['Email Reputation Complaint Rate'] < 0.1 or isnull(['Email Reputation Complaint Rate'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Email Service Bounced Emails",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Bounced Emails",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('bounced_emails_d',0.0), 0.0)) by amazon_ses_email_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Bounced Emails",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bounced Emails"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ses_email_service_CL  | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('bounced_emails_d',0.0), 0.0)) by amazon_ses_email_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Email Service",
+                                            "Value": "Bounced Emails"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Email Service Email Reputation Bounce Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Email Reputation Bounce Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('email_reputation_bounce_rate_d',0.0), 0.0)) by amazon_ses_email_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Email Reputation Bounce Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ses_email_service_CL  | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('email_reputation_bounce_rate_d',0.0), 0.0)) by amazon_ses_email_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Email Service",
+                                            "Value": "Email Reputation Bounce Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.05",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Email Service Complaint Emails",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Complaint Emails",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('complaint_emails_d',0.0), 0.0)) by amazon_ses_email_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Complaint Emails",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Complaint Emails"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ses_email_service_CL  | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('complaint_emails_d',0.0), 0.0)) by amazon_ses_email_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Email Service",
+                                            "Value": "Complaint Emails"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Email Service Email Reputation Complaint Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Email Reputation Complaint Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('email_reputation_complaint_rate_d',0.0), 0.0)) by amazon_ses_email_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Email Reputation Complaint Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ses_email_service_CL  | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('email_reputation_complaint_rate_d',0.0), 0.0)) by amazon_ses_email_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Email Service",
+                                            "Value": "Email Reputation Complaint Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.05",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Email Service Delivered Emails",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Delivered Emails",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ses_email_service_CL | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('delivered_emails_d',0.0), 0.0)) by amazon_ses_email_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Delivered Emails",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Delivered Emails"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ses_email_service_CL  | where ${Region} and ${Email Service} | summarize avg(coalesce(columnifexists('delivered_emails_d',0.0), 0.0)) by amazon_ses_email_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Email Service",
+                                            "Value": "Delivered Emails"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_ses_email_service_CL | summarize([\"Last Update Time\"], ['Bounced Emails'], ['Complaint Emails'], ['Delivered Emails'], ['Opened Emails'], ['Clicked Emails'])=arg_max(TimeGenerated,columnifexists('bounced_emails_d', ''),columnifexists('complaint_emails_d', ''),columnifexists('delivered_emails_d', ''),columnifexists('opened_emails_d', ''),columnifexists('clicked_emails_d', '')) by Name=amazon_ses_email_service_name_s",
+                                            "displayName": "Email Service Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_ses_email_service_CL | summarize([\"Last Update Time\"], ['Email Reputation Bounce Rate'], ['Email Reputation Complaint Rate'])=arg_max(TimeGenerated,columnifexists('email_reputation_bounce_rate_d', ''),columnifexists('email_reputation_complaint_rate_d', '')) by Name=amazon_ses_email_service_name_s",
+                                            "displayName": "Email Service Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_ses_email_service_CL | summarize([\"Last Update Time\"], ['Account Sending Enabled'], ['Emails Sent Over Last Day'], ['Emails Sent Quota Per Day'], ['Maximum Send Rate'])=arg_max(TimeGenerated,columnifexists('account_sending_enabled_d', ''),columnifexists('emails_sent_over_last_day_d', ''),columnifexists('emails_sent_quota_per_day_d', ''),columnifexists('maximum_send_rate_d', '')) by Name=amazon_ses_email_service_name_s",
+                                            "displayName": "Email Service Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_ses_email_service_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_ses_email_service_name_s",
+                            "QueryForValues": "amazon_ses_email_service_CL | distinct amazon_ses_email_service_name_s",
+                            "Title": "Email Service"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_ses_email_service_CL | project ['Email Reputation Bounce Rate'] = columnifexists('email_reputation_bounce_rate_d', double(null)), ['Email Reputation Complaint Rate'] = columnifexists('email_reputation_complaint_rate_d', double(null)), TimeGenerated, Name=amazon_ses_email_service_name_s  | extend Healthy = case(isnotnull(['Email Reputation Bounce Rate']) or isnotnull(['Email Reputation Complaint Rate']), (['Email Reputation Bounce Rate'] < 0.1 or isnull(['Email Reputation Bounce Rate'])) and (['Email Reputation Complaint Rate'] < 0.1 or isnull(['Email Reputation Complaint Rate'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Email Service",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

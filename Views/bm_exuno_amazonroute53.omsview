@@ -1,0 +1,673 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Route 53 Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Route 53 Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Route 53 Environment",
+                        "Name": "Amazon Route 53 Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Route 53 Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ba141a"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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/v0vr1mzJimT55K+KvBtt932WXl5+T9VVY378kaEtGec82hdXd3S66+/fluyytRjWXD1X//615uNjY2rdSibkJTl9Xo/ff/9919BAu/7f50u7wV45plnXFu3bp0fCARoijAhiHX9d+/e/dff/e53lcksV7cXg9xwww2lBw8efCYajbr0qgMhqUBVVX9ZWdnfxo0btynZZev5ZiBtxowZ79bU1PyPpmkhHetBiG4459Hjx48vefnllxcDiCa7fF1fDbZly5bg3//+9/nHjx9/A0Dc33pCSIrjTU1NH7z77rvP/O1vf4v7gp/nQvd3A86fP9+1cePGZ9xu93rQ/ABiHNzj8WzcsGHDrOnTp1fpVQndAwAA7rzzziPvv//+w263ex0oBEjHxz0ez8a1a9f+/tZbb92vZ0VSIgAAYOrUqV8YOQQS8daXVCQIxtjOb3C68d922226Nn4AEPWuwJlWrVrlGjhw4J68vLxMu93ehzFm0rtOScEYwj4PvDXlCPvcAOdJKTbdKqB7ljkpjZJzAPYcSH1HQ+w+BBClpGxjKuGcR9xu99ri4uJHbr311gN61wdIsQAAgJUrVzaazeaSwsJCNT09vZ8oig6965QM6V16otOAYUjLzIUcaEaouQlAYoMgGQHAOcAcOTANHAfTyCmQBl0LZkpL6HalIkVRPHV1da+88sorjz7wwANletenTcoFAACUlJQE9+3bt33AgAFVGRkZ3c1mcxfGWMpcriQCYwxpGTno1P976DTge0jLyEYk4EPE15SwHkEiA4BzgDlzYRpwDUyjpsE0dBKEvF5gojE6dWdQ/X7/vgMHDjwxf/78F+bNm5dS815S/YKMvfLKK/1++MMf3tWtW7ebzGZzN70rlCxc09BcX4GqbRtQtXU9mmrKAB7foZFumRJGFjkgifE7DGJn/FxIF18Bse8YiD2GAAY84wNANBptbGhoWLFx48bn77zzzs+RgmNbKdkDONOqVasa9+zZ80nPnj332e12KS0trYcgCFa965VojDFYM7KR328YOg+6HGkZOYgEmuPaI4hrD4AxwNF2xp8K09AbIOT2Aox3xoemaQG3211cWlr62KJFi16aPXt2LRJ9PfcdpXwAAEBNTY2yZMmSclmWN+fl5R2z2WyZVqu1K2Osw48kMUFAWkYOOg/4HroMHI60jByE/F5E/J4LDoJ4BEBb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",
+                                        "Label": "Amazon Route 53",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Route 53 is a scalable cloud Domain Name System Web service that translates domain names into IP addresses."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon Route 53, monitoring built in health checks is extremely useful to ensure endpoints are in healthy states before connection.\n\n Additionally, tracking the connection time identifies any possible issues during the SSL."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Health Check Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_route53_health_check_CL | where ${Region} and ${Health Check}  | project ['Healthy Percentage'] = columnifexists('healthy_percentage_d', double(null)), ['Status'] = columnifexists('status_d', double(null)), TimeGenerated, Name=amazon_route53_health_check_name_s  | extend Healthy = case(isnotnull(['Healthy Percentage']) or isnotnull(['Status']), (['Healthy Percentage'] == 100.0 or isnull(['Healthy Percentage'])) and (['Status'] == 1 or isnull(['Status'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_route53_health_check_CL | where ${Region} and ${Health Check}  | project ['Healthy Percentage'] = columnifexists('healthy_percentage_d', double(null)), ['Status'] = columnifexists('status_d', double(null)), TimeGenerated, Name=amazon_route53_health_check_name_s  | extend Healthy = case(isnotnull(['Healthy Percentage']) or isnotnull(['Status']), (['Healthy Percentage'] == 100.0 or isnull(['Healthy Percentage'])) and (['Status'] == 1 or isnull(['Status'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Health Check Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_route53_health_check_CL | project ['Healthy Percentage'] = columnifexists('healthy_percentage_d', double(null)), ['Status'] = columnifexists('status_d', double(null)), TimeGenerated, Name=amazon_route53_health_check_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Healthy Percentage']) or isnotnull(['Status']), (['Healthy Percentage'] == 100.0 or isnull(['Healthy Percentage'])) and (['Status'] == 1 or isnull(['Status'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_route53_health_check_CL | project ['Healthy Percentage'] = columnifexists('healthy_percentage_d', double(null)), ['Status'] = columnifexists('status_d', double(null)), TimeGenerated, Name=amazon_route53_health_check_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Healthy Percentage']) or isnotnull(['Status']), (['Healthy Percentage'] == 100.0 or isnull(['Healthy Percentage'])) and (['Status'] == 1 or isnull(['Status'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Health Check Child Healthy Health Checks",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Child Healthy Health Checks",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_route53_health_check_CL | where ${Region} and ${Health Check} | summarize avg(coalesce(columnifexists('child_healthy_health_checks_d',0.0), 0.0)) by amazon_route53_health_check_name_s",
+                                        "Callout": {
+                                            "Title": "Average Child Healthy Health Checks",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Child Healthy Health Checks"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_route53_health_check_CL  | where ${Region} and ${Health Check} | summarize avg(coalesce(columnifexists('child_healthy_health_checks_d',0.0), 0.0)) by amazon_route53_health_check_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Health Check",
+                                            "Value": "Child Healthy Health Checks"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Regional Health Check Child Healthy Health Checks",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Child Healthy Health Checks",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_route53_regional_health_check_CL | where ${Region} and ${Regional Health Check} | summarize avg(coalesce(columnifexists('child_healthy_health_checks_d',0.0), 0.0)) by amazon_route53_regional_health_check_name_s",
+                                        "Callout": {
+                                            "Title": "Average Child Healthy Health Checks",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Child Healthy Health Checks"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_route53_regional_health_check_CL  | where ${Region} and ${Regional Health Check} | summarize avg(coalesce(columnifexists('child_healthy_health_checks_d',0.0), 0.0)) by amazon_route53_regional_health_check_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Regional Health Check",
+                                            "Value": "Child Healthy Health Checks"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Health Check Healthy Percentage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Healthy Percentage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_route53_health_check_CL | where ${Region} and ${Health Check} | summarize avg(coalesce(columnifexists('healthy_percentage_d',0.0), 0.0)) by amazon_route53_health_check_name_s",
+                                        "Callout": {
+                                            "Title": "Average Healthy Percentage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_route53_health_check_CL  | where ${Region} and ${Health Check} | summarize avg(coalesce(columnifexists('healthy_percentage_d',0.0), 0.0)) by amazon_route53_health_check_name_s | order by avg_ asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Health Check",
+                                            "Value": "Healthy Percentage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Health Check Status",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Status",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_route53_health_check_CL | where ${Region} and ${Health Check} | summarize avg(coalesce(columnifexists('status_d',0.0), 0.0)) by amazon_route53_health_check_name_s",
+                                        "Callout": {
+                                            "Title": "Average Status",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Status"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_route53_health_check_CL  | where ${Region} and ${Health Check} | summarize avg(coalesce(columnifexists('status_d',0.0), 0.0)) by amazon_route53_health_check_name_s | order by avg_ asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Health Check",
+                                            "Value": "Status"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Regional Health Check Status",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Status",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_route53_regional_health_check_CL | where ${Region} and ${Regional Health Check} | summarize avg(coalesce(columnifexists('status_d',0.0), 0.0)) by amazon_route53_regional_health_check_name_s",
+                                        "Callout": {
+                                            "Title": "Average Status",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Status"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_route53_regional_health_check_CL  | where ${Region} and ${Regional Health Check} | summarize avg(coalesce(columnifexists('status_d',0.0), 0.0)) by amazon_route53_regional_health_check_name_s | order by avg_ asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Regional Health Check",
+                                            "Value": "Status"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_route53_health_check_CL | summarize([\"Last Update Time\"], ['Child Healthy Health Checks'], ['Healthy Percentage'], ['Status'])=arg_max(TimeGenerated,columnifexists('child_healthy_health_checks_d', ''),columnifexists('healthy_percentage_d', ''),columnifexists('status_d', '')) by Name=amazon_route53_health_check_name_s",
+                                            "displayName": "Health Check Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_route53_health_check_CL | summarize([\"Last Update Time\"], ['Alarm Metric'], ['Alarm Threshold'], ['Failure Threshold'], ['Fully Qualified Domain Name'], ['Health Threshold'], ['Type'], ['Version'])=arg_max(TimeGenerated,columnifexists('alarm_metric_s', ''),columnifexists('alarm_threshold_d', ''),columnifexists('failure_threshold_d', ''),columnifexists('fully_qualified_domain_name_s', ''),columnifexists('health_threshold_d', ''),columnifexists('type_s', ''),columnifexists('version_d', '')) by Name=amazon_route53_health_check_name_s",
+                                            "displayName": "Health Check Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_route53_hosted_zone_CL | summarize([\"Last Update Time\"], ['Caller Reference'], ['Comment'], ['Linked Service Description'], ['Linked Service Principal'], ['Private'], ['Resource Record Set Count'])=arg_max(TimeGenerated,columnifexists('caller_reference_s', ''),columnifexists('comment_s', ''),columnifexists('linked_service_description_s', ''),columnifexists('linked_service_principal_s', ''),columnifexists('private_d', ''),columnifexists('resource_record_set_count_d', '')) by Name=amazon_route53_hosted_zone_name_s",
+                                            "displayName": "Hosted Zone Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_route53_regional_health_check_CL | summarize([\"Last Update Time\"], ['Child Healthy Health Checks'], ['Status'])=arg_max(TimeGenerated,columnifexists('child_healthy_health_checks_d', ''),columnifexists('status_d', '')) by Name=amazon_route53_regional_health_check_name_s",
+                                            "displayName": "Regional Health Check Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_route53_regional_health_check_CL | summarize([\"Last Update Time\"], ['Connection Time'], ['SSL Handshake Time'], ['Time To First Byte'])=arg_max(TimeGenerated,columnifexists('connection_time_d', ''),columnifexists('ssl_handshake_time_d', ''),columnifexists('time_to_first_byte_d', '')) by Name=amazon_route53_regional_health_check_name_s",
+                                            "displayName": "Regional Health Check Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_route53_traffic_policy_CL | summarize([\"Last Update Time\"], ['Type'], ['Version'])=arg_max(TimeGenerated,columnifexists('type_s', ''),columnifexists('version_d', '')) by Name=amazon_route53_traffic_policy_name_s",
+                                            "displayName": "Traffic Policy Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_route53_health_check_CL, amazon_route53_hosted_zone_CL, amazon_route53_regional_health_check_CL, amazon_route53_traffic_policy_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_route53_health_check_name_s",
+                            "QueryForValues": "amazon_route53_health_check_CL | distinct amazon_route53_health_check_name_s",
+                            "Title": "Health Check"
+                          },{
+                            "FieldName": "amazon_route53_hosted_zone_name_s",
+                            "QueryForValues": "amazon_route53_hosted_zone_CL | distinct amazon_route53_hosted_zone_name_s",
+                            "Title": "Hosted Zone"
+                          },{
+                            "FieldName": "amazon_route53_regional_health_check_name_s",
+                            "QueryForValues": "amazon_route53_regional_health_check_CL | distinct amazon_route53_regional_health_check_name_s",
+                            "Title": "Regional Health Check"
+                          },{
+                            "FieldName": "amazon_route53_traffic_policy_name_s",
+                            "QueryForValues": "amazon_route53_traffic_policy_CL | distinct amazon_route53_traffic_policy_name_s",
+                            "Title": "Traffic Policy"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_route53_health_check_CL | project ['Healthy Percentage'] = columnifexists('healthy_percentage_d', double(null)), ['Status'] = columnifexists('status_d', double(null)), TimeGenerated, Name=amazon_route53_health_check_name_s  | extend Healthy = case(isnotnull(['Healthy Percentage']) or isnotnull(['Status']), (['Healthy Percentage'] == 100.0 or isnull(['Healthy Percentage'])) and (['Status'] == 1 or isnull(['Status'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Health Check",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

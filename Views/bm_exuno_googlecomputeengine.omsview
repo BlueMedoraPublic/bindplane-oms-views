@@ -1,0 +1,673 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Google Compute Engine Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Google Compute Engine Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Google Compute Engine Environment",
+                        "Name": "Google Compute Engine Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Google Compute Engine Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Google Compute Engine",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Google Compute Engine is Google's Infrastructure as a Service component of Google Cloud Platform made of scalable and high performance virtual machines."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Google Compute Engine, it is important to monitor throughput. Google's virtual servers help make the performance in Google Compute Engine greater than other IaaS platforms."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_computeengine_instance_CL | where ${Machine Type} and ${Zone} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=google_computeengine_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Status'] == 'RUNNING' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_computeengine_instance_CL | where ${Machine Type} and ${Zone} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=google_computeengine_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Status'] == 'RUNNING' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "google_computeengine_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=google_computeengine_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Status'] == 'RUNNING' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "google_computeengine_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=google_computeengine_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Status'] == 'RUNNING' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_computeengine_instance_CL | where ${Machine Type} and ${Zone} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by google_computeengine_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_computeengine_instance_CL  | where ${Machine Type} and ${Zone} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by google_computeengine_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Received Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Received Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_computeengine_instance_CL | where ${Machine Type} and ${Zone} and ${Instance} | summarize avg(coalesce(columnifexists('received_throughput_d',0.0), 0.0)) by google_computeengine_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Received Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_computeengine_instance_CL  | where ${Machine Type} and ${Zone} and ${Instance} | summarize avg(coalesce(columnifexists('received_throughput_d',0.0), 0.0)) by google_computeengine_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Received Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Sent Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Sent Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_computeengine_instance_CL | where ${Machine Type} and ${Zone} and ${Instance} | summarize avg(coalesce(columnifexists('sent_throughput_d',0.0), 0.0)) by google_computeengine_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Sent Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_computeengine_instance_CL  | where ${Machine Type} and ${Zone} and ${Instance} | summarize avg(coalesce(columnifexists('sent_throughput_d',0.0), 0.0)) by google_computeengine_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Sent Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Disk Read Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_computeengine_disk_CL | where ${Instance} and ${Type} and ${Zone} and ${Disk} | summarize avg(coalesce(columnifexists('read_throughput_d',0.0), 0.0)) by google_computeengine_disk_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_computeengine_disk_CL  | where ${Instance} and ${Type} and ${Zone} and ${Disk} | summarize avg(coalesce(columnifexists('read_throughput_d',0.0), 0.0)) by google_computeengine_disk_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Disk",
+                                            "Value": "Read Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Disk Write Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "google_computeengine_disk_CL | where ${Instance} and ${Type} and ${Zone} and ${Disk} | summarize avg(coalesce(columnifexists('write_throughput_d',0.0), 0.0)) by google_computeengine_disk_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "google_computeengine_disk_CL  | where ${Instance} and ${Type} and ${Zone} and ${Disk} | summarize avg(coalesce(columnifexists('write_throughput_d',0.0), 0.0)) by google_computeengine_disk_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Disk",
+                                            "Value": "Write Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "google_computeengine_instance_CL | summarize([\"Last Update Time\"], ['CPU Utilization'], ['Received Throughput'], ['Sent Throughput'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', ''),columnifexists('received_throughput_d', ''),columnifexists('sent_throughput_d', '')) by Name=google_computeengine_instance_name_s",
+                                            "displayName": "Instance "
+                                        }
+                                        ,{
+                                            "query": "google_computeengine_instance_CL | summarize([\"Last Update Time\"], ['Description'], ['Machine Type'], ['Scheduling Automatic Restart'], ['Scheduling On Host Maintenance'], ['Scheduling Preemptible'], ['Self Link'], ['Start Restricted'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('machine_type_s', ''),columnifexists('scheduling_automatic_restart_d', ''),columnifexists('scheduling_on_host_maintenance_s', ''),columnifexists('scheduling_preemptible_d', ''),columnifexists('self_link_s', ''),columnifexists('start_restricted_d', '')) by Name=google_computeengine_instance_name_s",
+                                            "displayName": "Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "google_computeengine_disk_CL | summarize([\"Last Update Time\"], ['Read Throughput'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', '')) by Name=google_computeengine_disk_name_s",
+                                            "displayName": "Disk "
+                                        }
+                                        ,{
+                                            "query": "google_computeengine_disk_CL | summarize([\"Last Update Time\"], ['Description'], ['Self Link'], ['Source Image ID'], ['Source Snapshot ID'], ['Type'], ['Users'], ['Zone'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('self_link_s', ''),columnifexists('source_image_id_s', ''),columnifexists('source_snapshot_id_s', ''),columnifexists('type_s', ''),columnifexists('users_s', ''),columnifexists('zone_s', '')) by Name=google_computeengine_disk_name_s",
+                                            "displayName": "Disk Properties"
+                                        }
+                                        ,{
+                                            "query": "google_computeengine_snapshot_CL | summarize([\"Last Update Time\"], ['Source Disk ID'])=arg_max(TimeGenerated,columnifexists('source_disk_id_s', '')) by Name=google_computeengine_snapshot_name_s",
+                                            "displayName": "Snapshot Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "machine_type_s",
+                            "QueryForValues": "google_computeengine_instance_CL | distinct machine_type_s",
+                            "Title": "Machine Type"
+                          },{
+                            "FieldName": "zone_s",
+                            "QueryForValues": "union google_computeengine_instance_CL, google_computeengine_disk_CL | distinct zone_s",
+                            "Title": "Zone"
+                          },{
+                            "FieldName": "google_computeengine_instance_name_s",
+                            "QueryForValues": "union google_computeengine_instance_CL, google_computeengine_disk_CL | distinct google_computeengine_instance_name_s",
+                            "Title": "Instance"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "google_computeengine_disk_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "google_computeengine_disk_name_s",
+                            "QueryForValues": "union google_computeengine_disk_CL, google_computeengine_snapshot_CL | distinct google_computeengine_disk_name_s",
+                            "Title": "Disk"
+                          },{
+                            "FieldName": "google_computeengine_snapshot_name_s",
+                            "QueryForValues": "google_computeengine_snapshot_CL | distinct google_computeengine_snapshot_name_s",
+                            "Title": "Snapshot"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "google_computeengine_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=google_computeengine_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Status'] == 'RUNNING' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

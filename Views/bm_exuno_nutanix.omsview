@@ -1,0 +1,661 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Nutanix Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Nutanix Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Nutanix Environment",
+                        "Name": "Nutanix Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Nutanix Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAMABJREFUeNrt3Xd8FEX/B/DP7l7LXXqDhIQSOiTUhypFigWwAKKUx0cQfqgUfQQsgMpDV/FBUHlU9BGVoqgIokhCjZJQQggJoQkJLYWQcimXy+XK7s7vj4Qm6EPk7jbJfd+v1/2TMjM3O/PdndmZXYAQQgghhBBCCCGEEEIIIYQQQgghhBBCCCF1F6d0AYh7BQQEwOFwcNHR0VqdTqcCwK7+TpIklpeXZ9Xr9XJ6errSRSVuQAGgHgoMDIQkSVxYWJhu7Nix/tHR0eHBwcEN/P39I729vUMkSRJ8fHyaqdVqP1wPABxjzF5WVnYOQIXFYikuKSm5ZDQaCy5dulQQGxtbvHPnzoqQkBBWWFio9FckTkIBoJ54/PHHkZSUpJ44cWJIjx49WjVt2rS7v79/jF6vj9JqtREqlcqP53kvjuPU1f/yR8eeAQBjzCHLslUUxTJRFIsqKioyiouLU/Py8o6lpaWdXr58+eXp06fb58yZo/RXJ3eBAkAdptFoYLfbuRkzZgQ99NBD3Zo3b35fQEBATy8vryiVShXMcZzgzPwYY5IkSabKyspzxcXFB7Kzs39JTEw8PGfOnMtarZbZbDalq4QQj8H961//CktOTp5oNBrj7HZ7IWNMZu4ji6JYVlJSEp+env7i559/3i4oKEg1ePBgpeuFkPqLMYbXX389JDk5+eni4uLdoiiWu7HT3z4SyLLdbDannzhx4qWlS5c2AsA1atRI6aoipP7YsGEDxo0bZ9izZ8/QK1eubKoNHf/3JEmyGI3GnfHx8SP++c9/+jPG7v6LE+LJHnjgAQAQ1q9f3/HixYvv2+32K0p39P/F4XAU5ebmfrl58+Z7Hn30Ud0bb7yhdDUSUrc0bdoUALh33nmn8cmTJ18pLy8/xhiTlO7cNSBZrdaLGRkZSz/99NO2TZo0EYYNG6Z0tRJS+zHGMHXq1ICkpKR/FBcX75Fl2ap0b/6rqucHUlNTU6ctXry4IWMMHEc3nwi5xbRp03DPPffodu7ceV9eXt5XoiiWKN2BnUWSJHNhYeGPe/fufXjq1Kk+sbGxSlc3IbVDp06dAEBYvXp1m/Pnz79jtVqzle6wrmK32wuysrI+3rx5c8+BAwdqnn/+eaWrnxBlBAcHAwA3d+7csOPHj79oMplSZFl2KN1J3UCqrKzMPH369Bvvv/9+MwBcSEiI0oeDEPdhjGHUqFE++/fvf8JoNO6QJKlC6V7pbrIs20pKSn5NTk6eMGvWrGBGtw1Jfffiiy+iQ4cOmo0bN3bPycn5rHoFn0cTRdF05cqVb3fv3j1k6NCh+pUrVyp9mAhxrvbt2wMAv3LlyhYZGRkLLRZLBqtbt/VczmazXb5w4cLKL774IgaA0L17d6UPGyHO8fLLL4cePXr0WZPJdFiWZZvSna0WE8vLy9NOnjz58pIlSyIAcBqNRunDR0jNbd++HU8++aRh7969DxcVFf0siqJJ6d5VV0iSVGk0GncfOnTo75MmTaJlxaTuGD9+PPr06aPesGFDl0uXLq2qC8t3ayuHw1Gcl5e3YceOHYO6deumnTdvntKHl5Db69+/P1A1zm926tSpORaL5Ywsy6LSnag+sFqtl86dO/f2hx9+2FqlUgm07ZjUKowxzJ49O/DQoUNPlZWVHZAkqc4u362tZFm2m0ymI+np6S/MmTOnIQCuefPmSh964sneffddjBs3zis2NnZQ9fLdUqU7Sn0nSZLZaDTGJSQkjBozZowPo/0FxN1GjBiBli1bqjZs2NDx3Llz79hsthzm3ifyeDy73V6Qk5Pz6ddff92te/fumunTpyvdLEh9FxQUBADcypUrm6Snp8+oqKg4QeN8RUkWiyXjzJkz81euXNkcAE/DAuISZrMZEydO9E1MTBxdUlISL0lSpdKtn1SRZdlmMpmSjhw58n9z5swJZoxBEJz6TFTiqcaNG4eYmBjNzz//3D8nJ2eNw+EwKt3gye2JomjKz8/fFBsbe99TTz1l+OGHH5RuPqSuioyMBAB+7dq17TMyMpZYrdYLjMb5dYFst9vzLl68+P5XX33VuXv37upJkyYp3ZxIXfPKK6+EpqamTikvL0+hcX7dI8uyaLFYfjtx4sSr1duO+d69eyvdrEhtlpSUhEceecTw66+/Di8oKNhaG5++S2pGkiRrWVlZ4sGDB5+cNWtWAKNlxeT3xowZg9DQUPWWLVt6ZWdnf2K32/OVbrjEuURRLL18+fK62NjYgSNGjNAtW7ZM6WZHlNa1a1cA4FavXt3q7NmzCywWy1lG4/z6TLbZbNmZmZnLvvrqq47BwcHCwIEDlW6GxN2q7+dj6tSpgcnJyU+XlZUdlGXZrnTrJO4hy7JoNpvTjx079s+FCxeGAUB4eLjSzZK4Q1xcHAYNGuS1c+fOBwsKCjY7HA5avuuhJEmqKCws/DkxMXHUP/7xD5/k5GSlmydxlSFDhkCv16s2bNjQJSsr68Pq5buEMIfDUZSTk/PZtm3b+jVv3lwzfPhwpZsrcRZfX18A4BYtWhRx/PjxWRUVFScZPY6L3EqurKw8f/bs2YUrVqxoDoAPDAxUuvmSuzV58uSAxMTEMSUlJb9IkmRRupWR2k2WZVtpaemBo0ePPvvCCy8EAwDP80o3Y1ITX375JQYMGOD1448/3nvlypVvaPkuqSlRFE0FBQVb4+PjHxk8eLCB5gfqgOHDhyM8PFxYs2ZN+4sXL66wWq1ZjG7rkbtgs9nysrOzV2/atKmHj4+PasyYMUo3c/J7LVu2BADuzTffbHT06NGpZrM51UPeskPcQ7ZYLL+dPn16zltvvdUYAN+qVSulm/1dqxf7JRljyMzM9HvrrbeGDB06dHHTpk0nabXaSI7jaOBGnIVTq9XBgYGB93To0KHXiBEjJLPZnJ2cnFypdMHuRp0OAJMnT4ZWq1UHBgb2HDNmzBtt27adZTAYojmOUytdNlI/cRyn0ul0jRs0aHBvjx49YgYNGlRSWlqaN23aNDEuLk7p4tX8+yhdgL+iZcuWyMjI4D/77LMWvXv3Ht20adPxOp2uGQA64xO3stlsOZcvX94YHx//xbJly860bNlS3LZtm9LFumN16gpAp9PB4XDAbDY3fOutt0b369dvcXh4+Gi1Wh2MOhrMSN2mUql8/f39u7du3br/4MGD1VarNWfPnj3lHTp0QH5+vtLF+5/qTACIj4+HRqPx8fLyun/o0KHzo6Kipuh0umYcx9WZ70DqJ47jeI1G0yAkJKRfhw4dejz00EOWioqKnE2bNtlWrFihdPH+VK3vPF27dkVeXp5q2LBhXcaOHTu7ffv2s318fDpzHEcvjCO1Csdxap1O1zQ8PHxQp06dmqSkpBhNJlPB448/LiUkJChdvNtSKV2AP+Ll5YXKykrukUceCV+7du24pk2bPq3X61uDxvmkllOpVIGNGjWaEBwcPLBt27br9u7duw5Apre3NzObzUoX7ya18gpg6tSpuHz5snrTpk33DR8+/O2IiIjxGo0mDDTOJ3UHp1Kp/AMDA3u3atWq27Bhw0xFRUUXxo8fL+7evVvpsl1T686mZ8+ehZeXV+CPP/44rU+fPh8FBATcx/O8l9LlIuSv4DhO7efnd0+PHj1WLV26dLYsyw0rKiqULtb18ildgBslJiYiNjY29Jlnnnm9UaNGTwuC4K10mQhxFsaYLTc3d+3atWsXz507N8vPzw8mk0npYilPq9UCAN59992mly5d+pBeuEHqK1mWbUVFRdu++eabzowxhISEKNr3asUVwLlz57Br166oUaNGrQwMDHyQVvKReo6Vlpb+smPHjlmjR49ODQ8PR15eniIFUTwA7Nu3D3FxcaHPPvvsgsjIyP/jOK7W3pkgxIlYcXHxznXr1k158MEHL7Rp00aRQig6Cfj1119jx44dQc8+++zrERERE6jzEw/CBQQEDHzsscfmfv/992Hp6elKl8e9ZsyYgU6dOumOHz/+siRJZqXHZoQoQZZla2Zm5pv9+/c3zJkzR+lu6R69evUCAC4hIeFxu91+WemDQIiSHA6HMTU19VkAQp8+fdzaFxWZA2CMYePGjZ0eeuihz7y9vbsoUQZCahOLxXJq+/btk0aNGnUoMDAQJSUlbsnX7XMAy5Ytw4QJE/z79u37vLe3dyd3509IbaTX69v2799/9tKlS8PXrl3rtnzdegXQtm1bnD59mk9OTp7QuXPndwVB8HNn/oTUZrIsW0+dOvV6TEzMyo4dO0rHjh1zeZ5uvQI4dOgQ1q5d265NmzbPU+cn5GY8z+uioqImfvPNNx3T0tLck6e7vtz06dMxdOhQfd++fScaDIYYd+VLSF2i1+vb9OzZc/LIkSO93XFXwG1DAMYY4uLiBgwcOHCdRqNp5K58CalrHA5HfkJCwoSBAwfGqdVqiKLosrzccgUwefJk9OnTxxAdHT2OOj8hf06tVjdo27bt30eOHOk7bdo0l+blliuAq2f/AQMGrNNqtRQACPkfHA5H/r59+yYMGjQoTq/Xo7LSNU8fd/kVwBNPPIF27dp5RUdHj6HOT8idUavVDdq1a/f3xx57zHfKlCkuy8elVwAGgwFZWVmIjY3tNHLkyG+9vLxaujI/QuoTu92et2vXrrHDhg37VafTwWazOT0Pl14BBAYGIigoSOjevfsjOp0uypV5EVLfaDSaBm3bth3CcZzKVbsFXbb7jud5zJgxA0VFRSEhISGD6PHdhNQYHxwcfO/SpUvDwsPDsydOnAhZlp2bgatK7u3tjRkzZqB///4xBoOhncuripB6SK/Xt+7Vq1fn8ePHQ6fTOT19lwWA0NBQcBwnREVF9Ver1UEurSVC6imVSuXftGnT/hzHqaOjo52fvqsKPn78eJhMpqDg4OB7UAuePERIXRUYGNhr8eLFoYGBgbmHDx92atouuQIIDQ3FM888g549ezbx8vJq7pZaIqSe0ul0zTp16hQ1ZcoUhIWFOTVtlwQAQRAQGhqKpk2btler1co+9pSQOk6tVgdGRkZGA6gbk4BXx//+/v6teZ53/swFIR6E4ziNn59fG47j1K1bt3Zq2i6ZA/D390f79u21Pj4+dO+fECfw9vZuNmzYMC+DweBwZrouCQBjxoxBWVmZv06na+ye6iGkftPpdBFDhgwJDA0NNX377bdOS9clASAgIAAAtIIg+Lipfgip1wRB8Pb19dUGBgY6NV2XzAEwxsAYAwDmhrohxCPIsgxJkpyaptMDgK+vLwwGA6pf70Uv+iDECTiO0+r1ekOLFi0QGhrqtHSdHgCCgoLw8MMPo1WrVo00Gk2wW2uJkHpKpVIFREZGRkRFRcHHx3kja6cHAEGo2vOjVqu19JJPQpyD4zj+6oY6jnPewlpF3w1ICFEWBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjwYBQBCPBgFAEI8GAUAQjxYvXh998lLpdh57Ar0GgEDOzREy/Cavz212GxHbEouHKIMAOB5HgNjGiAiWI+fk3NQaLIDkAHwCPRWY1i3CAh8zV7SuOdYHrKNlQCTAXDw1qkwvGdjlFns2HwwGzaHBDB21/XB8wIe7BqGqAbet/xOlBi2H8nFmctmtGiox7BuEdCoan4eMFkc2HwwG8ZyO7o2D0D/6Aao6TsrZcawKzUPeSXWqrrleDQLNaB/dAOczCpFcmYJwCQAHDiOw5AujRDoY8HOM49DQjlkqaquBBUHL1UE7mn6MXTqkL9UZ5V2CaPe/BU70goA2XH9F5yAX5cOxj3tnPdK7tqkzgeAM7kmDHx9N4wWBjAGPy8Orz3eHjOHt6tROtsOZ2Pih8euH3xBi3kjm2He2I54fnUSskpYVWPkeDTw5vDbxw3h41Wzlx/PXZuKlEuVgCwCHActJyL784b44WA2pnx6ApDszqkUQYvnsoqx6rkeN/3Y5pAxYeV+fHfwMsDxAJPxUJdQbHipLwy6O28KosTw9Hv7sTXFWFUnkohHe0Rg1bPdEBbodcfplJod+MfyRBRbuaqgyKnQIkTAbx8Px1e/XMDbP10CJFvVH/NqfDdTjeG9g9HApzcKrTthlxkYAySRwcrlICnreXQM/xf8vdrWqLouFpjxzKok7D1eUHVsbqjH3q390ShY75zjUgvV+SHAgq+OwVghAaIVkGwoq7DjlS/TMe2jJFjt0h2n4xDlqs4v2a99RKnqakCrFm76uVb916pNo+JvSkenqXqVul2Uq39mc9rH7pBvyX/pd+n47tCVqrxEKyDZsS21CPO/SqvR97hYYEbskVzAUQmINoBJ2Jp8BUMW7EX6xZI7TkdmDCqBu6FObOCrLyMEnrupriDZwcDAwQtdIuajmd8kCAIPQaj6e9HBUCFeQFLWC8gt3X3HZYhPv4L73tiDvSeKrnd+jgMENSYMiMS2N+5F01DvO06vrqnzAeDb/dk3nzlZVUdevesSHn97H/JLK+8ondu9c92Z72H/MzJjAK/64w93m8PEcX/6P1eD11W/HL+Cf285c/2MepVowwc/ZyIuJfeOy1tR6bglfUg2nMgqx9AF8dhx9LJL64vjeLQOnYyOYQugEryh1lQdJ4edwSGZkJb3Bs4Wfg7gz4dT//n5DB5dsg8XCizX2xAnQK1S4c0nY/Df53vBV69x6XdRWp0fAlSNEW9DsiE2tRBD5sdj7YxeiG4SoHRJb0uUGbq3DEL3KG/Y7NrbjqPzSyqRV2q9Pj/AcQgwqNE4xHBLkGKMQVBp8GDXRtd+VmSyYtpHh2ET5dvMMTCIMsMLnyQj4e0gNPDX/c8yc1zVmPyW/iU7cKVUxqi3E/DuxC6Y/EBLl9ZdhP8D0GvCcSxvAXg+BzarDEli4DgJ50pXo8KehZiwl6DiDTf9n9kq4pXPj+KTneer2g+rDma8Gg38NPhoSjc80iPSpWWvLep+APgzkg3pl2QMXfAL1rzQE4M7hSldolvYRRndWgXjwLL7ITPgdmetL/ecw+QPU66fpXgNJgyKwttPd71Nihw44KZA8urnR3HmivXmS1xeBUhiVX6yiPOFdry85gjWzuxzd19IllBpY5jycTIuFVRgwd871niytCYC9THoEfkBjuUtQhl3FLZKGYwBdquMfC4Wlks56Bg+D97aqg5dYrbjkUV7cTDDdPNkn6BFp6be+PyfvRHTxN9l5a1t6vwQ4PbfSrjeA2QHLpdUYuSb+7BmV6bSJfvzYnMAz3G3fG43S69R8bf9W567ufN/9esFfPnLDZNpHAdvrYBn72sGngeA6j+WbPgqIRtr9577a4XneICrmtOoGobJeGvLGYxfsR9lFU6a3PwDek0YukX8G2H6h6HR8tdGTLZKGSbHcSRlTUeR+Uh1vQloEuqNqkDLVX0EDR7rGYa4+QM9qvMD9TEAcDw6N/ODQStcb5CyBItNxDP/OYx/bThWNeauQ25X3Dv5Cpl55XhpzdGb/5hXY84TMfjPlB6YfH9LQLhhjMtkvPpFKjIum2pWQI5HRKAObSO8b0iPAZIdG/dfxiOLf8HFArNL60gl6NEx/DW0CJgCgVdBUFUFNrtNhlW6guScWbhU/AMMOgHrZvbBgjHtwPE8wPOY+1gbbJh1D4J9//fwp76pfwGAV+GVkdH4fs69CPHTAnz1rTomA0zGku9/w9MrD8Jkce1ZSWkOScb0j5NQUC5enycRNLi/QzBmPlp1i/TN8V3QqYnhpjoqNEt4fvVhOCT5zjPjBHRoFoDdi+/DfR1CAEF7/XeSDfvPlODBf+3F4bNFLv/eLUPGo3P4ImgEP6jU1+8QiLIVJ/LfxMkr7wMQ8doTMdj48j3YMLM3Fv69I1RC/esKd6JefutKu4jBncLw8xv3ok2jW89KGxJyMHzJPlxy8VlJSe9uOYXdx403zG7ziAhQ45Pne0FdPaTw1avx2Qu94K+/Ycgk2bH7uBErt56uUX52UUYDfy98P6cfJg5sXF3n19PMvFKBhxb9is0Hslz+3cP9BqFH5CrohLBrtwlliUGSGLLNXyHp0stwSOV4rHcTjO7b1B2Ho9aq15OAXVoEIXb+AExYeRC/niq+Pg6WbNh32lh9h6A3/tYySOmiOtWh3wqx5LuTN09yAXCIEp77z0HceHLnOUCWf3cnRRax+NsTGBDTsMZ1o9eqsHpaDzQOMWDhNycgy3L1nICI4nKGv797AEsLKzDj0bZw4dwgOE7AtQB0488ByKx68pPUzyuAG0UGG/DDa/3x976Nbjkrnc0zY9jCXxCXkvuXF/fUNmUWB6Z8lASLnd089mcy8svsiEstxK5j1z870gphsoi3/G2FjWHKR4dQXumocRk4jsPro2Pw3+nd4e2lrrrjAABMgkMU8fIXxzDzv0dgF+VrC3+c6XJZPA5lTYVVugyperkwzwMqNYdwwyj0bLocasEX3yVexI9J2W49PrVNvb4CuMrHS43PX+yNJqHHsPS7UwDYtbOSsZzhibf3Iaqhz83LQF3AHQuLXl97FMezLbec/QFcmwe5I7IDqRcrsPDrY3hn4t/+UlmeGtgckcEGTHjvIHKLbVVlYgxgDrz/cyYSTuXDVOlwyv6HqzIK1yLDuBoyEyGJ1/cK8JwabYKmISp4LABg6XfHMW/DcQgCh3+Nicbsx6LBu/KSpJaqH6e9O/miHIeFf++Ej6d2h5dWVXWrEACYBItdwols0x92Dva7BirJ7No4uiYc4p0vTf4rthzMwuqd529eGcmrqybl7vTD37C/QbLXeJXg7w3o0BCx8wegY1PfmycHZQdSL5hgsUlwxuW4KFuQlrsYmSUfQpQc1zq/WsNDI/ijc/gSRAWPhSgxPLvqIOZ9fQpgMiRJwryvT+GpFftRbLbdZSnqHo+4ArjR/93fApHBekz64BCulNpvOCvd2jmv9nutRlU1cmAAmIwrpTYs3JiOCYOaIyzAC1q1gNueOzjA7pBRaLJi66EcnMwuB66NtzmoeO4v7cS7nazCCrz46RHIMsO1DsWr8ECnEHSOCrzjdI5dKEFsan711dCNqwQD0cD/zjf63KhdpD9i5w/EpPcPIja18PpcjJOuuCz2PKRdXgCTmAa77XoQ1+p4ePHN0Cl8Pvy8Wl/7ucDzVw9B1UGuvl159nI8/vt8D3RoWjtXjbqCxwUAAHigSzh+nncvnlp5ECezzX+4C49Vd6S2EX44mVMJoKrzSpKEZZvPYNVPvyHEVwu9Tg3+Nv1YlhlsDhlFJhtMVnatUwEAOAHNw3wQ5KPF3ZJkhn9+chi5pY7rgYxXoXWYAV+93A9++jvftWi2iujzShxOZJdXlffaKsGUu1olGOqnw3ez+2Hmf4/gk10XqtJ2wqW/sSINx/IWwsYuw26t7vxcVef3V/dAp/DXb9oirBI4fDi1B1o18sVr69NhE6WqoCzZcPR8KR6cH49Vz/wNI3s3vuuy1QUeMwT4vY7NAhH7rwEY/Pv71je42j6fG9IKAqSbN+XIDlhsEi4VVeJ0bjlOZt/6OZ1rxvl8S9U4V3bgeuevWq73/MNtnLJM9sPtZ/BTSsENgYyDwAPLJ3WtUecHAG+dCque6w6tqnqVHHD3qwSr6dQCPpzSA4vHRUMQhNtucqpJTMgq+RlHcmaiUsy91vk5HtBoeITrR6Bb5LI/fD7Ai4+2xXev3oOwAK/rwx7ZgYJSK8b+ez8WfZMOqWptNn46nINXvzyGL3afw8/JObhUUIGLBRV4bV3aXdVHbVD3A8BtG9GdtaLwQD2+n90PEwZEVt0huHGSjuPg7121fuDemIZY+X9doNdWj6ev3WK6Opko/fGHXX3IB1dVVkELtUqFeU+0wZg7vAf9ZysBj54rxrwN6b/bx67BpEHNbtoQVBN92oVi1qOtb7tK8EK+GSrVX69zAJg9Khpf/LNn1U47/oaLUI6DXlc1N8P+ZF6AMQmn8z/C8SuLYJcqIDquT/apBDVaBk5Hh/BXIfB/fnU19G8R2LFgILo2979+EmASJFnCgm9O48nl+1FksuK+zmFgTMLQbo1wMqsMizYew1vfHcfbm2u2VqI2qvMBIMRXUz2Bpan+qGu0qsugU+HT6b0wf3Q76DTqa9tpA72AYd0irv3dlKGtEb9kICYOaoJmDQxV+9h5FSCob8j7Dz68ALWKQ9NQA57sF4ldCwdi3piOd3xXQKfhq/O6nqaXVoBdlDH5/QMoF9XXf6/yQvNQLRY+2fmu6nX24zHo1twHUOurv4MKhZUqTP84CbLMIDHuhvJoAdTsSmZsv2bY+lo/tArzvh58OQFj+jUDUDWsuXo8r344cGCwIDlrNnIr14LjGXgOUKk4aLQ8NLwfOocvRovgJ++4HO0i/RA7fwAe7xV27XtefVjKd0n5GPDabmQVVsDfoIavXoMAbw26tAhC3/YNEKCv892n7s8BJC57EL+eKLh2BlILfI3PfBwHvD46BkP/Fo45a9NQZLJhzQs90TbC76a/69oiGJ+0CEZ5pYgL+eXINVpgsjhgc0hVS2dvPGlxVfvy9FoVAn00CA/So3GwAb41vCQHgAe7NsLa5xkqqx9wohJ4PNA5DByAmSPaweq4YZsvL+Bvzf0R7Ht3cwt6rQobXuqL+PT863dHOB5+ehWaNfDG1y/1uX4LjxfQsYlvjfPo274B9r11Pz7ZkYF3t/6GdyZ0wlMDmwMAJgxugY5Rwdfy5jgOfds3AGN2cJwAL6kTvNRXgw6DWqVFy+DJCNC3r3E5Ar21WD+rD9p8cxz7ThaA564fSAYepgo7Hu4eCbXAoUOzALQK94WvXl0VmOs4p9/4bNGiBTIyMpCQkPBg7969NwqC4Hf3qRLi2WRZrkhOTv5Hjx49trRs2RKZmc7Z2Vr3Qxgh5C+jAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHowBAiAejAECIB6MAQIgHc3oAuPqSTsaYBEBW+gsSUh8wxuTqPlWjV7H/L04PAOXl5Thw4AAuXLhw2W63F7mxjgiptxwOR3FWVlZORkYGysvLnZau0wNAQUEBLl68iIqKCgtjzObWWiKk/rJXVlZWXLhwAQUFBU5L1CVzAIIggOd5wAWvHyfEU3Ecd7VfOY3KFQUtLi5GWVmZTZIkk1tqhpB6ThRFs8lksmq1Wqem65IA8PXXX6OoqKh04sSJWT4+Pr3cUkOE1GM2my03Li6uRK/XOzVdlwwBTCYTTp8+bTWbzefdUjuE1HNWqzVvx44dNmdOAAIuCgAFBQVgjMklJSVnZFm2uqWGCKmnGGP2oqKiVIfDYUtLS3Nq2i4JADzPw+FwID8/P1MUxVI31BEh9ZYkSeWFhYVnAUCj0Tg1bZdNAr7//vswGo3nevfufVaj0TR0Qz0RUi9ZLJbM5OTkszk5OSgsLHRq2i67TdeiRQtkZmaqLl269O/GjRv/0+W1REg9lZub+0lERMQLvXr1sh08eNCpabtsL4DZbAZjTMzKykqg24GE/DWSJFXk5uYmMMZsFy5ccHr6LhkCAIDdbsfGjRtx8eLFwzExMcf9/PzucWlNEVIPWa3WC2lpaYcrKytht9udnr5LV+qFhYUhLy+Pz8jImN+iRYvXQLsPCamRixcvrmzWrNmrQ4YMscfGxjo9fZd2SKvVCsaYfPbs2V02my3XlXkRUt/Y7fYrmZmZ2xlj9ri4OJfk4bIhAACUlJRgwoQJSE9PT+nQoUNcRETEZFfmR0h9UlJSkrhq1aqk7777zqlbgG/kls06jDHs27fvkd69e3+uUqkC3ZEnIXWZJEnlKSkpU7t3777ex8cHZrPZJfkIrv4iOp0OGo0GiYmJRT179uxgMBjaujpPQuq6kpKS+DVr1rybmZlZsWXLFpfl47btuowx7Nix4/577713jVarbeSufAmpaxwOh/HIkSPTevXq9Y1arYYoii7Ly6VzADeaPHkyTp48mdiuXbutkZGRz4HuCBByW4WFhduXLFkS27x5c5d2fsDND+xgjGHDhg2dhg8fvt5gMLR3Z96E1AVWq/VCfHz800OGDPmV41zfPd16Fh48eDCefPLJ4+fOnftEkqQKd+ZNSG3HGHPk5ORsGDp06MEhQ4a4JU+3BoA9e/Zg9erV0vr1678uKira5s68CantSktLE3766ac1J06ccNl9/99z+zP7vLy8YLFYsGXLlh7333//pwaDIcbdZSCktrFarRcSExOnDB48eIefnx9MJvdsn3H7RFxlZSU6dOiAkSNHJp84ceIdh8Ph3P2NhNQxkiSVZ2RkvHffffftHT58uNs6P6DgU3ufeeYZnDx5Uv/ll1++3qxZsxd5nvdSqiyEKKV63P/p8uXLX2/btm3Jc88959b8FX1s986dOxEbGxsyc+bMNyMiIibADQuTCKlFmNFojF23bt20++6772J0dLTbC6D4c/sZY/jyyy9bP/TQQ8uDgoKGgNYHEM/ASkpK9sTGxr40bty4Y+Hh4cjLy3N7IRTvbL6+vhg/fvyZn3766RWj0RgLep8gqf9YSUnJnu3bt780bty4Y9Xb5pUuk3K0Wi0YY/j888/bFRUVbWOMSYyQ+kkuLi7etX79+o6MMQQHByva9xQfAlzF8zwkScLatWvbDB48eG7Dhg1H0cQgqU8YYzaj0bhj165db4wdOzbdnbf7/ojiQ4CrZFkGx3F45JFHfvvggw9mnTt37t8OhyNf6XIR4gyiKJZkZWWt/vjjj6eNHTs2XafTKd75gVoUAK4KCAiA1WotnDRp0pvJyckvmkymJFb9XnRC6iCpvLz8aEpKyoxFixa9MWDAgByO42Cz0Yuz/1SHDh0AgFuzZk3b8+fP/9tms+UoPXgjpCbsdnthdnb26i+++CIGAN+rV+17TWatve+en1919d++ffui9957b1+TJk3SDAaDysvLqzHP8zqly0fIH5FlucJoNO5MTk6et3r16k/HjRuX/d5777GcnByli3aLWjMJ+Gd0Oh0qKyvxwgsvBD755JPDWrZs+bS/v39vjuOc+65kQu4CY8xhNpvTzpw58+muXbu2zZ07N8/HxwfOfqGnx4qMjAQALF++vMmpU6fmWCyWs4xuGRLlSVar9eK5c+fe+vTTT1sD4Lt06aJ0d7kjtXYIcDtXZ03Dw8PLPvvss6SQkJADBoPBYTAYmgiC4K10+YjnEUXRmJ+fvyU+Pn7u4sWLv27YsGH+rl27WF1Z2FMnhgB/ZNOmTYiLi/MeM2ZMv5iYmElBQUH3UyAg7iDLcmVZWdmB9PT0D7/99tu9//nPf0o1Gg0cDofSRfM8jDHMnz8/NCUl5Zny8vIjsizblL4mJPWTLMsOs9mcfurUqVeWLFkSAYCrK5f7t1OnhgB/ZMGCBTAYDBXLli1LCwkJiff19TUZDIbGKpXKD3X8KofUGsxms+Xk5uau27Zt2+vjx4//SaPRlJ46dapOr+OvFwEAADIyMlBRUcHatGljXL9+/UFvb+8Dfn5+vJeXV2NBEPRKl4/UXaIolhQVFW1LTEx8fe7cuV888MADuR9//LF86tQppYtG/ghjDNOnT/fds2fPI0VFRdslSapQ+vKR1C2yLNtKS0v3HThwYNwzzzwToHSbdoV6fXksCAIkScLChQvDhg8f/kRUVNTTer2+HcdxaqXLRmo12WKxnMnJyfl627Zt62fNmnXRYDCwior69yDrejMEuB1W/UJFh8NhXrBgwZHw8PBfgoKC7Hq9vhHND5Dbsdvtly9fvrxh9+7db9x7772bBEEozszMpNn9+uCTTz5B3759dVu2bOmbl5e3weFwFCl9mUlqB0mSKgoKCrbu3r17SJ8+ffQHDhxQurkSV/D39wdjDJMnT/b/9ddfRxUXF++RJKlS6QZIlCHLsqOsrOxQamrqlHnz5jVgjCEgoF4O98mN2rZtCwDc0qVLI0+dOjXbbDYfl2VZVLpBEreRLRZLxtmzZxdUL9/l2rVrp3SzdLt6PQfwZ4qKigAAarXatGjRokONGzdOCAwMlHQ6XbhKpfIFzQ/UW6Iolly5cuXbhISEN5544omNZrO54MyZMygspFdUeKzt27dj0KBBXtu3bx+cn5//vSiKJqVPUcS5JEmqNBqNOxISEkbNmjXLnyb2yC0YY3jppZeCU1JSJpeWlibKsmxXuuGSuyPLslheXp6alpb2/LvvvhsBAGo13Qkmf6B169YAwH3wwQfNz5w5M6+iouI0Y0xWuiGTGpOtVuuljIyMpevWrYsGwLdvT2+lv5HHzgH8GaPRCADw9vYumTlz5v7o6OhDPj4+speXVyNBEHyULh/53yRJKissLPwxMTHxtdmzZ69njOUdOnSI0Tif1NjmzZsxcOBA/d69ex8qLCz8iZYV116SJFWWlJT8mpiYOHb27NlBrHoxGCF3heM4MMawaNGisNTU1Ckmk+mwLMsOpRs8qSLLslhRUXEyPT195sqVK5sA4Jo1a6Z0syH1jY+PDwDwn332WZuzZ88urKyszGQ0P6Ak2WazXc7Ozv5ow4YNndu0aaMaPXq00s2E1HdDhgxBo0aN1Fu3bu1z+fLldQ6Ho1jpnuBpRFEsKyws3BoXF/fAiBEjDIwxCAJNaxE3Yozh5ZdfDkhISHi8uLh4Fy0rdj1Zlu1lZWWHkpKSJsyaNSsEABo2bKh0UyCeqkGDBgCAFStWRKalpb1gNpuP0bJil5AsFktGZmbmklWrVrUEwHft2lXpw1+n0fWSE1zdJ263201vv/32kaioqAS9Xl9uMBia0LJi53A4HPn5+fmb4uPjX3/uuec2+vj4FB4+fLjOPH2XeJAlS5Zg+PDhup9//nlgfn7+d6Iolip96qyrRFEsLyoq2h4fH//oE0884c3oth6pC/R6PRhjePXVV4P2798/rrS0NIHmB+5c9fLdlNTU1CmvvPJKKACOtumSOqf6hZDcihUrmh4/fvylioqK07Is09uM/kRlZeWFc+fOLfv888/bA+D79Omj9GGst2gOwMWuvhAyLCys9KOPPjocEhJyICAggNfpdOG0rPhm1W/Z+f7gwYPzn3rqqS99fX2vHDp0iGVlZSldNEKcgzGG4cOHG3bu3DmksLDwR1EUy5Q+4ypNlmVrcXHx3v37948ePXq0L6NxPqnPri5WmTFjRkhycvKksrKyQ5IkWZXuiAqQzGbz8RMnTry8cuXKpgCgUqmUPjyEuEdERAQA8MuXL4/67bff5lkslgzmIcuKbTZbzvnz59/duHFjZwBC9RZs4mY0B6Cg6rcdsyZNmpQsXLjwYPPmzQ/7+fkJ1fMDBqXL5wqSJJmNRuP2pKSkN2bMmLFGEIScAwcOsKtbsAnxSFd3G44YMcJ73759I4uKiraLoliu9JnaWWRZtpWVlR1ISkqasHDhwlDGGHQ6ndLVTkjtcnUL6yuvvNIgLS1tenl5eSpjrC4vK5YsFsvZU6dOzV29enULAFxUVJTS1UxI7davXz8A4NetWxdz/vz5d6xW60Wle3JN2e32/IsXL67atGlT927duqnHjx+vdLUSUrfMmjULnTt31sbGxg6s3nZsVLpj/y+iKJqNRmPsnj17Hp44caJh69atSlcjIXUbYwxPP/2038GDB8cajcadtXFZsSzL9vLy8pQjR448u2jRojAAaNWqldJVR0j9cHXSbPHixY1OnDgxy2QyHZFl2aZ0x2eMSZWVlefPnDmzYPXq1a1DQ0OFYcOGKV1d5A7QbcA6RBRFAIDZbC5/7bXXDkdGRu4xGAx5Wq3WoFKp/Hie17qzPLIsWyoqKk7k5uZu2L9//5IlS5Z8q1ar83fu3MkyMjKUri5yBygA1EG5ubkAwLKysopXrFiRJAhCnFarPcZxXIkgCBpBEAw8z6vh/OcQMFmWK202W05JSUn8mTNn3t++ffu/R40atdlms1364YcfpP379ytdPaQG6EEV9UhMTIxuypQpkV26dOnaoEGDLt7e3q30en0rjUYTyvO8F8/zOlQd8zs57kyWZbssyxUOh6PIarVmlZWVHSssLEw9f/78yc2bN5//9ttvywHQwv06jAJAPdS8eXOcO3dOGDZsmGHEiBFhzZo1a+Tt7d3A398/Qq1WB/v4+DQBwP/R/1ut1kKLxZJttVqNRUVFF7Kzsy+npKTkf/DBB2Vdu3YVU1JSlP6KxEkoAHiQ6OhomEwmwdfXV8PzPMcYA7th5x3PV8UEi8UiZmZm2pUuLyGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhJDb+n8tSSP6ggmOuwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wNi0wN1QxNDozNTowNi0wNDowMLuJ7XwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDYtMDdUMTQ6MzU6MDYtMDQ6MDDK1FXAAAAAAElFTkSuQmCC",
+                                        "Label": "Nutanix",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Nutanix provides tools to build and operate multi-cloud architectures that is controlled from a single point."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Nutanix, it's important to manage the throughput, iops and latency of clusters and storage pools because those encompass all the other resources. Otherwise, tracking the smaller parts allows more precise management."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Container Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_container_CL | where ${Container}  | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_container_CL | where ${Container}  | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Container Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "nutanix_container_CL | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "nutanix_container_CL | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total Read IO Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Read IO Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Read IO Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total Read IO Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total Write IO Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Write IO Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Write IO Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total Write IO Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total Read IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Read IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Read IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total Read IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total Write IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Write IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Write IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total Write IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total IO Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total IO Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total IO Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total IO Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "nutanix_container_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IOPS'], ['Total Write IO Throughput'], ['Total Write IOPS'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_iops_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_write_iops_d', '')) by Name=nutanix_container_name_s",
+                                            "displayName": "Container "
+                                        }
+                                        ,{
+                                            "query": "nutanix_vm_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IOPS'], ['Total Read IOPS'], ['Total Write IOPS'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_iops_d', ''),columnifexists('total_read_iops_d', ''),columnifexists('total_write_iops_d', '')) by Name=nutanix_vm_name_s",
+                                            "displayName": "VM "
+                                        }
+                                        ,{
+                                            "query": "nutanix_storage_pool_CL | summarize([\"Last Update Time\"], ['Total Write IOPS'], ['Total IO Throughput'], ['Total IOPS'], ['Average IO Latency'], ['Storage Usage'], ['Average Read IO Latency'], ['Average Write IO Latency'])=arg_max(TimeGenerated,columnifexists('total_write_iops_d', ''),columnifexists('total_io_throughput_d', ''),columnifexists('total_iops_d', ''),columnifexists('average_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', '')) by Name=nutanix_storage_pool_name_s",
+                                            "displayName": "Storage Pool "
+                                        }
+                                        ,{
+                                            "query": "nutanix_cluster_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IOPS'], ['Total Write IO Throughput'], ['Total Write IOPS'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_iops_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_write_iops_d', '')) by Name=nutanix_cluster_name_s",
+                                            "displayName": "Cluster "
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "nutanix_container_name_s",
+                            "QueryForValues": "nutanix_container_CL | distinct nutanix_container_name_s",
+                            "Title": "Container"
+                          },{
+                            "FieldName": "nutanix_vm_name_s",
+                            "QueryForValues": "nutanix_vm_CL | distinct nutanix_vm_name_s",
+                            "Title": "VM"
+                          },{
+                            "FieldName": "nutanix_storage_pool_name_s",
+                            "QueryForValues": "nutanix_storage_pool_CL | distinct nutanix_storage_pool_name_s",
+                            "Title": "Storage Pool"
+                          },{
+                            "FieldName": "nutanix_cluster_name_s",
+                            "QueryForValues": "nutanix_cluster_CL | distinct nutanix_cluster_name_s",
+                            "Title": "Cluster"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "nutanix_container_CL | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Container",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

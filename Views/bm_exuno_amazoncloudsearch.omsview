@@ -1,0 +1,574 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon CloudSearch Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon CloudSearch Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon CloudSearch Environment",
+                        "Name": "Amazon CloudSearch Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon CloudSearch Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ff8c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon CloudSearch",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon CloudSearch is a managed service in the AWS Cloud that makes it simple and cost-effective to set up, manage, and scale a search solution for your website or application."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the index capacity of a search instance. If this capacity is reached, consider scaling up your instance."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_cloudsearch_domain_CL | where ${Region} and ${Domain}  | project ['Index Utilization'] = columnifexists('index_utilization_d', double(null)), TimeGenerated, Name=amazon_cloudsearch_domain_name_s  | extend Healthy = case(isnotnull(['Index Utilization']), (['Index Utilization'] < 95 or isnull(['Index Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_cloudsearch_domain_CL | where ${Region} and ${Domain}  | project ['Index Utilization'] = columnifexists('index_utilization_d', double(null)), TimeGenerated, Name=amazon_cloudsearch_domain_name_s  | extend Healthy = case(isnotnull(['Index Utilization']), (['Index Utilization'] < 95 or isnull(['Index Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_cloudsearch_domain_CL | project ['Index Utilization'] = columnifexists('index_utilization_d', double(null)), TimeGenerated, Name=amazon_cloudsearch_domain_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Index Utilization']), (['Index Utilization'] < 95 or isnull(['Index Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_cloudsearch_domain_CL | project ['Index Utilization'] = columnifexists('index_utilization_d', double(null)), TimeGenerated, Name=amazon_cloudsearch_domain_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Index Utilization']), (['Index Utilization'] < 95 or isnull(['Index Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Index Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Index Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_cloudsearch_domain_CL | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('index_utilization_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Index Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_cloudsearch_domain_CL  | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('index_utilization_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Index Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Successful Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Successful Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_cloudsearch_domain_CL | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('successful_requests_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Successful Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Successful Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_cloudsearch_domain_CL  | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('successful_requests_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Successful Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Partitions",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Partitions",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_cloudsearch_domain_CL | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('partitions_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Partitions",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Partitions"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_cloudsearch_domain_CL  | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('partitions_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Partitions"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Searchable Documents",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Searchable Documents",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_cloudsearch_domain_CL | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('searchable_documents_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Searchable Documents",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Searchable Documents"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_cloudsearch_domain_CL  | where ${Region} and ${Domain} | summarize avg(coalesce(columnifexists('searchable_documents_d',0.0), 0.0)) by amazon_cloudsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Searchable Documents"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_cloudsearch_domain_CL | summarize([\"Last Update Time\"], ['Index Utilization'], ['Successful Requests'])=arg_max(TimeGenerated,columnifexists('index_utilization_d', ''),columnifexists('successful_requests_d', '')) by Name=amazon_cloudsearch_domain_name_s",
+                                            "displayName": "Domain Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_cloudsearch_domain_CL | summarize([\"Last Update Time\"], ['Partitions'], ['Searchable Documents'])=arg_max(TimeGenerated,columnifexists('partitions_d', ''),columnifexists('searchable_documents_d', '')) by Name=amazon_cloudsearch_domain_name_s",
+                                            "displayName": "Domain Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_cloudsearch_domain_CL | summarize([\"Last Update Time\"], ['Client ID'])=arg_max(TimeGenerated,columnifexists('client_id_s', '')) by Name=amazon_cloudsearch_domain_name_s",
+                                            "displayName": "Domain Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_cloudsearch_domain_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_cloudsearch_domain_name_s",
+                            "QueryForValues": "amazon_cloudsearch_domain_CL | distinct amazon_cloudsearch_domain_name_s",
+                            "Title": "Domain"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_cloudsearch_domain_CL | project ['Index Utilization'] = columnifexists('index_utilization_d', double(null)), TimeGenerated, Name=amazon_cloudsearch_domain_name_s  | extend Healthy = case(isnotnull(['Index Utilization']), (['Index Utilization'] < 95 or isnull(['Index Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Domain",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

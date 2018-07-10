@@ -1,0 +1,721 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft SQL Server Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft SQL Server Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft SQL Server Environment",
+                        "Name": "Microsoft SQL Server Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft SQL Server Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft SQL Server",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Microsoft SQL Server is a relational database management system that supports a wide variety of transaction processing, business intelligence and analytics applications in corporate IT environments."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor CPU and memory usage, read and write IOPS, and query execution time."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Failed Jobs'] = columnifexists('failed_jobs_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Number of Unhealthy Cluster Nodes'] = columnifexists('number_of_unhealthy_cluster_nodes_d', double(null)), ['Wait Time'] = columnifexists('wait_time_rate_d', double(null)), TimeGenerated, Name=microsoft_sqlserver_instance_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Failed Jobs']) or isnotnull(['Lock Timeouts']) or isnotnull(['Number of Unhealthy Cluster Nodes']) or isnotnull(['Wait Time']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Failed Jobs'] < 1 or isnull(['Failed Jobs'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Number of Unhealthy Cluster Nodes'] < 1 or isnull(['Number of Unhealthy Cluster Nodes'])) and (['Wait Time'] < 1000 or isnull(['Wait Time'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Failed Jobs'] = columnifexists('failed_jobs_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Number of Unhealthy Cluster Nodes'] = columnifexists('number_of_unhealthy_cluster_nodes_d', double(null)), ['Wait Time'] = columnifexists('wait_time_rate_d', double(null)), TimeGenerated, Name=microsoft_sqlserver_instance_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Failed Jobs']) or isnotnull(['Lock Timeouts']) or isnotnull(['Number of Unhealthy Cluster Nodes']) or isnotnull(['Wait Time']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Failed Jobs'] < 1 or isnull(['Failed Jobs'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Number of Unhealthy Cluster Nodes'] < 1 or isnull(['Number of Unhealthy Cluster Nodes'])) and (['Wait Time'] < 1000 or isnull(['Wait Time'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_sqlserver_instance_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Failed Jobs'] = columnifexists('failed_jobs_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Number of Unhealthy Cluster Nodes'] = columnifexists('number_of_unhealthy_cluster_nodes_d', double(null)), ['Wait Time'] = columnifexists('wait_time_rate_d', double(null)), TimeGenerated, Name=microsoft_sqlserver_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Failed Jobs']) or isnotnull(['Lock Timeouts']) or isnotnull(['Number of Unhealthy Cluster Nodes']) or isnotnull(['Wait Time']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Failed Jobs'] < 1 or isnull(['Failed Jobs'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Number of Unhealthy Cluster Nodes'] < 1 or isnull(['Number of Unhealthy Cluster Nodes'])) and (['Wait Time'] < 1000 or isnull(['Wait Time'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_sqlserver_instance_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Failed Jobs'] = columnifexists('failed_jobs_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Number of Unhealthy Cluster Nodes'] = columnifexists('number_of_unhealthy_cluster_nodes_d', double(null)), ['Wait Time'] = columnifexists('wait_time_rate_d', double(null)), TimeGenerated, Name=microsoft_sqlserver_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Failed Jobs']) or isnotnull(['Lock Timeouts']) or isnotnull(['Number of Unhealthy Cluster Nodes']) or isnotnull(['Wait Time']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Failed Jobs'] < 1 or isnull(['Failed Jobs'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Number of Unhealthy Cluster Nodes'] < 1 or isnull(['Number of Unhealthy Cluster Nodes'])) and (['Wait Time'] < 1000 or isnull(['Wait Time'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('iops_rate_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('iops_rate_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Average Query CPU Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Query CPU Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_query_cpu_time_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Query CPU Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_query_cpu_time_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Average Query CPU Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Query Average Execution Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Execution Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_sqlserver_query_CL | where ${Instance} and ${Query} | summarize avg(coalesce(columnifexists('average_execution_time_d',0.0), 0.0)) by microsoft_sqlserver_query_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Execution Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_sqlserver_query_CL  | where ${Instance} and ${Query} | summarize avg(coalesce(columnifexists('average_execution_time_d',0.0), 0.0)) by microsoft_sqlserver_query_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Query",
+                                            "Value": "Average Execution Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['IOPS'])=arg_max(TimeGenerated,columnifexists('iops_rate_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Disk Access"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Average Query CPU Time'], ['Average Query Executions'], ['Dead Locked Queries'])=arg_max(TimeGenerated,columnifexists('average_query_cpu_time_d', ''),columnifexists('average_query_executions_d', ''),columnifexists('dead_locked_queries_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Queries"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Average Wait Time'], ['Lock Wait Time'], ['Lock Timeouts'])=arg_max(TimeGenerated,columnifexists('average_wait_time_d', ''),columnifexists('lock_wait_time_d', ''),columnifexists('lock_timeouts_rate_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Locks"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Number of Unhealthy Cluster Nodes'])=arg_max(TimeGenerated,columnifexists('number_of_unhealthy_cluster_nodes_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Cluster State"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Failed Jobs'])=arg_max(TimeGenerated,columnifexists('failed_jobs_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Jobs"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Buffer Cache Hit Ratio'], ['Buffer Pool Hit Ratio'])=arg_max(TimeGenerated,columnifexists('buffer_cache_hit_ratio_d', ''),columnifexists('buffer_pool_hit_ratio_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Buffer"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Log Cache Hit Ratio'])=arg_max(TimeGenerated,columnifexists('log_cache_hit_ratio_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Database Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Sleeping Processes'], ['Suspended Processes'])=arg_max(TimeGenerated,columnifexists('sleeping_processes_d', ''),columnifexists('suspended_processes_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Process States"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Current Cluster Owner'], ['Product Version'], ['Server Name'], ['Service Name'], ['SQL Version'], ['Type'], ['Windows Version'])=arg_max(TimeGenerated,columnifexists('current_cluster_owner_s', ''),columnifexists('product_version_s', ''),columnifexists('server_name_s', ''),columnifexists('service_name_s', ''),columnifexists('sql_version_s', ''),columnifexists('type_s', ''),columnifexists('windows_version_s', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['IOPS'], ['Read Delay'], ['Write Delay'], ['Read Operations'], ['Write Operations'])=arg_max(TimeGenerated,columnifexists('iops_rate_d', ''),columnifexists('read_delay_rate_d', ''),columnifexists('write_delay_rate_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('write_operations_rate_d', '')) by Name=microsoft_sqlserver_database_name_s",
+                                            "displayName": "Database Disk Access"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['Space Available'])=arg_max(TimeGenerated,columnifexists('space_available_d', '')) by Name=microsoft_sqlserver_database_name_s",
+                                            "displayName": "Database Capacity"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['Log Cache Hit Ratio'], ['Transactions'])=arg_max(TimeGenerated,columnifexists('log_cache_hit_ratio_d', ''),columnifexists('transactions_rate_d', '')) by Name=microsoft_sqlserver_database_name_s",
+                                            "displayName": "Database Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['Auto Close'], ['Auto Create Statistics'], ['Auto Shrink'], ['Auto Update Statistics'], ['Availability Group Name'], ['Synchronization Health'], ['Synchronization State'])=arg_max(TimeGenerated,columnifexists('auto_close_s', ''),columnifexists('auto_create_statistics_s', ''),columnifexists('auto_shrink_s', ''),columnifexists('auto_update_statistics_s', ''),columnifexists('availability_group_name_s', ''),columnifexists('synchronization_health_s', ''),columnifexists('synchronization_state_s', '')) by Name=microsoft_sqlserver_database_name_s",
+                                            "displayName": "Database Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_query_CL | summarize([\"Last Update Time\"], ['Average Execution Time'])=arg_max(TimeGenerated,columnifexists('average_execution_time_d', '')) by Name=microsoft_sqlserver_query_name_s",
+                                            "displayName": "Query General"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_query_CL | summarize([\"Last Update Time\"], ['Text'])=arg_max(TimeGenerated,columnifexists('text_s', '')) by Name=microsoft_sqlserver_query_name_s",
+                                            "displayName": "Query Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_sqlserver_always_on_availability_group_CL | summarize([\"Last Update Time\"], ['Primary Recovery Health Description'], ['Primary Replica'], ['Replica ID'], ['Replicas'], ['Resource Name'], ['Secondary Recovery Health Description'], ['Synchronization Health Description Property'])=arg_max(TimeGenerated,columnifexists('primary_recovery_health_description_s', ''),columnifexists('primary_replica_s', ''),columnifexists('replica_id_s', ''),columnifexists('replicas_s', ''),columnifexists('resource_name_s', ''),columnifexists('secondary_recovery_health_description_s', ''),columnifexists('synchronization_health_description_property_s', '')) by Name=microsoft_sqlserver_always_on_availability_group_name_s",
+                                            "displayName": "Always On Availability Group Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "cluster_status_s",
+                            "QueryForValues": "microsoft_sqlserver_instance_CL | distinct cluster_status_s",
+                            "Title": "Cluster Status"
+                          },{
+                            "FieldName": "microsoft_sqlserver_instance_name_s",
+                            "QueryForValues": "union microsoft_sqlserver_instance_CL, microsoft_sqlserver_database_CL, microsoft_sqlserver_query_CL | distinct microsoft_sqlserver_instance_name_s",
+                            "Title": "Instance"
+                          },{
+                            "FieldName": "microsoft_sqlserver_always_on_availability_group_name_s",
+                            "QueryForValues": "union microsoft_sqlserver_database_CL, microsoft_sqlserver_always_on_availability_group_CL | distinct microsoft_sqlserver_always_on_availability_group_name_s",
+                            "Title": "Always On Availability Group"
+                          },{
+                            "FieldName": "microsoft_sqlserver_database_name_s",
+                            "QueryForValues": "microsoft_sqlserver_database_CL | distinct microsoft_sqlserver_database_name_s",
+                            "Title": "Database"
+                          },{
+                            "FieldName": "microsoft_sqlserver_query_name_s",
+                            "QueryForValues": "microsoft_sqlserver_query_CL | distinct microsoft_sqlserver_query_name_s",
+                            "Title": "Query"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_sqlserver_instance_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Failed Jobs'] = columnifexists('failed_jobs_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Number of Unhealthy Cluster Nodes'] = columnifexists('number_of_unhealthy_cluster_nodes_d', double(null)), ['Wait Time'] = columnifexists('wait_time_rate_d', double(null)), TimeGenerated, Name=microsoft_sqlserver_instance_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Failed Jobs']) or isnotnull(['Lock Timeouts']) or isnotnull(['Number of Unhealthy Cluster Nodes']) or isnotnull(['Wait Time']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Failed Jobs'] < 1 or isnull(['Failed Jobs'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Number of Unhealthy Cluster Nodes'] < 1 or isnull(['Number of Unhealthy Cluster Nodes'])) and (['Wait Time'] < 1000 or isnull(['Wait Time'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

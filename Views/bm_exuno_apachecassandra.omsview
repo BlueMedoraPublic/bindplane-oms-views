@@ -1,0 +1,590 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Apache Cassandra Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Apache Cassandra Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Apache Cassandra Environment",
+                        "Name": "Apache Cassandra Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Apache Cassandra Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Apache Cassandra",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Apache Cassandra is an open-source NoSQL database."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Apache Cassandra, it is important to monitor latency and load metrics in order to determine if the instance needs to be scaled."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_cassandra_node_CL | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node}  | project ['Pending Read Stage Tasks'] = columnifexists('pending_read_stage_tasks_d', double(null)), ['Pending Gossip Stage Tasks'] = columnifexists('pending_gossip_stage_tasks_d', double(null)), ['Pending Mutation Stage Tasks'] = columnifexists('pending_mutation_stage_tasks_d', double(null)), ['Pending Compaction Executor Tasks'] = columnifexists('pending_compaction_executor_tasks_d', double(null)), ['Operation Mode'] = columnifexists('operation_mode_s', 'NULL_VALUE'), TimeGenerated, Name=apache_cassandra_node_name_s  | extend Healthy = case(isnotnull(['Pending Read Stage Tasks']) or isnotnull(['Pending Gossip Stage Tasks']) or isnotnull(['Pending Mutation Stage Tasks']) or isnotnull(['Pending Compaction Executor Tasks']) or coalesce(['Operation Mode'], 'NULL_VALUE') != 'NULL_VALUE', (['Pending Read Stage Tasks'] < 10 or isnull(['Pending Read Stage Tasks'])) and (['Pending Gossip Stage Tasks'] < 1 or isnull(['Pending Gossip Stage Tasks'])) and (['Pending Mutation Stage Tasks'] < 5 or isnull(['Pending Mutation Stage Tasks'])) and (['Pending Compaction Executor Tasks'] < 1 or isnull(['Pending Compaction Executor Tasks'])) and (['Operation Mode'] == 'NORMAL' or coalesce(['Operation Mode'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_cassandra_node_CL | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node}  | project ['Pending Read Stage Tasks'] = columnifexists('pending_read_stage_tasks_d', double(null)), ['Pending Gossip Stage Tasks'] = columnifexists('pending_gossip_stage_tasks_d', double(null)), ['Pending Mutation Stage Tasks'] = columnifexists('pending_mutation_stage_tasks_d', double(null)), ['Pending Compaction Executor Tasks'] = columnifexists('pending_compaction_executor_tasks_d', double(null)), ['Operation Mode'] = columnifexists('operation_mode_s', 'NULL_VALUE'), TimeGenerated, Name=apache_cassandra_node_name_s  | extend Healthy = case(isnotnull(['Pending Read Stage Tasks']) or isnotnull(['Pending Gossip Stage Tasks']) or isnotnull(['Pending Mutation Stage Tasks']) or isnotnull(['Pending Compaction Executor Tasks']) or coalesce(['Operation Mode'], 'NULL_VALUE') != 'NULL_VALUE', (['Pending Read Stage Tasks'] < 10 or isnull(['Pending Read Stage Tasks'])) and (['Pending Gossip Stage Tasks'] < 1 or isnull(['Pending Gossip Stage Tasks'])) and (['Pending Mutation Stage Tasks'] < 5 or isnull(['Pending Mutation Stage Tasks'])) and (['Pending Compaction Executor Tasks'] < 1 or isnull(['Pending Compaction Executor Tasks'])) and (['Operation Mode'] == 'NORMAL' or coalesce(['Operation Mode'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "apache_cassandra_node_CL | project ['Pending Read Stage Tasks'] = columnifexists('pending_read_stage_tasks_d', double(null)), ['Pending Gossip Stage Tasks'] = columnifexists('pending_gossip_stage_tasks_d', double(null)), ['Pending Mutation Stage Tasks'] = columnifexists('pending_mutation_stage_tasks_d', double(null)), ['Pending Compaction Executor Tasks'] = columnifexists('pending_compaction_executor_tasks_d', double(null)), ['Operation Mode'] = columnifexists('operation_mode_s', 'NULL_VALUE'), TimeGenerated, Name=apache_cassandra_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Pending Read Stage Tasks']) or isnotnull(['Pending Gossip Stage Tasks']) or isnotnull(['Pending Mutation Stage Tasks']) or isnotnull(['Pending Compaction Executor Tasks']) or coalesce(['Operation Mode'], 'NULL_VALUE') != 'NULL_VALUE', (['Pending Read Stage Tasks'] < 10 or isnull(['Pending Read Stage Tasks'])) and (['Pending Gossip Stage Tasks'] < 1 or isnull(['Pending Gossip Stage Tasks'])) and (['Pending Mutation Stage Tasks'] < 5 or isnull(['Pending Mutation Stage Tasks'])) and (['Pending Compaction Executor Tasks'] < 1 or isnull(['Pending Compaction Executor Tasks'])) and (['Operation Mode'] == 'NORMAL' or coalesce(['Operation Mode'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "apache_cassandra_node_CL | project ['Pending Read Stage Tasks'] = columnifexists('pending_read_stage_tasks_d', double(null)), ['Pending Gossip Stage Tasks'] = columnifexists('pending_gossip_stage_tasks_d', double(null)), ['Pending Mutation Stage Tasks'] = columnifexists('pending_mutation_stage_tasks_d', double(null)), ['Pending Compaction Executor Tasks'] = columnifexists('pending_compaction_executor_tasks_d', double(null)), ['Operation Mode'] = columnifexists('operation_mode_s', 'NULL_VALUE'), TimeGenerated, Name=apache_cassandra_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Pending Read Stage Tasks']) or isnotnull(['Pending Gossip Stage Tasks']) or isnotnull(['Pending Mutation Stage Tasks']) or isnotnull(['Pending Compaction Executor Tasks']) or coalesce(['Operation Mode'], 'NULL_VALUE') != 'NULL_VALUE', (['Pending Read Stage Tasks'] < 10 or isnull(['Pending Read Stage Tasks'])) and (['Pending Gossip Stage Tasks'] < 1 or isnull(['Pending Gossip Stage Tasks'])) and (['Pending Mutation Stage Tasks'] < 5 or isnull(['Pending Mutation Stage Tasks'])) and (['Pending Compaction Executor Tasks'] < 1 or isnull(['Pending Compaction Executor Tasks'])) and (['Operation Mode'] == 'NORMAL' or coalesce(['Operation Mode'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Read Total Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Total Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_cassandra_node_CL | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('read_total_latency_rate_d',0.0), 0.0)) by apache_cassandra_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Total Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_cassandra_node_CL  | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('read_total_latency_rate_d',0.0), 0.0)) by apache_cassandra_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Read Total Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Write Total Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Total Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_cassandra_node_CL | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('write_total_latency_rate_d',0.0), 0.0)) by apache_cassandra_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Total Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_cassandra_node_CL  | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('write_total_latency_rate_d',0.0), 0.0)) by apache_cassandra_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Write Total Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Storage Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Storage Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_cassandra_node_CL | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('storage_load_d',0.0), 0.0)) by apache_cassandra_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Storage Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_cassandra_node_CL  | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('storage_load_d',0.0), 0.0)) by apache_cassandra_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Storage Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Process CPU Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Process CPU Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_cassandra_node_CL | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('process_cpu_load_d',0.0), 0.0)) by apache_cassandra_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Process CPU Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Process CPU Load"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_cassandra_node_CL  | where ${Cluster} and ${Operation Mode} and ${Release Version} and ${Node} | summarize avg(coalesce(columnifexists('process_cpu_load_d',0.0), 0.0)) by apache_cassandra_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Process CPU Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "apache_cassandra_node_CL | summarize([\"Last Update Time\"], ['Read Total Latency'], ['Write Total Latency'])=arg_max(TimeGenerated,columnifexists('read_total_latency_rate_d', ''),columnifexists('write_total_latency_rate_d', '')) by Name=apache_cassandra_node_name_s",
+                                            "displayName": "Node Client Requests"
+                                        }
+                                        ,{
+                                            "query": "apache_cassandra_node_CL | summarize([\"Last Update Time\"], ['Storage Load'])=arg_max(TimeGenerated,columnifexists('storage_load_d', '')) by Name=apache_cassandra_node_name_s",
+                                            "displayName": "Node Storage"
+                                        }
+                                        ,{
+                                            "query": "apache_cassandra_node_CL | summarize([\"Last Update Time\"], ['Process CPU Load'])=arg_max(TimeGenerated,columnifexists('process_cpu_load_d', '')) by Name=apache_cassandra_node_name_s",
+                                            "displayName": "Node Operating System"
+                                        }
+                                        ,{
+                                            "query": "apache_cassandra_node_CL | summarize([\"Last Update Time\"], ['Available Processors'], ['Incremental Backups Enabled'], ['Initial Heap Memory'], ['Initial Non-Heap Memory'], ['Java Version'], ['Operating System'], ['Release Version'])=arg_max(TimeGenerated,columnifexists('available_processors_d', ''),columnifexists('incremental_backups_enabled_d', ''),columnifexists('initial_heap_memory_d', ''),columnifexists('initial_non_heap_memory_d', ''),columnifexists('java_version_s', ''),columnifexists('operating_system_s', ''),columnifexists('release_version_s', '')) by Name=apache_cassandra_node_name_s",
+                                            "displayName": "Node Properties"
+                                        }
+                                        ,{
+                                            "query": "apache_cassandra_cluster_CL | summarize([\"Last Update Time\"], ['Node Count'])=arg_max(TimeGenerated,columnifexists('node_count_d', '')) by Name=apache_cassandra_cluster_name_s",
+                                            "displayName": "Cluster Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "apache_cassandra_cluster_name_s",
+                            "QueryForValues": "union apache_cassandra_node_CL, apache_cassandra_cluster_CL | distinct apache_cassandra_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "operation_mode_s",
+                            "QueryForValues": "apache_cassandra_node_CL | distinct operation_mode_s",
+                            "Title": "Operation Mode"
+                          },{
+                            "FieldName": "release_version_s",
+                            "QueryForValues": "apache_cassandra_node_CL | distinct release_version_s",
+                            "Title": "Release Version"
+                          },{
+                            "FieldName": "apache_cassandra_node_name_s",
+                            "QueryForValues": "apache_cassandra_node_CL | distinct apache_cassandra_node_name_s",
+                            "Title": "Node"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "apache_cassandra_node_CL | project ['Pending Read Stage Tasks'] = columnifexists('pending_read_stage_tasks_d', double(null)), ['Pending Gossip Stage Tasks'] = columnifexists('pending_gossip_stage_tasks_d', double(null)), ['Pending Mutation Stage Tasks'] = columnifexists('pending_mutation_stage_tasks_d', double(null)), ['Pending Compaction Executor Tasks'] = columnifexists('pending_compaction_executor_tasks_d', double(null)), ['Operation Mode'] = columnifexists('operation_mode_s', 'NULL_VALUE'), TimeGenerated, Name=apache_cassandra_node_name_s  | extend Healthy = case(isnotnull(['Pending Read Stage Tasks']) or isnotnull(['Pending Gossip Stage Tasks']) or isnotnull(['Pending Mutation Stage Tasks']) or isnotnull(['Pending Compaction Executor Tasks']) or coalesce(['Operation Mode'], 'NULL_VALUE') != 'NULL_VALUE', (['Pending Read Stage Tasks'] < 10 or isnull(['Pending Read Stage Tasks'])) and (['Pending Gossip Stage Tasks'] < 1 or isnull(['Pending Gossip Stage Tasks'])) and (['Pending Mutation Stage Tasks'] < 5 or isnull(['Pending Mutation Stage Tasks'])) and (['Pending Compaction Executor Tasks'] < 1 or isnull(['Pending Compaction Executor Tasks'])) and (['Operation Mode'] == 'NORMAL' or coalesce(['Operation Mode'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Node",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

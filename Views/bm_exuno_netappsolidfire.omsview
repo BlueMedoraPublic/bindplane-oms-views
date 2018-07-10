@@ -1,0 +1,721 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "NetApp SolidFire Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/NetApp SolidFire Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "NetApp SolidFire Environment",
+                        "Name": "NetApp SolidFire Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "NetApp SolidFire Overview",
+                                        "NewGroup": false,
+                                        "Color": "#4423559"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "NetApp SolidFire",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "NetApp Solidfire is a storage solution which can be used independently or as a part of NetApp's hyper converged cloud solution, NetApp HCI."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring NetApp Solidfire, it is best to monitor cpu utilization, storage usage, and read and write latency and throughput on storage nodes."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Node Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_solidfire_storage_node_CL | where ${Cluster} and ${Model} and ${Software Version} and ${Storage Node}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=netapp_solidfire_storage_node_name_s  | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_solidfire_storage_node_CL | where ${Cluster} and ${Model} and ${Software Version} and ${Storage Node}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=netapp_solidfire_storage_node_name_s  | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Node Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "netapp_solidfire_storage_node_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=netapp_solidfire_storage_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "netapp_solidfire_storage_node_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=netapp_solidfire_storage_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Node CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_solidfire_storage_node_CL | where ${Cluster} and ${Model} and ${Software Version} and ${Storage Node} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by netapp_solidfire_storage_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_solidfire_storage_node_CL  | where ${Cluster} and ${Model} and ${Software Version} and ${Storage Node} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by netapp_solidfire_storage_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Node",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Node Total Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_solidfire_storage_node_CL | where ${Cluster} and ${Model} and ${Software Version} and ${Storage Node} | summarize avg(coalesce(columnifexists('total_memory_usage_d',0.0), 0.0)) by netapp_solidfire_storage_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_solidfire_storage_node_CL  | where ${Cluster} and ${Model} and ${Software Version} and ${Storage Node} | summarize avg(coalesce(columnifexists('total_memory_usage_d',0.0), 0.0)) by netapp_solidfire_storage_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Node",
+                                            "Value": "Total Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Volume Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Volume Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_solidfire_volume_CL | where ${Cluster} and ${Status} and ${Volume} | summarize avg(coalesce(columnifexists('volume_utilization_d',0.0), 0.0)) by netapp_solidfire_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Volume Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Volume Utilization"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_solidfire_volume_CL  | where ${Cluster} and ${Status} and ${Volume} | summarize avg(coalesce(columnifexists('volume_utilization_d',0.0), 0.0)) by netapp_solidfire_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Volume Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "VVol Volume Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Volume Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_solidfire_vvol_CL | where ${Storage Container} and ${Status} and ${VVol Type} and ${VVol} | summarize avg(coalesce(columnifexists('volume_utilization_d',0.0), 0.0)) by netapp_solidfire_vvol_name_s",
+                                        "Callout": {
+                                            "Title": "Average Volume Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Volume Utilization"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_solidfire_vvol_CL  | where ${Storage Container} and ${Status} and ${VVol Type} and ${VVol} | summarize avg(coalesce(columnifexists('volume_utilization_d',0.0), 0.0)) by netapp_solidfire_vvol_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "VVol",
+                                            "Value": "Volume Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Overall Efficiency Factor",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Overall Efficiency Factor",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_solidfire_cluster_CL | where ${Cluster} | summarize avg(coalesce(columnifexists('overall_efficiency_factor_d',0.0), 0.0)) by netapp_solidfire_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Overall Efficiency Factor",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Overall Efficiency Factor"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_solidfire_cluster_CL  | where ${Cluster} | summarize avg(coalesce(columnifexists('overall_efficiency_factor_d',0.0), 0.0)) by netapp_solidfire_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Overall Efficiency Factor"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "netapp_solidfire_storage_node_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=netapp_solidfire_storage_node_name_s",
+                                            "displayName": "Storage Node CPU"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_storage_node_CL | summarize([\"Last Update Time\"], ['Total Memory Usage'])=arg_max(TimeGenerated,columnifexists('total_memory_usage_d', '')) by Name=netapp_solidfire_storage_node_name_s",
+                                            "displayName": "Storage Node Capacity"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_storage_node_CL | summarize([\"Last Update Time\"], ['Read Latency'], ['Write Latency'], ['Read Operations'], ['Write Operations'])=arg_max(TimeGenerated,columnifexists('read_latency_rate_d', ''),columnifexists('write_latency_rate_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('write_operations_rate_d', '')) by Name=netapp_solidfire_storage_node_name_s",
+                                            "displayName": "Storage Node Performance"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_storage_node_CL | summarize([\"Last Update Time\"], ['Cluster Interface'], ['CPU Model'], ['Management Interface'], ['Management IP'], ['Node Slot'], ['Software Version'], ['Storage Interface'])=arg_max(TimeGenerated,columnifexists('cluster_interface_s', ''),columnifexists('cpu_model_s', ''),columnifexists('management_interface_s', ''),columnifexists('management_ip_s', ''),columnifexists('node_slot_s', ''),columnifexists('software_version_s', ''),columnifexists('storage_interface_s', '')) by Name=netapp_solidfire_storage_node_name_s",
+                                            "displayName": "Storage Node Properties"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_volume_CL | summarize([\"Last Update Time\"], ['Read Latency'], ['Write Latency'], ['Read Operations'], ['Write Operations'], ['Reads'], ['Writes'], ['Actual IOPS'])=arg_max(TimeGenerated,columnifexists('read_latency_d', ''),columnifexists('write_latency_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('write_operations_rate_d', ''),columnifexists('reads_rate_d', ''),columnifexists('writes_rate_d', ''),columnifexists('actual_iops_d', '')) by Name=netapp_solidfire_volume_name_s",
+                                            "displayName": "Volume Performance"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_volume_CL | summarize([\"Last Update Time\"], ['Size'])=arg_max(TimeGenerated,columnifexists('size_d', '')) by Name=netapp_solidfire_volume_name_s",
+                                            "displayName": "Volume Capacity"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_volume_CL | summarize([\"Last Update Time\"], ['Access'], ['Account ID'], ['Enable 512 Byte Sector Emulation'], ['iSCSI Qualified Name'], ['SCSI EUI-64 Device ID'], ['SCSI NAA Device ID'], ['Volume ID'])=arg_max(TimeGenerated,columnifexists('access_s', ''),columnifexists('account_id_d', ''),columnifexists('enable_512_byte_sector_emulation_d', ''),columnifexists('iscsi_qualified_name_s', ''),columnifexists('scsi_eui_64_device_id_s', ''),columnifexists('scsi_naa_device_id_s', ''),columnifexists('volume_id_d', '')) by Name=netapp_solidfire_volume_name_s",
+                                            "displayName": "Volume Properties"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_vvol_CL | summarize([\"Last Update Time\"], ['Read Latency'], ['Write Latency'], ['Read Operations'], ['Write Operations'], ['Reads'], ['Writes'], ['Actual IOPS'])=arg_max(TimeGenerated,columnifexists('read_latency_d', ''),columnifexists('write_latency_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('write_operations_rate_d', ''),columnifexists('reads_rate_d', ''),columnifexists('writes_rate_d', ''),columnifexists('actual_iops_d', '')) by Name=netapp_solidfire_vvol_name_s",
+                                            "displayName": "VVol Performance"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_vvol_CL | summarize([\"Last Update Time\"], ['Size'])=arg_max(TimeGenerated,columnifexists('size_d', '')) by Name=netapp_solidfire_vvol_name_s",
+                                            "displayName": "VVol Capacity"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_vvol_CL | summarize([\"Last Update Time\"], ['VMware Container ID'], ['VMware Guest OS Type'], ['VMware Virtual Machine ID'], ['VMware VVol Allocation Type'], ['VMware VVol Name'], ['VMware VVol Namespace'], ['VMware VVol Type'])=arg_max(TimeGenerated,columnifexists('vmware_container_id_s', ''),columnifexists('vmware_guest_os_type_s', ''),columnifexists('vmware_virtual_machine_id_s', ''),columnifexists('vmware_vvol_allocation_type_s', ''),columnifexists('vmware_vvol_name_s', ''),columnifexists('vmware_vvol_namespace_s', ''),columnifexists('vmware_vvol_type_s', '')) by Name=netapp_solidfire_vvol_name_s",
+                                            "displayName": "VVol Properties"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_cluster_CL | summarize([\"Last Update Time\"], ['Overall Efficiency Factor'], ['Compression Factor'], ['Deduplication Factor'], ['Thin Provisioning Factor'])=arg_max(TimeGenerated,columnifexists('overall_efficiency_factor_d', ''),columnifexists('compression_factor_d', ''),columnifexists('deduplication_factor_d', ''),columnifexists('thin_provisioning_factor_d', '')) by Name=netapp_solidfire_cluster_name_s",
+                                            "displayName": "Cluster Efficiency"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_cluster_CL | summarize([\"Last Update Time\"], ['Average IOPS'], ['Read Latency'], ['Read Operations'], ['Reads'], ['Write Latency'], ['Write Operations'], ['Writes'])=arg_max(TimeGenerated,columnifexists('average_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('reads_rate_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_operations_rate_d', ''),columnifexists('writes_rate_d', '')) by Name=netapp_solidfire_cluster_name_s",
+                                            "displayName": "Cluster Performance"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_cluster_CL | summarize([\"Last Update Time\"], ['Used Space'])=arg_max(TimeGenerated,columnifexists('used_space_d', '')) by Name=netapp_solidfire_cluster_name_s",
+                                            "displayName": "Cluster Capacity"
+                                        }
+                                        ,{
+                                            "query": "netapp_solidfire_cluster_CL | summarize([\"Last Update Time\"], ['ESXi Host IDs'], ['MVIP'], ['MVIP Interface'], ['MVIP Node ID'], ['SVIP'], ['SVIP Interface'], ['SVIP Node ID'])=arg_max(TimeGenerated,columnifexists('esxi_host_ids_s', ''),columnifexists('mvip_s', ''),columnifexists('mvip_interface_s', ''),columnifexists('mvip_node_id_d', ''),columnifexists('svip_s', ''),columnifexists('svip_interface_s', ''),columnifexists('svip_node_id_d', '')) by Name=netapp_solidfire_cluster_name_s",
+                                            "displayName": "Cluster Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "netapp_solidfire_cluster_name_s",
+                            "QueryForValues": "union netapp_solidfire_storage_node_CL, netapp_solidfire_volume_CL, netapp_solidfire_cluster_CL | distinct netapp_solidfire_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "netapp_solidfire_storage_node_CL | distinct model_s",
+                            "Title": "Model"
+                          },{
+                            "FieldName": "software_version_s",
+                            "QueryForValues": "netapp_solidfire_storage_node_CL | distinct software_version_s",
+                            "Title": "Software Version"
+                          },{
+                            "FieldName": "netapp_solidfire_storage_node_name_s",
+                            "QueryForValues": "netapp_solidfire_storage_node_CL | distinct netapp_solidfire_storage_node_name_s",
+                            "Title": "Storage Node"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "union netapp_solidfire_volume_CL, netapp_solidfire_vvol_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "netapp_solidfire_volume_name_s",
+                            "QueryForValues": "netapp_solidfire_volume_CL | distinct netapp_solidfire_volume_name_s",
+                            "Title": "Volume"
+                          },{
+                            "FieldName": "netapp_solidfire_storage_container_name_s",
+                            "QueryForValues": "netapp_solidfire_vvol_CL | distinct netapp_solidfire_storage_container_name_s",
+                            "Title": "Storage Container"
+                          },{
+                            "FieldName": "vvol_type_s",
+                            "QueryForValues": "netapp_solidfire_vvol_CL | distinct vvol_type_s",
+                            "Title": "VVol Type"
+                          },{
+                            "FieldName": "netapp_solidfire_vvol_name_s",
+                            "QueryForValues": "netapp_solidfire_vvol_CL | distinct netapp_solidfire_vvol_name_s",
+                            "Title": "VVol"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "netapp_solidfire_storage_node_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=netapp_solidfire_storage_node_name_s  | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Storage Node",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

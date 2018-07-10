@@ -1,0 +1,657 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon DynamoDB Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon DynamoDB Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon DynamoDB Environment",
+                        "Name": "Amazon DynamoDB Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon DynamoDB Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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1atXT5w6dSov9/UWD+jsiRBm4cKFl9144433FhQU3K3RaPqDnptkRQKBQGN9ff2/du3atfjJJ5882N7eLspdKEomjz32mLm8vHxmV1fXdkmSAnJ/SlGxIUmS4HK5Kvfv3/8/L730Uq7c1yEVY5MmTdKsW7fue21tbaXBYJBO301Roii6rVbryrKysmn333+/Qe7rkooyrVarWLx48ZV1dXVvhafvUhQJBoPtDQ0N761YseL6kpKSlJlWnEr9XObll1/OnzJlyvTi4uJZWq32ctDbQtSZiM/nO1lfX/+PlStXfvTUU0/VAJDkLhR1iWbPnp1eVlZ2l91u3ySKokfuTxsqvkmS5O/s7Px6z549jzz55JN0WnGiuvHGGzVffPHFDS0tLZ/Q6btUbwmC4Ghra1u+cePGH950001JOa04KbsAeXl53CuvvHL5xIkTH8rJyblTrVYXJOtrpaIvEAi0tLW1fbFz5873Z86cudvpdApylylSkq1SML/97W/zbr311h8NGDBgtlarHcIwjELuQlFJgXi93m9qa2s/Wr58+eJnn322AUkwPpA0AfDkk0+mTZ06deKwYcMeNZlM41mW1cpdJir5SJLkczqdFceOHfv7okWLvvzrX//aIXeZUtrYsWOVpaWl45qamj4KBoPtcvcbqdQQDAbtbW1t/16zZs3Nt99+u0buenCxErkFwL733nv9x40bN72oqGgGz/N0tRcVc36/v6GpqWnJxo0bP/zDH/5w7NixYwk1PpCQAfDaa6/l3HzzzbcPHDhwtl6vH8kwDF3vTcmGECJ4PJ4jVVVV769cufKzuXPnNgJIiCeZJFQAPProo4Zp06ZNGDZs2MNms3kiy7JJeWump8Z2F1aXV2PzYSucolru4pxXQbYRNw/LwZiSNGQb47+8kSRJksfhcOw6ePDg20uXLl375ptvdsldpvNJlABQLF26dMSYMWMeysnJuUOpVCb9w+QbrE6sqTiJlTtPoLLaClalhSYtM+63vzan65BhMqBfJo+x/U0YU2JCnim1gkAQhI7W1tZlFRUV77/zzjsVq1at8stdpnOJ76sJYF588cW8adOm3VNUVDRTq9UORJL38xvaXVhbXoMvt1fhwMk2SOEbTQo+cQIgPU0XKidDUJSpxfiSlAwCye/319XW1n68YcOGjx999NETiMNuASd3Ac6lb9++ys8+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",
+                                        "Label": "Amazon DynamoDB",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon DynamoDB is a fast and flexible nonrelational database service for all applications that need consistent, single-digit millisecond latency at any scale. It is a fully managed cloud database and supports both document and key-value store models."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor capacity units and throttle events. When consumption surpasses the provisioned amount, throttling of the service will occur."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Global Secondary Index Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_dynamodb_global_secondary_index_CL | where ${Status} and ${Global Secondary Index}  | project ['Consumed Read Capacity'] = columnifexists('consumed_read_capacity_d', double(null)), ['Provisioned Read Capacity'] = columnifexists('provisioned_read_capacity_d', double(null)), ['Consumed Write Capacity'] = columnifexists('consumed_write_capacity_d', double(null)), ['Provisioned Write Capacity'] = columnifexists('provisioned_write_capacity_d', double(null)), TimeGenerated, Name=amazon_dynamodb_global_secondary_index_name_s  | extend Healthy = case(isnotnull(['Consumed Read Capacity']) or isnotnull(['Provisioned Read Capacity']) or isnotnull(['Consumed Write Capacity']) or isnotnull(['Provisioned Write Capacity']), (['Consumed Read Capacity'] < ['Provisioned Read Capacity'] or isnull(['Consumed Read Capacity']) or isnull(['Provisioned Read Capacity'])) and (['Consumed Write Capacity'] < ['Provisioned Write Capacity'] or isnull(['Consumed Write Capacity']) or isnull(['Provisioned Write Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_dynamodb_global_secondary_index_CL | where ${Status} and ${Global Secondary Index}  | project ['Consumed Read Capacity'] = columnifexists('consumed_read_capacity_d', double(null)), ['Provisioned Read Capacity'] = columnifexists('provisioned_read_capacity_d', double(null)), ['Consumed Write Capacity'] = columnifexists('consumed_write_capacity_d', double(null)), ['Provisioned Write Capacity'] = columnifexists('provisioned_write_capacity_d', double(null)), TimeGenerated, Name=amazon_dynamodb_global_secondary_index_name_s  | extend Healthy = case(isnotnull(['Consumed Read Capacity']) or isnotnull(['Provisioned Read Capacity']) or isnotnull(['Consumed Write Capacity']) or isnotnull(['Provisioned Write Capacity']), (['Consumed Read Capacity'] < ['Provisioned Read Capacity'] or isnull(['Consumed Read Capacity']) or isnull(['Provisioned Read Capacity'])) and (['Consumed Write Capacity'] < ['Provisioned Write Capacity'] or isnull(['Consumed Write Capacity']) or isnull(['Provisioned Write Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Global Secondary Index Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_dynamodb_global_secondary_index_CL | project ['Consumed Read Capacity'] = columnifexists('consumed_read_capacity_d', double(null)), ['Provisioned Read Capacity'] = columnifexists('provisioned_read_capacity_d', double(null)), ['Consumed Write Capacity'] = columnifexists('consumed_write_capacity_d', double(null)), ['Provisioned Write Capacity'] = columnifexists('provisioned_write_capacity_d', double(null)), TimeGenerated, Name=amazon_dynamodb_global_secondary_index_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Consumed Read Capacity']) or isnotnull(['Provisioned Read Capacity']) or isnotnull(['Consumed Write Capacity']) or isnotnull(['Provisioned Write Capacity']), (['Consumed Read Capacity'] < ['Provisioned Read Capacity'] or isnull(['Consumed Read Capacity']) or isnull(['Provisioned Read Capacity'])) and (['Consumed Write Capacity'] < ['Provisioned Write Capacity'] or isnull(['Consumed Write Capacity']) or isnull(['Provisioned Write Capacity'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_dynamodb_global_secondary_index_CL | project ['Consumed Read Capacity'] = columnifexists('consumed_read_capacity_d', double(null)), ['Provisioned Read Capacity'] = columnifexists('provisioned_read_capacity_d', double(null)), ['Consumed Write Capacity'] = columnifexists('consumed_write_capacity_d', double(null)), ['Provisioned Write Capacity'] = columnifexists('provisioned_write_capacity_d', double(null)), TimeGenerated, Name=amazon_dynamodb_global_secondary_index_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Consumed Read Capacity']) or isnotnull(['Provisioned Read Capacity']) or isnotnull(['Consumed Write Capacity']) or isnotnull(['Provisioned Write Capacity']), (['Consumed Read Capacity'] < ['Provisioned Read Capacity'] or isnull(['Consumed Read Capacity']) or isnull(['Provisioned Read Capacity'])) and (['Consumed Write Capacity'] < ['Provisioned Write Capacity'] or isnull(['Consumed Write Capacity']) or isnull(['Provisioned Write Capacity'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Table Consumed Read Capacity",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Consumed Read Capacity",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_dynamodb_table_CL | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('consumed_read_capacity_d',0.0), 0.0)) by amazon_dynamodb_table_name_s",
+                                        "Callout": {
+                                            "Title": "Average Consumed Read Capacity",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Consumed Read Capacity"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_dynamodb_table_CL  | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('consumed_read_capacity_d',0.0), 0.0)) by amazon_dynamodb_table_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Table",
+                                            "Value": "Consumed Read Capacity"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Table Consumed Write Capacity",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Consumed Write Capacity",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_dynamodb_table_CL | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('consumed_write_capacity_d',0.0), 0.0)) by amazon_dynamodb_table_name_s",
+                                        "Callout": {
+                                            "Title": "Average Consumed Write Capacity",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Consumed Write Capacity"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_dynamodb_table_CL  | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('consumed_write_capacity_d',0.0), 0.0)) by amazon_dynamodb_table_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Table",
+                                            "Value": "Consumed Write Capacity"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Table Successful Request Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Successful Request Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_dynamodb_table_CL | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('successful_request_latency_d',0.0), 0.0)) by amazon_dynamodb_table_name_s",
+                                        "Callout": {
+                                            "Title": "Average Successful Request Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_dynamodb_table_CL  | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('successful_request_latency_d',0.0), 0.0)) by amazon_dynamodb_table_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Table",
+                                            "Value": "Successful Request Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1000.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "900.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Table Throttled Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Throttled Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_dynamodb_table_CL | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('throttled_requests_d',0.0), 0.0)) by amazon_dynamodb_table_name_s",
+                                        "Callout": {
+                                            "Title": "Average Throttled Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Throttled Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_dynamodb_table_CL  | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('throttled_requests_d',0.0), 0.0)) by amazon_dynamodb_table_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Table",
+                                            "Value": "Throttled Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Table System Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "System Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_dynamodb_table_CL | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('system_errors_d',0.0), 0.0)) by amazon_dynamodb_table_name_s",
+                                        "Callout": {
+                                            "Title": "Average System Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "System Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_dynamodb_table_CL  | where ${Status} and ${Table} | summarize avg(coalesce(columnifexists('system_errors_d',0.0), 0.0)) by amazon_dynamodb_table_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Table",
+                                            "Value": "System Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_dynamodb_global_secondary_index_CL | summarize([\"Last Update Time\"], ['Consumed Read Capacity'], ['Consumed Write Capacity'], ['Throttled Requests'], ['System Errors'], ['Read Throttle Events'], ['Write Throttle Events'])=arg_max(TimeGenerated,columnifexists('consumed_read_capacity_d', ''),columnifexists('consumed_write_capacity_d', ''),columnifexists('throttled_requests_d', ''),columnifexists('system_errors_d', ''),columnifexists('read_throttle_events_d', ''),columnifexists('write_throttle_events_d', '')) by Name=amazon_dynamodb_global_secondary_index_name_s",
+                                            "displayName": "Global Secondary Index "
+                                        }
+                                        ,{
+                                            "query": "amazon_dynamodb_table_CL | summarize([\"Last Update Time\"], ['Successful Request Latency'], ['Throttled Requests'], ['System Errors'], ['User Errors'], ['Read Throttle Events'], ['Write Throttle Events'], ['Conditional Check Failed Requests'])=arg_max(TimeGenerated,columnifexists('successful_request_latency_d', ''),columnifexists('throttled_requests_d', ''),columnifexists('system_errors_d', ''),columnifexists('user_errors_d', ''),columnifexists('read_throttle_events_d', ''),columnifexists('write_throttle_events_d', ''),columnifexists('conditional_check_failed_requests_d', '')) by Name=amazon_dynamodb_table_name_s",
+                                            "displayName": "Table "
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "status_s",
+                            "QueryForValues": "union amazon_dynamodb_global_secondary_index_CL, amazon_dynamodb_table_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "amazon_dynamodb_global_secondary_index_name_s",
+                            "QueryForValues": "amazon_dynamodb_global_secondary_index_CL | distinct amazon_dynamodb_global_secondary_index_name_s",
+                            "Title": "Global Secondary Index"
+                          },{
+                            "FieldName": "amazon_dynamodb_key_schema_name_s",
+                            "QueryForValues": "amazon_dynamodb_key_schema_CL | distinct amazon_dynamodb_key_schema_name_s",
+                            "Title": "Key Schema"
+                          },{
+                            "FieldName": "amazon_dynamodb_local_secondary_index_name_s",
+                            "QueryForValues": "amazon_dynamodb_local_secondary_index_CL | distinct amazon_dynamodb_local_secondary_index_name_s",
+                            "Title": "Local Secondary Index"
+                          },{
+                            "FieldName": "amazon_dynamodb_table_name_s",
+                            "QueryForValues": "amazon_dynamodb_table_CL | distinct amazon_dynamodb_table_name_s",
+                            "Title": "Table"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_dynamodb_global_secondary_index_CL | project ['Consumed Read Capacity'] = columnifexists('consumed_read_capacity_d', double(null)), ['Provisioned Read Capacity'] = columnifexists('provisioned_read_capacity_d', double(null)), ['Consumed Write Capacity'] = columnifexists('consumed_write_capacity_d', double(null)), ['Provisioned Write Capacity'] = columnifexists('provisioned_write_capacity_d', double(null)), TimeGenerated, Name=amazon_dynamodb_global_secondary_index_name_s  | extend Healthy = case(isnotnull(['Consumed Read Capacity']) or isnotnull(['Provisioned Read Capacity']) or isnotnull(['Consumed Write Capacity']) or isnotnull(['Provisioned Write Capacity']), (['Consumed Read Capacity'] < ['Provisioned Read Capacity'] or isnull(['Consumed Read Capacity']) or isnull(['Provisioned Read Capacity'])) and (['Consumed Write Capacity'] < ['Provisioned Write Capacity'] or isnull(['Consumed Write Capacity']) or isnull(['Provisioned Write Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Global Secondary Index",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

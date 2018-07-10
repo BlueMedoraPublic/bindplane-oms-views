@@ -1,0 +1,677 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "IBM DB2 Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/IBM DB2 Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "IBM DB2 Environment",
+                        "Name": "IBM DB2 Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "IBM DB2 Overview",
+                                        "NewGroup": false,
+                                        "Color": "#55d455"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "IBM DB2",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "IBM DB2 is a cross-platform enterprise relational database server."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "At a high level, it is important to monitor the HADR (High Availability Disaster Recovery) status.  On a database level, high cache hit rates and low deadlocks are important for performance, and disk capacity and active application capacity should be monitored.  In addition, execution time and CPU utilization for queries should be as low as possible."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "ibm_db2_database_CL | where ${HADR} and ${Status} and ${Database}  | project ['Active Applications'] = columnifexists('active_applications_d', double(null)), ['Maximum Active Applications'] = columnifexists('maximum_active_applications_d', double(null)), ['Buffer Pool Data Hit Ratio'] = columnifexists('buffer_pool_data_hit_ratio_d', double(null)), ['Current Size'] = columnifexists('current_size_d', double(null)), ['Allocated Size'] = columnifexists('allocated_size_d', double(null)), ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Log Space Utilization'] = columnifexists('log_space_utilization_d', double(null)), ['Percentage of Applications Waiting on Locks'] = columnifexists('percentage_of_applications_waiting_on_locks_d', double(null)), TimeGenerated, Name=ibm_db2_database_name_s  | extend Healthy = case(isnotnull(['Active Applications']) or isnotnull(['Maximum Active Applications']) or isnotnull(['Buffer Pool Data Hit Ratio']) or isnotnull(['Current Size']) or isnotnull(['Allocated Size']) or isnotnull(['Deadlocks']) or isnotnull(['Lock Timeouts']) or isnotnull(['Log Space Utilization']) or isnotnull(['Percentage of Applications Waiting on Locks']), (['Active Applications'] < ['Maximum Active Applications'] or isnull(['Active Applications']) or isnull(['Maximum Active Applications'])) and (['Buffer Pool Data Hit Ratio'] > 85 or isnull(['Buffer Pool Data Hit Ratio'])) and (['Current Size'] < ['Allocated Size'] or isnull(['Current Size']) or isnull(['Allocated Size'])) and (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Log Space Utilization'] < 85 or isnull(['Log Space Utilization'])) and (['Percentage of Applications Waiting on Locks'] < 15 or isnull(['Percentage of Applications Waiting on Locks'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "ibm_db2_database_CL | where ${HADR} and ${Status} and ${Database}  | project ['Active Applications'] = columnifexists('active_applications_d', double(null)), ['Maximum Active Applications'] = columnifexists('maximum_active_applications_d', double(null)), ['Buffer Pool Data Hit Ratio'] = columnifexists('buffer_pool_data_hit_ratio_d', double(null)), ['Current Size'] = columnifexists('current_size_d', double(null)), ['Allocated Size'] = columnifexists('allocated_size_d', double(null)), ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Log Space Utilization'] = columnifexists('log_space_utilization_d', double(null)), ['Percentage of Applications Waiting on Locks'] = columnifexists('percentage_of_applications_waiting_on_locks_d', double(null)), TimeGenerated, Name=ibm_db2_database_name_s  | extend Healthy = case(isnotnull(['Active Applications']) or isnotnull(['Maximum Active Applications']) or isnotnull(['Buffer Pool Data Hit Ratio']) or isnotnull(['Current Size']) or isnotnull(['Allocated Size']) or isnotnull(['Deadlocks']) or isnotnull(['Lock Timeouts']) or isnotnull(['Log Space Utilization']) or isnotnull(['Percentage of Applications Waiting on Locks']), (['Active Applications'] < ['Maximum Active Applications'] or isnull(['Active Applications']) or isnull(['Maximum Active Applications'])) and (['Buffer Pool Data Hit Ratio'] > 85 or isnull(['Buffer Pool Data Hit Ratio'])) and (['Current Size'] < ['Allocated Size'] or isnull(['Current Size']) or isnull(['Allocated Size'])) and (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Log Space Utilization'] < 85 or isnull(['Log Space Utilization'])) and (['Percentage of Applications Waiting on Locks'] < 15 or isnull(['Percentage of Applications Waiting on Locks'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "ibm_db2_database_CL | project ['Active Applications'] = columnifexists('active_applications_d', double(null)), ['Maximum Active Applications'] = columnifexists('maximum_active_applications_d', double(null)), ['Buffer Pool Data Hit Ratio'] = columnifexists('buffer_pool_data_hit_ratio_d', double(null)), ['Current Size'] = columnifexists('current_size_d', double(null)), ['Allocated Size'] = columnifexists('allocated_size_d', double(null)), ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Log Space Utilization'] = columnifexists('log_space_utilization_d', double(null)), ['Percentage of Applications Waiting on Locks'] = columnifexists('percentage_of_applications_waiting_on_locks_d', double(null)), TimeGenerated, Name=ibm_db2_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Active Applications']) or isnotnull(['Maximum Active Applications']) or isnotnull(['Buffer Pool Data Hit Ratio']) or isnotnull(['Current Size']) or isnotnull(['Allocated Size']) or isnotnull(['Deadlocks']) or isnotnull(['Lock Timeouts']) or isnotnull(['Log Space Utilization']) or isnotnull(['Percentage of Applications Waiting on Locks']), (['Active Applications'] < ['Maximum Active Applications'] or isnull(['Active Applications']) or isnull(['Maximum Active Applications'])) and (['Buffer Pool Data Hit Ratio'] > 85 or isnull(['Buffer Pool Data Hit Ratio'])) and (['Current Size'] < ['Allocated Size'] or isnull(['Current Size']) or isnull(['Allocated Size'])) and (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Log Space Utilization'] < 85 or isnull(['Log Space Utilization'])) and (['Percentage of Applications Waiting on Locks'] < 15 or isnull(['Percentage of Applications Waiting on Locks'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "ibm_db2_database_CL | project ['Active Applications'] = columnifexists('active_applications_d', double(null)), ['Maximum Active Applications'] = columnifexists('maximum_active_applications_d', double(null)), ['Buffer Pool Data Hit Ratio'] = columnifexists('buffer_pool_data_hit_ratio_d', double(null)), ['Current Size'] = columnifexists('current_size_d', double(null)), ['Allocated Size'] = columnifexists('allocated_size_d', double(null)), ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Log Space Utilization'] = columnifexists('log_space_utilization_d', double(null)), ['Percentage of Applications Waiting on Locks'] = columnifexists('percentage_of_applications_waiting_on_locks_d', double(null)), TimeGenerated, Name=ibm_db2_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Active Applications']) or isnotnull(['Maximum Active Applications']) or isnotnull(['Buffer Pool Data Hit Ratio']) or isnotnull(['Current Size']) or isnotnull(['Allocated Size']) or isnotnull(['Deadlocks']) or isnotnull(['Lock Timeouts']) or isnotnull(['Log Space Utilization']) or isnotnull(['Percentage of Applications Waiting on Locks']), (['Active Applications'] < ['Maximum Active Applications'] or isnull(['Active Applications']) or isnull(['Maximum Active Applications'])) and (['Buffer Pool Data Hit Ratio'] > 85 or isnull(['Buffer Pool Data Hit Ratio'])) and (['Current Size'] < ['Allocated Size'] or isnull(['Current Size']) or isnull(['Allocated Size'])) and (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Log Space Utilization'] < 85 or isnull(['Log Space Utilization'])) and (['Percentage of Applications Waiting on Locks'] < 15 or isnull(['Percentage of Applications Waiting on Locks'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Active Applications",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Active Applications",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "ibm_db2_database_CL | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('active_applications_d',0.0), 0.0)) by ibm_db2_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Active Applications",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Active Applications"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "ibm_db2_database_CL  | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('active_applications_d',0.0), 0.0)) by ibm_db2_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Active Applications"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Buffer Pool Data Hit Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Buffer Pool Data Hit Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "ibm_db2_database_CL | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('buffer_pool_data_hit_ratio_d',0.0), 0.0)) by ibm_db2_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Buffer Pool Data Hit Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "ibm_db2_database_CL  | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('buffer_pool_data_hit_ratio_d',0.0), 0.0)) by ibm_db2_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Buffer Pool Data Hit Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "92.5",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Deadlocks",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Deadlocks",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "ibm_db2_database_CL | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('deadlocks_rate_d',0.0), 0.0)) by ibm_db2_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Deadlocks",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "ibm_db2_database_CL  | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('deadlocks_rate_d',0.0), 0.0)) by ibm_db2_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Deadlocks"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Lock Timeouts",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Lock Timeouts",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "ibm_db2_database_CL | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('lock_timeouts_rate_d',0.0), 0.0)) by ibm_db2_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Lock Timeouts",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "ibm_db2_database_CL  | where ${HADR} and ${Status} and ${Database} | summarize avg(coalesce(columnifexists('lock_timeouts_rate_d',0.0), 0.0)) by ibm_db2_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Lock Timeouts"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Memory Pool Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "ibm_db2_memory_pool_CL | where ${Database} and ${Memory Pool} | summarize avg(coalesce(columnifexists('utilization_d',0.0), 0.0)) by ibm_db2_memory_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "ibm_db2_memory_pool_CL  | where ${Database} and ${Memory Pool} | summarize avg(coalesce(columnifexists('utilization_d',0.0), 0.0)) by ibm_db2_memory_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Memory Pool",
+                                            "Value": "Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "ibm_db2_database_CL | summarize([\"Last Update Time\"], ['Active Applications'], ['Buffer Pool Data Hit Ratio'], ['Deadlocks'], ['Lock Timeouts'], ['Log Space Utilization'], ['Percentage of Applications Waiting on Locks'])=arg_max(TimeGenerated,columnifexists('active_applications_d', ''),columnifexists('buffer_pool_data_hit_ratio_d', ''),columnifexists('deadlocks_rate_d', ''),columnifexists('lock_timeouts_rate_d', ''),columnifexists('log_space_utilization_d', ''),columnifexists('percentage_of_applications_waiting_on_locks_d', '')) by Name=ibm_db2_database_name_s",
+                                            "displayName": "Database "
+                                        }
+                                        ,{
+                                            "query": "ibm_db2_memory_pool_CL | summarize([\"Last Update Time\"], ['Utilization'])=arg_max(TimeGenerated,columnifexists('utilization_d', '')) by Name=ibm_db2_memory_pool_name_s",
+                                            "displayName": "Memory Pool "
+                                        }
+                                        ,{
+                                            "query": "ibm_db2_sql_statement_CL | summarize([\"Last Update Time\"], ['Average Execution Time'], ['Executions'])=arg_max(TimeGenerated,columnifexists('average_execution_time_d', ''),columnifexists('executions_d', '')) by Name=ibm_db2_sql_statement_name_s",
+                                            "displayName": "SQL Statement "
+                                        }
+                                        ,{
+                                            "query": "ibm_db2_sql_statement_CL | summarize([\"Last Update Time\"], ['Statement Text'])=arg_max(TimeGenerated,columnifexists('statement_text_s', '')) by Name=ibm_db2_sql_statement_name_s",
+                                            "displayName": "SQL Statement Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "ibm_db2_hadr_name_s",
+                            "QueryForValues": "ibm_db2_database_CL | distinct ibm_db2_hadr_name_s",
+                            "Title": "HADR"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "ibm_db2_database_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "ibm_db2_database_name_s",
+                            "QueryForValues": "union ibm_db2_database_CL, ibm_db2_memory_pool_CL, ibm_db2_sql_statement_CL, ibm_db2_tablespace_CL | distinct ibm_db2_database_name_s",
+                            "Title": "Database"
+                          },{
+                            "FieldName": "ibm_db2_memory_pool_name_s",
+                            "QueryForValues": "ibm_db2_memory_pool_CL | distinct ibm_db2_memory_pool_name_s",
+                            "Title": "Memory Pool"
+                          },{
+                            "FieldName": "ibm_db2_sql_statement_name_s",
+                            "QueryForValues": "ibm_db2_sql_statement_CL | distinct ibm_db2_sql_statement_name_s",
+                            "Title": "SQL Statement"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "ibm_db2_tablespace_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "ibm_db2_tablespace_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "ibm_db2_tablespace_name_s",
+                            "QueryForValues": "ibm_db2_tablespace_CL | distinct ibm_db2_tablespace_name_s",
+                            "Title": "Tablespace"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "ibm_db2_database_CL | project ['Active Applications'] = columnifexists('active_applications_d', double(null)), ['Maximum Active Applications'] = columnifexists('maximum_active_applications_d', double(null)), ['Buffer Pool Data Hit Ratio'] = columnifexists('buffer_pool_data_hit_ratio_d', double(null)), ['Current Size'] = columnifexists('current_size_d', double(null)), ['Allocated Size'] = columnifexists('allocated_size_d', double(null)), ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Lock Timeouts'] = columnifexists('lock_timeouts_rate_d', double(null)), ['Log Space Utilization'] = columnifexists('log_space_utilization_d', double(null)), ['Percentage of Applications Waiting on Locks'] = columnifexists('percentage_of_applications_waiting_on_locks_d', double(null)), TimeGenerated, Name=ibm_db2_database_name_s  | extend Healthy = case(isnotnull(['Active Applications']) or isnotnull(['Maximum Active Applications']) or isnotnull(['Buffer Pool Data Hit Ratio']) or isnotnull(['Current Size']) or isnotnull(['Allocated Size']) or isnotnull(['Deadlocks']) or isnotnull(['Lock Timeouts']) or isnotnull(['Log Space Utilization']) or isnotnull(['Percentage of Applications Waiting on Locks']), (['Active Applications'] < ['Maximum Active Applications'] or isnull(['Active Applications']) or isnull(['Maximum Active Applications'])) and (['Buffer Pool Data Hit Ratio'] > 85 or isnull(['Buffer Pool Data Hit Ratio'])) and (['Current Size'] < ['Allocated Size'] or isnull(['Current Size']) or isnull(['Allocated Size'])) and (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Lock Timeouts'] < 1 or isnull(['Lock Timeouts'])) and (['Log Space Utilization'] < 85 or isnull(['Log Space Utilization'])) and (['Percentage of Applications Waiting on Locks'] < 15 or isnull(['Percentage of Applications Waiting on Locks'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Database",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

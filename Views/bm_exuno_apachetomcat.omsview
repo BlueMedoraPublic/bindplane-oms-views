@@ -1,0 +1,681 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Apache Tomcat Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Apache Tomcat Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Apache Tomcat Environment",
+                        "Name": "Apache Tomcat Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Apache Tomcat Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ff8c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Apache Tomcat",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Apache Tomcat is an open source web server tool that can power single servers or networks."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Apache Tomcat, it is important to monitor processing and load time to ensure efficient performance and low cost."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Memory Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_memory_CL | where ${Server} and ${Memory}  | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_memory_CL | where ${Server} and ${Memory}  | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Memory Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "apache_tomcat_memory_CL | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "apache_tomcat_memory_CL | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Memory JVM Memory Usage Percent",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "JVM Memory Usage Percent",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_memory_CL | where ${Server} and ${Memory} | summarize avg(coalesce(columnifexists('jvm_memory_usage_percent_d',0.0), 0.0)) by apache_tomcat_memory_name_s",
+                                        "Callout": {
+                                            "Title": "Average JVM Memory Usage Percent",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_memory_CL  | where ${Server} and ${Memory} | summarize avg(coalesce(columnifexists('jvm_memory_usage_percent_d',0.0), 0.0)) by apache_tomcat_memory_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Memory",
+                                            "Value": "JVM Memory Usage Percent"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Servlet Class Load Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Class Load Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('class_load_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
+                                        "Callout": {
+                                            "Title": "Average Class Load Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('class_load_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Servlet",
+                                            "Value": "Class Load Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Servlet Error Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Error Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('error_count_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
+                                        "Callout": {
+                                            "Title": "Average Error Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('error_count_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Servlet",
+                                            "Value": "Error Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Servlet Load Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Load Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('load_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
+                                        "Callout": {
+                                            "Title": "Average Load Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('load_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Servlet",
+                                            "Value": "Load Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Servlet Processing Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Processing Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
+                                        "Callout": {
+                                            "Title": "Average Processing Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Servlet",
+                                            "Value": "Processing Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "apache_tomcat_memory_CL | summarize([\"Last Update Time\"], ['JVM Memory Usage Percent'])=arg_max(TimeGenerated,columnifexists('jvm_memory_usage_percent_d', '')) by Name=apache_tomcat_memory_name_s",
+                                            "displayName": "Memory Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_operating_system_CL | summarize([\"Last Update Time\"], ['Physical Memory Usage Percent'], ['Swap Space Usage Percent'])=arg_max(TimeGenerated,columnifexists('physical_memory_usage_percent_d', ''),columnifexists('swap_space_usage_percent_d', '')) by Name=apache_tomcat_operating_system_name_s",
+                                            "displayName": "Operating System Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_operating_system_CL | summarize([\"Last Update Time\"], ['Architecture'], ['Version'])=arg_max(TimeGenerated,columnifexists('architecture_s', ''),columnifexists('version_s', '')) by Name=apache_tomcat_operating_system_name_s",
+                                            "displayName": "Operating System Properties"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_servlet_CL | summarize([\"Last Update Time\"], ['Class Load Time'], ['Error Count'], ['Load Time'], ['Processing Time'])=arg_max(TimeGenerated,columnifexists('class_load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('load_time_d', ''),columnifexists('processing_time_d', '')) by Name=apache_tomcat_servlet_name_s",
+                                            "displayName": "Servlet Details"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_servlet_CL | summarize([\"Last Update Time\"], ['Application Server'], ['Available'], ['URL'], ['Web Module'])=arg_max(TimeGenerated,columnifexists('application_server_s', ''),columnifexists('available_d', ''),columnifexists('url_s', ''),columnifexists('web_module_s', '')) by Name=apache_tomcat_servlet_name_s",
+                                            "displayName": "Servlet Properties"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_cache_CL | summarize([\"Last Update Time\"], ['Access Count'], ['Desired Entry Access Rate'], ['Hit Count'])=arg_max(TimeGenerated,columnifexists('access_count_d', ''),columnifexists('desired_entry_access_rate_d', ''),columnifexists('hit_count_d', '')) by Name=apache_tomcat_cache_name_s",
+                                            "displayName": "Cache Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_cache_CL | summarize([\"Last Update Time\"], ['Desired Entry Access Rate'])=arg_max(TimeGenerated,columnifexists('desired_entry_access_rate_d', '')) by Name=apache_tomcat_cache_name_s",
+                                            "displayName": "Cache Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "apache_tomcat_server_name_s",
+                            "QueryForValues": "union apache_tomcat_memory_CL, apache_tomcat_operating_system_CL, apache_tomcat_cache_CL | distinct apache_tomcat_server_name_s",
+                            "Title": "Server"
+                          },{
+                            "FieldName": "apache_tomcat_memory_name_s",
+                            "QueryForValues": "apache_tomcat_memory_CL | distinct apache_tomcat_memory_name_s",
+                            "Title": "Memory"
+                          },{
+                            "FieldName": "apache_tomcat_operating_system_name_s",
+                            "QueryForValues": "apache_tomcat_operating_system_CL | distinct apache_tomcat_operating_system_name_s",
+                            "Title": "Operating System"
+                          },{
+                            "FieldName": "apache_tomcat_web_module_name_s",
+                            "QueryForValues": "apache_tomcat_servlet_CL | distinct apache_tomcat_web_module_name_s",
+                            "Title": "Web Module"
+                          },{
+                            "FieldName": "apache_tomcat_servlet_name_s",
+                            "QueryForValues": "apache_tomcat_servlet_CL | distinct apache_tomcat_servlet_name_s",
+                            "Title": "Servlet"
+                          },{
+                            "FieldName": "apache_tomcat_cache_name_s",
+                            "QueryForValues": "apache_tomcat_cache_CL | distinct apache_tomcat_cache_name_s",
+                            "Title": "Cache"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "apache_tomcat_memory_CL | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Memory",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

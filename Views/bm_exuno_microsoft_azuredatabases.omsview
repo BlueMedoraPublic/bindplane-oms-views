@@ -1,0 +1,757 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Databases Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Databases Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Databases Environment",
+                        "Name": "Microsoft Azure Databases Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Databases Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYIBRAnNK+otwAAJj9JREFUeNrt3Xl0FFXaP/CnunrfsnYISYAQdggIKCibIKC+CCooyiKCwLgAbrwMDATQYXXUH5ARFZEBJUwUGWVxSFiTgATIBoEQQkJIIJ09nU46vS+1/P4IzjjzOgNId1dX1/M5JyfxcKx7u6rut6tu3XsLACGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQvxFcF0B5F9hYWHg8XiIxMREmVwuFwMA+/O/0TTN1tfXO5VKJVNUVMR1VZEfYAAEofDwcKBpmujYsaN8xowZoYmJiTGRkZEdQkNDO6nVah1N06RGo+kqkUhC4J8BQLAs625ra6sAAJvdbm9pbW2tMhqNTVVVVU1HjhxpOX78uE2n07EGg4Hrj4i8BAMgSLzwwguQm5srmTdvnu7hhx/uGR8fPzQ0NLS/UqlMkMlkcWKxOEQkEikIgpDc/l/+07FnAQBYlvUwDOOkKKqNoqhmm81W3tLSUlhfX3/50qVL1zZt2lT35ptvulesWMH1R0f3AQOAx6RSKbjdbmLx4sURkyZNGtKtW7fHw8LCHlEoFAlisTiSIAjSm+WxLEvTNG12OBwVLS0t56qrq09lZ2fnrVixok4mk7Eul4vrXYKQYBDvv/9+x/z8/HlGo/Go2+02sCzLsP7DUBTV1tramlVUVPTuV1991TciIkI8fvx4rvcLQsGLZVlYtWqVLj8/f25LS8tJiqIsfmz0v54EDOO2Wq1FxcXFv9+4cWMsABCxsbFc7yqEgkdqairMnDlTlZGR8VRDQ8P3gdDw/x1N03aj0Xg8KytryjvvvBPKsuz9f3CEhOzJJ58EACD/+te/PnDr1q1P3G53A9cN/U48Hk9zbW3t7v3794949tln5atXr+Z6NyLEL/Hx8QAAxMcff9z56tWryywWy2WWZWmuG/c9oJ1O563y8vKNO3bs6NOlSxdy4sSJXO9WhAIfy7KwcOHCsNzc3JdbWloyGIZxct2af6vb/QOFhYWFi9avXx/NsiwQBD58Quj/WLRoEYwYMUJ+/Pjxx+vr67+hKKqV6wbsLTRNWw0Gw4+ZmZlPL1y4UHPkyBGudzdCgWHgwIEAAOT27dt7V1ZWfux0Oqu5brC+4na7m/R6/Rf79+9/ZOzYsdK33nqL692PEDciIyMBAIikpKSOV65ceddsNl9gGMbDdSP1A9rhcNy4du3a6k8++aQrABA6nY7rw4GQ/7AsC1OnTtWcPXv2RaPReIymaRvXrdLfGIZxtba2ns7Pz39lyZIlkSw+NkTB7t1334UBAwZI9+7dO7Smpmbn7RF8gkZRlLmhoWHfyZMnJzz11FPK5ORkrg8TQt7Vr18/AABRcnJy9/Ly8rV2u72c5ddjPZ9zuVx1N2/eTP7666/7AwA5dOhQrg8bQt6xdOnSqIsXL75uNpvzGIZxcd3YAhhlsVguXb16demGDRviAICQSqVcHz6E7l16ejrMmjVLlZmZ+XRzc3MaRVFmrlsXX9A07TAajSdzcnJemj9/Pg4rRvwxZ84cGDlypCQ1NXVwVVXVp3wYvhuoPB5PS319feqxY8fGDRkyRPbee+9xfXgR+nWjR48GaL/P71pSUrLCbreXMQxDcd2IgoHT6ayqqKj48PPPP+8lFotJnHaMAgrLsrB8+fLwnJyc2W1tbedomubt8N1AxTCM22w2FxQVFb29YsWKaAAgunXrxvWhR0K2efNmmDlzpuLIkSPjbg/fNXHdUIIdTdNWo9F49MyZM1OnT5+uYXF+AeJCjx49xKmpqQ9UVFR87HK5alj/rsgjeG63u6mmpmbHt99+O2To0KH4qAD5DZGcnNylqKhosc1mK8b7fE7Rdru9vKys7I/JycndAEDE9cmBgti8efO02dnZ01pbW7NomnZwffajdgzDuMxmc25BQcHvVqxYEcn1eYKCTP/+/aVpaWmja2pqdnk8HiPXJzz6dRRFmRsbG78/cuTI47Nnz1Zxfd4g/hOlpKT0Ky8v3+B0Om+yeJ/PB4zb7a6/devWJ998882goUOHSu7/NECCs2zZsqjCwsIFFovlAt7n8w/DMJTdbi8tLi7+w+1px9g/gO7smWeeUZ0+fXpyU1PToUBcfRfdG5qmnW1tbdnnz5+ftWTJkjCuzy8UoKKioiQHDhwYVl1d/aXb7W7k+sRF3kVRlKmurm7PkSNHxk6ZMkXO9fkWCHD0RDti+/btPR577LGX4uLiZigUiu6A+yZYsW63u7a6uvrbvLy81Lfffru4ubmZ5rpSiCMLFy4Mz8/Pn9vW1naeYRg3199SyD8YhqGsVmvR5cuX31m7dm1Hrs9D5Gfjxo1THD9+/H+ampr2ezweHL4rUDRN2wwGQ1p2dvbUl19+WcP1eYl8TKlUilNTUwfr9frPbw/fRYj1eDzNNTU1Ow8fPvxot27dBDOsWEj3ucS6detiJ0+ePC0hIWGeUqnsDfhYCP0r1ul03qqurv5rWlra7sWLF98EAIbrSqH79Oqrr4ZlZ2dPb21tPUXTtJ3rbxsU2BiGcZlMpnMXL158/e2338ZhxXz12GOPKX788ccxDQ0N3+HwXXSvKIoyNzU1HcrKynpm/PjxQTmsOChvAWJiYsj169f3Hjt27O+io6Ofl8lkccH6WZHvud3uhqamph9zc3N3zZ0794LFYqG4rpO3BFujID744IOYJ5988tmePXu+qlQqEwmCEHNdKRQUWIfDcb2qqmr3oUOHUpcvX14DQdA/EDQB8Pbbb4dMmTJl7IABAxaEhoaOEIlESq7rhIIPwzBOi8VSUFZW9peUlJS/f/bZZy1c10nQhg0bJtm/f//wurq63R6Pp5nr+0YkDB6Pp7WpqemHo0ePPj5p0iQF1+3gt+LzFYBo586d3YcPHz4tPj5+jlwux9leyO9cLldNXV3d3qysrK8/+uijsrKyMl71D/AyADZu3Bj9+OOPT+rVq9erarV6EEEQON8bcYZlWcput1+rqKjYlZaW9n1SUlItAPDiTSa8CoAFCxZopk6dOnrAgAGvhYeHjxWJREH5aOZOPAxATZsHqkweqGqloNFKQYudBqOdhhbH7d92BmxuBtw0Cy6aBTfFgptu/wEAkJIESEkCZGLiH39rZCIIV5IQoSQhXCGCCBUJ4QoSOmrE0DlUAp1DJRCrFYMYr7N+FcMwdrPZnFdcXLxt3759x7Zu3drGdZ3uhC8BIN63b9/ARx555HfR0dHPSSSSoH+ZPAsAehMFVxtdUNLkgquNbrje7IYqkwfqLRQwDDdfMCIRATG3A6FHpAT66GTQJ0oKfaNk0DVcAiRfzigfoiiqpbGx8WBBQcGuL7/8siA9Pd3FdZ3+k0A/XMSaNWtipk6dOjM+Pn6uUqnsBUF6n1/R4oHcagfk6J2QV+OAq40usLr49ZRJJhZBL50UBsfI4aE4OQyJk8MDHWUgE2YqMC6XS19VVbUnMzNzz4IFC25AAN4WBOyR6dKli+Qvf/nLuAcffPB/Q0JCRopEIt72tP47FgCKGlxwotwGpyrtkFvthGYbr/qO7pqEJKB/tAwe7qSAMQlKGN1VCR3UJNfV8huWZT1msznvypUrycnJyWk//PCDg+s6/VJABsCSJUvCZ8+ePbtnz57vyOXyeK7r4w2NVhrSyqxwotwGGRV2MFiDs8HfjT5RMhiToITHEpTweA8VhMqD8qLuX3g8nsabN29u/+GHH7YlJSU1cF2fnwVcAKxcuTLqtddeWxUbGzuXJEk11/W5H/o2CvYXW2D/VQucrXJwdt8eyMQkASO7KGFSHxVM6q2GXpHBOxOXZVlXbW1tSkpKyvqVK1fqua4PQIAFwObNm+Off/75ZXFxcXNFIhEv12wzORn45pIZdl9sg7zqgLra44XukVJ4sb8WZjyghcQOwRcGLMu6W1paTmRkZKyeNm1aIdf1CZgA+OKLLxKmTp2aHB4e/j98e67PAkDGDTvsumCCA1et4PTwq/MuUPWPlsOMB7QwY6AG4kN5dUrcCWsymU4dO3ZsyfTp0zkNgYDojUlKSoqaPn36yujo6Gl8avwumoXdF80w67t62JzdAsUNLqDwMt9rmqwUZFTY4JNzJsipdoJWJoLukVIQBczX1m9GyOXy+JiYmK4xMTFnjx49auKqIpwHwMqVKyNef/319+Li4uaLRCJeXPOZXQx8fKYFZu6tg28vmaHZhovK+toNoxv2XjbDroI2sLlZ6BslA5WU152HhFwu7xIXF6eNjIwsyMzMtHJSCS73wMCBA+V79ux5q2/fvu/zYVSfi2bhs/Mm2HiqGYwcNHqNjIS4EDHEhYghViuBCCUJWrkIQm7/aGXk7d8i0MpFICUJkJAEiEUESEQEiEn459+i9lsXF8W2/9DsL/5mwEWx4PCwYLDRYLBR0GSlwWCjoclGgcHa/rvO3D4CkQtKqQheHRIKSx8Nh1gtf2d8syzrqqys3DJ//vz1p0+ftvm7fC4DgDhz5szUhx9++M8SiSTgl2VOvWSGpGMG0Js8Pi0nPkwKfTtIoY9OBr2jpNA5RPKPRq+VBd43ntHOwPVm9//5KW92g8MPfSFSMQFzBofAe+MiIY6nQUBRVEtxcXHSoEGD/gIAfk1UzgLg22+/HThp0qSdarV6MFd1uBu3TB5440AjHLvu/Ss0pVQEI+MVMLqrEobEKeChWDmEKQKvkf8WNAtQ0uSC/Bon5FU74aebdrjW5LsRsUqpCJY+Gg7LHo0ApYR/nQR2u70kPT19/gsvvJDjz3I52VNz5swJ3bBhw6bY2NhXIICH9n563gTLjzaBze29b7JojRieS9TA84kaGNlFCVLOe2H8p9FKQ1alHQ6XWiGt1Aomh/e/7GJDJLDpqSiYNoB3S/yzBoPhxx07dixcuXJlnb8K5SIARPn5+a8MGjRoM0mSIRyUf0c2Dwu/+6Ee9l42e22bY7up4O0RYfB0b3Uw9GLfN4oByKyww+6LbXDgqsXrtwsvDtDCtsnREM6jKyqGYZwlJSWr+vfvnwx+uhXw+6mYkpKSOGXKlD1qtXqgv8u+G1UmCibtrobiBu9crg6OlcPmiR1gdNegmcrgdW0uBr7IMUHy2RZo8OJ6mx21YtjzYgyM68af1eHsdnvJ4cOHX542bdpFf5Tn1wvQESNGKBcvXrxEp9M9QxBEwEVzlYmCMV/q4Xqz2yvb+99R4fDdjFhICOfN0AZOyMUEjIxXwFvDw0ApISGn2gEe+v7HU1hdDHxz2QxxIRIYFMOPgaUSiSRCo9FAVVXV6dLSUu+ciP+FXwPgyy+/HDlgwIDVYrE44C79a8wUjN6uh1ut3tnn657QwYYndHi5fw/EIgJGxSvgpUEhkF3lgDrz/V8NMCzAjyVWAAJgTAIvrgQIpVLZKTo6+mJKSsoNXxfmtwAYMWKEauHChUvDwsLG+KvMu0WzAJN218CVBqdXtje2mwp2Ph/N9cfirVC5COY8GAIX61xQ7qWrsdOVdohSi2FIXOBfCZAkqZbL5VBZWZlRWlrq08VE/HYZvmrVqqE6nW6Cv8q7F+sym+HsLbvXtrdsdDjXH4n3ZCQB+2bGQi+dzGvbfOdwI5y84b3j7EuRkZGPL1q0aLivy/FLAPTp00eRmJg4XSaTxfqjvHvRbKfho9PeXdr9oVjs8PMGlYSANeO992o+imbhjYMNQPFgrpZEIunQt2/fl5577jmtL8vxSwCsXLmyV0RExGP+KOtebcsx+WXEGvptxnq5B7/C6IZdBSauP9ZdiYiIGDdv3rxBvizDHwFADh069Bm5XJ7gh7Lu2bFy7w+/LqzzTl8C8o3viy1cV+GuSKXSDn369JkAAD4b4+zzAEhKStLpdLpxBEEE5Ji3UoP3+1j+fA7fFuUtGRXev2cv8tIYDz8QRUZGjtm4caPP5sr4PABGjx7dX6VS9fV1Ob+VL2b1Hb5mhd0XvTeKUKhsHhb+eLLZ69tt5NHLfZVKZa9hw4b57DbA1wFAJiQkjJZIJBE+LifgvHGwAfZf5WSKd1Bw0Sy8+E0tlPngCo1PxGJxaHx8/GgA8MloMp8GwNKlSyMiIyNHQAAtPeYvTg8DL3xTC2szjbzodQ4kVSYKRn6hh/RSDFAAgPDw8GHr16+P8sW2fRoAjzzySBeFQtHNl2UEMoZh4f0TBnjo01vw0y1cIPROXDQLH5xqgX5bKqGgBvfXz+RyedeBAwf6pBPdpysoxMfH9xPCa7zu5HK9E0Zvr4Jx3VWwYkwEjO2mFN4l0X/hq8lAwUIikYR36tQpEQDOeHvbvgwAMjQ0tBdfl/f2hYwbNsi4YYMekVJ4bWgoTBughU4h/FzF5n75ejpwMCEIQhoSEtIb2vsBvLoklc/Ovn79+sk0Gk1APvvnWnmzG5amN8HS9CYY2kkBU/pp4PHuShgUIw/qyUP+WBAkWKnV6q4TJ05UpKWl8SMAXn755VC5XN7Z97uG3/KqHZBX7YAVABChImF0VyU80lkBD3dqXyKMj8tbAfh/SbBgJ5fL4yZMmBCelpbm1efLPguAkJAQGUmSvFuXiUtGG93+KrHbI9VEIgLiQyXQSyeF3jrp7d8y6KWTQnSAvGCzxcFAmYG7RUGFgiRJtVar9d7MqNt8FgAsywIE4OuQ+YRhWKhscUNlixuOlP3rv2nlJMRoxRClIiFKLYYoNQlRqtu/1SToVGJQSgiQiQmQkaL232ICZCTxj78B+LssuBAxjPcD1WcBcPsNP8Ls4fIDs5MGs5OGUq4rgvyCIAiZUqn0+rszfDYOoGfPnrFSqdR7czkREjCxWBzWqVOnOG9v12cBIJFIZHx6zx9CgYwgCJEvJtQF3MKcCCH/wQBASMAwABASMAwAhAQMAwAhAcMAQEjAMAAQEjAMAIQEDAMAIQHDAEBIwDAAEBIwDACEBAwDACEBwwBASMAwABASMAwAhAQMAwAhAcMAQEjAMAAQEjAMAIQEDAMAIQHDAEBIwDAAEBIwDACEBAwDACEBwwBASMAwABASMAwAhAQMAwAhAcMAQEjAMAAQEjAMAIQEDAMAIQHDAEBIwDAAEBIwDACEBAwDACEBwwBASMAwABASMAwAhAQMAwAhAcMAQEjAMAAQEjAMAIQEDAMAIQHDAEBIwDAAEBIwDACEBAwDACEBwwBASMAwABASMAwAhAQMAwAhAcMAQEjAMAAQEjAMAIQEDAMAIQHDAEBIwDAAEBIwDACEBAwDACEBwwBASMAwABASMAwAhAQMAwAhAcMAQEjAMAAQEjAMAIQEDAMAIQHDAEBIwDAAEBIwDACEBAwDACEBwwBASMAwABASMAwAhATMZwHAsiwNAAzXHxChYMCyLHO7TXmVzwLg5s2bdW63u9m3uwUhYfB4PC16vb7G29v1WQDYbDY7y7Iu3+4WhATD7XA4bN7eqM8CQCQSAQAQvtwjCAkJQXi/OfksAEwmk4umabNP9whCAkFRlNVsNju9vV2fBUBKSorJ4XDofbtbEBIGl8tVe/To0VZvb9dnAXDt2jWn1Wqt9O1uQUgYnE5n/bFjx7zep+bLcQBMa2trGcMwXr9sQUhIWJZ1Nzc3F1IUxasAgMbGxhsURZl8WQZCwY6maYvBYLjui237NACys7Mr7Ha7TyqOkFDY7fYb+fn5/AuADz74oNlsNhf6sgyEgp3FYrmclJTU5Itt+3ouAKXX68/g40CEfhuapm21tbVnAMAng+p8PhkoOzs7z2q1XvF1Ob+VTi3mugoI/UdOp/PmpUuX8ny1fZ8HwIoVK2oNBkMmBOjEoL5RUq6rgPwsTEFyXYW7ZjAYTr7++uu3fLV9f0wHZq5fv37C5XLV+qGsezass4LrKiA/6x7Jj9B3u90NN27cSAcAt6/K8Mt6AKtWrbpgMBiO+qOse/XOiHBQSHBZBCF5pBM/Qr+1tTX7008/zfVlGX458wsLC+2VlZWHKYpq8Ud59yJaTcIbD4dyXQ3kR3w43jRNW6qqqg4dOnTIpx3ofvvq27t379nW1tbT/irvXmx8UgcPxfHjWwHdn4m91bzo9zGZTGcPHDhwwtfl+HW67tGjR58YM2bMLplMFuvPcu9GrZmCIZ/dgnozxXVVkI+EKUi48m5XiNUG9pMfj8djLCgoWDR8+PDvfF2WX29+16xZk93U1HQIAvCJQKxWDJm/6wzxYYH/7YDuHUEQsH1KdMA3fgAAg8GQvmHDhiP+KMuvAXD+/Hn7Tz/9tMNms13zZ7l3q7dOCrmLusBQnnQSobv3+bMd4IX+Gq6rcUdOp/Pm5cuXd6alpfll8BwXK/aQly9fXtSvX7+NJEmqOCj/juweFpakN8H2XBOwLMt1ddB9EIkI+POkDvDmsFCuq3JHLMt6KioqPuzRo8c68OGjv1/iYkQEq9FoKgcOHNhdrVYnclD+HUlIAib1VsPIeCWcvmmHNmfA3bGguxCmIGH/rFiYOVDLdVXuislkOr1v3741x44dM/qrTE6GRJ07d84+fPjw6s6dOz8slUo7cFGHu5EQLoH5Q0LBwwBcrHMBxeDVAF88GCuHE/M7w5A4OddVuStOp/Nmbm5u0qxZswr8WS6Xi3aKcnJyXho8ePAmiUSi47Aed6W6jYLVJwywp9AMDAZBwFJKRbD28Uh4d0Q4kDxZkpamaUtJScnqAQMGfA4AHn+WzeWgaPbatWs3xo4dqw4NDX2IIAgJh3W5oxC5CCb31cDziVqwuBi4ZnAD5kBgebavBv4+Jw6e6qkGEU8aP8uyntra2q8+++yzLbm5uV5f9vtOOJ0VUV1d7SFJsigxMbGDVqt9AHjwqrIoNQnP9dPA/CGhICUJuNroBieFScCl8d1V8O2MWFgyKhxC5fyZ6AMAbEtLy7G9e/euXLNmTQMXFeB8b+Xk5NgfeOCBsk6dOnVTKpXdgSfvEtDIRDC+uwreHB4O3SOkYHIyoDfhICJ/IQgCJvVRw5fPdYTVYyN48Xz/37Ctra0ZR48e/cNrr71WxlUlAqaxffXVV32ffvrpjyIiIiYAD64Efs3NVg/svtgGey6aobLFL09xBEcjI2HuQyHw1rAw6B4R0HeN/w3b2tqakZ6e/vtZs2Zd5rIiARMAAMERAj+7VO+CA1ctcOCqFa404MLI94MUETC+uwpmDdLClH4aUEkC6rS9VwHT+AECLAAAAHbv3t17/PjxSdHR0VNFIlFQDMmrbPHAoWtWOFFug59u2sHmxnEFd0KKCBjRRQGT+2lgxgNaiFZzfrd631iWdRmNxmMnTpxYPXPmzCKu6wMQgAEAALB8+XLdvHnz3oqPj39NIpEE7DiB38LDAJzXOyDjhg1O3rBDQa0D3NiJCADtA3ee6KmCp3urYUIvNYQreH0R+C8oimqtra3ds2fPno9Xr17t9bf8/lYBGQAAAKNGjVL86U9/ejYxMfFdjUbzEEEQ/P8K+BUumoXCOhfk6B1wXu+AHL0D9Ca/PgrmTKRKDKPiFTA6QQmjuyphQLSMN4/v7gFtsVgul5SUfLJjx44DO3fuDKgFcgN9dxO7du3qPWbMmPmxsbHTpVJpwE0j9oVGKw1FDS640uCCogYnFNW74JrBDU4Pf28dQhUkDIqRw+AYOTwYK4fBsTLoGSkN+BPwfng8nubGxsb9GRkZn77yyitXIQBnwfJi/48aNUq+evXqR/v37/+KTqd7iiTJEK7r5G80C1DV6oEqU/uP3kRBVasH9Lf/u7qN4jwgxCQBsVox9IyUQs9IKfTS/fN3fChve+zvGcMwtpaWlqyioqIvv//++9Pbtm0LqG/9X+JFAPzsrbfeCp81a9bEHj16zA0NDR1OEISM6zoFChYAmqz07XBoD4UmKw0mBw0mJwNtTgZMThpMDgbsHgY8NAtumgUPDeBh2v8GAJCSBEhEBEjFABIRARKSALVUBKEKEYQpSAiVk//4u6NGDLHa9p+4EAl0UJPBeAl/98eAZT1Wq/VSWVnZjhMnThxOSkqq57pOd8LLw7Vp06YuEyZMmBkfHz9XoVB0A54/MkS8x7hcrura2tq9mZmZX7366qvlEICX+7+Glx1rx48fb7tw4UKuTqc7p1KpPCqVqgtJkmqu64WEh6IoY2Nj44GsrKyk9evXf7t58+ZGaL8g4wVeBgAAQE1NDbNv3746q9X6k0ajuaRWqxVyubyTSCTCNb2QzzEM4zCZTD8VFBS8t23bts9///vfl9+4cYN3Y8F5GwA/u3jxojslJaVcrVafCgkJ0Ws0mhiJRBIZrI8NEbdYlqXsdvvVysrKT/bs2bNu9uzZefn5+bwd6hk0jeTUqVO2gwcPXtLpdFlardasUqk6i8XiEOBpPwcKOKzL5aqpra3dc/jw4VVz5sz5+6FDh0xcV+p+BU0AAADYbDb28OHDxsrKyvNqtfpcSEiISKFQdCZJUsl13RB/URTV2tzcfDg7O3tVUlLS11u2bKm1Wq286OS7k6AKgJ+Vl5fT+/btq3G73aeUSmWRVqsNlcvlsYG+6AgKLCzLus1m87nLly+v3bJly5YlS5Zcq6ys5N19/n8TlAHws7y8PFdKSkqZWq3OjIiIaFCr1R0lEkkE9g+gO2DsdnvprVu3Pv/uu+/WTps2LfvChQsOrivlC4K5P5bL5WRycnLPJ554Yl5MTMwLMpmss5A+P7o7bre7rrGx8dDZs2d3zpgx4zIABNU3vuCNGjVKfuDAgVH19fWpHo+nmUWIZVmapm1NTU2HTp48OWHkyJGC6TMS3KWwXq+nvvvuO73ZbM4MCwsr0Wq1kTKZrCNBELxbUwrdP5ZlKYvFkl9aWvpxSkrKR/Pnz7+k1+uFMR0T8BKY2LhxY9zkyZNf6ty580tKpbIP9g8IButwOCpqamq+OX369DevvvrqdeDRCD7kReHh4eLdu3cPqKqq+sTpdOpZlmW4viRFvuPxeFpqa2u/Pnjw4PDY2Fh8MoTajRs3TpGenj6+sbHxB4qizFyfqMi7aJp2GI3GY2fOnJm6ZMmSUK7Pt0CAl7u/cPPmTSo1NbUSADJ1Op1eqVSG3+4fwP3EYyzL0jabrai0tPSjgwcPfjh9+vSc8+fP83b4rjcJvQ/gvyG2bt2a8MQTT7wUFxc3Q6lU9gLcX3zDulyu6urq6tScnJxvXn755RLgyTRdFCAUCoX4b3/72xC9Xr/N5XLVcX0Zi+4ORVGmhoaG7w4fPjxm9OjRuHAMuj9jx45VZmZmTjIYDH+nadrG9QmOfh1N047W1tbT2dnZM5YvXx7B9XmDgsy6des6FhYWLjCbzXkMw3i4PuFRO4ZhKJvNdrWoqOh/k5OTuwDeriEfEu3cubP39evX1zocjhssPjbkEuNyueqqq6u3paamDurduzcO6EL+ERsbKzl06NDIurq6PR6Pp4XrliA0FEW1GQyGQ0ePHn1yypQpKq7PBz7Cx1v3wWKxMHv37tWLRKJTKpWqRKPRhMlkshgcVuxbLMt6LBZLwZUrV9Zv375906JFi4pKS0sFM3zXmzAAvKCiosK5devWkujo6FNKpbJGo9HE3l6WDFcr9i7G4XBU6PX6Hfv373//ueeeO+V2u2319QG/+nbAwgDwApvNBgAAbrfb/OGHHxYkJCScUSqVFpVK1UUsFmsBO6Tum8fjaWxsbPw+Kytr1RtvvLFXo9EY8vLyWGz8KOBs2LABJk+eLE9LSxvb2Nj4N4qiTFzfL/MVRVGW5ubm9KysrGdffPFFNcvifB3EA0qlEliWhT/84Q8RZ8+enWkymc7QNO3gukHxBcMwlMViuVBYWLhg2bJlUQBAhIWFcX1YEbo3w4YNAwAgtmzZEn/lypXf22y2awzD0Fw3sEDmcDhuVlRUfPTVV1/1AwDRyJEjuT6MQQv7AHyspqb9VfAdO3Y0bdu2LU+n050LCwsTyeXyGJIkNVzXL5DcfsvOD+fPn//j7Nmzd2u12oacnBxWr9dzXTWEvINlWZg8ebLq+PHjEwwGw48URbVx/Y3LNYZhnC0tLZlnz56dNm3aNC2L9/komJFk+4XX4sWLdfn5+fPb2tpyaJp2ct0QOUBbrdYrxcXFS5OTk+MBAMRiHEKBBCIuLg4AQLRp06aE0tLS9+x2ezkrkGHFLperprKycvPevXsHAQDZq1cvrg+HIGEfAIfMZjMAANulS5fWtWvXnu/WrVteSEgIebt/ICiHttI0bTUajem5ubmrFy9evIskyZpz586xRqOR66ohxB2CIIBlWZgyZYr6p59+eq65uTmdoigL19/U3sIwjKutre1cbm7uK2vXro1iWRbkcjnXux2hwNK1a1cAAFi2bFmHS5cuvWmxWApZlqW4bsD3gbbb7ddLSkqStm/f3h0AiISEBK53M0KB7dFHHwUAEO3Zs6d/ZWXlx06n8xbXLfleud3uxlu3bn36/fffDx0yZIhkzpw5XO9WhPhlyZIlMGjQINmRI0fG3p52bOS6Yd8JRVFWo9F4JCMj4+l58+apDh06xPVuRIjfWJaFuXPnhpw/f36G0Wg8HojDihmGcVsslgsFBQWvr1u3riMAQM+ePbnedQgFh587zdavXx9bXFy8xGw2FzAM4+K64bMsSzscjsqysrI127dv7xUVFUVOnDiR692F7gI+BuQRimp/Ua3VarWsXLkyr1OnThkqlapeJpOpxGJxiEgk8uvqtwzD2G02W3FtbW3q2bNnN2zYsGGfRCJpPH78OFteXs717kJ3AQOAh2prawEAWL1e37Jly5ZckiSPymSyywRBtJIkKSVJUiUSiSTg/XUIWIZhHC6Xq6a1tTWrrKzsk/T09P83derU/S6Xq+rgwYP02bNnud496B7gQhVBpH///vIFCxZ0Gjx48IMdOnQYrFareyqVyp5SqTRKJBIpRCKRHNqP+d0cd5ZhGDfDMDaPx9PsdDr1bW1tlw0GQ2FlZeXV/fv3V+7bt88C+EJNXsMACELdunWDiooKcuLEiaopU6Z07Nq1a6xare4QGhoaJ5FIIjUaTRcA+I/LlTmdToPdbq92Op3G5ubmm9XV1XUXLlxo3Lp1a9uDDz5IXbhwgeuPiLwEA0BAEhMTwWw2k1qtVioSiQiWZYH9xcw7kag9E+x2O3Xjxg031/VFCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQggh9Kv+P+4A9epYxckYAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTA4VDA5OjE2OjM5LTA0OjAwJNx+hgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0wOFQwOToxNjozOS0wNDowMFWBxjoAAAAASUVORK5CYII=",
+                                        "Label": "Microsoft Azure Databases",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Microsoft Azure Databases include cloud-based Microsoft SQL, MySQL, and PostgreSQL servers, databases, as well as Elastic Pools."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Azure Databases, it is important to consider CPU usage on the servers, DTU usage, and Memory usage."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_databases_elastic_pool_CL | where ${SQL Server} and ${Edition} and ${Location} and ${Resource Group} and ${Elastic Pool}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['DTU Usage'] = columnifexists('dtu_usage_d', double(null)), ['EDTU Used'] = columnifexists('edtu_used_d', double(null)), ['EDTU Limit'] = columnifexists('edtu_limit_d', double(null)), ['Sessions Usage'] = columnifexists('sessions_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Workers Usage'] = columnifexists('workers_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_databases_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['DTU Usage']) or isnotnull(['EDTU Used']) or isnotnull(['EDTU Limit']) or isnotnull(['Sessions Usage']) or isnotnull(['Storage Usage']) or isnotnull(['Workers Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['DTU Usage'] < 85 or isnull(['DTU Usage'])) and (['EDTU Used'] < ['EDTU Limit'] or isnull(['EDTU Used']) or isnull(['EDTU Limit'])) and (['Sessions Usage'] < 85 or isnull(['Sessions Usage'])) and (['Storage Usage'] < 85 or isnull(['Storage Usage'])) and (['Workers Usage'] < 85 or isnull(['Workers Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_databases_elastic_pool_CL | where ${SQL Server} and ${Edition} and ${Location} and ${Resource Group} and ${Elastic Pool}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['DTU Usage'] = columnifexists('dtu_usage_d', double(null)), ['EDTU Used'] = columnifexists('edtu_used_d', double(null)), ['EDTU Limit'] = columnifexists('edtu_limit_d', double(null)), ['Sessions Usage'] = columnifexists('sessions_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Workers Usage'] = columnifexists('workers_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_databases_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['DTU Usage']) or isnotnull(['EDTU Used']) or isnotnull(['EDTU Limit']) or isnotnull(['Sessions Usage']) or isnotnull(['Storage Usage']) or isnotnull(['Workers Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['DTU Usage'] < 85 or isnull(['DTU Usage'])) and (['EDTU Used'] < ['EDTU Limit'] or isnull(['EDTU Used']) or isnull(['EDTU Limit'])) and (['Sessions Usage'] < 85 or isnull(['Sessions Usage'])) and (['Storage Usage'] < 85 or isnull(['Storage Usage'])) and (['Workers Usage'] < 85 or isnull(['Workers Usage'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_databases_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['DTU Usage'] = columnifexists('dtu_usage_d', double(null)), ['EDTU Used'] = columnifexists('edtu_used_d', double(null)), ['EDTU Limit'] = columnifexists('edtu_limit_d', double(null)), ['Sessions Usage'] = columnifexists('sessions_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Workers Usage'] = columnifexists('workers_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_databases_elastic_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['DTU Usage']) or isnotnull(['EDTU Used']) or isnotnull(['EDTU Limit']) or isnotnull(['Sessions Usage']) or isnotnull(['Storage Usage']) or isnotnull(['Workers Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['DTU Usage'] < 85 or isnull(['DTU Usage'])) and (['EDTU Used'] < ['EDTU Limit'] or isnull(['EDTU Used']) or isnull(['EDTU Limit'])) and (['Sessions Usage'] < 85 or isnull(['Sessions Usage'])) and (['Storage Usage'] < 85 or isnull(['Storage Usage'])) and (['Workers Usage'] < 85 or isnull(['Workers Usage'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_databases_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['DTU Usage'] = columnifexists('dtu_usage_d', double(null)), ['EDTU Used'] = columnifexists('edtu_used_d', double(null)), ['EDTU Limit'] = columnifexists('edtu_limit_d', double(null)), ['Sessions Usage'] = columnifexists('sessions_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Workers Usage'] = columnifexists('workers_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_databases_elastic_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['DTU Usage']) or isnotnull(['EDTU Used']) or isnotnull(['EDTU Limit']) or isnotnull(['Sessions Usage']) or isnotnull(['Storage Usage']) or isnotnull(['Workers Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['DTU Usage'] < 85 or isnull(['DTU Usage'])) and (['EDTU Used'] < ['EDTU Limit'] or isnull(['EDTU Used']) or isnull(['EDTU Limit'])) and (['Sessions Usage'] < 85 or isnull(['Sessions Usage'])) and (['Storage Usage'] < 85 or isnull(['Storage Usage'])) and (['Workers Usage'] < 85 or isnull(['Workers Usage'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_databases_elastic_pool_CL | where ${SQL Server} and ${Edition} and ${Location} and ${Resource Group} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_databases_elastic_pool_CL  | where ${SQL Server} and ${Edition} and ${Location} and ${Resource Group} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "MySQL Server CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_databases_mysql_server_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Version} and ${MySQL Server} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_mysql_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_databases_mysql_server_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Version} and ${MySQL Server} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_mysql_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "MySQL Server",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "PostgreSQL Server CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_databases_postgresql_server_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Version} and ${PostgreSQL Server} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_postgresql_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_databases_postgresql_server_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Version} and ${PostgreSQL Server} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_postgresql_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "PostgreSQL Server",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "SQL Database CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_databases_sql_database_CL | where ${SQL Server} and ${Edition} and ${Kind} and ${Location} and ${SQL Database} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_sql_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_databases_sql_database_CL  | where ${SQL Server} and ${Edition} and ${Kind} and ${Location} and ${SQL Database} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_databases_sql_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "SQL Database",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool Storage Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Storage Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_databases_elastic_pool_CL | where ${SQL Server} and ${Edition} and ${Location} and ${Resource Group} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by microsoft_azure_databases_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Storage Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_databases_elastic_pool_CL  | where ${SQL Server} and ${Edition} and ${Location} and ${Resource Group} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by microsoft_azure_databases_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "Storage Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_databases_elastic_pool_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_databases_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_elastic_pool_CL | summarize([\"Last Update Time\"], ['Storage Usage'])=arg_max(TimeGenerated,columnifexists('storage_usage_d', '')) by Name=microsoft_azure_databases_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool Disk"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_elastic_pool_CL | summarize([\"Last Update Time\"], ['Workers Usage'], ['Sessions Usage'], ['DTU Usage'], ['EDTU Limit'])=arg_max(TimeGenerated,columnifexists('workers_usage_d', ''),columnifexists('sessions_usage_d', ''),columnifexists('dtu_usage_d', ''),columnifexists('edtu_limit_d', '')) by Name=microsoft_azure_databases_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_elastic_pool_CL | summarize([\"Last Update Time\"], ['Database DTU Maximum'], ['Database DTU Minimum'], ['DTU'], ['Edition'], ['Storage Limit'], ['Tags'], ['Zone Redundant'])=arg_max(TimeGenerated,columnifexists('database_dtu_maximum_d', ''),columnifexists('database_dtu_minimum_d', ''),columnifexists('dtu_d', ''),columnifexists('edition_s', ''),columnifexists('storage_limit_d', ''),columnifexists('tags_s', ''),columnifexists('zone_redundant_d', '')) by Name=microsoft_azure_databases_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_mysql_server_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_databases_mysql_server_name_s",
+                                            "displayName": "MySQL Server CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_mysql_server_CL | summarize([\"Last Update Time\"], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', '')) by Name=microsoft_azure_databases_mysql_server_name_s",
+                                            "displayName": "MySQL Server Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_mysql_server_CL | summarize([\"Last Update Time\"], ['Active Connections'], ['Failed Connections'])=arg_max(TimeGenerated,columnifexists('active_connections_d', ''),columnifexists('failed_connections_d', '')) by Name=microsoft_azure_databases_mysql_server_name_s",
+                                            "displayName": "MySQL Server Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_mysql_server_CL | summarize([\"Last Update Time\"], ['Storage Usage'])=arg_max(TimeGenerated,columnifexists('storage_usage_d', '')) by Name=microsoft_azure_databases_mysql_server_name_s",
+                                            "displayName": "MySQL Server Disk"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_mysql_server_CL | summarize([\"Last Update Time\"], ['I/O Consumption'])=arg_max(TimeGenerated,columnifexists('io_consumption_d', '')) by Name=microsoft_azure_databases_mysql_server_name_s",
+                                            "displayName": "MySQL Server Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_mysql_server_CL | summarize([\"Last Update Time\"], ['Backup Retention'], ['Geo-redundant Backup'], ['SKU Capacity'], ['SKU Name'], ['SSL Enforcement'], ['Storage Limit'], ['User Visible State'])=arg_max(TimeGenerated,columnifexists('backup_retention_d', ''),columnifexists('geo_redundant_backup_s', ''),columnifexists('sku_capacity_d', ''),columnifexists('sku_name_s', ''),columnifexists('ssl_enforcement_s', ''),columnifexists('storage_limit_d', ''),columnifexists('user_visible_state_s', '')) by Name=microsoft_azure_databases_mysql_server_name_s",
+                                            "displayName": "MySQL Server Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
+                                            "displayName": "PostgreSQL Server CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
+                                            "displayName": "PostgreSQL Server Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['Active Connections'], ['Failed Connections'])=arg_max(TimeGenerated,columnifexists('active_connections_d', ''),columnifexists('failed_connections_d', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
+                                            "displayName": "PostgreSQL Server Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['Storage Usage'])=arg_max(TimeGenerated,columnifexists('storage_usage_d', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
+                                            "displayName": "PostgreSQL Server Disk"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['I/O Consumption'])=arg_max(TimeGenerated,columnifexists('io_consumption_d', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
+                                            "displayName": "PostgreSQL Server Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['Backup Retention'], ['Geo-redundant Backup'], ['SKU Capacity'], ['SKU Name'], ['SSL Enforcement'], ['Storage Limit'], ['User Visible State'])=arg_max(TimeGenerated,columnifexists('backup_retention_d', ''),columnifexists('geo_redundant_backup_s', ''),columnifexists('sku_capacity_d', ''),columnifexists('sku_name_s', ''),columnifexists('ssl_enforcement_s', ''),columnifexists('storage_limit_d', ''),columnifexists('user_visible_state_s', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
+                                            "displayName": "PostgreSQL Server Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['CPU Usage'], ['Data Warehouse Node Level CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', ''),columnifexists('data_warehouse_node_level_cpu_usage_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
+                                            "displayName": "SQL Database CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Sessions Usage'], ['Deadlocks'], ['DTU Usage'], ['DWU Consumption Usage'])=arg_max(TimeGenerated,columnifexists('sessions_usage_d', ''),columnifexists('deadlocks_d', ''),columnifexists('dtu_usage_d', ''),columnifexists('dwu_consumption_usage_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
+                                            "displayName": "SQL Database Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Successful Connections'], ['Failed Connections'])=arg_max(TimeGenerated,columnifexists('successful_connections_d', ''),columnifexists('failed_connections_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
+                                            "displayName": "SQL Database Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Physical Data Read Usage'], ['Data Warehouse Node Data Read Usage'])=arg_max(TimeGenerated,columnifexists('physical_data_read_usage_d', ''),columnifexists('data_warehouse_node_data_read_usage_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
+                                            "displayName": "SQL Database Disk"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Collation'], ['Failover Group ID'], ['Kind'], ['Read Scale'], ['Requested Service Objective Name'], ['Sample Name'], ['Service Level Objective'])=arg_max(TimeGenerated,columnifexists('collation_s', ''),columnifexists('failover_group_id_s', ''),columnifexists('kind_s', ''),columnifexists('read_scale_s', ''),columnifexists('requested_service_objective_name_s', ''),columnifexists('sample_name_s', ''),columnifexists('service_level_objective_s', '')) by Name=microsoft_azure_databases_sql_database_name_s",
+                                            "displayName": "SQL Database Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_azure_databases_sql_server_name_s",
+                            "QueryForValues": "union microsoft_azure_databases_elastic_pool_CL, microsoft_azure_databases_sql_database_CL | distinct microsoft_azure_databases_sql_server_name_s",
+                            "Title": "SQL Server"
+                          },{
+                            "FieldName": "edition_s",
+                            "QueryForValues": "union microsoft_azure_databases_elastic_pool_CL, microsoft_azure_databases_sql_database_CL | distinct edition_s",
+                            "Title": "Edition"
+                          },{
+                            "FieldName": "location_s",
+                            "QueryForValues": "union microsoft_azure_databases_elastic_pool_CL, microsoft_azure_databases_mysql_server_CL, microsoft_azure_databases_postgresql_server_CL, microsoft_azure_databases_sql_database_CL | distinct location_s",
+                            "Title": "Location"
+                          },{
+                            "FieldName": "resource_group_s",
+                            "QueryForValues": "union microsoft_azure_databases_elastic_pool_CL, microsoft_azure_databases_mysql_server_CL, microsoft_azure_databases_postgresql_server_CL | distinct resource_group_s",
+                            "Title": "Resource Group"
+                          },{
+                            "FieldName": "microsoft_azure_databases_elastic_pool_name_s",
+                            "QueryForValues": "microsoft_azure_databases_elastic_pool_CL | distinct microsoft_azure_databases_elastic_pool_name_s",
+                            "Title": "Elastic Pool"
+                          },{
+                            "FieldName": "sku_tier_s",
+                            "QueryForValues": "union microsoft_azure_databases_mysql_server_CL, microsoft_azure_databases_postgresql_server_CL | distinct sku_tier_s",
+                            "Title": "SKU Tier"
+                          },{
+                            "FieldName": "version_s",
+                            "QueryForValues": "union microsoft_azure_databases_mysql_server_CL, microsoft_azure_databases_postgresql_server_CL | distinct version_s",
+                            "Title": "Version"
+                          },{
+                            "FieldName": "microsoft_azure_databases_mysql_server_name_s",
+                            "QueryForValues": "microsoft_azure_databases_mysql_server_CL | distinct microsoft_azure_databases_mysql_server_name_s",
+                            "Title": "MySQL Server"
+                          },{
+                            "FieldName": "microsoft_azure_databases_postgresql_server_name_s",
+                            "QueryForValues": "microsoft_azure_databases_postgresql_server_CL | distinct microsoft_azure_databases_postgresql_server_name_s",
+                            "Title": "PostgreSQL Server"
+                          },{
+                            "FieldName": "kind_s",
+                            "QueryForValues": "microsoft_azure_databases_sql_database_CL | distinct kind_s",
+                            "Title": "Kind"
+                          },{
+                            "FieldName": "microsoft_azure_databases_sql_database_name_s",
+                            "QueryForValues": "microsoft_azure_databases_sql_database_CL | distinct microsoft_azure_databases_sql_database_name_s",
+                            "Title": "SQL Database"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_databases_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['DTU Usage'] = columnifexists('dtu_usage_d', double(null)), ['EDTU Used'] = columnifexists('edtu_used_d', double(null)), ['EDTU Limit'] = columnifexists('edtu_limit_d', double(null)), ['Sessions Usage'] = columnifexists('sessions_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Workers Usage'] = columnifexists('workers_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_databases_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['DTU Usage']) or isnotnull(['EDTU Used']) or isnotnull(['EDTU Limit']) or isnotnull(['Sessions Usage']) or isnotnull(['Storage Usage']) or isnotnull(['Workers Usage']), (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['DTU Usage'] < 85 or isnull(['DTU Usage'])) and (['EDTU Used'] < ['EDTU Limit'] or isnull(['EDTU Used']) or isnull(['EDTU Limit'])) and (['Sessions Usage'] < 85 or isnull(['Sessions Usage'])) and (['Storage Usage'] < 85 or isnull(['Storage Usage'])) and (['Workers Usage'] < 85 or isnull(['Workers Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Elastic Pool",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

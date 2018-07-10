@@ -1,0 +1,757 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Citrix NetScaler Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Citrix NetScaler Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Citrix NetScaler Environment",
+                        "Name": "Citrix NetScaler Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Citrix NetScaler Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAOr1JREFUeNrt3Xd8FkX+B/DP7j79edKe9EoICRAIXTqCUqWIoPRTQTxUxMZhA8udKJzlFCy/OzlPVIqgx4EFCB2FUAMkhJpKSCXlSfL0trvz+yMJUgIm8iSbMu/XCyMk2Zlndue7M7OzMwBFURRFURRFURRFURRFURRFURRFURRFURRFURRFUS0XI3UGqKbl5+cHt9vNJCQkKFUqlQwAqf2eIAikuLjYodFoxLS0NKmzSjUBGgBaIb1eD0EQmNDQUNXMmTN9ExISwgICAoJ9fX0jdTpdoCAInJeXV3u5XO6D3wIAQwhxGY3GbABWm81WUVlZedlgMJRevny5NDExsWLXrl3WwMBAUlZWJvVHpDyEBoBWYurUqTh27Jh87ty5gf379+8YHR3dz9fXt5tGo4lRKpURMpnMh2VZNcMw8ppfudW5JwBACHGLoujged7I83y51WrNrKioSCkuLj6dmpp64cMPPyx65plnXIsXL5b6o1N3gAaAFkyhUMDlcjELFy70nzBhQt8OHTqM8vPzG6BWq2NkMlkAwzCcJ9MjhAiCIJjsdnt2RUXF4fz8/F+SkpKOL168uEipVBKn0yl1kVBUm8H89a9/DU1OTp5rMBh2uFyuMkKISJqOyPO8sbKycn9aWtoLX331VRd/f3/ZyJEjpS4Ximq9CCF4/fXXA5OTkx+rqKjYw/O8uQkrfd2RQBRdFosl7ezZsy8uX748HAATHh4udVFRVOuxfv16zJo1S7t3795xV65c2dQcKv6NBEGwGQyGXfv375/8/PPP+xJC7vyDU1RbNmbMGADg1q1b1yM3N/cTl8t1ReqK/nvcbnd5YWHhN5s3bx78wAMPqN544w2pi5GiWpbo6GgAYD744IOoc+fOvWw2m08TQgSpK3cDCA6HIzczM3P5F198Ed+uXTtu/PjxUhcrRTV/hBA8/fTTfseOHXukoqJiryiKDqlr8x9VMz6QkpKSsuCdd94JIYSAYejDJ4q6yYIFCzB48GDVrl27RhUXF3/L83yl1BXYUwRBsJSVlf20b9+++59++mmvxMREqYubopqHnj17AgC3atWqzjk5OR84HI58qStsY3G5XKV5eXmfb968ecDw4cMVzz77rNTFT1HSCAgIAABmyZIloWfOnHnBZDKdFEXRLXUlbQKC3W7PunDhwhuffPJJewBMYGCg1KeDopoOIQRTpkzxOnTo0DSDwbBTEASr1LWyqYmi6KysrPw1OTl5zqJFiwIIfWxItXYvvPACunfvrti4cWO/goKCL2tm8LVpPM+brly58v2ePXvGjhs3TrNy5UqpTxNFeVbXrl0BgF25cmVsZmbmUpvNlkla1mO9Rud0OosuXbq08uuvv+4GgOvXr5/Up42iPOOll14KOnXq1JMmk+m4KIpOqStbM8abzebUc+fOvbRs2bIIAIxCoZD69FFUw23fvh0PP/ywdt++ffeXl5dv43neJHXtaikEQbAbDIY9R48e/dPjjz9OpxVTLcfs2bMxZMgQ+fr163tfvnz5s5Ywfbe5crvdFcXFxet37tw5om/fvso333xT6tNLUXUbNmwYUN3Pb3/+/PnFNpstXRRFXupK1Bo4HI7L2dnZ7/3zn//sJJPJOPraMdWsEELw6quv6o8ePfqo0Wg8LAhCi52+21yJougymUwn0tLSnlu8eHEIAKZDhw5Sn3qqLfvoo48wa9YsdWJi4oia6btVUleU1k4QBIvBYNhx8ODBKTNmzPAi9P0CqqlNnjwZcXFxsvXr1/fIzs7+wOl0FpCmXZGnzXO5XKUFBQVfbNiwoW+/fv0UzzzzjNSXBdXa+fv7AwCzcuXKdmlpaQutVutZ2s+XlGCz2TLT09P/tnLlyg4AWNotoBqFxWLB3LlzvZOSkqZXVlbuFwTBLvXVT1UTRdFpMpmOnThx4s+LFy8OIISA4zy6JirVVs2aNQvdunVTbNu2bVhBQcFqt9ttkPqCp+rG87yppKRkU2Ji4qhHH31U+8MPP0h9+VAtVWRkJACwa9as6ZqZmbnM4XBcIrSf3xKILperODc395Nvv/22V79+/eSPP/641JcT1dK8/PLLQSkpKfPNZvNJ2s9veURR5G0228WzZ8++UvPaMTto0CCpLyuqOTt27BgmTpyo/fXXXyeVlpb+2BxX36UaRhAEh9FoTDpy5MjDixYt8iN0WjF1oxkzZiAoKEi+ZcuWgfn5+f92uVwlUl+4lGfxPF9VVFS0NjExcfjkyZNV77//vtSXHSW1Pn36AACzatWqjhkZGW/ZbLYMQvv5rZnodDrzs7Ky3v/22297BAQEcMOHD5f6MqSaWs3zfDz99NP65OTkx4xG4xFRFF1SX51U0xBFkbdYLGmnT59+funSpaEAEBYWJvVlSTWFHTt2YMSIEepdu3bdV1pautntdtPpu22UIAjWsrKybUlJSVMeeeQRr+TkZKkvT6qxjB07FhqNRrZ+/freeXl5/6yZvktRxO12lxcUFHy5devWoR06dFBMmjRJ6suV8hRvb28AYN5+++2IM2fOLLJarecIXY6Luplot9tzMjIylq5YsaIDAFav10t9+VJ3at68eX5JSUkzKisrfxEEwSb1VUY1b6IoOquqqg6fOnXqyeeeey4AAFiWlfoyphrim2++wb333qv+6aef7rly5cp3dPou1VA8z5tKS0t/3L9//8SRI0dq6fhACzBp0iSEhYVxq1ev7pqbm7vC4XDkEfpYj7oDTqezOD8/f9WmTZv6e3l5yWbMmCH1ZU7dKC4uDgCYv//97+GnTp162mKxpLSRXXaopiHabLaLFy5cWPzuu+9GAWA7duwo9WV/x1rF+5KEEGRlZfm8++67Y8eNG/dOdHT040qlMpJhGNpxozyFkcvlAXq9fnD37t0HTp48WbBYLPnJycl2qTN2J1p0AJg3bx6USqVcr9cPmDFjxhvx8fGLtFptAsMwcqnzRrVODMPIVCpVVHBw8D39+/fvNmLEiMqqqqriBQsW8Dt27JA6ew3/PFJn4I+Ii4tDZmYm++WXX8YOGjRoenR09GyVStUeAL3jU03K6XQWFBUVbdy/f//X77//fnpcXBy/detWqbNVby2qBaBSqeB2u2GxWELefffd6UOHDn0nLCxsulwuD0ALDWZUyyaTybx9fX37derUadjIkSPlDoejYO/evebu3bujpKRE6uz9rhYTAPbv3w+FQuGlVqtHjxs37m8xMTHzVSpVe4ZhWsxnoFonhmFYhUIRHBgYOLR79+79J0yYYLNarQWbNm1yrlixQurs3Vazrzx9+vRBcXGxbPz48b1nzpz5ateuXV/18vLqxTAM3TCOalYYhpGrVKrosLCwET179mx38uRJg8lkKp06dapw8OBBqbNXJ5nUGbgVtVoNu93OTJw4MWzNmjWzoqOjH9NoNJ1A+/lUMyeTyfTh4eFzAgIChsfHx6/dt2/fWgBZOp2OWCwWqbN3nWbZAnj66adRVFQk37Rp06hJkya9FxERMVuhUISC9vOploORyWS+er1+UMeOHfuOHz/eVF5efmn27Nn8nj17pM7bVc3ubpqRkQG1Wq3/6aefFgwZMuRffn5+o1iWVUudL4r6IxiGkfv4+Azu37//Z8uXL39VFMUQq9UqdbZ+y5/UGbhWUlISEhMTg5544onXw8PDH+M4Tid1nijKUwghzsLCwjVr1qx5Z8mSJXk+Pj4wmUxSZ0t6SqUSAPDRRx9FX758+Z90ww2qtRJF0VleXr71u+++60UIQWBgoKR1r1m0ALKzs7F79+6YKVOmrNTr9ffRmXxUK0eqqqp+2blz56Lp06enhIWFobi4WJKMSB4ADhw4gB07dgQ9+eSTb0VGRv6ZYZhm+2SCojyIVFRU7Fq7du38++6771Lnzp0lyYSkg4AbNmzAzp07/Z988snXIyIi5tDKT7UhjJ+f3/CHHnpoyf/+97/QtLQ0qfPTtBYuXIiePXuqzpw585IgCBap+2YUJQVRFB1ZWVl/HzZsmHbx4sVSV8umMXDgQABgDh48ONXlchVJfRIoSkput9uQkpLyJABuyJAhTVoXJRkDIIRg48aNPSdMmPClTqfrLUUeKKo5sdls57dv3/74lClTjur1elRWVjZJuk0+BvD+++9jzpw5vnffffezOp2uZ1OnT1HNkUajiR82bNiry5cvD1uzZk2TpdukLYD4+HhcuHCBTU5OntOrV6+POI7zacr0Kao5E0XRcf78+de7deu2skePHsLp06cbPc0mbQEcPXoUa9as6dK5c+dnaeWnqOuxLKuKiYmZ+9133/VITU1tmjSb6sM988wzGDdunObuu++eq9VquzVVuhTVkmg0ms4DBgyY9+CDD+qa4qlAk3UBCCHYsWPHvcOHD1+rUCjCmypdimpp3G53ycGDB+cMHz58h1wuB8/zjZZWk7QA5s2bhyFDhmgTEhJm0cpPUbcnl8uD4+Pj//Tggw96L1iwoFHTapIWQO3d/957712rVCppAKCo3+F2u0sOHDgwZ8SIETs0Gg3s9sZZfbzRWwDTpk1Dly5d1AkJCTNo5aeo+pHL5cFdunT500MPPeQ9f/78RkunUVsAWq0WeXl5SExM7Pnggw9+r1ar4xozPYpqTVwuV/Hu3btnjh8//leVSgWn0+nxNBq1BaDX6+Hv78/169dvokqlimnMtCiqtVEoFMHx8fFjGYaRNdbbgo329h3Lsli4cCHKy8sDAwMDR9DluymqwdiAgIB7li9fHhoWFpY/d+5ciKLo2QQaK+c6nQ4LFy7EsGHDumm12i6NXlQU1QppNJpOAwcO7DV79myoVCqPH7/RAkBQUBAYhuFiYmKGyeVy/0YtJYpqpWQymW90dPQwhmHkCQkJnj9+Y2V89uzZMJlM/gEBAYPRDFYeoqiWSq/XD3znnXeC9Hp94fHjxz167EZpAQQFBeGJJ57AgAED2qnV6g5NUkoU1UqpVKr2PXv2jJk/fz5CQ0M9euxGCQAcxyEoKAjR0dFd5XK5tMueUlQLJ5fL9ZGRkQkAWsYgYG3/39fXtxPLsp4fuaCoNoRhGIWPj09nhmHknTp18uixG2UMwNfXF127dlV6eXnRZ/8U5QE6na79+PHj1Vqt1u3J4zZKAJgxYwaMRqOvSqWKaprioajWTaVSRYwdO1YfFBRk+v777z123EYJAH5+fgCg5DjOq4nKh6JaNY7jdN7e3kq9Xu/R4zbKGAAhBIQQACBNUDYU1SaIoghBEDx6TI8HAG9vb2i1WtRs70U3+qAoD2AYRqnRaLSxsbEICgry2HE9HgD8/f1x//33o2PHjuEKhSKgSUuJolopmUzmFxkZGRETEwMvL8/1rD0eADiu+p0fuVyupJt8UpRnMAzD1r5QxzCem1gr6d6AFEVJiwYAimrDaACgqDaMBgCKasNoAKCoNowGAIpqw2gAoKg2jM7UayBeJMg3OuFwC3SZo9sgYMCA3PFc8PqUMQHAsgwCNHL4KwFwdPpJfdEA0AAZ5Ta88FMGDl02wsHXBgD6usO1RAKIDAeOY+GJleAIIeAFAXKGgLllWTNgAIT5qPHK0Eg80T8MYGjjtj5oAKgng82NP208h5MlDjCCABa1VZ+2A4DqUhBZDoFqFpO7BKBTkMYjM9Z4gSClwIRtWUaYnDxYIt4UBhhUn4ucSjueT8yFgmMwp3cwwNHL+/fQEqoPUcDnh/ORWuYCK7gA0Pv+jUSGQ+9QLb6e0hldA1SerXwij19zzZj9/Xnkm1xgcP2yWLXngmMAh9uNt/ddwgMJQfBTS10qzR9tJ9WDwLDYfrEcAu/RxVhaDQIGPioZ/vVAHLoG6zx/52VlGBbjhw/HxUElv33/noOIIjuDw5eNUhdLi0ADQD2YnQJKrG4Q0bPvYrcaDId+IWrcFe7dqMmM7qRHpI6B+DuXLU+AgiqH1KXSItAuwK0IbhjdDCxOARV2NwRCaoaaaOP/WgwAMAyi9BqAEMCDb6rdSM6x8FXJQeC6bX4IIbC6RVTYq1tserUMdKymbjQA1MElEHx0oBDfnCyGwe4GAWBy8GCZOio/AQjDAhwHkLZ3kREQaORyjOrg1zTpkdsHYAIAvBPv/XIJ/zqSB4Zh0SlQiyX3RGFglA/A0kbvtWgAuBERsHT3Jbx3uAwC7wDH1FxUdVx4IgCNUoluAXL0DPOCrI1dXIQAGoUM/SO9MKlbUKPe/Ruq3C6gzCGCIUBmpQupRRZsm9MN3cMat5vS0tAAcIPsCidWHSuCyPNgIYKQ2mb/9Rc3AeCtUmDluBjM7BkCJUvqDBKtH/ndiTe8SLArswIGqwscy2BwOx+0qxmizzc6kZRbBV4Q4aOubkmoFXe+kTQDXD0fHAgKrQLe3XcJ387qRlsB16AB4AYXSq0wiiw4joNGqQHDENjdAniX87q5bXKlCktHRGJO7xB6Qf2O/6aVYN62PDicThCwmNBegx/n9AAALEnMwIaLZkAQoVIp8cFwO+YPjLyD1BiAEKgUHNQyAoYwMLkEuEUBp65Y4BQZKOnpuooGgBs4BQKWleH5/kF4sFsIWBDsza7E0r2X4BKqKz8Bg2Alg0d6hdHKXw+lVjccTicY3gWBABV2BQjDgCEElXYegssFGUS4XECp1XWHqRFoVXJ89WAn9Iv0BhgGuzINeH7bZdh4EW5RhBJ33sJoLWgAuIEgEnhxBC8NjUaATgEA6BKiw/8dzkeRxXV11NtHyUIlaz593noTRYAITTpfvjpEMldnTrIMg9r5e7Xhk9R0s9g7nMJLwMBbzuLeWD381NWfcUSMHmp5Hgh9EnATGgBuwLEsjDzw1u5s3B8fAIDg11wjSq3u6x4DEtz8QPBYnhE7s024p50OQ9v7NMv56PtyKrHlbAXeHNkOgTUBrrGJhFw3iiJeM1Zy7f+TG/7+R7AgKLHxmPv9OfQK9wYhBIdyq1BhcyNc1/zOh9RoAKiDSAR8fqIUX52uAEDgEgnEeuxzsiH1CrKreJgtVgyN0gGymy84i0uAKHpmsJBjGWjlzO8HGoEHz8ogIwIqbDzSy+1w8LfYZfaGZ/meeLTvp5ZBrVBAYBiwYOGjklW3BwiBn1oOuVwFDgJkChX06jtvmYiigJ8yqrA1x1odVNyump4aDQA3ogHgFgjhYXfxAOoxhYR3AjIlZvQMwc8XKjEm1htgOYB3VTe1a2rQoq3p2Jll8siMQgIChUyOeX2CsGBQxC2DQIXNjdd2ZuN4nhl9wrWY2CUAUd4cvkwuwqFLlZApZOgSqAEDgvOldgRoZXh7VAy2XjCgyOjA/V0CsPyXfDzWJxj/PVOCu6N9MX9ARIOiwpTuwfBTyWFziQAD9I7QVZcqw2DZ2DiM7VQFjgGUcg7DY+9sPkFtaGWIAOKuLufqkqH9/rrQAHAbv3eJK2QsDl6qxI8XjRgX64UrFhcuGR04UcggyEuJfyeXoGeoGo/2DIYbDPZkVeG8wQVG4D2SP5Hl8b9zpVgw+Naj5q9sz8Su7Co82TcURrsLxUYnfrnswAfxAdiVYUBxpRWP9wnFW7uz0TVEhzPFFnxxrBDlNjculFjx1pgOUMvy8cjmbHTwAt4fG9vgJoFGzuH+roF1FDCLKF8VZvUO8fSpo+qJBoA7IGMZbLtoQGqxA2rRCYtLwPiO/vgl2wCVnMOpK1bkGsx4tFcIIBLIOQZsdaPUI+mzEKGU3fq9e4EQHMs3YWSML5YMCoRbrsGPZ0tBCMGELoE4mFOJtFIbpiQE4INfL2FPjhE+cgbTegTj86OF4DgGMlFAz1AdNmU60DNMjQhdw++kJgePzefKYHbykHMchrTzRkKIDgCQWW7F7mwjRFGAWsbhoW5B8FXRy7Kp0JK+A26BYFr3YLBcGcZ30uOK2Yl9l624K8IbI2L9ccXKo1+4FiAiwLBw8iJEMPBUX5QQBk7+1sGEAzDnrlAs+7UImYZ0cBDxYJdAkJq82NwC7LwInjCwukS091Mhv8KOzHIbBJFAzgA/pVfggwOFmN8zEOtPl2L1qTLM7RvWoFbAf8+U4JmdReDdToiEw6goJXb8uRdACP66KxsbM2xgCQ+ZQgWzk8cLQzyzq/zV7oBHjtY60QBwEwKGEIiMDGzNNmei4K5zIQq3IKJ3uBd6h1fv1XYsz4hgtQMJQTrE+quxdGT01Z+VAxgVqwcuGQEP7fDKshymdA26GmBuwjBYOCQK7XxVOJJnRo9QDXqFeUOlkEHOMZjeMxQj7W6wDLD43vboGKBGgckJi1PA8FhfGB1ecAgEH01ojzl9wtA7TAu+ZkCUbUCtsrpEuF1OgHdCJAysLvnVJcNMDh7E5QAgQAADo+POukfVMwABcDIoOPbqeSLEM62u1oYGgLqwMoyNVlUPSDEMjl02YsvFit8dvPvu9BVkV7phsjkxOEp707P2jybEwezy3CvFLMNAK2dvezdmGAYPdQvGQ/H+gKz6dNc2v++N/W2v+T/1qu6H9635+8xv03C5woHDz/StXueLYTD3rrDqYNOQ2o+b78DX/jp7Q97ZO3zkQADIZTIsGRqBuzvowQDYer4Unxwr8Vi5tyY0ANxAEAm8WBFfPBSPUB8VAMDcj8eRj46gwCxcndRSl+k9QrAz24Rh7XQAU0dfmWHgpZSoyGUNS/f5wVEwu4Tq5/e1sx1ZFn+k+yLc8NhTuOZZv3Ddt8hNP9tQIgEC1RxevKc91PLqvHb0V2NdWiUI6IIuN6IB4AYcy8JBOGy7WI77uwSCZRn8klMJo4tcc+nXvRpg/ygf9I/ykfojeMSAdr4eO1aIlxIahRw2UQDHcgjWya/OAwjzVoCTKwCBh0quQJjXnU1OYhmCMoeIfxy4jLvb+4IQgm0XDah08ghS09GAG9EAcAMFB/Aij+e35+DN3TkAw8DkInC43b/NAySkZvCsmb/9d6uxAQ/gRQKXIIIQQMExkLO4ZVoPdQtEmI8CJocAGceiR6gWAAOwHN4d1xFTeljg5gXolDIMjLrT13UZuHk3lv6SB8XBAhBC4BIICBGhYBUN7b20ejQA3CBWr4EGAkwuAU6+ZuFvIl63FhBDRBTZCHakl2Nqd888w7Y4eWxLr4DR7gLDAHJOhv4ROsQHqKsXG2kIQcCRAjNe250Li8N1x/3qmzCAixevPoFQKhR4pGcAFg6KrPPlKDnHYmj7uif4+GvkGBPn+cVEiMDDIVS30hgAAitDJ38NNDI6G/BaNADcID5Ijcf7hODjE+UQ3M6aO8YNS4ExDJxOB17ddRnBOiWGRntX3/3+SEXj3cg185i36QKSrriqb9oMgcgwCJQLWDkuFlO6B9d/Ti4RsT2jAk9syUSxXQDrgc056k5GhCjU1DCOR2xuVXUAaDaYq8XFEwZecg4L745qVouWNAc0ANyIYbF8XBxUcg7fni6pnrtPCExO/rqKxAC4VGHDhG9SMS0hGN1DdfBRy+v9MgvDMBBFETnlNnx3ugzZZhdYIkLGABwLsIwMxXYRc/6Xjo2nSzAgyhteShmUMrbOCs0AMDt5JF2qxNZ0A+wCGq3y16bHsTWhkSFQy5tmqm196m9t3lim+s3DDv5avHZPJEY2QkujpaMBoA5KGYtlY6LxwtAomBw8TA4BD65Nw2Wj4/pHWBBhdQNfpZaDPVMBjmHQkHVDCQh4gQBi9eh03wgvfHp/JyhkDNJLrXhySzqMLjc2X6zAD5kmcEx14Ljx+LXv1guEQBQFMCKpmXHY+Hc7gurWwJUqZ6PfXd28CIPVfdvnEAwARqbE4qFhmNw1ECzDINJXBR8F2yzfzpQaDQC3wsoQqAUCtQpAFNDOR4nLZnf1u/TX/hgAEDfAA7VTWJj6BADmty/VfVQ5eoXqcFeoBpDJ0DFAg1d2ZMHEE7CiAPACRJDqCTQ3BYDaI5GrOxYxt9lIy5OqV+EVceyKDcfyTY33FIQQ/HCuFAV23LQxyHU/BkDBMhjUzgfdQ72aoARaNhoS64MQ3N8lACwru/nui5vXBiBMPf5c8zu1X13XPAPnRQJRrP7ub2kwdR7/2qPceMxGLxpUL/Vhdgl46scMnCo0AR562am27EEIdmQY8OquHLjct18xSACLdlpgQCRd/LM+aAugPjgZ/tw/HJvPleFIEQEjumoWB/EchgjYeqEMi1Qy6BQypJdZUWoTqme2tIDZ7AwRcKbUhpH/ScF9Hf3RIUDjkVwLoogzxRbszamCQyBgmdq1Pm88OoFAGOjUCvx1dAd4Kei9rT5oAKgnH5UcG2Yl4OXEbOzJqoTRXn0n8tRWIQwhKLeKNVNWGYgCD5a0sC3IBR5GnmDj2XJwHtsejIDneciu2Q+orl2ZZSyLhCAdXh0Wiendg2h/v55oAGiAKF81Ns7sipwKB8ptNU3RZj4XqDWoT5CVcyzi/NXQcaCVvwFoAGgwBjF6NWL0dOtZquWjoZKi2jAaACiqDaMBgKLaMBoAKKoNowGAotowGgAoqg2jAYCi2jAaACiqDaMTgTzAarXB6XSC41jodDpwDV3BpxWw2arLQCaXQ6fTeWwKMyGk+hVoqlHQAHAHkk+cwC/7f4XFYoFMLoPACxBEAWNGj0ZCQgK+XL0aDz04GdHR0fU6XmVVFVav/goPTJyI2NgODcrL6dOnsW1bIkQiYujQuzH07rvr+Jk0bN22DZGRkXj0kYf/0Ge+sUIaDAZ8/99NKCoqhlIhh8PhRGhoKObNexwKxZ0t8JmXl4f9v/yK2Y8+ckfHoW6NBoA/gBd4rF79DYqLizB61Gh07BgHlUoJQRRRUFAIgechk3EICgyEUqkEAJw8lQKXy4mBAwbc8rhymQxBgYFQqZQNzpPBUIkLFy6CF3jk5+ejU8dOCA4Ouu5nysrKcPFiOuw2e4PurE6nEwcOHER2Tg6mT5sGPz9fANV3/ZUff4rOnTriwWcmQ6fTwW6zo7Cw0COLgzicDhQWFHrqtFF1oAHgD1i3dj3Kysrw8ksvQq2+/p2ALvGdr/7/I9fcZXNycn53cU6dTnfd7zQEyzIQiQhRFGE0mrB23Xq8uGjhDT/DgogEsgbuEWAwGLD+2w1gGAZTpzx09d+PHDkKlUqFP/1p1tV/02o0CAjw90g5M2DaZHeqKdEA0ECZWVk4cfIUlr3z9k2V/1qEEJhMZigUChhNRthsNrAsiytXSsByLHy8veF0uuDt7YW8vHwYjUZEt48GEQlUKhWMRiMCAvxvuktXVFRCo1FDpVLdlKYoiggKCoLD4cCpU6dw4ODBOrsCdSkpKUVpaSk4jkNoaAj8/KrXzzObLaisrILb5YZMLkN5eTkABj6+PjBUGOCv19fr+AUFBbhypQQKhQJRUVHw9a1eOaiqqgqFhUWwWi3w8vJGbGws5PLbX5ZZWdmoqKyATqtDXMc4yGsCmtvths1mh7ePF4oKi2A0GhERGQlvL7oy0K3QANBAv/zyK/re1Qc+PrdfccbpdOGL//wHY0aPxt59+5Cflw9CCIqLixEcFIyEhK5ISUlFUHAQUlJS4K/Xw8278cv+X/Ho7EewZu1aJHTtijFjRl89Znp6BtatX49Fi/5SZwAAgJCQEPTp3Rurv/oK//1+E7p36wZfX9/b5NOJb7/dgF8PHAQRCUQiQqPR4IEH7se4sWPx9dffIO3MGfACD0EU8N57H0Aul+P5F55H587xWP3lapjNFnh56eo8vs1mw1dffY2y8nJEhIfD6XSiqqoKzz77LLKzs/HTTz/DT+8HnVaHoqIisByLZ59ZAK86Kq3ZbMaqVV/AZrchIiICJVdKIIgi5s9/Ev56PQoKCrF12zZ0jIvD8ePH4R8QgCGDB6N7925SXzbNFg0ADUBI9Z1s6pQp9fhZArvNjuDgIDz/3LP43+YtYFkWkyc9AAA4e/YcsrKzIYoCXnn5JahUKjicTmz9eRs4lsPUKQ/hww9XoE+fPggI8AfP8/h2wwaMGTMavj63XnfP5XJhzJhROH78OC5cvIhvN2zE0/OfuuXnWf3V1zhw4CBCQkIwevRIVFUZsWPHTnz/3SZERkQiPr4z7A47UlNSAYZBp06doNFooNVoEBkVidjYWPz93ffw+NzH0KFDzE3H/+STzxAaGoo///lxKJVKEBCU1LSCAgMD8NRTT143VvHxx58gccdOTJs6BTcusPyvf32OqHbRmDr1IXA1+w+sX78Ba75Zi4ULnwfDAJcu5YJjObz00otQqVQgzX3zFonReQAN4HQ64Hbz8PauX5OSYZhr/lz/byzLwGAwYOLE+6/ezdma7wkCj6ioKAwdNhTffvstAGDrtu0IDAzE4MGD6pMw5jw2BxqNBseOHUdKSmqdebtw4QJOnDgJf70eb77xGsbedx9mzpiORx55GG7ejV27dmHkyBF49JGHwclkUCqVmDfvcTz77AK0axcFlmGwYMF89L3rLny0YiU2bPwOFovlahrHjh2Dy+3C7NmPXB0MZcAgJCQEOq0WERERNw1Ujhg5EhkZGVfzWCslJRVOlwszpk+9WvkBYOrUh1BaVoaysnLIZHKYzWaMGz/2apnSR4i3RwNAAzV0m+mrdyBy9T8AAJ7nERwchMCgoDp+p/rr5EkPoMpowrZt25FyKgUzZ0yv11qEDICoyAjcf/8EuN08NmzcCKfTCZatXsi/dreAtLQ02O12BAUHoaioGKmpp3H6dBrcLhcYhkF+QSHcbjcEQbz6OUTx+s/PMAwmT34Ai199BUVFRVi69B1kZWUDAI4fP44Bt3nqUauqyojMzEwcOnQYycnJ19+1a9YAPHvuHIKDgpBfUIDLl/Nw+XIeci/nofjKFTAArly5AoAgwN8fYaGhjXcBtDK0C9AASqUSLMuitLQMUVFRd3QsQgh8fHyuu5vdiGVZzJwxHR+tWIk/zZoJf/+Gja5PGD8OqamnkX4xHT/++BNCQkIgijWP/whBebkBPM8jPT0DH3/y6dXfEwQBDMPA5XSC569f4fdWTeqIiHD8ZeEL2L49EZ+vWoXXliyB1WpFUGDgLfNXUFCILT/8ALPZDK1GAz999XbeNz6lYBjAbDJV//zmH67JQ/VuSQEB/vDz84UgCNB56Rr8lKMtoyXVAAzDoENMB5w8lYI+d/W5o9luhACyeiycmZZ2Bl5eXkhPT8eQIYMblIZMJsMjD/8Jy5b/HdsTd2Dw4EEQReFqQ0StVoHjOHRL6IqxY8fCzddsn02qP6tSqajpR9ev1cMwDMaPH4e0M2dxPPk4FApFdXp1sNlsWLXq3xgxYjj69+9X80SFID+/EGvXrbumoKq/yOVy3HvvPRg1auQt08/OybmDM9I20S5AA40cOQKnTp3C5dzLDf5dlr3+mfbvDVCdO38ex48fx+JXX0FBQQEOHTrc4DQ7dGiP0aNHwu1yIynp0G/fYBiER4SD4zhUGU3o1r0b7urTp/rPXX3Qp09vdO2acF0fWhSF6m7E79Dr/cC7eYSFhePc+Qt1/kz6xXSoVCrcc8+wax6nMsjMzITD7vitjGq+RkREICMjg67B6mE0ADRQVFQk7hszBh9/8glycnJQ13q1Tper7n93OOuVBsexcDqd+OabNZg6dQr8/Hwxbdo0bN7yA6qqjA3MMYMHJk5EZFQkHA4HCCFXxwD69u0Lby8v5Obm4t1338Pp02koLCzC6dNp+OKLL5GVlVWTHw4sw8DlcmP3nj04d+48DIYKmM3mm8YEzBYLcnMvo2PHONx992AcPnwEeXl5N+eKZWE0ma7/XbMZ+3/5BZyMuyb3uJrXCxfTkZGecd3vEEKQl59f8xdPnum2gXYB/oDJkx8Ay7L47LN/okNsB8TGxECj1aKqqgrZOTmIiYnB2PvG/NakBpCQ0BWff/5v+PvroVQqq5vHN7QACCEQRAGEAN+sWYf20e3R567eAID4+E6I79wZa9euxdNPz79phpwoilAoFHC73TflV61W4+GHZ2Hlyk/gcDjAu3kQQuCv12POnNn4z3++xPnzF3DhwkXIZTKIhECtVuOee4cBAIKCgtGpcyecP38BP/20FXv37MMLC1/ApUuXkJqSih49esDHxxulZWU4ceIkEhK6IjYuDgyAKVMewoqVn2DI4EGIjIyE0WhERkYmpk2rDmwrVnyMwUMGw2qx4MSJk+jduzfS09OrPxMRr45B+Pv7Y+qUh/DFf/6DgQMGIjq6HUwmE06eOoXAwEDMfvQREEJqPpvUV0jL4fF5lnq9Hs899xzy8vJiIyMjp7Asq7rzozY/nTt3Qs+ePeFwOpGXn4+y0lIAQEJCAvr36wuFQgE/Pz9ERIRDJpMhICAA/v7+yMvLh1arQ+fOnRAWFobAawbJWJaFr58vAgICIAg8xowZDaWi9r0ABp06dQQnkyEoOPimgS61Wo3IiAj06tUToXWMggcFBSE8PBxdu8SjV+9eV0fKw8PDcdddfeCv1yPAPwBR7aLQr+9dmDzpAbSPibn6yLJnj57w9vJCSGgIhg0bih49eyAyMhIarRZXiotRUloKQghGjBiO0aNGXr1zt2/fHh3j4lBQUID8ggI47A706tUTsbGx6N27N6qqqpCZmQlBEHHffaPRLSEBer0eISEhkMvkCAoKQkhIMBgGiI5uh7i4OOTl5yHvch5cLhfu6tMHo0aNBMuykMsVCAwKRFhY63sKQAhxFxUVbYmIiLj46aefoqKiwiPH9fhD0tjYWGRmZuLgwYP3DRo0aCPHcY20WyTVvLSMLcxaKlEUrcnJyY/0799/S1xc3NXu2Z2iYwCUh9DK3xLRAEBRbRgNABTVhtEAQFFtGA0AFNWG0QBAUW0YDQAU1YbRAEBRbRgNABTVhtEAQFFtGA0AFNWGeTwA1L7jTggRADRs/SyKoupECBFr6pRHFzr1eAAwm804fPgwLl26VORyucqbsIwoqtVyu90VeXl5BZmZmTCbzR47rscDQGlpKXJzc2G1Wm2EkPqtgEFR1O9x2e1266VLl1Ba8+q5JzTKGADHcbVLR9FXxCjKQ6rXZvBslW2UFYEqKipgNBqdgiCY7vxoFEXxPG8xmUyO2v0VPKVRAsCGDRtQXl5eNXfu3DwvL6+BTVJCFNWKOZ3Owh07dlRqNBqPHrdRugAmkwkXLlxwWCwWuk4zRXmAw+Eo3rlzp9OTA4BAIwWA0ur14cTKysp0URQdd35Eimq7CCGu8vLyFLfb7UxNTfXosRslALAsC7fbjZKSkiye56uaoIwoqtUSBMFcVlaWAQAKhcKjx260QcBPPvkEBoMhe9CgQRkKhSKkCcqJololm82WlZycnFFQUICysjKPHrvRHtPFxsYiKytLdvny5X9ERUU93+ilRFGtVGFh4b8jIiKeGzhwoPPIkSMePXajvQtgsVhACOHz8vIO0seBFPXHCIJgLSwsPEgIcV66dMnjx2+0nYFcLhc2btyI3Nzc4926dTvj4+PTsJ0tKYqCw+G4lJqaetxut8Plcnn8+I06Uy80NBTFxcVsZmbm32JjY18DffuQohokNzd3Zfv27V8ZO3asKzEx0ePHb9QKWbMZpZiRkbHb6XQWNmZaFNXauFyuK1lZWdsJIa4dO3Y0ShqNujloZWUl5syZg7S0tJPdu3ffERERMa8x06Oo1qSysjLps88+O/bf//7Xo68AX6tJXtYhhODAgQMTBw0a9JVMJtM3RZoU1ZIJgmA+efLk0/369Vvn5eUFi8XSKOl4fHfgG6lUKigUCiQlJZUPGDCgu1arjW/sNCmqpausrNy/evXqj7KysqxbtmxptHSa7HVdQgh27tw5+p577lmtVCrDmypdimpp3G634cSJEwsGDhz4nVwuB8/zjZZWo44BXGvevHk4d+5cUpcuXX6MjIx8CvSJAEXVqaysbPuyZcsSO3To0KiVH2jiBTsIIVi/fn3PSZMmrdNqtV2bMm2KagkcDsel/fv3PzZ27NhfGabxq2eT3oVHjhyJhx9++Ex2dva/BUGwNmXaFNXcEULcBQUF68eNG3dk7NixTZJmkwaAvXv3YtWqVcK6des2lJeXb23KtCmquauqqjr4888/rz579myjPfe/UZOv2adWq2Gz2bBly5b+o0eP/kKr1XZr6jxQVHPjcDguJSUlzR85cuROHx8fmExN8/pMkw/E2e12dO/eHQ8++GDy2bNnP3C73Z59v5GiWhhBEMyZmZkfjxo1at+kSZOarPIDEq7a+8QTT+DcuXOab7755vX27du/wLKsWqq8UJRUavr9X3z44Yevx8fHVz711FNNmr6ky3bv2rULiYmJgX/5y1/+HhERMQdNMDGJopoRYjAYEteuXbtg1KhRuQkJCU2eAcnX7SeE4Jtvvuk0YcKED/39/ceCzg+g2gZSWVm5NzEx8cVZs2adDgsLQ3FxcZNnQvLK5u3tjdmzZ6f//PPPLxsMhkTQ/QSp1o9UVlbu3b59+4uzZs06XfPavNR5ko5SqQQhBF999VWX8vLyrYQQgVBU6yRWVFTsXrduXQ9CCAICAiSte5J3AWqxLAtBELBmzZrOI0eOXBISEjKFDgxSrQkhxGkwGHbu3r37jZkzZ6Y15eO+W5G8C1BLFEUwDIOJEyde/PTTTxdlZ2f/w+12l0idL4ryBJ7nK/Py8lZ9/vnnC2bOnJmmUqkkr/xAMwoAtfz8/OBwOMoef/zxvycnJ79gMpmOkZp90SmqBRLMZvOpkydPLnz77bffuPfeewsYhoHTSTfOvq3u3bsDALN69er4nJycfzidzgKpO28U1RAul6ssPz9/1ddff90NADtwYPPbJrPZPncvKalu/Xft2rX8448/PtCuXbtUrVYrU6vVUSzLqqTOH0XdiiiKVoPBsCs5OfnNVatWfTFr1qz8jz/+mBQUFEidtZs0m0HA21GpVLDb7Xjuuef0Dz/88Pi4uLjHfH19BzEM49m9kinqDhBC3BaLJTU9Pf2L3bt3b12yZEmxl5cXPL2hZ5sVGRkJAPjwww/bnT9/frHNZssg9JEhJT3B4XDkZmdnv/vFF190AsD27t1b6upSL822C1CX2lHTsLAw45dffnksMDDwsFardWu12nYcx+mkzh/V9vA8bygpKdmyf//+Je+8886GkJCQkt27d5OWMrGnRXQBbmXTpk3YsWOHbsaMGUO7dev2uL+//2gaCKimIIqi3Wg0Hk5LS/vn999/v+///u//qhQKBdxut9RZa3sIIfjb3/4WdPLkySfMZvMJURSdUrcJqdZJFEW3xWJJO3/+/MvLli2LAMC0lOZ+XVpUF+BW3nrrLWi1Wuv777+fGhgYuN/b29uk1WqjZDKZD1p4K4dqNojT6SwoLCxcu3Xr1tdnz579s0KhqDp//nyLnsffKgIAAGRmZsJqtZLOnTsb1q1bd0Sn0x328fFh1Wp1FMdxGqnzR7VcPM9XlpeXb01KSnp9yZIlX48ZM6bw888/F8+fPy911qhbIYTgmWee8d67d+/E8vLy7YIgWKVuPlItiyiKzqqqqgOHDx+e9cQTT/hJfU03hlbdPOY4DoIgYOnSpaGTJk2aFhMT85hGo+nCMIxc6rxRzZpos9nSCwoKNmzdunXdokWLcrVaLbFaW99C1q2mC1AXUrOhotvttrz11lsnwsLCfvH393dpNJpwOj5A1cXlchUVFRWt37Nnzxv33HPPJo7jKrKysujofmvw73//G3fffbdqy5YtdxcXF693u93lUjczqeZBEARraWnpj3v27Bk7ZMgQzeHDh6W+XKnG4OvrC0II5s2b5/vrr79Oqaio2CsIgl3qC5CShiiKbqPReDQlJWX+m2++GUwIgZ9fq+zuU9eKj48HAGb58uWR58+ff9VisZwRRZGX+oKkmoxos9kyMzIy3qqZvst06dJF6suyybXqMYDbKS8vBwDI5XLT22+/fTQqKuqgXq8XVCpVmEwm8wYdH2i1eJ6vvHLlyvcHDx58Y9q0aRstFktpeno6ysroFhVt1vbt2zFixAj19u3bR5aUlPyP53mT1LcoyrMEQbAbDIadBw8enLJo0SJfOrBH3YQQghdffDHg5MmT86qqqpJEUXRJfeFSd0YURd5sNqekpqY++9FHH0UAgFxOnwRTt9CpUycAYD799NMO6enpb1qt1guEEFHqC5lqMNHhcFzOzMxcvnbt2gQAbNeudFf6a7XZMYDbMRgMAACdTlf5l7/85VBCQsJRLy8vUa1Wh3Mc5yV1/qjfJwiCsays7KekpKTXXn311XWEkOKjR48S2s+nGmzz5s0YPny4Zt++fRPKysp+ptOKmy9BEOyVlZW/JiUlzXz11Vf9Sc1kMIq6IwzDgBCCt99+OzQlJWW+yWQ6LoqiW+oLnqomiiJvtVrPpaWl/WXlypXtADDt27eX+rKhWhsvLy8AYL/88svOGRkZS+12exah4wNSEp1OZ1F+fv6/1q9f36tz586y6dOnS32ZUK3d2LFjER4eLv/xxx+HFBUVrXW73RVS14S2hud5Y1lZ2Y87duwYM3nyZC0hBBxHh7WoJkQIwUsvveR38ODBqRUVFbvptOLGJ4qiy2g0Hj127NicRYsWBQJASEiI1JcC1VYFBwcDAFasWBGZmpr6nMViOU2nFTcKwWazZWZlZS377LPP4gCwffr0kfr0t2i0veQBte+Ju1wu03vvvXciJibmoEajMWu12nZ0WrFnuN3ukpKSkk379+9//amnntro5eVVdvz48Raz+i7VhixbtgyTJk1Sbdu2bXhJScl/eZ6vkvrW2VLxPG8uLy/fvn///gemTZumI/SxHtUSaDQaEELwyiuv+B86dGhWVVXVQTo+UH8103dPpqSkzH/55ZeDADD0NV2qxanZEJJZsWJF9JkzZ160Wq0XRFGkuxndht1uv5Sdnf3+V1991RUAO2TIEKlPY6tFxwAaWe2GkKGhoVX/+te/jgcGBh728/NjVSpVGJ1WfL2aXXb+d+TIkb89+uij33h7e185evQoycvLkzprFOUZhBBMmjRJu2vXrrFlZWU/8TxvlPqOKzVRFB0VFRX7Dh06NH369OnehPbzqdasdrLKwoULA5OTkx83Go1HBUFwSF0RJSBYLJYzZ8+efWnlypXRACCTyaQ+PRTVNCIiIgCA/fDDD2MuXrz4ps1myyRtZFqx0+ksyMnJ+Wjjxo29AHA1r2BTTYyOAUioZrdj0q5du8qlS5ce6dChw3EfHx+uZnxAK3X+GoMgCBaDwbD92LFjbyxcuHA1x3EFhw8fJrWvYFNUm1T7tuHkyZN1Bw4ceLC8vHw7z/Nmqe/UniKKotNoNB4+duzYnKVLlwYRQqBSqaQudopqXmpfYX355ZeDU1NTnzGbzSmEkJY8rViw2WwZ58+fX7Jq1apYAExMTIzUxUxRzdvQoUMBgF27dm23nJycDxwOR67UNbmhXC5XSW5u7mebNm3q17dvX/ns2bOlLlaKalkWLVqEXr16KRMTE4fXvHZskLpi/x6e5y0GgyFx796998+dO1f7448/Sl2MFNWyEULw2GOP+Rw5cmSmwWDY1RynFYui6DKbzSdPnDjx5Ntvvx0KAB07dpS66CiqdagdNHvnnXfCz549u8hkMp0QRdEpdcUnhAh2uz0nPT39rVWrVnUKCgrixo8fL3VxUfVAHwO2IDzPAwAsFov5tddeOx4ZGblXq9UWK5VKrUwm82FZVtmU+RFF0Wa1Ws8WFhauP3To0LJly5Z9L5fLS3bt2kUyMzOlLi6qHmgAaIEKCwsBgOTl5VWsWLHiGMdxO5RK5WmGYSo5jlNwHKdlWVYOz69DQERRtDudzoLKysr96enpn2zfvv0fU6ZM2ex0Oi//8MMPwqFDh6QuHqoB6EIVrUi3bt1U8+fPj+zdu3ef4ODg3jqdrqNGo+moUCiCWJZVsyyrQvU5r895J6IoukRRtLrd7nKHw5FnNBpPl5WVpeTk5JzbvHlzzvfff28GQCfut2A0ALRCHTp0QHZ2Njd+/Hjt5MmTQ9u3bx+u0+mCfX19I+RyeYCXl1c7AOytft/hcJTZbLZ8h8NhKC8vv5Sfn1908uTJkk8//dTYp08f/uTJk1J/RMpDaABoQxISEmAymThvb28Fy7IMIQTkmjfvWLY6JthsNj4rK8sldX4piqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqKoOv0/9OpFjLmGJewAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMDdUMTQ6MzU6MDYtMDQ6MDC7ie18AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTA3VDE0OjM1OjA2LTA0OjAwytRVwAAAAABJRU5ErkJggg==",
+                                        "Label": "Citrix NetScaler",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Citrix NetScaler is an application delivery controller (ADC) that provides delivery services for applications from data centers and clouds."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Citrix Netscalar, it is important to monitor the response rate of the load balancers. This assists in tracking performance and cost of the NetScaler instance."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance}  | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance}  | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "citrix_netscaler_appliance_CL | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "citrix_netscaler_appliance_CL | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance CPU Usage Percent",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage Percent",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('cpu_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage Percent",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('cpu_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "CPU Usage Percent"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Disk 0 Percent Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk 0 Percent Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_0_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk 0 Percent Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_0_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "Disk 0 Percent Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Disk 1 Percent Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk 1 Percent Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_1_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk 1 Percent Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_1_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "Disk 1 Percent Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Management CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Management CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('management_cpu_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Management CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('management_cpu_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "Management CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Memory Usage Percent",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Usage Percent",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('memory_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Usage Percent",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('memory_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "Memory Usage Percent"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "citrix_netscaler_appliance_CL | summarize([\"Last Update Time\"], ['CPU Usage Percent'], ['Disk 0 Percent Usage'], ['Disk 1 Percent Usage'], ['Management CPU Usage'], ['Memory Usage Percent'])=arg_max(TimeGenerated,columnifexists('cpu_usage_percent_d', ''),columnifexists('disk_0_percent_usage_d', ''),columnifexists('disk_1_percent_usage_d', ''),columnifexists('management_cpu_usage_d', ''),columnifexists('memory_usage_percent_d', '')) by Name=citrix_netscaler_appliance_name_s",
+                                            "displayName": "Appliance "
+                                        }
+                                        ,{
+                                            "query": "citrix_netscaler_appliance_CL | summarize([\"Last Update Time\"], ['CPU Frequency'], ['System Type'])=arg_max(TimeGenerated,columnifexists('cpu_frequency_d', ''),columnifexists('system_type_s', '')) by Name=citrix_netscaler_appliance_name_s",
+                                            "displayName": "Appliance Properties"
+                                        }
+                                        ,{
+                                            "query": "citrix_netscaler_load_balancing_service_CL | summarize([\"Last Update Time\"], ['Current Load'], ['Request Rate'], ['Response Rate'], ['Throughput'])=arg_max(TimeGenerated,columnifexists('current_load_d', ''),columnifexists('request_rate_d', ''),columnifexists('response_rate_d', ''),columnifexists('throughput_d', '')) by Name=citrix_netscaler_load_balancing_service_name_s",
+                                            "displayName": "Load Balancing Service "
+                                        }
+                                        ,{
+                                            "query": "citrix_netscaler_load_balancing_service_CL | summarize([\"Last Update Time\"], ['Number of Connections'])=arg_max(TimeGenerated,columnifexists('number_of_connections_d', '')) by Name=citrix_netscaler_load_balancing_service_name_s",
+                                            "displayName": "Load Balancing Service User Configuration"
+                                        }
+                                        ,{
+                                            "query": "citrix_netscaler_load_balancing_service_CL | summarize([\"Last Update Time\"], ['Cache Type'], ['Last Response'], ['Monitor State'], ['Number of Connections'], ['SSL Status'])=arg_max(TimeGenerated,columnifexists('cache_type_s', ''),columnifexists('last_response_s', ''),columnifexists('monitor_state_s', ''),columnifexists('number_of_connections_d', ''),columnifexists('ssl_status_s', '')) by Name=citrix_netscaler_load_balancing_service_name_s",
+                                            "displayName": "Load Balancing Service Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "citrix_netscaler_appliance_name_s",
+                            "QueryForValues": "citrix_netscaler_appliance_CL | distinct citrix_netscaler_appliance_name_s",
+                            "Title": "Appliance"
+                          },{
+                            "FieldName": "system_type_s",
+                            "QueryForValues": "citrix_netscaler_appliance_CL | distinct system_type_s",
+                            "Title": "System Type"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_service_name_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct citrix_netscaler_global_service_load_balancing_service_name_s",
+                            "Title": "Global Service Load Balancing Service"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
+                            "Title": "Global Service Load Balancing Virtual Server"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_site_name_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct citrix_netscaler_global_service_load_balancing_site_name_s",
+                            "Title": "Global Service Load Balancing Site"
+                          },{
+                            "FieldName": "global_service_load_balancing_type_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct global_service_load_balancing_type_s",
+                            "Title": "Global Service Load Balancing Type"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_site_name_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_site_CL | distinct citrix_netscaler_global_service_load_balancing_site_name_s",
+                            "Title": "Global Service Load Balancing Site"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_site_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
+                            "Title": "Global Service Load Balancing Virtual Server"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_site_name_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct citrix_netscaler_global_service_load_balancing_site_name_s",
+                            "Title": "Global Service Load Balancing Site"
+                          },{
+                            "FieldName": "current_state_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct current_state_s",
+                            "Title": "Current State"
+                          },{
+                            "FieldName": "service_type_s",
+                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct service_type_s",
+                            "Title": "Service Type"
+                          },{
+                            "FieldName": "citrix_netscaler_high_availability_system_name_s",
+                            "QueryForValues": "citrix_netscaler_high_availability_system_CL | distinct citrix_netscaler_high_availability_system_name_s",
+                            "Title": "High Availability System"
+                          },{
+                            "FieldName": "citrix_netscaler_load_balancing_service_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_load_balancing_service_name_s",
+                            "Title": "Load Balancing Service"
+                          },{
+                            "FieldName": "citrix_netscaler_load_balancing_virtual_server_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_load_balancing_virtual_server_name_s",
+                            "Title": "Load Balancing Virtual Server"
+                          },{
+                            "FieldName": "citrix_netscaler_appliance_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_appliance_name_s",
+                            "Title": "Appliance"
+                          },{
+                            "FieldName": "service_state_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct service_state_s",
+                            "Title": "Service State"
+                          },{
+                            "FieldName": "service_type_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct service_type_s",
+                            "Title": "Service Type"
+                          },{
+                            "FieldName": "citrix_netscaler_load_balancing_virtual_server_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct citrix_netscaler_load_balancing_virtual_server_name_s",
+                            "Title": "Load Balancing Virtual Server"
+                          },{
+                            "FieldName": "citrix_netscaler_appliance_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct citrix_netscaler_appliance_name_s",
+                            "Title": "Appliance"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_service_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct citrix_netscaler_global_service_load_balancing_service_name_s",
+                            "Title": "Global Service Load Balancing Service"
+                          },{
+                            "FieldName": "current_state_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct current_state_s",
+                            "Title": "Current State"
+                          },{
+                            "FieldName": "service_type_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct service_type_s",
+                            "Title": "Service Type"
+                          },{
+                            "FieldName": "citrix_netscaler_target_server_name_s",
+                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_target_server_name_s",
+                            "Title": "Target Server"
+                          },{
+                            "FieldName": "citrix_netscaler_load_balancing_service_name_s",
+                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_load_balancing_service_name_s",
+                            "Title": "Load Balancing Service"
+                          },{
+                            "FieldName": "citrix_netscaler_global_service_load_balancing_service_name_s",
+                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_global_service_load_balancing_service_name_s",
+                            "Title": "Global Service Load Balancing Service"
+                          },{
+                            "FieldName": "citrix_netscaler_appliance_name_s",
+                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_appliance_name_s",
+                            "Title": "Appliance"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "citrix_netscaler_appliance_CL | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Appliance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

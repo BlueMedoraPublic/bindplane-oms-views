@@ -1,0 +1,544 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Oracle Database Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Oracle Database Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Oracle Database Environment",
+                        "Name": "Oracle Database Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Oracle Database Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Oracle Database",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Oracle Database is a automated cloud database platform."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Oracle Database, it is important to monitor cpu, memory, and I/O of where the database is stored."
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "file Average Read Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Read Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Read Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "oracle_database_database_file_CL  | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "file",
+                                            "Value": "Average Read Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "file Average Write Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Write Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_write_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Write Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "oracle_database_database_file_CL  | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_write_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "file",
+                                            "Value": "Average Write Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "file Average I/O Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average I/O Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average I/O Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "oracle_database_database_file_CL  | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "file",
+                                            "Value": "Average I/O Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Sessions Current Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Sessions Current Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('sessions_current_utilization_d',0.0), 0.0)) by oracle_database_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Sessions Current Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Sessions Current Utilization"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('sessions_current_utilization_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Sessions Current Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Executions",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Executions",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('executions_d',0.0), 0.0)) by oracle_database_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Executions",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('executions_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Executions"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "2000.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "1800.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "oracle_database_database_file_CL | summarize([\"Last Update Time\"], ['Average Read Time'], ['Average Write Time'], ['Average I/O Time'])=arg_max(TimeGenerated,columnifexists('average_read_time_d', ''),columnifexists('average_write_time_d', ''),columnifexists('average_io_time_d', '')) by Name=oracle_database_database_file_name_s",
+                                            "displayName": "file "
+                                        }
+                                        ,{
+                                            "query": "oracle_database_database_file_CL | summarize([\"Last Update Time\"], ['Max Size'], ['Tablespace Name'])=arg_max(TimeGenerated,columnifexists('maximum_size_d', ''),columnifexists('tablespace_name_s', '')) by Name=oracle_database_database_file_name_s",
+                                            "displayName": "file Properties"
+                                        }
+                                        ,{
+                                            "query": "oracle_database_instance_CL | summarize([\"Last Update Time\"], ['User Calls'])=arg_max(TimeGenerated,columnifexists('user_calls_d', '')) by Name=oracle_database_instance_name_s",
+                                            "displayName": "Instance "
+                                        }
+                                        ,{
+                                            "query": "oracle_database_instance_CL | summarize([\"Last Update Time\"], ['Host Name'], ['Instance Name'], ['Instance Role'], ['Login Mode'], ['Parallel'], ['Startup Time'], ['Version'])=arg_max(TimeGenerated,columnifexists('host_name_s', ''),columnifexists('instance_name_s', ''),columnifexists('instance_role_s', ''),columnifexists('login_mode_s', ''),columnifexists('parallel_s', ''),columnifexists('startup_time_s', ''),columnifexists('version_s', '')) by Name=oracle_database_instance_name_s",
+                                            "displayName": "Instance Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "oracle_database_database_name_s",
+                            "QueryForValues": "union oracle_database_database_file_CL, oracle_database_instance_CL | distinct oracle_database_database_name_s",
+                            "Title": "Database"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "union oracle_database_database_file_CL, oracle_database_instance_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "oracle_database_database_file_name_s",
+                            "QueryForValues": "oracle_database_database_file_CL | distinct oracle_database_database_file_name_s",
+                            "Title": "file"
+                          },{
+                            "FieldName": "oracle_database_instance_name_s",
+                            "QueryForValues": "oracle_database_instance_CL | distinct oracle_database_instance_name_s",
+                            "Title": "Instance"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "oracle_database_database_file_CL  | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Average Read Time",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Milliseconds"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

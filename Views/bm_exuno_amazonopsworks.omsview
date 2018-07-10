@@ -1,0 +1,661 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon OpsWorks Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon OpsWorks Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon OpsWorks Environment",
+                        "Name": "Amazon OpsWorks Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon OpsWorks Overview",
+                                        "NewGroup": false,
+                                        "Color": "#007233"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon OpsWorks",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon OpsWorks is a configuration management service that helps in operating applications in a cloud enterprise by using Puppet or Chef."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon OpsWorks, it is important to monitor CPU and memory of an instance. If instances are performing poorly, that will be reflected in stack and layer constructs."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance}  | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance}  | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Active Processes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Active Processes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('active_processes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Active Processes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Active Processes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('active_processes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Active Processes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU System",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU System",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_system_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU System",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_system_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU System"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU User",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU User",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_user_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU User",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_user_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU User"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU Wait I/O",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Wait I/O",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_wait_io_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Wait I/O",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_wait_io_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU Wait I/O"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Load Average for 5 Minutes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Load Average for 5 Minutes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('load_average_for_5_minutes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Load Average for 5 Minutes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Load Average for 5 Minutes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('load_average_for_5_minutes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Load Average for 5 Minutes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Active Processes'])=arg_max(TimeGenerated,columnifexists('active_processes_d', '')) by Name=amazon_opsworks_instance_name_s",
+                                            "displayName": "Instance Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['CPU System'], ['CPU User'], ['CPU Wait I/O'], ['Load Average for 5 Minutes'])=arg_max(TimeGenerated,columnifexists('cpu_system_d', ''),columnifexists('cpu_user_d', ''),columnifexists('cpu_wait_io_d', ''),columnifexists('load_average_for_5_minutes_d', '')) by Name=amazon_opsworks_instance_name_s",
+                                            "displayName": "Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Memory Free'], ['Memory Swap'], ['Memory Used'])=arg_max(TimeGenerated,columnifexists('memory_free_d', ''),columnifexists('memory_swap_d', ''),columnifexists('memory_used_d', '')) by Name=amazon_opsworks_instance_name_s",
+                                            "displayName": "Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Architecture'], ['Availability Zone'], ['Infrastructure Class'], ['O/S'], ['Root Device Type'], ['Subnet ID'], ['Virtualization Type'])=arg_max(TimeGenerated,columnifexists('architecture_s', ''),columnifexists('availability_zone_s', ''),columnifexists('infrastructure_class_s', ''),columnifexists('os_s', ''),columnifexists('root_device_type_s', ''),columnifexists('subnet_id_s', ''),columnifexists('virtualization_type_s', '')) by Name=amazon_opsworks_instance_name_s",
+                                            "displayName": "Instance Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_opsworks_instance_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "amazon_opsworks_instance_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "platform_s",
+                            "QueryForValues": "amazon_opsworks_instance_CL | distinct platform_s",
+                            "Title": "Platform"
+                          },{
+                            "FieldName": "amazon_opsworks_instance_name_s",
+                            "QueryForValues": "amazon_opsworks_instance_CL | distinct amazon_opsworks_instance_name_s",
+                            "Title": "Instance"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,729 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "SAP HANA Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/SAP HANA Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "SAP HANA Environment",
+                        "Name": "SAP HANA Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "SAP HANA Overview",
+                                        "NewGroup": false,
+                                        "Color": "#dd5900"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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nbxmSVonoCVGoxEul4tcf/318Z988smcpKSku00mU3/wej7XyUmSFNW7d+95MTExkzIyMpZt2LBhGYCCkJAQ5nA4tE7eGTplCeDBBx9EeXm5vHLlyqkzZ878W0JCwlydTtcLvJ7PBQ8iSVJEVFTUuH79+o2cPn26zWKxHJ87d67y/fffa522kzrdr+mRI0dgNBqjvv7664fGjx//TmRk5FRBEIxap4vjLgQhRA4PD79s9OjRb73wwgtPUEp7NjQ0aJ2sU+nTOgGny83NRVZWVty99977dO/eve8WRTFE6zRxXHthjHnKyso++eSTT55/6qmnisPDw2Gz2bROlvb0ej0A4NVXX00qKip6m79wg+uqKKUei8Xy7b///e9hjDHExsZqmvc6RQng6NGjWLduXcqsWbOWREVFXcNH8nFdHKurq/thzZo1i2677bZd8fHxqKio0CQhmgeAjRs3YvXq1XH33XffM4mJib8ihHTangmOa0espqZm7bJlyx645pprjg8YMECTRGjaCPjZZ59hzZo10ffdd9/TCQkJ83jm57oREhkZOenmm29+6r///W+vvXv3ap2ejrVw4UIMHTrUsG/fvsdUVXVoXTfjOC1QSt0FBQV/nThxovnJJ5/UOlt2jLFjxwIAycnJucXr9ZZrfRM4Tks+n8+6a9eu+wCI48eP79C8qEkbAGMMK1asGDpjxowPQkJChmuRBo7rTJxO58FVq1bdM2vWrK1RUVGora3tkPN2eBvASy+9hHnz5kVcfvnlj4SEhAzt6PNzXGdkMpkyJk6c+MQLL7wQ/8knn3TYeTu0BJCRkYFDhw4JeXl584YNG/aqKIrhHXl+juvMKKXugwcPPj1kyJAll1xyibpnz56An7NDSwBbt27FJ598MnDAgAGP8MzPcWcSBMGQkpIy/9///vclu3fv7phzdtSXe/jhh3HttdeaLr/88vlms3lIR52X44KJyWQaMGbMmAU33XRTSEf0CnRYFYAxhtWrV185adKkZTqdrndHnZfjgo3P56vMycmZN2nSpNWyLENRlICdq0NKAAsWLMD48ePNgwcPnsMzP8edmyzLPTIyMv7vpptuCnvooYcCeq4OKQE0/fpfeeWVy/R6PQ8AHHcePp+vcuPGjfMmT5682mQyweUKzOrjAS8B3HrrrRg4cKBx8ODBs3nm57jWkWW5x8CBA//v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",
+                                        "Label": "SAP HANA",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "SAP HANA is an in-memory, column-oriented, relational database that also supports advanced features such as predictive analytics, spatial data processing, and graph data processing."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring SAP HANA, it is valuable to look at statuses, CPU, memory, and disk space."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "System Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_hana_system_CL | where ${CPU Status} and ${Disk Data Status} and ${Memory Status} and ${Operating System Name} and ${System}  | project ['All Services Started Status'] = columnifexists('all_services_started_status_s', 'NULL_VALUE'), ['CPU Status'] = columnifexists('cpu_status_s', 'NULL_VALUE'), ['Data Backup Utilization'] = columnifexists('data_backup_utilization_d', double(null)), ['Data Utilization'] = columnifexists('data_utilization_d', double(null)), ['Disk Data Status'] = columnifexists('disk_data_status_s', 'NULL_VALUE'), ['Memory Status'] = columnifexists('memory_status_s', 'NULL_VALUE'), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Virtual Memory Utilization'] = columnifexists('virtual_memory_utilization_d', double(null)), TimeGenerated, Name=sap_hana_system_name_s  | extend Healthy = case(coalesce(['All Services Started Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['CPU Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Data Backup Utilization']) or isnotnull(['Data Utilization']) or coalesce(['Disk Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Memory Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Physical Memory Utilization']) or isnotnull(['Virtual Memory Utilization']), (['All Services Started Status'] == 'OK' or coalesce(['All Services Started Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Status'] == 'OK' or coalesce(['CPU Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Data Backup Utilization'] < 85 or isnull(['Data Backup Utilization'])) and (['Data Utilization'] < 85 or isnull(['Data Utilization'])) and (['Disk Data Status'] == 'OK' or coalesce(['Disk Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Status'] == 'OK' or coalesce(['Memory Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Virtual Memory Utilization'] < 85 or isnull(['Virtual Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_hana_system_CL | where ${CPU Status} and ${Disk Data Status} and ${Memory Status} and ${Operating System Name} and ${System}  | project ['All Services Started Status'] = columnifexists('all_services_started_status_s', 'NULL_VALUE'), ['CPU Status'] = columnifexists('cpu_status_s', 'NULL_VALUE'), ['Data Backup Utilization'] = columnifexists('data_backup_utilization_d', double(null)), ['Data Utilization'] = columnifexists('data_utilization_d', double(null)), ['Disk Data Status'] = columnifexists('disk_data_status_s', 'NULL_VALUE'), ['Memory Status'] = columnifexists('memory_status_s', 'NULL_VALUE'), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Virtual Memory Utilization'] = columnifexists('virtual_memory_utilization_d', double(null)), TimeGenerated, Name=sap_hana_system_name_s  | extend Healthy = case(coalesce(['All Services Started Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['CPU Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Data Backup Utilization']) or isnotnull(['Data Utilization']) or coalesce(['Disk Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Memory Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Physical Memory Utilization']) or isnotnull(['Virtual Memory Utilization']), (['All Services Started Status'] == 'OK' or coalesce(['All Services Started Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Status'] == 'OK' or coalesce(['CPU Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Data Backup Utilization'] < 85 or isnull(['Data Backup Utilization'])) and (['Data Utilization'] < 85 or isnull(['Data Utilization'])) and (['Disk Data Status'] == 'OK' or coalesce(['Disk Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Status'] == 'OK' or coalesce(['Memory Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Virtual Memory Utilization'] < 85 or isnull(['Virtual Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "System Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "sap_hana_system_CL | project ['All Services Started Status'] = columnifexists('all_services_started_status_s', 'NULL_VALUE'), ['CPU Status'] = columnifexists('cpu_status_s', 'NULL_VALUE'), ['Data Backup Utilization'] = columnifexists('data_backup_utilization_d', double(null)), ['Data Utilization'] = columnifexists('data_utilization_d', double(null)), ['Disk Data Status'] = columnifexists('disk_data_status_s', 'NULL_VALUE'), ['Memory Status'] = columnifexists('memory_status_s', 'NULL_VALUE'), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Virtual Memory Utilization'] = columnifexists('virtual_memory_utilization_d', double(null)), TimeGenerated, Name=sap_hana_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['All Services Started Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['CPU Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Data Backup Utilization']) or isnotnull(['Data Utilization']) or coalesce(['Disk Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Memory Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Physical Memory Utilization']) or isnotnull(['Virtual Memory Utilization']), (['All Services Started Status'] == 'OK' or coalesce(['All Services Started Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Status'] == 'OK' or coalesce(['CPU Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Data Backup Utilization'] < 85 or isnull(['Data Backup Utilization'])) and (['Data Utilization'] < 85 or isnull(['Data Utilization'])) and (['Disk Data Status'] == 'OK' or coalesce(['Disk Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Status'] == 'OK' or coalesce(['Memory Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Virtual Memory Utilization'] < 85 or isnull(['Virtual Memory Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "sap_hana_system_CL | project ['All Services Started Status'] = columnifexists('all_services_started_status_s', 'NULL_VALUE'), ['CPU Status'] = columnifexists('cpu_status_s', 'NULL_VALUE'), ['Data Backup Utilization'] = columnifexists('data_backup_utilization_d', double(null)), ['Data Utilization'] = columnifexists('data_utilization_d', double(null)), ['Disk Data Status'] = columnifexists('disk_data_status_s', 'NULL_VALUE'), ['Memory Status'] = columnifexists('memory_status_s', 'NULL_VALUE'), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Virtual Memory Utilization'] = columnifexists('virtual_memory_utilization_d', double(null)), TimeGenerated, Name=sap_hana_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['All Services Started Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['CPU Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Data Backup Utilization']) or isnotnull(['Data Utilization']) or coalesce(['Disk Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Memory Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Physical Memory Utilization']) or isnotnull(['Virtual Memory Utilization']), (['All Services Started Status'] == 'OK' or coalesce(['All Services Started Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Status'] == 'OK' or coalesce(['CPU Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Data Backup Utilization'] < 85 or isnull(['Data Backup Utilization'])) and (['Data Utilization'] < 85 or isnull(['Data Utilization'])) and (['Disk Data Status'] == 'OK' or coalesce(['Disk Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Status'] == 'OK' or coalesce(['Memory Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Virtual Memory Utilization'] < 85 or isnull(['Virtual Memory Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "System Physical Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Physical Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_hana_system_CL | where ${CPU Status} and ${Disk Data Status} and ${Memory Status} and ${Operating System Name} and ${System} | summarize avg(coalesce(columnifexists('physical_memory_utilization_d',0.0), 0.0)) by sap_hana_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Physical Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_hana_system_CL  | where ${CPU Status} and ${Disk Data Status} and ${Memory Status} and ${Operating System Name} and ${System} | summarize avg(coalesce(columnifexists('physical_memory_utilization_d',0.0), 0.0)) by sap_hana_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "System",
+                                            "Value": "Physical Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "System Virtual Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Virtual Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_hana_system_CL | where ${CPU Status} and ${Disk Data Status} and ${Memory Status} and ${Operating System Name} and ${System} | summarize avg(coalesce(columnifexists('virtual_memory_utilization_d',0.0), 0.0)) by sap_hana_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Virtual Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_hana_system_CL  | where ${CPU Status} and ${Disk Data Status} and ${Memory Status} and ${Operating System Name} and ${System} | summarize avg(coalesce(columnifexists('virtual_memory_utilization_d',0.0), 0.0)) by sap_hana_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "System",
+                                            "Value": "Virtual Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Service Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_hana_service_CL | where ${Host} and ${Active} and ${Role} and ${Service} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by sap_hana_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_hana_service_CL  | where ${Host} and ${Active} and ${Role} and ${Service} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by sap_hana_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Service",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Host CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_hana_host_CL | where ${System} and ${Active} and ${Status} and ${Host} | summarize avg(coalesce(columnifexists('cpu_usage_rate_d',0.0), 0.0)) by sap_hana_host_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_hana_host_CL  | where ${System} and ${Active} and ${Status} and ${Host} | summarize avg(coalesce(columnifexists('cpu_usage_rate_d',0.0), 0.0)) by sap_hana_host_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Host",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "76.5",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Service CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "sap_hana_service_CL | where ${Host} and ${Active} and ${Role} and ${Service} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by sap_hana_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "sap_hana_service_CL  | where ${Host} and ${Active} and ${Role} and ${Service} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by sap_hana_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Service",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "sap_hana_system_CL | summarize([\"Last Update Time\"], ['Physical Memory Utilization'], ['Virtual Memory Utilization'])=arg_max(TimeGenerated,columnifexists('physical_memory_utilization_d', ''),columnifexists('virtual_memory_utilization_d', '')) by Name=sap_hana_system_name_s",
+                                            "displayName": "System Memory"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_system_CL | summarize([\"Last Update Time\"], ['Data Utilization'], ['Data Backup Utilization'])=arg_max(TimeGenerated,columnifexists('data_utilization_d', ''),columnifexists('data_backup_utilization_d', '')) by Name=sap_hana_system_name_s",
+                                            "displayName": "System Disk"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_system_CL | summarize([\"Last Update Time\"], ['Average Response Time'], ['Blocked Transactions'], ['Request Rate'])=arg_max(TimeGenerated,columnifexists('average_response_time_d', ''),columnifexists('blocked_transactions_d', ''),columnifexists('request_rate_d', '')) by Name=sap_hana_system_name_s",
+                                            "displayName": "System Workload"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_rate_d', '')) by Name=sap_hana_host_name_s",
+                                            "displayName": "Host CPU"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['Database Memory Utilization'], ['Physical Memory Utilization'])=arg_max(TimeGenerated,columnifexists('database_memory_utilization_d', ''),columnifexists('physical_memory_utilization_d', '')) by Name=sap_hana_host_name_s",
+                                            "displayName": "Host Memory"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['Request Rate'])=arg_max(TimeGenerated,columnifexists('request_rate_d', '')) by Name=sap_hana_host_name_s",
+                                            "displayName": "Host Workload"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['Swap Space Utilization'])=arg_max(TimeGenerated,columnifexists('swap_space_utilization_d', '')) by Name=sap_hana_host_name_s",
+                                            "displayName": "Host Swap"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['Total Data Transferred'])=arg_max(TimeGenerated,columnifexists('total_data_transferred_rate_d', '')) by Name=sap_hana_host_name_s",
+                                            "displayName": "Host Network"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_service_CL | summarize([\"Last Update Time\"], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', '')) by Name=sap_hana_service_name_s",
+                                            "displayName": "Service Memory"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_service_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=sap_hana_service_name_s",
+                                            "displayName": "Service CPU"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_service_CL | summarize([\"Last Update Time\"], ['Blocked Transactions'], ['Response Time'])=arg_max(TimeGenerated,columnifexists('blocked_transactions_d', ''),columnifexists('response_time_d', '')) by Name=sap_hana_service_name_s",
+                                            "displayName": "Service Workload"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_service_CL | summarize([\"Last Update Time\"], ['Port'], ['Process ID'], ['Role'], ['SQL Port'], ['Start Time'], ['Uptime'])=arg_max(TimeGenerated,columnifexists('port_s', ''),columnifexists('process_id_d', ''),columnifexists('role_s', ''),columnifexists('sql_port_s', ''),columnifexists('start_time_s', ''),columnifexists('uptime_d', '')) by Name=sap_hana_service_name_s",
+                                            "displayName": "Service Properties"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_disk_CL | summarize([\"Last Update Time\"], ['Utilization'])=arg_max(TimeGenerated,columnifexists('utilization_d', '')) by Name=sap_hana_disk_name_s",
+                                            "displayName": "Disk Capacity"
+                                        }
+                                        ,{
+                                            "query": "sap_hana_disk_CL | summarize([\"Last Update Time\"], ['Device Name'], ['Host'], ['IDs'])=arg_max(TimeGenerated,columnifexists('device_name_s', ''),columnifexists('host_s', ''),columnifexists('ids_s', '')) by Name=sap_hana_disk_name_s",
+                                            "displayName": "Disk Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "cpu_status_s",
+                            "QueryForValues": "sap_hana_system_CL | distinct cpu_status_s",
+                            "Title": "CPU Status"
+                          },{
+                            "FieldName": "disk_data_status_s",
+                            "QueryForValues": "sap_hana_system_CL | distinct disk_data_status_s",
+                            "Title": "Disk Data Status"
+                          },{
+                            "FieldName": "memory_status_s",
+                            "QueryForValues": "sap_hana_system_CL | distinct memory_status_s",
+                            "Title": "Memory Status"
+                          },{
+                            "FieldName": "operating_system_name_s",
+                            "QueryForValues": "sap_hana_system_CL | distinct operating_system_name_s",
+                            "Title": "Operating System Name"
+                          },{
+                            "FieldName": "sap_hana_system_name_s",
+                            "QueryForValues": "union sap_hana_system_CL, sap_hana_host_CL, sap_hana_disk_CL | distinct sap_hana_system_name_s",
+                            "Title": "System"
+                          },{
+                            "FieldName": "active_s",
+                            "QueryForValues": "union sap_hana_host_CL, sap_hana_service_CL | distinct active_s",
+                            "Title": "Active"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "sap_hana_host_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "sap_hana_host_name_s",
+                            "QueryForValues": "union sap_hana_host_CL, sap_hana_service_CL | distinct sap_hana_host_name_s",
+                            "Title": "Host"
+                          },{
+                            "FieldName": "role_s",
+                            "QueryForValues": "sap_hana_service_CL | distinct role_s",
+                            "Title": "Role"
+                          },{
+                            "FieldName": "sap_hana_service_name_s",
+                            "QueryForValues": "sap_hana_service_CL | distinct sap_hana_service_name_s",
+                            "Title": "Service"
+                          },{
+                            "FieldName": "sap_hana_disk_name_s",
+                            "QueryForValues": "sap_hana_disk_CL | distinct sap_hana_disk_name_s",
+                            "Title": "Disk"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "sap_hana_system_CL | project ['All Services Started Status'] = columnifexists('all_services_started_status_s', 'NULL_VALUE'), ['CPU Status'] = columnifexists('cpu_status_s', 'NULL_VALUE'), ['Data Backup Utilization'] = columnifexists('data_backup_utilization_d', double(null)), ['Data Utilization'] = columnifexists('data_utilization_d', double(null)), ['Disk Data Status'] = columnifexists('disk_data_status_s', 'NULL_VALUE'), ['Memory Status'] = columnifexists('memory_status_s', 'NULL_VALUE'), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Virtual Memory Utilization'] = columnifexists('virtual_memory_utilization_d', double(null)), TimeGenerated, Name=sap_hana_system_name_s  | extend Healthy = case(coalesce(['All Services Started Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['CPU Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Data Backup Utilization']) or isnotnull(['Data Utilization']) or coalesce(['Disk Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Memory Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Physical Memory Utilization']) or isnotnull(['Virtual Memory Utilization']), (['All Services Started Status'] == 'OK' or coalesce(['All Services Started Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Status'] == 'OK' or coalesce(['CPU Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Data Backup Utilization'] < 85 or isnull(['Data Backup Utilization'])) and (['Data Utilization'] < 85 or isnull(['Data Utilization'])) and (['Disk Data Status'] == 'OK' or coalesce(['Disk Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Status'] == 'OK' or coalesce(['Memory Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Virtual Memory Utilization'] < 85 or isnull(['Virtual Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "System",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

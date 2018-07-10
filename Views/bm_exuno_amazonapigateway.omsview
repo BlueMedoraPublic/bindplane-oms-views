@@ -1,0 +1,677 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon API Gateway Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon API Gateway Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon API Gateway Environment",
+                        "Name": "Amazon API Gateway Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon API Gateway Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ff8c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon API Gateway",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor latency for receiving a request from the client and for receiving a response from the back end, as well as any client-side or server-side errors that occur."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API}  | project ['Integration Latency'] = columnifexists('integration_latency_d', double(null)), ['Latency'] = columnifexists('latency_d', double(null)), TimeGenerated, Name=amazon_apigateway_api_name_s  | extend Healthy = case(isnotnull(['Integration Latency']) or isnotnull(['Latency']), (['Integration Latency'] < 100 or isnull(['Integration Latency'])) and (['Latency'] < 100 or isnull(['Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API}  | project ['Integration Latency'] = columnifexists('integration_latency_d', double(null)), ['Latency'] = columnifexists('latency_d', double(null)), TimeGenerated, Name=amazon_apigateway_api_name_s  | extend Healthy = case(isnotnull(['Integration Latency']) or isnotnull(['Latency']), (['Integration Latency'] < 100 or isnull(['Integration Latency'])) and (['Latency'] < 100 or isnull(['Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_apigateway_api_CL | project ['Integration Latency'] = columnifexists('integration_latency_d', double(null)), ['Latency'] = columnifexists('latency_d', double(null)), TimeGenerated, Name=amazon_apigateway_api_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Integration Latency']) or isnotnull(['Latency']), (['Integration Latency'] < 100 or isnull(['Integration Latency'])) and (['Latency'] < 100 or isnull(['Latency'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_apigateway_api_CL | project ['Integration Latency'] = columnifexists('integration_latency_d', double(null)), ['Latency'] = columnifexists('latency_d', double(null)), TimeGenerated, Name=amazon_apigateway_api_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Integration Latency']) or isnotnull(['Latency']), (['Integration Latency'] < 100 or isnull(['Integration Latency'])) and (['Latency'] < 100 or isnull(['Latency'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Integration Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Integration Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('integration_latency_d',0.0), 0.0)) by amazon_apigateway_api_name_s",
+                                        "Callout": {
+                                            "Title": "Average Integration Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_apigateway_api_CL  | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('integration_latency_d',0.0), 0.0)) by amazon_apigateway_api_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API",
+                                            "Value": "Integration Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "100.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "90.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('latency_d',0.0), 0.0)) by amazon_apigateway_api_name_s",
+                                        "Callout": {
+                                            "Title": "Average Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_apigateway_api_CL  | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('latency_d',0.0), 0.0)) by amazon_apigateway_api_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API",
+                                            "Value": "Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "100.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "90.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API 4xx Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "4xx Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('4xx_errors_d',0.0), 0.0)) by amazon_apigateway_api_name_s",
+                                        "Callout": {
+                                            "Title": "Average 4xx Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_apigateway_api_CL  | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('4xx_errors_d',0.0), 0.0)) by amazon_apigateway_api_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API",
+                                            "Value": "4xx Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API 5xx Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "5xx Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('5xx_errors_d',0.0), 0.0)) by amazon_apigateway_api_name_s",
+                                        "Callout": {
+                                            "Title": "Average 5xx Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_apigateway_api_CL  | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('5xx_errors_d',0.0), 0.0)) by amazon_apigateway_api_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API",
+                                            "Value": "5xx Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Calls Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Calls Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_apigateway_api_CL | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('calls_count_d',0.0), 0.0)) by amazon_apigateway_api_name_s",
+                                        "Callout": {
+                                            "Title": "Average Calls Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Calls"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_apigateway_api_CL  | where ${Region} and ${API} | summarize avg(coalesce(columnifexists('calls_count_d',0.0), 0.0)) by amazon_apigateway_api_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API",
+                                            "Value": "Calls Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_apigateway_api_CL | summarize([\"Last Update Time\"], ['Integration Latency'], ['Latency'], ['5xx Errors'], ['Cache Miss Count'])=arg_max(TimeGenerated,columnifexists('integration_latency_d', ''),columnifexists('latency_d', ''),columnifexists('5xx_errors_d', ''),columnifexists('cache_miss_count_d', '')) by Name=amazon_apigateway_api_name_s",
+                                            "displayName": "API Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_apigateway_api_CL | summarize([\"Last Update Time\"], ['4xx Errors'], ['Calls Count'])=arg_max(TimeGenerated,columnifexists('4xx_errors_d', ''),columnifexists('calls_count_d', '')) by Name=amazon_apigateway_api_name_s",
+                                            "displayName": "API Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_apigateway_api_CL | summarize([\"Last Update Time\"], ['Binary Media Types'], ['Description'], ['Endpoint Configuration'], ['Key Source'], ['Minimum Compression Size'], ['Version'], ['Warnings'])=arg_max(TimeGenerated,columnifexists('binary_media_types_s', ''),columnifexists('description_s', ''),columnifexists('endpoint_configuration_s', ''),columnifexists('key_source_s', ''),columnifexists('minimum_compression_size_d', ''),columnifexists('version_s', ''),columnifexists('warnings_s', '')) by Name=amazon_apigateway_api_name_s",
+                                            "displayName": "API Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_apigateway_stage_CL | summarize([\"Last Update Time\"], ['Integration Latency'], ['Latency'], ['5xx Errors'], ['Cache Miss Count'])=arg_max(TimeGenerated,columnifexists('integration_latency_d', ''),columnifexists('latency_d', ''),columnifexists('5xx_errors_d', ''),columnifexists('cache_miss_count_d', '')) by Name=amazon_apigateway_stage_name_s",
+                                            "displayName": "Stage Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_apigateway_stage_CL | summarize([\"Last Update Time\"], ['4xx Errors'], ['Calls Count'])=arg_max(TimeGenerated,columnifexists('4xx_errors_d', ''),columnifexists('calls_count_d', '')) by Name=amazon_apigateway_stage_name_s",
+                                            "displayName": "Stage Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_apigateway_stage_CL | summarize([\"Last Update Time\"], ['API Name'], ['Cache Cluster Enabled'], ['Client Certificate ID'], ['Deployment ID'], ['Description'], ['Documentation Version'], ['Last Updated Date'])=arg_max(TimeGenerated,columnifexists('api_name_s', ''),columnifexists('cache_cluster_enabled_d', ''),columnifexists('client_certificate_id_s', ''),columnifexists('deployment_id_s', ''),columnifexists('description_s', ''),columnifexists('documentation_version_s', ''),columnifexists('last_updated_date_s', '')) by Name=amazon_apigateway_stage_name_s",
+                                            "displayName": "Stage Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_apigateway_vpc_link_CL | summarize([\"Last Update Time\"], ['Description'], ['Target ARNs'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('target_arns_s', '')) by Name=amazon_apigateway_vpc_link_name_s",
+                                            "displayName": "VPC Link Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_apigateway_api_CL, amazon_apigateway_stage_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_apigateway_api_name_s",
+                            "QueryForValues": "amazon_apigateway_api_CL | distinct amazon_apigateway_api_name_s",
+                            "Title": "API"
+                          },{
+                            "FieldName": "cache_cluster_status_s",
+                            "QueryForValues": "amazon_apigateway_stage_CL | distinct cache_cluster_status_s",
+                            "Title": "Cache Cluster Status"
+                          },{
+                            "FieldName": "amazon_apigateway_stage_name_s",
+                            "QueryForValues": "amazon_apigateway_stage_CL | distinct amazon_apigateway_stage_name_s",
+                            "Title": "Stage"
+                          },{
+                            "FieldName": "amazon_apigateway_vpc_link_name_s",
+                            "QueryForValues": "amazon_apigateway_vpc_link_CL | distinct amazon_apigateway_vpc_link_name_s",
+                            "Title": "VPC Link"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_apigateway_api_CL | project ['Integration Latency'] = columnifexists('integration_latency_d', double(null)), ['Latency'] = columnifexists('latency_d', double(null)), TimeGenerated, Name=amazon_apigateway_api_name_s  | extend Healthy = case(isnotnull(['Integration Latency']) or isnotnull(['Latency']), (['Integration Latency'] < 100 or isnull(['Integration Latency'])) and (['Latency'] < 100 or isnull(['Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "API",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

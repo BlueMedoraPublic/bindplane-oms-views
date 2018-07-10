@@ -1,0 +1,528 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon SQS Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon SQS Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon SQS Environment",
+                        "Name": "Amazon SQS Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon SQS Overview",
+                                        "NewGroup": false,
+                                        "Color": "#fcd116"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon SQS",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Simple Queue Service (SQS) is Amazon's cloud-based message queuing service."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon SQS, it's important to monitor age, wait time, and number of each type of message received to make sure messages are sent, received, and cleaned out efficiently. "
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Approximate Age of Oldest Message",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Approximate Age of Oldest Message",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_sqs_queue_CL | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_age_of_oldest_message_d',0.0), 0.0)) by amazon_sqs_queue_name_s",
+                                        "Callout": {
+                                            "Title": "Average Approximate Age of Oldest Message",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_sqs_queue_CL  | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_age_of_oldest_message_d',0.0), 0.0)) by amazon_sqs_queue_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue",
+                                            "Value": "Approximate Age of Oldest Message"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Approximate Number of Hidden Messages",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Approximate Number of Hidden Messages",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_sqs_queue_CL | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_number_of_hidden_messages_d',0.0), 0.0)) by amazon_sqs_queue_name_s",
+                                        "Callout": {
+                                            "Title": "Average Approximate Number of Hidden Messages",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Approximate Number of Hidden Messages"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_sqs_queue_CL  | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_number_of_hidden_messages_d',0.0), 0.0)) by amazon_sqs_queue_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue",
+                                            "Value": "Approximate Number of Hidden Messages"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Approximate Number of Messages",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Approximate Number of Messages",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_sqs_queue_CL | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_number_of_messages_d',0.0), 0.0)) by amazon_sqs_queue_name_s",
+                                        "Callout": {
+                                            "Title": "Average Approximate Number of Messages",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Approximate Number of Messages"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_sqs_queue_CL  | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_number_of_messages_d',0.0), 0.0)) by amazon_sqs_queue_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue",
+                                            "Value": "Approximate Number of Messages"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Approximate Number of Visible Messages",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Approximate Number of Visible Messages",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_sqs_queue_CL | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_number_of_visible_messages_d',0.0), 0.0)) by amazon_sqs_queue_name_s",
+                                        "Callout": {
+                                            "Title": "Average Approximate Number of Visible Messages",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Approximate Number of Visible Messages"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_sqs_queue_CL  | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('approximate_number_of_visible_messages_d',0.0), 0.0)) by amazon_sqs_queue_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue",
+                                            "Value": "Approximate Number of Visible Messages"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Number of Empty Receives",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Number of Empty Receives",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_sqs_queue_CL | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('number_of_empty_receives_d',0.0), 0.0)) by amazon_sqs_queue_name_s",
+                                        "Callout": {
+                                            "Title": "Average Number of Empty Receives",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Number of Empty Receives"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_sqs_queue_CL  | where ${Region} and ${Queue} | summarize avg(coalesce(columnifexists('number_of_empty_receives_d',0.0), 0.0)) by amazon_sqs_queue_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue",
+                                            "Value": "Number of Empty Receives"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_sqs_queue_CL | summarize([\"Last Update Time\"], ['Approximate Number of Hidden Messages'], ['Approximate Number of Messages'], ['Approximate Number of Visible Messages'], ['Number of Empty Receives'], ['Number of Messages Received'], ['Number of Messages Sent'], ['Receive Message Wait Time'])=arg_max(TimeGenerated,columnifexists('approximate_number_of_hidden_messages_d', ''),columnifexists('approximate_number_of_messages_d', ''),columnifexists('approximate_number_of_visible_messages_d', ''),columnifexists('number_of_empty_receives_d', ''),columnifexists('number_of_messages_received_d', ''),columnifexists('number_of_messages_sent_d', ''),columnifexists('receive_message_wait_time_d', '')) by Name=amazon_sqs_queue_name_s",
+                                            "displayName": "Queue Messages"
+                                        }
+                                        ,{
+                                            "query": "amazon_sqs_queue_CL | summarize([\"Last Update Time\"], ['Content Based Deduplication'], ['Created Timestamp'], ['Dead Letter Target ARN'], ['First-In First-Out'], ['Last Modified Timestamp'])=arg_max(TimeGenerated,columnifexists('content_based_deduplication_d', ''),columnifexists('created_timestamp_d', ''),columnifexists('dead_letter_target_arn_s', ''),columnifexists('first_in_first_out_d', ''),columnifexists('last_modified_timestamp_d', '')) by Name=amazon_sqs_queue_name_s",
+                                            "displayName": "Queue Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_sqs_queue_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_sqs_queue_name_s",
+                            "QueryForValues": "amazon_sqs_queue_CL | distinct amazon_sqs_queue_name_s",
+                            "Title": "Queue"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "amazon_sqs_queue_CL  | summarize avg(coalesce(columnifexists('approximate_age_of_oldest_message_d',0.0), 0.0)) by amazon_sqs_queue_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Approximate Age of Oldest Message",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Seconds"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,681 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon RDS Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon RDS Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon RDS Environment",
+                        "Name": "Amazon RDS Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon RDS Overview",
+                                        "NewGroup": false,
+                                        "Color": "#4423559"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon RDS",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon RDS is Amazon's scalable cloud-based relational database service."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon RDS, it is important to monitor memory, performance, and I/O in order to determine if scaling is needed. Generally, it is a good idea to scale vertically if read and write I/O is roughly equal or to scale horizontally if the application is read-heavy."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Queue Depth'] = columnifexists('disk_queue_depth_d', double(null)), ['Freeable Memory'] = columnifexists('freeable_memory_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=amazon_rds_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Queue Depth']) or isnotnull(['Freeable Memory']) or isnotnull(['Read Latency']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Write Latency']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Queue Depth'] < 5 or isnull(['Disk Queue Depth'])) and (['Freeable Memory'] > 200000000 or isnull(['Freeable Memory'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Status'] == 'available' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Write Latency'] < 0.1 or isnull(['Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Queue Depth'] = columnifexists('disk_queue_depth_d', double(null)), ['Freeable Memory'] = columnifexists('freeable_memory_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=amazon_rds_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Queue Depth']) or isnotnull(['Freeable Memory']) or isnotnull(['Read Latency']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Write Latency']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Queue Depth'] < 5 or isnull(['Disk Queue Depth'])) and (['Freeable Memory'] > 200000000 or isnull(['Freeable Memory'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Status'] == 'available' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Write Latency'] < 0.1 or isnull(['Write Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_rds_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Queue Depth'] = columnifexists('disk_queue_depth_d', double(null)), ['Freeable Memory'] = columnifexists('freeable_memory_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=amazon_rds_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Queue Depth']) or isnotnull(['Freeable Memory']) or isnotnull(['Read Latency']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Write Latency']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Queue Depth'] < 5 or isnull(['Disk Queue Depth'])) and (['Freeable Memory'] > 200000000 or isnull(['Freeable Memory'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Status'] == 'available' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Write Latency'] < 0.1 or isnull(['Write Latency'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_rds_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Queue Depth'] = columnifexists('disk_queue_depth_d', double(null)), ['Freeable Memory'] = columnifexists('freeable_memory_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=amazon_rds_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Queue Depth']) or isnotnull(['Freeable Memory']) or isnotnull(['Read Latency']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Write Latency']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Queue Depth'] < 5 or isnull(['Disk Queue Depth'])) and (['Freeable Memory'] > 200000000 or isnull(['Freeable Memory'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Status'] == 'available' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Write Latency'] < 0.1 or isnull(['Write Latency'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_rds_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL  | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_rds_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Read IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_rds_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL  | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_rds_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Read IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Write IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('write_iops_d',0.0), 0.0)) by amazon_rds_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL  | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('write_iops_d',0.0), 0.0)) by amazon_rds_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Write IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Network Receive Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Network Receive Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('network_receive_throughput_d',0.0), 0.0)) by amazon_rds_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Network Receive Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL  | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('network_receive_throughput_d',0.0), 0.0)) by amazon_rds_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Network Receive Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Network Transmit Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Network Transmit Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_rds_instance_CL | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('network_transmit_throughput_d',0.0), 0.0)) by amazon_rds_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Network Transmit Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_rds_instance_CL  | where ${Cluster} and ${Class} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('network_transmit_throughput_d',0.0), 0.0)) by amazon_rds_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Network Transmit Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_rds_instance_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=amazon_rds_instance_name_s",
+                                            "displayName": "Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_rds_instance_CL | summarize([\"Last Update Time\"], ['Read IOPS'], ['Write IOPS'], ['Network Receive Throughput'], ['Network Transmit Throughput'])=arg_max(TimeGenerated,columnifexists('read_iops_d', ''),columnifexists('write_iops_d', ''),columnifexists('network_receive_throughput_d', ''),columnifexists('network_transmit_throughput_d', '')) by Name=amazon_rds_instance_name_s",
+                                            "displayName": "Instance "
+                                        }
+                                        ,{
+                                            "query": "amazon_rds_instance_CL | summarize([\"Last Update Time\"], ['Database Connections'])=arg_max(TimeGenerated,columnifexists('database_connections_d', '')) by Name=amazon_rds_instance_name_s",
+                                            "displayName": "Instance Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_rds_instance_CL | summarize([\"Last Update Time\"], ['Disk Queue Depth'])=arg_max(TimeGenerated,columnifexists('disk_queue_depth_d', '')) by Name=amazon_rds_instance_name_s",
+                                            "displayName": "Instance Disk"
+                                        }
+                                        ,{
+                                            "query": "amazon_rds_instance_CL | summarize([\"Last Update Time\"], ['Freeable Memory'])=arg_max(TimeGenerated,columnifexists('freeable_memory_d', '')) by Name=amazon_rds_instance_name_s",
+                                            "displayName": "Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "amazon_rds_instance_CL | summarize([\"Last Update Time\"], ['Read Latency'], ['Write Latency'])=arg_max(TimeGenerated,columnifexists('read_latency_d', ''),columnifexists('write_latency_d', '')) by Name=amazon_rds_instance_name_s",
+                                            "displayName": "Instance Performance"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "amazon_rds_cluster_name_s",
+                            "QueryForValues": "amazon_rds_instance_CL | distinct amazon_rds_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "class_s",
+                            "QueryForValues": "amazon_rds_instance_CL | distinct class_s",
+                            "Title": "Class"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "amazon_rds_instance_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "amazon_rds_instance_name_s",
+                            "QueryForValues": "union amazon_rds_instance_CL, amazon_rds_snapshot_CL | distinct amazon_rds_instance_name_s",
+                            "Title": "Instance"
+                          },{
+                            "FieldName": "snapshot_type_s",
+                            "QueryForValues": "amazon_rds_snapshot_CL | distinct snapshot_type_s",
+                            "Title": "Snapshot Type"
+                          },{
+                            "FieldName": "storage_type_s",
+                            "QueryForValues": "amazon_rds_snapshot_CL | distinct storage_type_s",
+                            "Title": "Storage Type"
+                          },{
+                            "FieldName": "amazon_rds_snapshot_name_s",
+                            "QueryForValues": "amazon_rds_snapshot_CL | distinct amazon_rds_snapshot_name_s",
+                            "Title": "Snapshot"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_rds_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Queue Depth'] = columnifexists('disk_queue_depth_d', double(null)), ['Freeable Memory'] = columnifexists('freeable_memory_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=amazon_rds_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Queue Depth']) or isnotnull(['Freeable Memory']) or isnotnull(['Read Latency']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Write Latency']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Queue Depth'] < 5 or isnull(['Disk Queue Depth'])) and (['Freeable Memory'] > 200000000 or isnull(['Freeable Memory'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Status'] == 'available' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Write Latency'] < 0.1 or isnull(['Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

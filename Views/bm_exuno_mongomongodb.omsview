@@ -1,0 +1,693 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "MongoDB Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/MongoDB Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "MongoDB Environment",
+                        "Name": "MongoDB Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "MongoDB Overview",
+                                        "NewGroup": false,
+                                        "Color": "#008272"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "MongoDB",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "MongoDB is an open-source, document database designed for ease of development and scaling."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor virtual and physical memory, the cache and the number of page faults, the number of connections, and reader-writer locks."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Mongod Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mongo_mongodb_mongod_CL | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod}  | project ['Asserts: Message'] = columnifexists('asserts_message_rate_d', double(null)), ['Delay Behind Primary'] = columnifexists('delay_behind_primary_d', double(null)), TimeGenerated, Name=mongo_mongodb_mongod_name_s  | extend Healthy = case(isnotnull(['Asserts: Message']) or isnotnull(['Delay Behind Primary']), (['Asserts: Message'] < 1 or isnull(['Asserts: Message'])) and (['Delay Behind Primary'] < 120 or isnull(['Delay Behind Primary'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mongo_mongodb_mongod_CL | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod}  | project ['Asserts: Message'] = columnifexists('asserts_message_rate_d', double(null)), ['Delay Behind Primary'] = columnifexists('delay_behind_primary_d', double(null)), TimeGenerated, Name=mongo_mongodb_mongod_name_s  | extend Healthy = case(isnotnull(['Asserts: Message']) or isnotnull(['Delay Behind Primary']), (['Asserts: Message'] < 1 or isnull(['Asserts: Message'])) and (['Delay Behind Primary'] < 120 or isnull(['Delay Behind Primary'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Mongod Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "mongo_mongodb_mongod_CL | project ['Asserts: Message'] = columnifexists('asserts_message_rate_d', double(null)), ['Delay Behind Primary'] = columnifexists('delay_behind_primary_d', double(null)), TimeGenerated, Name=mongo_mongodb_mongod_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Asserts: Message']) or isnotnull(['Delay Behind Primary']), (['Asserts: Message'] < 1 or isnull(['Asserts: Message'])) and (['Delay Behind Primary'] < 120 or isnull(['Delay Behind Primary'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "mongo_mongodb_mongod_CL | project ['Asserts: Message'] = columnifexists('asserts_message_rate_d', double(null)), ['Delay Behind Primary'] = columnifexists('delay_behind_primary_d', double(null)), TimeGenerated, Name=mongo_mongodb_mongod_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Asserts: Message']) or isnotnull(['Delay Behind Primary']), (['Asserts: Message'] < 1 or isnull(['Asserts: Message'])) and (['Delay Behind Primary'] < 120 or isnull(['Delay Behind Primary'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Mongod Global Lock Active Client Readers",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Global Lock Active Client Readers",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mongo_mongodb_mongod_CL | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod} | summarize avg(coalesce(columnifexists('global_lock_active_client_readers_d',0.0), 0.0)) by mongo_mongodb_mongod_name_s",
+                                        "Callout": {
+                                            "Title": "Average Global Lock Active Client Readers",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Global Lock Active Client Readers"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mongo_mongodb_mongod_CL  | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod} | summarize avg(coalesce(columnifexists('global_lock_active_client_readers_d',0.0), 0.0)) by mongo_mongodb_mongod_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Mongod",
+                                            "Value": "Global Lock Active Client Readers"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Mongod Global Lock Active Client Writers",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Global Lock Active Client Writers",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mongo_mongodb_mongod_CL | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod} | summarize avg(coalesce(columnifexists('global_lock_active_client_writers_d',0.0), 0.0)) by mongo_mongodb_mongod_name_s",
+                                        "Callout": {
+                                            "Title": "Average Global Lock Active Client Writers",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Global Lock Active Client Writers"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mongo_mongodb_mongod_CL  | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod} | summarize avg(coalesce(columnifexists('global_lock_active_client_writers_d',0.0), 0.0)) by mongo_mongodb_mongod_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Mongod",
+                                            "Value": "Global Lock Active Client Writers"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Mongod Delay Behind Primary",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Delay Behind Primary",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mongo_mongodb_mongod_CL | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod} | summarize avg(coalesce(columnifexists('delay_behind_primary_d',0.0), 0.0)) by mongo_mongodb_mongod_name_s",
+                                        "Callout": {
+                                            "Title": "Average Delay Behind Primary",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mongo_mongodb_mongod_CL  | where ${Configuration Server} and ${Database} and ${Replica Set} and ${Shard} and ${State} and ${Mongod} | summarize avg(coalesce(columnifexists('delay_behind_primary_d',0.0), 0.0)) by mongo_mongodb_mongod_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Mongod",
+                                            "Value": "Delay Behind Primary"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "120.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "108.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Mongos Connections Used Over Available",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connections Used Over Available",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mongo_mongodb_mongos_CL | where ${Cluster} and ${Mongos} | summarize avg(coalesce(columnifexists('connections_used_over_available_d',0.0), 0.0)) by mongo_mongodb_mongos_name_s",
+                                        "Callout": {
+                                            "Title": "Average Connections Used Over Available",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mongo_mongodb_mongos_CL  | where ${Cluster} and ${Mongos} | summarize avg(coalesce(columnifexists('connections_used_over_available_d',0.0), 0.0)) by mongo_mongodb_mongos_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Mongos",
+                                            "Value": "Connections Used Over Available"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Mongos Page Faults to Operations Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Page Faults to Operations Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mongo_mongodb_mongos_CL | where ${Cluster} and ${Mongos} | summarize avg(coalesce(columnifexists('page_faults_to_operations_ratio_d',0.0), 0.0)) by mongo_mongodb_mongos_name_s",
+                                        "Callout": {
+                                            "Title": "Average Page Faults to Operations Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Page Faults to Operations Ratio"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mongo_mongodb_mongos_CL  | where ${Cluster} and ${Mongos} | summarize avg(coalesce(columnifexists('page_faults_to_operations_ratio_d',0.0), 0.0)) by mongo_mongodb_mongos_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Mongos",
+                                            "Value": "Page Faults to Operations Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "mongo_mongodb_mongod_CL | summarize([\"Last Update Time\"], ['Out Read Tickets'], ['Out Write Tickets'], ['Virtual Memory'], ['Resident Memory'], ['Heap Used'], ['Current Cache'], ['Dirty Cache'], ['Page Faults'], ['Global Lock Current Queue Readers'], ['Global Lock Current Queue Writers'])=arg_max(TimeGenerated,columnifexists('page_faults_rate_d', ''),columnifexists('global_lock_current_queue_readers_d', ''),columnifexists('global_lock_current_queue_writers_d', '')) by Name=mongo_mongodb_mongod_name_s",
+                                            "displayName": "Mongod "
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_mongod_CL | summarize([\"Last Update Time\"], ['Build Indexes'], ['Is Master'], ['Memory Architecture'], ['Priority'], ['SSL Certificate Expiration Date'], ['Storage Engine Name'], ['Version'])=arg_max(TimeGenerated,columnifexists('build_indexes_d', ''),columnifexists('is_master_d', ''),columnifexists('memory_architecture_d', ''),columnifexists('priority_d', ''),columnifexists('ssl_certificate_expiration_date_s', ''),columnifexists('storage_engine_name_s', ''),columnifexists('version_s', '')) by Name=mongo_mongodb_mongod_name_s",
+                                            "displayName": "Mongod Properties"
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_mongos_CL | summarize([\"Last Update Time\"], ['Network Requests'], ['Current Connections'], ['Heap Used'], ['Mapped Memory'], ['Journal Mapped Memory'], ['Virtual Memory'], ['Resident Memory'])=arg_max(TimeGenerated,columnifexists('network_requests_rate_d', ''),columnifexists('current_connections_d', ''),columnifexists('heap_used_d', ''),columnifexists('mapped_memory_d', ''),columnifexists('journal_mapped_memory_d', ''),columnifexists('virtual_memory_d', ''),columnifexists('resident_memory_d', '')) by Name=mongo_mongodb_mongos_name_s",
+                                            "displayName": "Mongos "
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_mongos_CL | summarize([\"Last Update Time\"], ['Extended Memory Supported'], ['Host Name'], ['Memory Architecture'], ['PID'], ['Process'], ['Uptime'], ['Version'])=arg_max(TimeGenerated,columnifexists('extended_memory_supported_d', ''),columnifexists('host_name_s', ''),columnifexists('memory_architecture_d', ''),columnifexists('pid_d', ''),columnifexists('process_s', ''),columnifexists('uptime_d', ''),columnifexists('version_s', '')) by Name=mongo_mongodb_mongos_name_s",
+                                            "displayName": "Mongos Properties"
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_database_CL | summarize([\"Last Update Time\"], ['Collections Count'], ['Disk Space Free'], ['Storage Size'], ['Data Size'], ['Extents'], ['Objects'])=arg_max(TimeGenerated,columnifexists('collections_count_d', ''),columnifexists('disk_space_free_d', ''),columnifexists('storage_size_d', ''),columnifexists('data_size_d', ''),columnifexists('extents_d', ''),columnifexists('objects_d', '')) by Name=mongo_mongodb_database_name_s",
+                                            "displayName": "Database "
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_database_CL | summarize([\"Last Update Time\"], ['Collections Documents Maximum'], ['Collections Maximum Size'], ['Data File Version'], ['Freelist Extents Size'])=arg_max(TimeGenerated,columnifexists('collections_documents_maximum_d', ''),columnifexists('collections_maximum_size_d', ''),columnifexists('data_file_version_d', ''),columnifexists('freelist_extents_size_d', '')) by Name=mongo_mongodb_database_name_s",
+                                            "displayName": "Database Properties"
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_replica_set_CL | summarize([\"Last Update Time\"], ['Data Bearing Nodes'], ['Request Votes'])=arg_max(TimeGenerated,columnifexists('data_bearing_nodes_d', ''),columnifexists('request_votes_d', '')) by Name=mongo_mongodb_replica_set_name_s",
+                                            "displayName": "Replica Set "
+                                        }
+                                        ,{
+                                            "query": "mongo_mongodb_replica_set_CL | summarize([\"Last Update Time\"], ['Chaining Allowed'], ['Election Timeout'], ['Heartbeat Timeout'], ['Primary Replication'], ['Protocol Version'], ['State'], ['Version'])=arg_max(TimeGenerated,columnifexists('chaining_allowed_d', ''),columnifexists('election_timeout_d', ''),columnifexists('heartbeat_timeout_d', ''),columnifexists('primary_replication_s', ''),columnifexists('protocol_version_d', ''),columnifexists('state_d', ''),columnifexists('version_s', '')) by Name=mongo_mongodb_replica_set_name_s",
+                                            "displayName": "Replica Set Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "mongo_mongodb_configuration_server_name_s",
+                            "QueryForValues": "union mongo_mongodb_mongod_CL, mongo_mongodb_replica_set_CL | distinct mongo_mongodb_configuration_server_name_s",
+                            "Title": "Configuration Server"
+                          },{
+                            "FieldName": "mongo_mongodb_database_name_s",
+                            "QueryForValues": "union mongo_mongodb_mongod_CL, mongo_mongodb_database_CL, mongo_mongodb_replica_set_CL | distinct mongo_mongodb_database_name_s",
+                            "Title": "Database"
+                          },{
+                            "FieldName": "mongo_mongodb_replica_set_name_s",
+                            "QueryForValues": "union mongo_mongodb_mongod_CL, mongo_mongodb_replica_set_CL | distinct mongo_mongodb_replica_set_name_s",
+                            "Title": "Replica Set"
+                          },{
+                            "FieldName": "mongo_mongodb_shard_name_s",
+                            "QueryForValues": "union mongo_mongodb_mongod_CL, mongo_mongodb_replica_set_CL | distinct mongo_mongodb_shard_name_s",
+                            "Title": "Shard"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "mongo_mongodb_mongod_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "mongo_mongodb_mongod_name_s",
+                            "QueryForValues": "mongo_mongodb_mongod_CL | distinct mongo_mongodb_mongod_name_s",
+                            "Title": "Mongod"
+                          },{
+                            "FieldName": "mongo_mongodb_cluster_name_s",
+                            "QueryForValues": "mongo_mongodb_mongos_CL | distinct mongo_mongodb_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "mongo_mongodb_mongos_name_s",
+                            "QueryForValues": "union mongo_mongodb_mongos_CL, mongo_mongodb_database_CL | distinct mongo_mongodb_mongos_name_s",
+                            "Title": "Mongos"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "mongo_mongodb_mongod_CL | project ['Asserts: Message'] = columnifexists('asserts_message_rate_d', double(null)), ['Delay Behind Primary'] = columnifexists('delay_behind_primary_d', double(null)), TimeGenerated, Name=mongo_mongodb_mongod_name_s  | extend Healthy = case(isnotnull(['Asserts: Message']) or isnotnull(['Delay Behind Primary']), (['Asserts: Message'] < 1 or isnull(['Asserts: Message'])) and (['Delay Behind Primary'] < 120 or isnull(['Delay Behind Primary'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Mongod",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

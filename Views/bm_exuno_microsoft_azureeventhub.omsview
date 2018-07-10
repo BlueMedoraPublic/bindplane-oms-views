@@ -1,0 +1,665 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Event Hub Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Event Hub Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Event Hub Environment",
+                        "Name": "Microsoft Azure Event Hub Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Event Hub Overview",
+                                        "NewGroup": false,
+                                        "Color": "#4423559"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Event Hub",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Azure Event Hub is a hyper-scale telemetry ingestion service that collects, transforms, and stores millions of events. As a distributed streaming platform, it gives you low latency and configurable time retention, which enables you to ingress massive amounts of telemetry into the cloud and read the data from multiple applications using publish-subscribe semantics."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor incoming connections and requests as well as outgoing messages. Additionally, throttled requests and server errors are important to track."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Namespace Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace}  | project ['Failed Requests (FAILREQ)'] = columnifexists('failed_requests_d', double(null)), ['Internal Server Errors (INTERR)'] = columnifexists('internal_server_errors_d', double(null)), ['Miscellaneous Server Errors (MISCERR)'] = columnifexists('miscellaneous_server_errors_d', double(null)), ['Quota Exceeded Errors'] = columnifexists('quota_exceeded_errors_d', double(null)), ['Server Busy Errors (SVRBSY)'] = columnifexists('server_busy_errors_d', double(null)), ['Server Errors'] = columnifexists('server_errors_d', double(null)), ['Throttled Requests'] = columnifexists('throttled_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_eventhub_namespace_name_s  | extend Healthy = case(isnotnull(['Failed Requests (FAILREQ)']) or isnotnull(['Internal Server Errors (INTERR)']) or isnotnull(['Miscellaneous Server Errors (MISCERR)']) or isnotnull(['Quota Exceeded Errors']) or isnotnull(['Server Busy Errors (SVRBSY)']) or isnotnull(['Server Errors']) or isnotnull(['Throttled Requests']), (['Failed Requests (FAILREQ)'] == 0 or isnull(['Failed Requests (FAILREQ)'])) and (['Internal Server Errors (INTERR)'] == 0 or isnull(['Internal Server Errors (INTERR)'])) and (['Miscellaneous Server Errors (MISCERR)'] == 0 or isnull(['Miscellaneous Server Errors (MISCERR)'])) and (['Quota Exceeded Errors'] == 0 or isnull(['Quota Exceeded Errors'])) and (['Server Busy Errors (SVRBSY)'] == 0 or isnull(['Server Busy Errors (SVRBSY)'])) and (['Server Errors'] == 0 or isnull(['Server Errors'])) and (['Throttled Requests'] == 0 or isnull(['Throttled Requests'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace}  | project ['Failed Requests (FAILREQ)'] = columnifexists('failed_requests_d', double(null)), ['Internal Server Errors (INTERR)'] = columnifexists('internal_server_errors_d', double(null)), ['Miscellaneous Server Errors (MISCERR)'] = columnifexists('miscellaneous_server_errors_d', double(null)), ['Quota Exceeded Errors'] = columnifexists('quota_exceeded_errors_d', double(null)), ['Server Busy Errors (SVRBSY)'] = columnifexists('server_busy_errors_d', double(null)), ['Server Errors'] = columnifexists('server_errors_d', double(null)), ['Throttled Requests'] = columnifexists('throttled_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_eventhub_namespace_name_s  | extend Healthy = case(isnotnull(['Failed Requests (FAILREQ)']) or isnotnull(['Internal Server Errors (INTERR)']) or isnotnull(['Miscellaneous Server Errors (MISCERR)']) or isnotnull(['Quota Exceeded Errors']) or isnotnull(['Server Busy Errors (SVRBSY)']) or isnotnull(['Server Errors']) or isnotnull(['Throttled Requests']), (['Failed Requests (FAILREQ)'] == 0 or isnull(['Failed Requests (FAILREQ)'])) and (['Internal Server Errors (INTERR)'] == 0 or isnull(['Internal Server Errors (INTERR)'])) and (['Miscellaneous Server Errors (MISCERR)'] == 0 or isnull(['Miscellaneous Server Errors (MISCERR)'])) and (['Quota Exceeded Errors'] == 0 or isnull(['Quota Exceeded Errors'])) and (['Server Busy Errors (SVRBSY)'] == 0 or isnull(['Server Busy Errors (SVRBSY)'])) and (['Server Errors'] == 0 or isnull(['Server Errors'])) and (['Throttled Requests'] == 0 or isnull(['Throttled Requests'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Namespace Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_eventhub_namespace_CL | project ['Failed Requests (FAILREQ)'] = columnifexists('failed_requests_d', double(null)), ['Internal Server Errors (INTERR)'] = columnifexists('internal_server_errors_d', double(null)), ['Miscellaneous Server Errors (MISCERR)'] = columnifexists('miscellaneous_server_errors_d', double(null)), ['Quota Exceeded Errors'] = columnifexists('quota_exceeded_errors_d', double(null)), ['Server Busy Errors (SVRBSY)'] = columnifexists('server_busy_errors_d', double(null)), ['Server Errors'] = columnifexists('server_errors_d', double(null)), ['Throttled Requests'] = columnifexists('throttled_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_eventhub_namespace_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Requests (FAILREQ)']) or isnotnull(['Internal Server Errors (INTERR)']) or isnotnull(['Miscellaneous Server Errors (MISCERR)']) or isnotnull(['Quota Exceeded Errors']) or isnotnull(['Server Busy Errors (SVRBSY)']) or isnotnull(['Server Errors']) or isnotnull(['Throttled Requests']), (['Failed Requests (FAILREQ)'] == 0 or isnull(['Failed Requests (FAILREQ)'])) and (['Internal Server Errors (INTERR)'] == 0 or isnull(['Internal Server Errors (INTERR)'])) and (['Miscellaneous Server Errors (MISCERR)'] == 0 or isnull(['Miscellaneous Server Errors (MISCERR)'])) and (['Quota Exceeded Errors'] == 0 or isnull(['Quota Exceeded Errors'])) and (['Server Busy Errors (SVRBSY)'] == 0 or isnull(['Server Busy Errors (SVRBSY)'])) and (['Server Errors'] == 0 or isnull(['Server Errors'])) and (['Throttled Requests'] == 0 or isnull(['Throttled Requests'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_eventhub_namespace_CL | project ['Failed Requests (FAILREQ)'] = columnifexists('failed_requests_d', double(null)), ['Internal Server Errors (INTERR)'] = columnifexists('internal_server_errors_d', double(null)), ['Miscellaneous Server Errors (MISCERR)'] = columnifexists('miscellaneous_server_errors_d', double(null)), ['Quota Exceeded Errors'] = columnifexists('quota_exceeded_errors_d', double(null)), ['Server Busy Errors (SVRBSY)'] = columnifexists('server_busy_errors_d', double(null)), ['Server Errors'] = columnifexists('server_errors_d', double(null)), ['Throttled Requests'] = columnifexists('throttled_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_eventhub_namespace_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Requests (FAILREQ)']) or isnotnull(['Internal Server Errors (INTERR)']) or isnotnull(['Miscellaneous Server Errors (MISCERR)']) or isnotnull(['Quota Exceeded Errors']) or isnotnull(['Server Busy Errors (SVRBSY)']) or isnotnull(['Server Errors']) or isnotnull(['Throttled Requests']), (['Failed Requests (FAILREQ)'] == 0 or isnull(['Failed Requests (FAILREQ)'])) and (['Internal Server Errors (INTERR)'] == 0 or isnull(['Internal Server Errors (INTERR)'])) and (['Miscellaneous Server Errors (MISCERR)'] == 0 or isnull(['Miscellaneous Server Errors (MISCERR)'])) and (['Quota Exceeded Errors'] == 0 or isnull(['Quota Exceeded Errors'])) and (['Server Busy Errors (SVRBSY)'] == 0 or isnull(['Server Busy Errors (SVRBSY)'])) and (['Server Errors'] == 0 or isnull(['Server Errors'])) and (['Throttled Requests'] == 0 or isnull(['Throttled Requests'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Namespace Quota Exceeded Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Quota Exceeded Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('quota_exceeded_errors_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s",
+                                        "Callout": {
+                                            "Title": "Average Quota Exceeded Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Quota Exceeded Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL  | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('quota_exceeded_errors_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Namespace",
+                                            "Value": "Quota Exceeded Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Namespace Throttled Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Throttled Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('throttled_requests_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s",
+                                        "Callout": {
+                                            "Title": "Average Throttled Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL  | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('throttled_requests_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Namespace",
+                                            "Value": "Throttled Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Namespace Archived Messages Throughput (EHAMBS)",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Archived Messages Throughput (EHAMBS)",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('archived_messages_throughput_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s",
+                                        "Callout": {
+                                            "Title": "Average Archived Messages Throughput (EHAMBS)",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL  | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('archived_messages_throughput_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Namespace",
+                                            "Value": "Archived Messages Throughput (EHAMBS)"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Namespace Outgoing Message Throughput (EHOUTBYTES)",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Outgoing Message Throughput (EHOUTBYTES)",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('outgoing_message_throughput_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s",
+                                        "Callout": {
+                                            "Title": "Average Outgoing Message Throughput (EHOUTBYTES)",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL  | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('outgoing_message_throughput_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Namespace",
+                                            "Value": "Outgoing Message Throughput (EHOUTBYTES)"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Namespace Active Connections",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Active Connections",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('active_connections_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s",
+                                        "Callout": {
+                                            "Title": "Average Active Connections",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Active Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_eventhub_namespace_CL  | where ${Resource Group} and ${Namespace} | summarize avg(coalesce(columnifexists('active_connections_d',0.0), 0.0)) by microsoft_azure_eventhub_namespace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Namespace",
+                                            "Value": "Active Connections"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_eventhub_namespace_CL | summarize([\"Last Update Time\"], ['Quota Exceeded Errors'], ['Internal Server Errors (INTERR)'], ['Server Errors'], ['Server Busy Errors (SVRBSY)'])=arg_max(TimeGenerated,columnifexists('quota_exceeded_errors_d', ''),columnifexists('internal_server_errors_d', ''),columnifexists('server_errors_d', ''),columnifexists('server_busy_errors_d', '')) by Name=microsoft_azure_eventhub_namespace_name_s",
+                                            "displayName": "Namespace Errors"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_eventhub_namespace_CL | summarize([\"Last Update Time\"], ['Throttled Requests'], ['Event Hub Incoming Requests'], ['Failed Requests (FAILREQ)'])=arg_max(TimeGenerated,columnifexists('throttled_requests_d', ''),columnifexists('event_hub_incoming_requests_d', ''),columnifexists('failed_requests_d', '')) by Name=microsoft_azure_eventhub_namespace_name_s",
+                                            "displayName": "Namespace Requests"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_eventhub_namespace_CL | summarize([\"Last Update Time\"], ['Archived Messages Throughput (EHAMBS)'], ['Miscellaneous Server Errors (MISCERR)'])=arg_max(TimeGenerated,columnifexists('archived_messages_throughput_d', ''),columnifexists('miscellaneous_server_errors_d', '')) by Name=microsoft_azure_eventhub_namespace_name_s",
+                                            "displayName": "Namespace Messages"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_eventhub_namespace_CL | summarize([\"Last Update Time\"], ['Outgoing Message Throughput (EHOUTBYTES)'], ['Active Connections'])=arg_max(TimeGenerated,columnifexists('outgoing_message_throughput_d', ''),columnifexists('active_connections_d', '')) by Name=microsoft_azure_eventhub_namespace_name_s",
+                                            "displayName": "Namespace Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_eventhub_namespace_CL | summarize([\"Last Update Time\"], ['Maximum Throughput Units'], ['Provisioning State'], ['Resource Group'], ['SKU Name'], ['SKU Tier'], ['Type'])=arg_max(TimeGenerated,columnifexists('maximum_throughput_units_d', ''),columnifexists('provisioning_state_s', ''),columnifexists('resource_group_s', ''),columnifexists('sku_name_s', ''),columnifexists('sku_tier_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_eventhub_namespace_name_s",
+                                            "displayName": "Namespace Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_eventhub_event_hub_CL | summarize([\"Last Update Time\"], ['Capture Encoding'], ['Capture Interval'], ['Capture Size Limit'], ['Message Retention'], ['Partition Count'], ['Partition IDs'], ['Type'])=arg_max(TimeGenerated,columnifexists('capture_encoding_s', ''),columnifexists('capture_interval_d', ''),columnifexists('capture_size_limit_d', ''),columnifexists('message_retention_d', ''),columnifexists('partition_count_d', ''),columnifexists('partition_ids_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_eventhub_event_hub_name_s",
+                                            "displayName": "Event Hub Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "resource_group_s",
+                            "QueryForValues": "microsoft_azure_eventhub_namespace_CL | distinct resource_group_s",
+                            "Title": "Resource Group"
+                          },{
+                            "FieldName": "microsoft_azure_eventhub_namespace_name_s",
+                            "QueryForValues": "union microsoft_azure_eventhub_namespace_CL, microsoft_azure_eventhub_event_hub_CL | distinct microsoft_azure_eventhub_namespace_name_s",
+                            "Title": "Namespace"
+                          },{
+                            "FieldName": "microsoft_azure_eventhub_event_hub_name_s",
+                            "QueryForValues": "microsoft_azure_eventhub_event_hub_CL | distinct microsoft_azure_eventhub_event_hub_name_s",
+                            "Title": "Event Hub"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_eventhub_namespace_CL | project ['Failed Requests (FAILREQ)'] = columnifexists('failed_requests_d', double(null)), ['Internal Server Errors (INTERR)'] = columnifexists('internal_server_errors_d', double(null)), ['Miscellaneous Server Errors (MISCERR)'] = columnifexists('miscellaneous_server_errors_d', double(null)), ['Quota Exceeded Errors'] = columnifexists('quota_exceeded_errors_d', double(null)), ['Server Busy Errors (SVRBSY)'] = columnifexists('server_busy_errors_d', double(null)), ['Server Errors'] = columnifexists('server_errors_d', double(null)), ['Throttled Requests'] = columnifexists('throttled_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_eventhub_namespace_name_s  | extend Healthy = case(isnotnull(['Failed Requests (FAILREQ)']) or isnotnull(['Internal Server Errors (INTERR)']) or isnotnull(['Miscellaneous Server Errors (MISCERR)']) or isnotnull(['Quota Exceeded Errors']) or isnotnull(['Server Busy Errors (SVRBSY)']) or isnotnull(['Server Errors']) or isnotnull(['Throttled Requests']), (['Failed Requests (FAILREQ)'] == 0 or isnull(['Failed Requests (FAILREQ)'])) and (['Internal Server Errors (INTERR)'] == 0 or isnull(['Internal Server Errors (INTERR)'])) and (['Miscellaneous Server Errors (MISCERR)'] == 0 or isnull(['Miscellaneous Server Errors (MISCERR)'])) and (['Quota Exceeded Errors'] == 0 or isnull(['Quota Exceeded Errors'])) and (['Server Busy Errors (SVRBSY)'] == 0 or isnull(['Server Busy Errors (SVRBSY)'])) and (['Server Errors'] == 0 or isnull(['Server Errors'])) and (['Throttled Requests'] == 0 or isnull(['Throttled Requests'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Namespace",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

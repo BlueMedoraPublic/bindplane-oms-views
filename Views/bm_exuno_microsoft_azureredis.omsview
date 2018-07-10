@@ -1,0 +1,685 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Redis Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Redis Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Redis Environment",
+                        "Name": "Microsoft Azure Redis Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Redis Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Redis",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Azure Redis is an in-memory data store for scalable applications."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor IOPS and memory usage, as well as cache read and write throughput."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cache Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_redis_cache_CL | where ${Location} and ${Resource Group} and ${Type} and ${Cache}  | project ['Used Memory'] = columnifexists('used_memory_d', double(null)), TimeGenerated, Name=microsoft_azure_redis_cache_name_s  | extend Healthy = case(isnotnull(['Used Memory']), (['Used Memory'] < 90 or isnull(['Used Memory'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_redis_cache_CL | where ${Location} and ${Resource Group} and ${Type} and ${Cache}  | project ['Used Memory'] = columnifexists('used_memory_d', double(null)), TimeGenerated, Name=microsoft_azure_redis_cache_name_s  | extend Healthy = case(isnotnull(['Used Memory']), (['Used Memory'] < 90 or isnull(['Used Memory'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cache Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_redis_cache_CL | project ['Used Memory'] = columnifexists('used_memory_d', double(null)), TimeGenerated, Name=microsoft_azure_redis_cache_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Used Memory']), (['Used Memory'] < 90 or isnull(['Used Memory'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_redis_cache_CL | project ['Used Memory'] = columnifexists('used_memory_d', double(null)), TimeGenerated, Name=microsoft_azure_redis_cache_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Used Memory']), (['Used Memory'] < 90 or isnull(['Used Memory'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Shard Rate of Operations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Rate of Operations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_redis_shard_CL | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('rate_of_operations_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s",
+                                        "Callout": {
+                                            "Title": "Average Rate of Operations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_redis_shard_CL  | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('rate_of_operations_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Shard",
+                                            "Value": "Rate of Operations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Shard Server Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Server Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_redis_shard_CL | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('server_load_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s",
+                                        "Callout": {
+                                            "Title": "Average Server Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_redis_shard_CL  | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('server_load_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Shard",
+                                            "Value": "Server Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Shard Cache Read",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Cache Read",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_redis_shard_CL | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('cache_read_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s",
+                                        "Callout": {
+                                            "Title": "Average Cache Read",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_redis_shard_CL  | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('cache_read_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Shard",
+                                            "Value": "Cache Read"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Shard Cache Write",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Cache Write",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_redis_shard_CL | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('cache_write_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s",
+                                        "Callout": {
+                                            "Title": "Average Cache Write",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_redis_shard_CL  | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('cache_write_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Shard",
+                                            "Value": "Cache Write"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Shard Used Memory",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Used Memory",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_redis_shard_CL | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('used_memory_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s",
+                                        "Callout": {
+                                            "Title": "Average Used Memory",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_redis_shard_CL  | where ${Cache} and ${Shard} | summarize avg(coalesce(columnifexists('used_memory_d',0.0), 0.0)) by microsoft_azure_redis_shard_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Shard",
+                                            "Value": "Used Memory"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_redis_cache_CL | summarize([\"Last Update Time\"], ['Rate of Operations'], ['Server Load'], ['Cache Read'], ['Cache Write'], ['Total Commands Processed'], ['Hits'], ['Misses'])=arg_max(TimeGenerated,columnifexists('rate_of_operations_d', ''),columnifexists('server_load_d', ''),columnifexists('cache_read_d', ''),columnifexists('cache_write_d', ''),columnifexists('total_commands_processed_d', ''),columnifexists('hits_d', ''),columnifexists('misses_d', '')) by Name=microsoft_azure_redis_cache_name_s",
+                                            "displayName": "Cache Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_cache_CL | summarize([\"Last Update Time\"], ['Used Memory'])=arg_max(TimeGenerated,columnifexists('used_memory_d', '')) by Name=microsoft_azure_redis_cache_name_s",
+                                            "displayName": "Cache Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_cache_CL | summarize([\"Last Update Time\"], ['Connected Clients'])=arg_max(TimeGenerated,columnifexists('connected_clients_d', '')) by Name=microsoft_azure_redis_cache_name_s",
+                                            "displayName": "Cache Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_cache_CL | summarize([\"Last Update Time\"], ['Redis Configuration'], ['Shard Count'], ['SKU Capacity'], ['SKU Name'], ['Tags'], ['Tenant Settings'], ['Type'])=arg_max(TimeGenerated,columnifexists('redis_configuration_s', ''),columnifexists('shard_count_d', ''),columnifexists('sku_capacity_d', ''),columnifexists('sku_name_s', ''),columnifexists('tags_s', ''),columnifexists('tenant_settings_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_redis_cache_name_s",
+                                            "displayName": "Cache Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_shard_CL | summarize([\"Last Update Time\"], ['Rate of Operations'], ['Server Load'], ['Cache Read'], ['Cache Write'], ['Total Commands Processed'], ['Hits'], ['Misses'])=arg_max(TimeGenerated,columnifexists('rate_of_operations_d', ''),columnifexists('server_load_d', ''),columnifexists('cache_read_d', ''),columnifexists('cache_write_d', ''),columnifexists('total_commands_processed_d', ''),columnifexists('hits_d', ''),columnifexists('misses_d', '')) by Name=microsoft_azure_redis_shard_name_s",
+                                            "displayName": "Shard Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_shard_CL | summarize([\"Last Update Time\"], ['Used Memory'])=arg_max(TimeGenerated,columnifexists('used_memory_d', '')) by Name=microsoft_azure_redis_shard_name_s",
+                                            "displayName": "Shard Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_shard_CL | summarize([\"Last Update Time\"], ['Connected Clients'])=arg_max(TimeGenerated,columnifexists('connected_clients_d', '')) by Name=microsoft_azure_redis_shard_name_s",
+                                            "displayName": "Shard Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_redis_firewall_rule_CL | summarize([\"Last Update Time\"], ['End IP'], ['Start IP'], ['Type'])=arg_max(TimeGenerated,columnifexists('end_ip_s', ''),columnifexists('start_ip_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_redis_firewall_rule_name_s",
+                                            "displayName": "Firewall Rule Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "location_s",
+                            "QueryForValues": "microsoft_azure_redis_cache_CL | distinct location_s",
+                            "Title": "Location"
+                          },{
+                            "FieldName": "resource_group_s",
+                            "QueryForValues": "microsoft_azure_redis_cache_CL | distinct resource_group_s",
+                            "Title": "Resource Group"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "microsoft_azure_redis_cache_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "microsoft_azure_redis_cache_name_s",
+                            "QueryForValues": "union microsoft_azure_redis_cache_CL, microsoft_azure_redis_shard_CL, microsoft_azure_redis_firewall_rule_CL | distinct microsoft_azure_redis_cache_name_s",
+                            "Title": "Cache"
+                          },{
+                            "FieldName": "microsoft_azure_redis_shard_name_s",
+                            "QueryForValues": "microsoft_azure_redis_shard_CL | distinct microsoft_azure_redis_shard_name_s",
+                            "Title": "Shard"
+                          },{
+                            "FieldName": "microsoft_azure_redis_firewall_rule_name_s",
+                            "QueryForValues": "microsoft_azure_redis_firewall_rule_CL | distinct microsoft_azure_redis_firewall_rule_name_s",
+                            "Title": "Firewall Rule"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_redis_cache_CL | project ['Used Memory'] = columnifexists('used_memory_d', double(null)), TimeGenerated, Name=microsoft_azure_redis_cache_name_s  | extend Healthy = case(isnotnull(['Used Memory']), (['Used Memory'] < 90 or isnull(['Used Memory'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Cache",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

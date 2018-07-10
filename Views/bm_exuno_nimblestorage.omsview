@@ -1,0 +1,560 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Nimble Storage Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Nimble Storage Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Nimble Storage Environment",
+                        "Name": "Nimble Storage Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Nimble Storage Overview",
+                                        "NewGroup": false,
+                                        "Color": "#7fba00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYLBDQeiTUEwAAAOXhJREFUeNrt3Xd8VUXeP/DPKbeX3Nz0Bim0FLpUQaRYAGVBUcqqIPzQBV13WVZXXfVZRVxXH5VV113Wx0axIOKqSEKN9BJCqAFSKOnl3tzcXk6Z3x8JrAooapKTMu9/eL24NzNz55z5npk5M+cAFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEV1XIzSBaDaVnh4OARBYLKysjRarZYHQC5+JkkSqa6uDuj1evnYsWNKF5VqAzQAdEJWqxWSJDFxcXHaWbNmWbKysuIjIyNjLBZLktFojJIkiTOZTCkqlSoM/w0ADCEk5HQ6SwF4fT5fg8PhuGC32+suXLhQl52d3bB582ZvVFQUqa+vV/onUi2EBoBO4q677sKBAwdU8+bNixo2bFiv5OTkoRaLpa9er0/VaDSJPM+HsSyrYxhG1fwnVzv2BAAIIYIsywFRFJ2iKNq8Xm9xQ0NDQXV19dEjR46ceuWVV6oefvjh0BNPPKH0T6d+ARoAOjC1Wo1QKMQsXrw44rbbbhuSlpZ2U3h4+HCdTpfK83wkwzBcS+ZHCJEkSXL5/f7ShoaGveXl5d/s3r374BNPPFGl0WhIMBhUukooqstg/ud//icuLy9vnt1uzwmFQvWEEJm0HVkURafD4cg9duzY7997772MiIgIfsKECUrXC0V1XoQQPPXUU1F5eXn3NzQ0bBVF0d2Gjf7KkUCWQx6P59iJEyf++MILLyQAYBISEpSuKorqPNasWYPZs2cbtm3bNqmmpmZde2j43ydJks9ut2/Ozc2d9rvf/c5CCPnlP5yiurJbbrkFALjVq1f3P3/+/OuhUKhG6Yb+YwRBsFVWVn6wfv3663/1q19pn376aaWrkaI6luTkZABgXn755W4nT558zO12HyWESEo37p9ACgQC54uLi194++2307t3785NnjxZ6WqlqPaPEIJFixaFHzhw4N6GhoZtsiwHlG7NP1fz/EBBQUHBQ88//3wsIQQMQ28+UdRlHnroIVx//fXazZs331RdXf2hKIoOpRtwS5EkyVNfX//l9u3bb1+0aJEpOztb6eqmqPZhwIABAMCtWLGiz9mzZ18OBALlSjfY1hIKherKysr+tX79+uHjxo1T//a3v1W6+ilKGZGRkQDAPPnkk3HHjx//vcvlypdlWVC6kbYBye/3l5w6derp119/PQUAExUVpfThoKi2QwjB9OnTTXv27LnbbrdvkiTJq3SrbGuyLAcdDseOvLy8uUuWLIkk9LYh1dn9/ve/R79+/dQff/zx0IqKineaV/B1aaIoumpqatZu3bp14qRJk/TLly9X+jBRVMvKzMwEAHb58uU9iouLn/P5fMWkY93Wa3XBYLDq3Llzy99///2+ALihQ4cqfdgoqmU8+uij0YcPH37Q5XIdlGU5qHRja8dEt9t95OTJk48uW7YsEQCjVquVPnwU9dNt3LgR99xzj2H79u2322y2r0VRdCndujoKSZL8drt96/79+389f/58uqyY6jjmzJmDUaNGqdasWTPowoULb3aE5bvtlSAIDdXV1Ws2bdo0fsiQIZpnnnlG6cNLUVc2ZswYoGmcn1JYWPiEz+c7I8uyqHQj6gwCgcCF0tLSv7311lu9eZ7n6LZjql0hhODxxx+37t+//z6n07lXkqQOu3y3vZJlOeRyuQ4dO3bskSeeeCIWAJOWlqb0oae6sldffRWzZ8/WZWdnj29evtuodEPp7CRJ8tjt9pxdu3ZNnzlzponQ/QVUW5s2bRp69uzJr1mzpn9paenLwWCwgrTtE3m6vFAoVFdRUfH2Rx99NGTo0KHqhx9+WOnTgursIiIiAIBZvnx592PHji32er0n6DhfUZLP5ys+c+bMX5YvX54GgKXDAqpVeDwezJs3z7x79+4ZDocjV5Ikv9JnP9VEluWgy+U6cOjQof/3xBNPRBJCwHEt+kxUqquaPXs2+vbtq/7666/HVFRUvCsIgl3pE566MlEUXbW1teuys7Nvuu+++wz/+c9/lD59qI4qKSkJANiVK1dmFhcXLwsEAucIHed3BHIoFKo+f/786x9++OHAoUOHqubPn6/06UR1NI899lh0QUHBQrfbnU/H+R2PLMuiz+c7feLEiT81bztmR44cqfRpRbVnBw4cwJQpUww7duyYWldX90V7fPou9dNIkhRwOp279+3bd8+SJUvCCV1W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",
+                                        "Label": "Nimble Storage",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Nimble Storage is a predictive flash storage array"
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "With Nimble Storage, it is important to monitor throughput, IOPS, latency, as well as storage utilization."
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group Read Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nimble_storage_group_CL | where ${Group} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by nimble_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nimble_storage_group_CL  | where ${Group} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by nimble_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group",
+                                            "Value": "Read Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group Volume Used Disk Space",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Volume Used Disk Space",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nimble_storage_group_CL | where ${Group} | summarize avg(coalesce(columnifexists('volume_used_disk_space_d',0.0), 0.0)) by nimble_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Volume Used Disk Space",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Gigabytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nimble_storage_group_CL  | where ${Group} | summarize avg(coalesce(columnifexists('volume_used_disk_space_d',0.0), 0.0)) by nimble_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group",
+                                            "Value": "Volume Used Disk Space"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group Write Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nimble_storage_group_CL | where ${Group} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by nimble_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nimble_storage_group_CL  | where ${Group} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by nimble_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group",
+                                            "Value": "Write Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Pool Total Space",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Space",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nimble_storage_pool_CL | where ${Group} and ${Pool} | summarize avg(coalesce(columnifexists('total_space_d',0.0), 0.0)) by nimble_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Space",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Terabytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nimble_storage_pool_CL  | where ${Group} and ${Pool} | summarize avg(coalesce(columnifexists('total_space_d',0.0), 0.0)) by nimble_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Pool",
+                                            "Value": "Total Space"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Pool Used Space",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Used Space",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nimble_storage_pool_CL | where ${Group} and ${Pool} | summarize avg(coalesce(columnifexists('used_space_d',0.0), 0.0)) by nimble_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Used Space",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Terabytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nimble_storage_pool_CL  | where ${Group} and ${Pool} | summarize avg(coalesce(columnifexists('used_space_d',0.0), 0.0)) by nimble_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Pool",
+                                            "Value": "Used Space"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "nimble_storage_volume_CL | summarize([\"Last Update Time\"], ['Combined IOPS'], ['Combined Latency'], ['Combined Throughput'], ['Read IOPS'], ['Read Throughput'], ['Write IOPS'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('combined_iops_d', ''),columnifexists('combined_latency_d', ''),columnifexists('combined_throughput_d', ''),columnifexists('read_iops_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_throughput_d', '')) by Name=nimble_storage_volume_name_s",
+                                            "displayName": "Volume "
+                                        }
+                                        ,{
+                                            "query": "nimble_storage_group_CL | summarize([\"Last Update Time\"], ['Read Latency'], ['Read Throughput'], ['Reads'], ['Volume Used Disk Space'], ['Write Latency'], ['Write Throughput'], ['Writes'])=arg_max(TimeGenerated,columnifexists('read_latency_d', ''),columnifexists('read_throughput_s', ''),columnifexists('reads_s', ''),columnifexists('volume_used_disk_space_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_s', ''),columnifexists('writes_s', '')) by Name=nimble_storage_group_name_s",
+                                            "displayName": "Group "
+                                        }
+                                        ,{
+                                            "query": "nimble_storage_group_CL | summarize([\"Last Update Time\"], ['Management IP'])=arg_max(TimeGenerated,columnifexists('management_ip_s', '')) by Name=nimble_storage_group_name_s",
+                                            "displayName": "Group Properties"
+                                        }
+                                        ,{
+                                            "query": "nimble_storage_pool_CL | summarize([\"Last Update Time\"], ['Total Space'], ['Used Space'])=arg_max(TimeGenerated,columnifexists('total_space_d', ''),columnifexists('used_space_d', '')) by Name=nimble_storage_pool_name_s",
+                                            "displayName": "Pool "
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "nimble_storage_volume_collection_name_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct nimble_storage_volume_collection_name_s",
+                            "Title": "Volume Collection"
+                          },{
+                            "FieldName": "nimble_storage_pool_name_s",
+                            "QueryForValues": "union nimble_storage_volume_CL, nimble_storage_pool_CL | distinct nimble_storage_pool_name_s",
+                            "Title": "Pool"
+                          },{
+                            "FieldName": "collection_id_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct collection_id_s",
+                            "Title": "Collection ID"
+                          },{
+                            "FieldName": "folder_id_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct folder_id_s",
+                            "Title": "Folder ID"
+                          },{
+                            "FieldName": "performance_policy_id_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct performance_policy_id_s",
+                            "Title": "Performance Policy ID"
+                          },{
+                            "FieldName": "pool_id_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct pool_id_s",
+                            "Title": "Pool ID"
+                          },{
+                            "FieldName": "nimble_storage_volume_name_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct nimble_storage_volume_name_s",
+                            "Title": "Volume"
+                          },{
+                            "FieldName": "nimble_storage_group_name_s",
+                            "QueryForValues": "union nimble_storage_group_CL, nimble_storage_pool_CL | distinct nimble_storage_group_name_s",
+                            "Title": "Group"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "nimble_storage_array_CL  | summarize avg(coalesce(columnifexists('free_space_d',0.0), 0.0)) by nimble_storage_array_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Free Space",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Terabytes"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,653 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon S3 Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon S3 Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon S3 Environment",
+                        "Name": "Amazon S3 Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon S3 Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ba141a"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon S3",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon S3 is Amazon's cloud-based Simple Storage Service. Data can be stored in scalable buckets through this service."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the number of errors on both the client side and the server side for S3 buckets.  It is also valuable to note the size in order to determine if scaling is necessary."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket}  | project ['4xx Errors'] = columnifexists('4xx_errors_d', double(null)), ['5xx Errors'] = columnifexists('5xx_errors_d', double(null)), TimeGenerated, Name=amazon_s3_bucket_name_s  | extend Healthy = case(isnotnull(['4xx Errors']) or isnotnull(['5xx Errors']), (['4xx Errors'] < 1 or isnull(['4xx Errors'])) and (['5xx Errors'] < 1 or isnull(['5xx Errors'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket}  | project ['4xx Errors'] = columnifexists('4xx_errors_d', double(null)), ['5xx Errors'] = columnifexists('5xx_errors_d', double(null)), TimeGenerated, Name=amazon_s3_bucket_name_s  | extend Healthy = case(isnotnull(['4xx Errors']) or isnotnull(['5xx Errors']), (['4xx Errors'] < 1 or isnull(['4xx Errors'])) and (['5xx Errors'] < 1 or isnull(['5xx Errors'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_s3_bucket_CL | project ['4xx Errors'] = columnifexists('4xx_errors_d', double(null)), ['5xx Errors'] = columnifexists('5xx_errors_d', double(null)), TimeGenerated, Name=amazon_s3_bucket_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['4xx Errors']) or isnotnull(['5xx Errors']), (['4xx Errors'] < 1 or isnull(['4xx Errors'])) and (['5xx Errors'] < 1 or isnull(['5xx Errors'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_s3_bucket_CL | project ['4xx Errors'] = columnifexists('4xx_errors_d', double(null)), ['5xx Errors'] = columnifexists('5xx_errors_d', double(null)), TimeGenerated, Name=amazon_s3_bucket_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['4xx Errors']) or isnotnull(['5xx Errors']), (['4xx Errors'] < 1 or isnull(['4xx Errors'])) and (['5xx Errors'] < 1 or isnull(['5xx Errors'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket 4xx Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "4xx Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('4xx_errors_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average 4xx Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "4xx Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_s3_bucket_CL  | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('4xx_errors_d',0.0), 0.0)) by amazon_s3_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "4xx Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket 5xx Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "5xx Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('5xx_errors_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average 5xx Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "5xx Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_s3_bucket_CL  | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('5xx_errors_d',0.0), 0.0)) by amazon_s3_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "5xx Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Average All Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average All Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('average_all_requests_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average All Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_s3_bucket_CL  | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('average_all_requests_d',0.0), 0.0)) by amazon_s3_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "Average All Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Uploaded Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Uploaded Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('uploaded_throughput_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average Uploaded Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_s3_bucket_CL  | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('uploaded_throughput_d',0.0), 0.0)) by amazon_s3_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "Uploaded Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Average First Byte Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average First Byte Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('average_first_byte_latency_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average First Byte Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_s3_bucket_CL  | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('average_first_byte_latency_d',0.0), 0.0)) by amazon_s3_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "Average First Byte Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_s3_bucket_CL | summarize([\"Last Update Time\"], ['4xx Errors'], ['5xx Errors'], ['Average All Requests'], ['Uploaded Throughput'], ['Average First Byte Latency'], ['Average Total Request Latency'], ['Average Data Downloaded'])=arg_max(TimeGenerated,columnifexists('4xx_errors_d', ''),columnifexists('5xx_errors_d', ''),columnifexists('average_all_requests_d', ''),columnifexists('uploaded_throughput_d', ''),columnifexists('average_first_byte_latency_d', ''),columnifexists('average_total_request_latency_d', ''),columnifexists('average_data_downloaded_d', '')) by Name=amazon_s3_bucket_name_s",
+                                            "displayName": "Bucket Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_s3_bucket_CL | summarize([\"Last Update Time\"], ['Standard Storage Bucket Size'])=arg_max(TimeGenerated,columnifexists('standard_storage_bucket_size_d', '')) by Name=amazon_s3_bucket_name_s",
+                                            "displayName": "Bucket Capacity"
+                                        }
+                                        ,{
+                                            "query": "amazon_s3_bucket_CL | summarize([\"Last Update Time\"], ['Accelerate Enabled'], ['Creation Date'], ['Log File Prefix'], ['Logging Enabled'], ['Owner Name'], ['Replication Role ARN'], ['Tags'])=arg_max(TimeGenerated,columnifexists('accelerate_enabled_d', ''),columnifexists('creation_date_d', ''),columnifexists('log_file_prefix_s', ''),columnifexists('logging_enabled_d', ''),columnifexists('owner_name_s', ''),columnifexists('replication_role_arn_s', ''),columnifexists('tags_s', '')) by Name=amazon_s3_bucket_name_s",
+                                            "displayName": "Bucket Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "owner_name_s",
+                            "QueryForValues": "amazon_s3_bucket_CL | distinct owner_name_s",
+                            "Title": "Owner Name"
+                          },{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_s3_bucket_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_s3_bucket_name_s",
+                            "QueryForValues": "amazon_s3_bucket_CL | distinct amazon_s3_bucket_name_s",
+                            "Title": "Bucket"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_s3_bucket_CL | project ['4xx Errors'] = columnifexists('4xx_errors_d', double(null)), ['5xx Errors'] = columnifexists('5xx_errors_d', double(null)), TimeGenerated, Name=amazon_s3_bucket_name_s  | extend Healthy = case(isnotnull(['4xx Errors']) or isnotnull(['5xx Errors']), (['4xx Errors'] < 1 or isnull(['4xx Errors'])) and (['5xx Errors'] < 1 or isnull(['5xx Errors'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Bucket",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

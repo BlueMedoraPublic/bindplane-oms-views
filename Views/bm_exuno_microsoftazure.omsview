@@ -1,0 +1,661 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Environment",
+                        "Name": "Microsoft Azure Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAOVJJREFUeNrt3Xl8VNXdP/DPuXf2LZPJQlbIwh5AlsquKOCCWAuWKlJbFH9qXWqltFZ9tE9da21Vqn3aUh+1gtTloVo3wiKgshOQfQlJIGQlmZlMZl/uvef8/pggoGGTZG4mOe/XC/WFyT1n7tzzvWc/AMdxHMdxHMdxHMdxHMdxHMdxHMdxHMdxHMdxHMdxyYuonQEusVJTUyFJEhkyZIjeYDBoALAT/09RFNbY2BgxmUx0z549ameVSwAeALohh8MBRVFIdna24ZZbbrEPGTIkJz09vZfdbs+3WCwZiqKIVqu1UKvVpuBkACCMsZjX660CEAyFQi0ej+eY2+1uPnbsWHNpaWnLqlWrghkZGczpdKr9EbkOwgNAN/GjH/0IW7du1c6bNy9jzJgx/QsKCkbb7fahJpOpSK/X52k0mhRBEIyEEG3br5zpu2cAwBiTKKURWZa9siy7gsFgRUtLy87Gxsbdu3btOvjCCy803H///bFHHnlE7Y/OXQQeAJKYTqdDLBYj8+fPT7v++usvLS4uvio1NXWs0Wgs0mg06YQQsSPTY4wpiqL4wuFwVUtLy6ba2trPN2zYsO2RRx5p0Ov1LBqNqn1LOK7HIP/93/+dXVZWNs/tdq+IxWJOxhhliUNlWfZ6PJ51e/bsefCNN94YnJaWppk6dara94Xjui/GGB577LGMsrKy21taWj6TZdmfwELffiSgNBYIBPbs27fvV88++2wuAJKbm6v2reK47mPp0qWYM2eOec2aNdcdP358WVco+N+kKErI7XavWrdu3cxf/OIXdsbYxX9wjuvJrrnmGgAQ33rrrUuqq6tfjsVix9Uu6OciSZKrvr7+zffff3/CD37wA8Pjjz+u9m3kuORSUFAAAOSPf/xj7/379z/k9/t3M8YUtQv3BVAikUh1RUXFs6+++uqgPn36iNOnT1f7tnJc18cYw7333pu6devWn7S0tKyhlEbULs3fVVv/wM6dO3fe9/TTT2cxxkAIH3ziuG+57777MGHCBMOqVauuamxs/Jcsyx61C3BHURQl4HQ6P1q7du337733Xmtpaanat5vjuobhw4cDgLho0aKBR44c+WMkEqlVu8B2llgs1lxTU/P3999/f+zkyZN1P//5z9W+/RynjvT0dAAgjz76aPbevXsf9Pl8OyilktqFNAGUcDhcefDgwcdffvnlQgAkIyND7a+D4xKHMYZZs2ZZN27ceJPb7V6pKEpQ7VKZaJTSqMfj+aKsrOy2BQsWpDM+bMh1dw8++CCGDRume+edd0bX1dW91jaDr0eTZdl3/Pjx9z777LNp1113nWnhwoVqf00c17FKSkoAQFi4cGHfioqKJ0OhUAVLrmG9TheNRhuOHj268J///OdQAOLo0aPV/to4rmP8+te/zvzqq6/u9vl82yilUbULWxcm+/3+Xfv37//1M888kweA6HQ6tb8+jrtwy5cvx6233mpeu3bt910u16eyLPvULl3JQlGUsNvt/mzLli0/vuOOO/i0Yi55zJ07FxMnTtQuXbp05LFjx/6SDNN3uypJkloaGxuXrly5csqll16q/+1vf6v218tx7Zs0aRIQb+cXHjhw4JFQKFROKZXVLkTdQSQSOVZVVfWHv/71rwM0Go3Ilx1zXQpjDA8//LBjy5YtP/V6vZsURUna6btdFaU05vP5tu/Zs+eBRx55JAsAKS4uVvur53qyF198EXPmzDGWlpZOaZu+26p2QenuFEUJuN3uFevXr581e/ZsK+PrC7hEmzlzJvr166dZunTpJVVVVX+MRqN1LLE78vR4sVisua6u7tW333770tGjR+vuv/9+tR8LrrtLS0sDALJw4cI+e/bsmR8MBvfxdr6qlFAoVFFeXv67hQsXFgMQeLOA6xSBQADz5s2zbdiw4WaPx7NOUZSw2k8/F0cpjfp8vq3bt2//f4888kg6Ywyi2KF7onI91Zw5czB06FDdp59+Oqmuru51SZLcaj/wXPtkWfY1NTUtKy0tveqnP/2p+T//+Y/ajw+XrPLz8wFAWLx4cUlFRcUzkUjkKOPt/GRAY7FYY3V19cv/+te/RowePVp7xx13qP04ccnmoYceyty5c+c9fr9/B2/nJx9KqRwKhQ7t27fvN23LjoXx48er/VhxXdnWrVtxww03mL/44osZzc3NH3bF3Xe5C6MoSsTr9W7YvHnz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",
+                                        "Label": "Microsoft Azure",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Microsoft Azure is a set of cloud services to build, manage, and deploy applications using various tools and framework."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Azure, it is important to measure CPU, storage, and disk for the operating servers to ensure the databases are functioning efficiently."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool Storage Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Storage Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Storage Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "Storage Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool Data IO",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data IO",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('data_io_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data IO",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('data_io_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "Data IO"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool DTU Consumption",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "DTU Consumption",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('dtu_consumption_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average DTU Consumption",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('dtu_consumption_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "DTU Consumption"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Elastic Pool In-Memory OLTP Storage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "In-Memory OLTP Storage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('in_memory_oltp_storage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average In-Memory OLTP Storage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('in_memory_oltp_storage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Elastic Pool",
+                                            "Value": "In-Memory OLTP Storage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['Storage Usage'], ['Data IO'], ['In-Memory OLTP Storage'])=arg_max(TimeGenerated,columnifexists('storage_usage_d', ''),columnifexists('data_io_d', ''),columnifexists('in_memory_oltp_storage_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool Storage"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['DTU Consumption'], ['Sessions'], ['Workers'])=arg_max(TimeGenerated,columnifexists('dtu_consumption_d', ''),columnifexists('sessions_d', ''),columnifexists('workers_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool Workload"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['Database Count'], ['Elastic DTU Limit'], ['Storage Limit'])=arg_max(TimeGenerated,columnifexists('database_count_d', ''),columnifexists('elastic_dtu_limit_d', ''),columnifexists('storage_limit_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
+                                            "displayName": "Elastic Pool Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_azure_sql_server_name_s",
+                            "QueryForValues": "microsoft_azure_elastic_pool_CL | distinct microsoft_azure_sql_server_name_s",
+                            "Title": "SQL Server"
+                          },{
+                            "FieldName": "microsoft_azure_resource_group_name_s",
+                            "QueryForValues": "microsoft_azure_elastic_pool_CL | distinct microsoft_azure_resource_group_name_s",
+                            "Title": "Resource Group"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "microsoft_azure_elastic_pool_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "microsoft_azure_elastic_pool_name_s",
+                            "QueryForValues": "microsoft_azure_elastic_pool_CL | distinct microsoft_azure_elastic_pool_name_s",
+                            "Title": "Elastic Pool"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Elastic Pool",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

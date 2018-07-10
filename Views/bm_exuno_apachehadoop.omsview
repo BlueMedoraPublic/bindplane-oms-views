@@ -1,0 +1,737 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Apache Hadoop Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Apache Hadoop Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Apache Hadoop Environment",
+                        "Name": "Apache Hadoop Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Apache Hadoop Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00bcf2"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Apache Hadoop",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Apache Hadoop is a large-scale distributed computation and storage framework, built on compute clusters. Components include Hadoop Distributed File System (HDFS), MapReduce, Yet Another Resource Negotiator (YARN), and Zookeeper. This solution focuses on monitoring HDFS and YARN."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Hadoop, be mindful of cpu and memory capacity, observe any failures, and watch for any objects that Hadoop deems unhealthy."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Name Node Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_hadoop_name_node_CL | where ${Cluster} and ${Hadoop Version} and ${High Availability State} and ${OS Name} and ${State} and ${Name Node}  | project ['Capacity Used Ratio'] = columnifexists('capacity_used_ratio_d', double(null)), ['Current Heap Memory Used'] = columnifexists('current_heap_memory_used_d', double(null)), ['Maximum Heap Memory Size'] = columnifexists('maximum_heap_memory_size_d', double(null)), ['Current Non-heap Memory Used'] = columnifexists('current_non_heap_memory_used_d', double(null)), ['Maximum Non-heap Memory Size'] = columnifexists('maximum_non_heap_memory_size_d', double(null)), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Process CPU Load'] = columnifexists('process_cpu_load_d', double(null)), ['Space Used Percent'] = columnifexists('space_used_percent_d', double(null)), ['System CPU Load'] = columnifexists('system_cpu_load_d', double(null)), ['Total ERROR Log Messages'] = columnifexists('total_error_log_messages_rate_d', double(null)), ['Total FATAL Log Messages'] = columnifexists('total_fatal_log_messages_rate_d', double(null)), ['Volume Failures Total'] = columnifexists('volume_failures_total_d', double(null)), TimeGenerated, Name=apache_hadoop_name_node_name_s  | extend Healthy = case(isnotnull(['Capacity Used Ratio']) or isnotnull(['Current Heap Memory Used']) or isnotnull(['Maximum Heap Memory Size']) or isnotnull(['Current Non-heap Memory Used']) or isnotnull(['Maximum Non-heap Memory Size']) or isnotnull(['Physical Memory Utilization']) or isnotnull(['Process CPU Load']) or isnotnull(['Space Used Percent']) or isnotnull(['System CPU Load']) or isnotnull(['Total ERROR Log Messages']) or isnotnull(['Total FATAL Log Messages']) or isnotnull(['Volume Failures Total']), (['Capacity Used Ratio'] < 85 or isnull(['Capacity Used Ratio'])) and (['Current Heap Memory Used'] < ['Maximum Heap Memory Size'] or isnull(['Current Heap Memory Used']) or isnull(['Maximum Heap Memory Size'])) and (['Current Non-heap Memory Used'] < ['Maximum Non-heap Memory Size'] or isnull(['Current Non-heap Memory Used']) or isnull(['Maximum Non-heap Memory Size'])) and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Process CPU Load'] < 85 or isnull(['Process CPU Load'])) and (['Space Used Percent'] < 85 or isnull(['Space Used Percent'])) and (['System CPU Load'] < 85 or isnull(['System CPU Load'])) and (['Total ERROR Log Messages'] < 1 or isnull(['Total ERROR Log Messages'])) and (['Total FATAL Log Messages'] < 1 or isnull(['Total FATAL Log Messages'])) and (['Volume Failures Total'] < 1 or isnull(['Volume Failures Total'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_hadoop_name_node_CL | where ${Cluster} and ${Hadoop Version} and ${High Availability State} and ${OS Name} and ${State} and ${Name Node}  | project ['Capacity Used Ratio'] = columnifexists('capacity_used_ratio_d', double(null)), ['Current Heap Memory Used'] = columnifexists('current_heap_memory_used_d', double(null)), ['Maximum Heap Memory Size'] = columnifexists('maximum_heap_memory_size_d', double(null)), ['Current Non-heap Memory Used'] = columnifexists('current_non_heap_memory_used_d', double(null)), ['Maximum Non-heap Memory Size'] = columnifexists('maximum_non_heap_memory_size_d', double(null)), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Process CPU Load'] = columnifexists('process_cpu_load_d', double(null)), ['Space Used Percent'] = columnifexists('space_used_percent_d', double(null)), ['System CPU Load'] = columnifexists('system_cpu_load_d', double(null)), ['Total ERROR Log Messages'] = columnifexists('total_error_log_messages_rate_d', double(null)), ['Total FATAL Log Messages'] = columnifexists('total_fatal_log_messages_rate_d', double(null)), ['Volume Failures Total'] = columnifexists('volume_failures_total_d', double(null)), TimeGenerated, Name=apache_hadoop_name_node_name_s  | extend Healthy = case(isnotnull(['Capacity Used Ratio']) or isnotnull(['Current Heap Memory Used']) or isnotnull(['Maximum Heap Memory Size']) or isnotnull(['Current Non-heap Memory Used']) or isnotnull(['Maximum Non-heap Memory Size']) or isnotnull(['Physical Memory Utilization']) or isnotnull(['Process CPU Load']) or isnotnull(['Space Used Percent']) or isnotnull(['System CPU Load']) or isnotnull(['Total ERROR Log Messages']) or isnotnull(['Total FATAL Log Messages']) or isnotnull(['Volume Failures Total']), (['Capacity Used Ratio'] < 85 or isnull(['Capacity Used Ratio'])) and (['Current Heap Memory Used'] < ['Maximum Heap Memory Size'] or isnull(['Current Heap Memory Used']) or isnull(['Maximum Heap Memory Size'])) and (['Current Non-heap Memory Used'] < ['Maximum Non-heap Memory Size'] or isnull(['Current Non-heap Memory Used']) or isnull(['Maximum Non-heap Memory Size'])) and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Process CPU Load'] < 85 or isnull(['Process CPU Load'])) and (['Space Used Percent'] < 85 or isnull(['Space Used Percent'])) and (['System CPU Load'] < 85 or isnull(['System CPU Load'])) and (['Total ERROR Log Messages'] < 1 or isnull(['Total ERROR Log Messages'])) and (['Total FATAL Log Messages'] < 1 or isnull(['Total FATAL Log Messages'])) and (['Volume Failures Total'] < 1 or isnull(['Volume Failures Total'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Name Node Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "apache_hadoop_name_node_CL | project ['Capacity Used Ratio'] = columnifexists('capacity_used_ratio_d', double(null)), ['Current Heap Memory Used'] = columnifexists('current_heap_memory_used_d', double(null)), ['Maximum Heap Memory Size'] = columnifexists('maximum_heap_memory_size_d', double(null)), ['Current Non-heap Memory Used'] = columnifexists('current_non_heap_memory_used_d', double(null)), ['Maximum Non-heap Memory Size'] = columnifexists('maximum_non_heap_memory_size_d', double(null)), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Process CPU Load'] = columnifexists('process_cpu_load_d', double(null)), ['Space Used Percent'] = columnifexists('space_used_percent_d', double(null)), ['System CPU Load'] = columnifexists('system_cpu_load_d', double(null)), ['Total ERROR Log Messages'] = columnifexists('total_error_log_messages_rate_d', double(null)), ['Total FATAL Log Messages'] = columnifexists('total_fatal_log_messages_rate_d', double(null)), ['Volume Failures Total'] = columnifexists('volume_failures_total_d', double(null)), TimeGenerated, Name=apache_hadoop_name_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Capacity Used Ratio']) or isnotnull(['Current Heap Memory Used']) or isnotnull(['Maximum Heap Memory Size']) or isnotnull(['Current Non-heap Memory Used']) or isnotnull(['Maximum Non-heap Memory Size']) or isnotnull(['Physical Memory Utilization']) or isnotnull(['Process CPU Load']) or isnotnull(['Space Used Percent']) or isnotnull(['System CPU Load']) or isnotnull(['Total ERROR Log Messages']) or isnotnull(['Total FATAL Log Messages']) or isnotnull(['Volume Failures Total']), (['Capacity Used Ratio'] < 85 or isnull(['Capacity Used Ratio'])) and (['Current Heap Memory Used'] < ['Maximum Heap Memory Size'] or isnull(['Current Heap Memory Used']) or isnull(['Maximum Heap Memory Size'])) and (['Current Non-heap Memory Used'] < ['Maximum Non-heap Memory Size'] or isnull(['Current Non-heap Memory Used']) or isnull(['Maximum Non-heap Memory Size'])) and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Process CPU Load'] < 85 or isnull(['Process CPU Load'])) and (['Space Used Percent'] < 85 or isnull(['Space Used Percent'])) and (['System CPU Load'] < 85 or isnull(['System CPU Load'])) and (['Total ERROR Log Messages'] < 1 or isnull(['Total ERROR Log Messages'])) and (['Total FATAL Log Messages'] < 1 or isnull(['Total FATAL Log Messages'])) and (['Volume Failures Total'] < 1 or isnull(['Volume Failures Total'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "apache_hadoop_name_node_CL | project ['Capacity Used Ratio'] = columnifexists('capacity_used_ratio_d', double(null)), ['Current Heap Memory Used'] = columnifexists('current_heap_memory_used_d', double(null)), ['Maximum Heap Memory Size'] = columnifexists('maximum_heap_memory_size_d', double(null)), ['Current Non-heap Memory Used'] = columnifexists('current_non_heap_memory_used_d', double(null)), ['Maximum Non-heap Memory Size'] = columnifexists('maximum_non_heap_memory_size_d', double(null)), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Process CPU Load'] = columnifexists('process_cpu_load_d', double(null)), ['Space Used Percent'] = columnifexists('space_used_percent_d', double(null)), ['System CPU Load'] = columnifexists('system_cpu_load_d', double(null)), ['Total ERROR Log Messages'] = columnifexists('total_error_log_messages_rate_d', double(null)), ['Total FATAL Log Messages'] = columnifexists('total_fatal_log_messages_rate_d', double(null)), ['Volume Failures Total'] = columnifexists('volume_failures_total_d', double(null)), TimeGenerated, Name=apache_hadoop_name_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Capacity Used Ratio']) or isnotnull(['Current Heap Memory Used']) or isnotnull(['Maximum Heap Memory Size']) or isnotnull(['Current Non-heap Memory Used']) or isnotnull(['Maximum Non-heap Memory Size']) or isnotnull(['Physical Memory Utilization']) or isnotnull(['Process CPU Load']) or isnotnull(['Space Used Percent']) or isnotnull(['System CPU Load']) or isnotnull(['Total ERROR Log Messages']) or isnotnull(['Total FATAL Log Messages']) or isnotnull(['Volume Failures Total']), (['Capacity Used Ratio'] < 85 or isnull(['Capacity Used Ratio'])) and (['Current Heap Memory Used'] < ['Maximum Heap Memory Size'] or isnull(['Current Heap Memory Used']) or isnull(['Maximum Heap Memory Size'])) and (['Current Non-heap Memory Used'] < ['Maximum Non-heap Memory Size'] or isnull(['Current Non-heap Memory Used']) or isnull(['Maximum Non-heap Memory Size'])) and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Process CPU Load'] < 85 or isnull(['Process CPU Load'])) and (['Space Used Percent'] < 85 or isnull(['Space Used Percent'])) and (['System CPU Load'] < 85 or isnull(['System CPU Load'])) and (['Total ERROR Log Messages'] < 1 or isnull(['Total ERROR Log Messages'])) and (['Total FATAL Log Messages'] < 1 or isnull(['Total FATAL Log Messages'])) and (['Volume Failures Total'] < 1 or isnull(['Volume Failures Total'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Data Node System CPU Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "System CPU Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_hadoop_data_node_CL | where ${Name Node} and ${OS Name} and ${Version} and ${Data Node} | summarize avg(coalesce(columnifexists('system_cpu_load_d',0.0), 0.0)) by apache_hadoop_data_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average System CPU Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_hadoop_data_node_CL  | where ${Name Node} and ${OS Name} and ${Version} and ${Data Node} | summarize avg(coalesce(columnifexists('system_cpu_load_d',0.0), 0.0)) by apache_hadoop_data_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Data Node",
+                                            "Value": "System CPU Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Data Node Process CPU Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Process CPU Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_hadoop_data_node_CL | where ${Name Node} and ${OS Name} and ${Version} and ${Data Node} | summarize avg(coalesce(columnifexists('process_cpu_load_d',0.0), 0.0)) by apache_hadoop_data_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Process CPU Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_hadoop_data_node_CL  | where ${Name Node} and ${OS Name} and ${Version} and ${Data Node} | summarize avg(coalesce(columnifexists('process_cpu_load_d',0.0), 0.0)) by apache_hadoop_data_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Data Node",
+                                            "Value": "Process CPU Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Name Node System CPU Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "System CPU Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_hadoop_name_node_CL | where ${Cluster} and ${Hadoop Version} and ${High Availability State} and ${OS Name} and ${State} and ${Name Node} | summarize avg(coalesce(columnifexists('system_cpu_load_d',0.0), 0.0)) by apache_hadoop_name_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average System CPU Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_hadoop_name_node_CL  | where ${Cluster} and ${Hadoop Version} and ${High Availability State} and ${OS Name} and ${State} and ${Name Node} | summarize avg(coalesce(columnifexists('system_cpu_load_d',0.0), 0.0)) by apache_hadoop_name_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Name Node",
+                                            "Value": "System CPU Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Name Node Process CPU Load",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Process CPU Load",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_hadoop_name_node_CL | where ${Cluster} and ${Hadoop Version} and ${High Availability State} and ${OS Name} and ${State} and ${Name Node} | summarize avg(coalesce(columnifexists('process_cpu_load_d',0.0), 0.0)) by apache_hadoop_name_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Process CPU Load",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_hadoop_name_node_CL  | where ${Cluster} and ${Hadoop Version} and ${High Availability State} and ${OS Name} and ${State} and ${Name Node} | summarize avg(coalesce(columnifexists('process_cpu_load_d',0.0), 0.0)) by apache_hadoop_name_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Name Node",
+                                            "Value": "Process CPU Load"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Data Node Physical Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Physical Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_hadoop_data_node_CL | where ${Name Node} and ${OS Name} and ${Version} and ${Data Node} | summarize avg(coalesce(columnifexists('physical_memory_utilization_d',0.0), 0.0)) by apache_hadoop_data_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Physical Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_hadoop_data_node_CL  | where ${Name Node} and ${OS Name} and ${Version} and ${Data Node} | summarize avg(coalesce(columnifexists('physical_memory_utilization_d',0.0), 0.0)) by apache_hadoop_data_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Data Node",
+                                            "Value": "Physical Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "apache_hadoop_name_node_CL | summarize([\"Last Update Time\"], ['System CPU Load'], ['Process CPU Load'])=arg_max(TimeGenerated,columnifexists('system_cpu_load_d', ''),columnifexists('process_cpu_load_d', '')) by Name=apache_hadoop_name_node_name_s",
+                                            "displayName": "Name Node CPU"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_name_node_CL | summarize([\"Last Update Time\"], ['Space Used Percent'], ['Capacity Used Ratio'], ['DataNodes Dead'])=arg_max(TimeGenerated,columnifexists('space_used_percent_d', ''),columnifexists('capacity_used_ratio_d', ''),columnifexists('data_nodes_dead_d', '')) by Name=apache_hadoop_name_node_name_s",
+                                            "displayName": "Name Node Disk"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_name_node_CL | summarize([\"Last Update Time\"], ['Current Heap Memory Used'], ['Current Non-heap Memory Used'], ['Physical Memory Utilization'])=arg_max(TimeGenerated,columnifexists('current_heap_memory_used_d', ''),columnifexists('current_non_heap_memory_used_d', ''),columnifexists('physical_memory_utilization_d', '')) by Name=apache_hadoop_name_node_name_s",
+                                            "displayName": "Name Node Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_name_node_CL | summarize([\"Last Update Time\"], ['Volume Failures Total'])=arg_max(TimeGenerated,columnifexists('volume_failures_total_d', '')) by Name=apache_hadoop_name_node_name_s",
+                                            "displayName": "Name Node Details"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_name_node_CL | summarize([\"Last Update Time\"], ['Dead Nodes'], ['Decommissioned Nodes'], ['Hadoop Version'], ['High Availability State'], ['Metric Endpoint'], ['OS Name'], ['State'])=arg_max(TimeGenerated,columnifexists('dead_nodes_s', ''),columnifexists('decommissioned_nodes_s', ''),columnifexists('hadoop_version_s', ''),columnifexists('high_availability_state_s', ''),columnifexists('metric_endpoint_s', ''),columnifexists('os_name_s', ''),columnifexists('state_s', '')) by Name=apache_hadoop_name_node_name_s",
+                                            "displayName": "Name Node Properties"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_data_node_CL | summarize([\"Last Update Time\"], ['System CPU Load'], ['Process CPU Load'])=arg_max(TimeGenerated,columnifexists('system_cpu_load_d', ''),columnifexists('process_cpu_load_d', '')) by Name=apache_hadoop_data_node_name_s",
+                                            "displayName": "Data Node CPU"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_data_node_CL | summarize([\"Last Update Time\"], ['Physical Memory Utilization'], ['Current Heap Memory Used'], ['Current Non-heap Memory Used'])=arg_max(TimeGenerated,columnifexists('physical_memory_utilization_d', ''),columnifexists('current_heap_memory_used_d', ''),columnifexists('current_non_heap_memory_used_d', '')) by Name=apache_hadoop_data_node_name_s",
+                                            "displayName": "Data Node Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_data_node_CL | summarize([\"Last Update Time\"], ['Capacity Used Ratio'], ['Data Read'], ['Data Written'], ['Disk Remaining'], ['Failed Volumes'])=arg_max(TimeGenerated,columnifexists('capacity_used_ratio_d', ''),columnifexists('data_read_d', ''),columnifexists('data_written_d', ''),columnifexists('disk_remaining_d', ''),columnifexists('failed_volumes_d', '')) by Name=apache_hadoop_data_node_name_s",
+                                            "displayName": "Data Node Disk"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_data_node_CL | summarize([\"Last Update Time\"], ['JVM Version'], ['Last Volume Failure Date (from Unix epoch)'], ['Metric Endpoint'], ['OS Name'], ['Storage Info'], ['Tag Hostname'], ['Version'])=arg_max(TimeGenerated,columnifexists('jvm_version_s', ''),columnifexists('last_volume_failure_date_from_unix_epoch_d', ''),columnifexists('metric_endpoint_s', ''),columnifexists('os_name_s', ''),columnifexists('storage_info_s', ''),columnifexists('tag_hostname_s', ''),columnifexists('version_s', '')) by Name=apache_hadoop_data_node_name_s",
+                                            "displayName": "Data Node Properties"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_node_manager_CL | summarize([\"Last Update Time\"], ['Containers Allocated'], ['Containers Completed'], ['Containers Failed'], ['Containers Launched'])=arg_max(TimeGenerated,columnifexists('containers_allocated_d', ''),columnifexists('containers_completed_d', ''),columnifexists('containers_failed_d', ''),columnifexists('containers_launched_d', '')) by Name=apache_hadoop_node_manager_name_s",
+                                            "displayName": "Node Manager Details"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_node_manager_CL | summarize([\"Last Update Time\"], ['Current Heap Memory Used'], ['Current Non-heap Memory Used'], ['Memory Allocated'], ['Memory Available'], ['Physical Memory Utilization'])=arg_max(TimeGenerated,columnifexists('current_heap_memory_used_d', ''),columnifexists('current_non_heap_memory_used_d', ''),columnifexists('memory_allocated_d', ''),columnifexists('memory_available_d', ''),columnifexists('physical_memory_utilization_d', '')) by Name=apache_hadoop_node_manager_name_s",
+                                            "displayName": "Node Manager Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_node_manager_CL | summarize([\"Last Update Time\"], ['Process CPU Load'], ['System CPU Load'], ['Virtual Cores Allocated'], ['Virtual Cores Allocated Ratio'], ['Virtual Cores Available'], ['Virtual Cores Total'])=arg_max(TimeGenerated,columnifexists('process_cpu_load_d', ''),columnifexists('system_cpu_load_d', ''),columnifexists('virtual_cores_allocated_d', ''),columnifexists('virtual_cores_allocated_ratio_d', ''),columnifexists('virtual_cores_available_d', ''),columnifexists('virtual_cores_total_d', '')) by Name=apache_hadoop_node_manager_name_s",
+                                            "displayName": "Node Manager CPU"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_node_manager_CL | summarize([\"Last Update Time\"], ['JVM Version'], ['Metric Endpoint'], ['OS Name'], ['OS Version'], ['Tag Hostname'])=arg_max(TimeGenerated,columnifexists('jvm_version_s', ''),columnifexists('metric_endpoint_s', ''),columnifexists('os_name_s', ''),columnifexists('os_version_s', ''),columnifexists('tag_hostname_s', '')) by Name=apache_hadoop_node_manager_name_s",
+                                            "displayName": "Node Manager Properties"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_resource_manager_CL | summarize([\"Last Update Time\"], ['Applications Completed'], ['Applications Failed'], ['Applications Running'], ['Users Active'])=arg_max(TimeGenerated,columnifexists('applications_completed_d', ''),columnifexists('applications_failed_d', ''),columnifexists('applications_running_d', ''),columnifexists('users_active_d', '')) by Name=apache_hadoop_resource_manager_name_s",
+                                            "displayName": "Resource Manager Details"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_resource_manager_CL | summarize([\"Last Update Time\"], ['Current Heap Memory Used'], ['Current Non-heap Memory Used'], ['Physical Memory Utilization'], ['Queue Memory Allocated'], ['Queue Memory Available'])=arg_max(TimeGenerated,columnifexists('current_heap_memory_used_d', ''),columnifexists('current_non_heap_memory_used_d', ''),columnifexists('physical_memory_utilization_d', ''),columnifexists('queue_memory_allocated_d', ''),columnifexists('queue_memory_available_d', '')) by Name=apache_hadoop_resource_manager_name_s",
+                                            "displayName": "Resource Manager Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_resource_manager_CL | summarize([\"Last Update Time\"], ['Process CPU Load'], ['System CPU Load'])=arg_max(TimeGenerated,columnifexists('process_cpu_load_d', ''),columnifexists('system_cpu_load_d', '')) by Name=apache_hadoop_resource_manager_name_s",
+                                            "displayName": "Resource Manager CPU"
+                                        }
+                                        ,{
+                                            "query": "apache_hadoop_resource_manager_CL | summarize([\"Last Update Time\"], ['Active Nodes'], ['JVM Version'], ['Metric Endpoint'], ['OS Name'], ['OS Version'], ['Tag Hostname'])=arg_max(TimeGenerated,columnifexists('active_nodes_s', ''),columnifexists('jvm_version_s', ''),columnifexists('metric_endpoint_s', ''),columnifexists('os_name_s', ''),columnifexists('os_version_s', ''),columnifexists('tag_hostname_s', '')) by Name=apache_hadoop_resource_manager_name_s",
+                                            "displayName": "Resource Manager Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "apache_hadoop_cluster_name_s",
+                            "QueryForValues": "union apache_hadoop_name_node_CL, apache_hadoop_resource_manager_CL | distinct apache_hadoop_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "hadoop_version_s",
+                            "QueryForValues": "apache_hadoop_name_node_CL | distinct hadoop_version_s",
+                            "Title": "Hadoop Version"
+                          },{
+                            "FieldName": "high_availability_state_s",
+                            "QueryForValues": "apache_hadoop_name_node_CL | distinct high_availability_state_s",
+                            "Title": "High Availability State"
+                          },{
+                            "FieldName": "os_name_s",
+                            "QueryForValues": "union apache_hadoop_name_node_CL, apache_hadoop_data_node_CL, apache_hadoop_node_manager_CL, apache_hadoop_resource_manager_CL | distinct os_name_s",
+                            "Title": "OS Name"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "apache_hadoop_name_node_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "apache_hadoop_name_node_name_s",
+                            "QueryForValues": "union apache_hadoop_name_node_CL, apache_hadoop_data_node_CL | distinct apache_hadoop_name_node_name_s",
+                            "Title": "Name Node"
+                          },{
+                            "FieldName": "version_s",
+                            "QueryForValues": "apache_hadoop_data_node_CL | distinct version_s",
+                            "Title": "Version"
+                          },{
+                            "FieldName": "apache_hadoop_data_node_name_s",
+                            "QueryForValues": "apache_hadoop_data_node_CL | distinct apache_hadoop_data_node_name_s",
+                            "Title": "Data Node"
+                          },{
+                            "FieldName": "apache_hadoop_resource_manager_name_s",
+                            "QueryForValues": "union apache_hadoop_node_manager_CL, apache_hadoop_resource_manager_CL | distinct apache_hadoop_resource_manager_name_s",
+                            "Title": "Resource Manager"
+                          },{
+                            "FieldName": "apache_hadoop_node_manager_name_s",
+                            "QueryForValues": "apache_hadoop_node_manager_CL | distinct apache_hadoop_node_manager_name_s",
+                            "Title": "Node Manager"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "apache_hadoop_name_node_CL | project ['Capacity Used Ratio'] = columnifexists('capacity_used_ratio_d', double(null)), ['Current Heap Memory Used'] = columnifexists('current_heap_memory_used_d', double(null)), ['Maximum Heap Memory Size'] = columnifexists('maximum_heap_memory_size_d', double(null)), ['Current Non-heap Memory Used'] = columnifexists('current_non_heap_memory_used_d', double(null)), ['Maximum Non-heap Memory Size'] = columnifexists('maximum_non_heap_memory_size_d', double(null)), ['Physical Memory Utilization'] = columnifexists('physical_memory_utilization_d', double(null)), ['Process CPU Load'] = columnifexists('process_cpu_load_d', double(null)), ['Space Used Percent'] = columnifexists('space_used_percent_d', double(null)), ['System CPU Load'] = columnifexists('system_cpu_load_d', double(null)), ['Total ERROR Log Messages'] = columnifexists('total_error_log_messages_rate_d', double(null)), ['Total FATAL Log Messages'] = columnifexists('total_fatal_log_messages_rate_d', double(null)), ['Volume Failures Total'] = columnifexists('volume_failures_total_d', double(null)), TimeGenerated, Name=apache_hadoop_name_node_name_s  | extend Healthy = case(isnotnull(['Capacity Used Ratio']) or isnotnull(['Current Heap Memory Used']) or isnotnull(['Maximum Heap Memory Size']) or isnotnull(['Current Non-heap Memory Used']) or isnotnull(['Maximum Non-heap Memory Size']) or isnotnull(['Physical Memory Utilization']) or isnotnull(['Process CPU Load']) or isnotnull(['Space Used Percent']) or isnotnull(['System CPU Load']) or isnotnull(['Total ERROR Log Messages']) or isnotnull(['Total FATAL Log Messages']) or isnotnull(['Volume Failures Total']), (['Capacity Used Ratio'] < 85 or isnull(['Capacity Used Ratio'])) and (['Current Heap Memory Used'] < ['Maximum Heap Memory Size'] or isnull(['Current Heap Memory Used']) or isnull(['Maximum Heap Memory Size'])) and (['Current Non-heap Memory Used'] < ['Maximum Non-heap Memory Size'] or isnull(['Current Non-heap Memory Used']) or isnull(['Maximum Non-heap Memory Size'])) and (['Physical Memory Utilization'] < 85 or isnull(['Physical Memory Utilization'])) and (['Process CPU Load'] < 85 or isnull(['Process CPU Load'])) and (['Space Used Percent'] < 85 or isnull(['Space Used Percent'])) and (['System CPU Load'] < 85 or isnull(['System CPU Load'])) and (['Total ERROR Log Messages'] < 1 or isnull(['Total ERROR Log Messages'])) and (['Total FATAL Log Messages'] < 1 or isnull(['Total FATAL Log Messages'])) and (['Volume Failures Total'] < 1 or isnull(['Volume Failures Total'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Name Node",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

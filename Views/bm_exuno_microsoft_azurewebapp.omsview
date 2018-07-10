@@ -1,0 +1,721 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Web App Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Web App Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Web App Environment",
+                        "Name": "Microsoft Azure Web App Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Web App Overview",
+                                        "NewGroup": false,
+                                        "Color": "#4423559"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Web App",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Azure Web Apps enables you to build and host web applications in the programming language of your choice without managing infrastructure."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the response time and server errors to each web app site and deployment slot."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Site Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_webapp_site_CL | where ${State} and ${Kind} and ${Site}  | project ['Average Response Time'] = columnifexists('average_response_time_d', double(null)), ['Enabled'] = columnifexists('enabled_d', double(null)), TimeGenerated, Name=microsoft_azure_webapp_site_name_s  | extend Healthy = case(isnotnull(['Average Response Time']) or isnotnull(['Enabled']), (['Average Response Time'] < 1.0 or isnull(['Average Response Time'])) and (['Enabled'] == 'true' or isnull(['Enabled'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_webapp_site_CL | where ${State} and ${Kind} and ${Site}  | project ['Average Response Time'] = columnifexists('average_response_time_d', double(null)), ['Enabled'] = columnifexists('enabled_d', double(null)), TimeGenerated, Name=microsoft_azure_webapp_site_name_s  | extend Healthy = case(isnotnull(['Average Response Time']) or isnotnull(['Enabled']), (['Average Response Time'] < 1.0 or isnull(['Average Response Time'])) and (['Enabled'] == 'true' or isnull(['Enabled'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Site Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_webapp_site_CL | project ['Average Response Time'] = columnifexists('average_response_time_d', double(null)), ['Enabled'] = columnifexists('enabled_d', double(null)), TimeGenerated, Name=microsoft_azure_webapp_site_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average Response Time']) or isnotnull(['Enabled']), (['Average Response Time'] < 1.0 or isnull(['Average Response Time'])) and (['Enabled'] == 'true' or isnull(['Enabled'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_webapp_site_CL | project ['Average Response Time'] = columnifexists('average_response_time_d', double(null)), ['Enabled'] = columnifexists('enabled_d', double(null)), TimeGenerated, Name=microsoft_azure_webapp_site_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average Response Time']) or isnotnull(['Enabled']), (['Average Response Time'] < 1.0 or isnull(['Average Response Time'])) and (['Enabled'] == 'true' or isnull(['Enabled'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Site Average Response Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Response Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_webapp_site_CL | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('average_response_time_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Response Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_webapp_site_CL  | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('average_response_time_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Site",
+                                            "Value": "Average Response Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Slot Average Response Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Response Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_webapp_slot_CL | where ${State} and ${Kind} and ${Slot} | summarize avg(coalesce(columnifexists('average_response_time_d',0.0), 0.0)) by microsoft_azure_webapp_slot_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Response Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_webapp_slot_CL  | where ${State} and ${Kind} and ${Slot} | summarize avg(coalesce(columnifexists('average_response_time_d',0.0), 0.0)) by microsoft_azure_webapp_slot_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Slot",
+                                            "Value": "Average Response Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Site Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_webapp_site_CL | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('requests_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s",
+                                        "Callout": {
+                                            "Title": "Average Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_webapp_site_CL  | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('requests_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Site",
+                                            "Value": "Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Slot Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_webapp_slot_CL | where ${State} and ${Kind} and ${Slot} | summarize avg(coalesce(columnifexists('requests_d',0.0), 0.0)) by microsoft_azure_webapp_slot_name_s",
+                                        "Callout": {
+                                            "Title": "Average Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_webapp_slot_CL  | where ${State} and ${Kind} and ${Slot} | summarize avg(coalesce(columnifexists('requests_d',0.0), 0.0)) by microsoft_azure_webapp_slot_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Slot",
+                                            "Value": "Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Site HTTP 5xx",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "HTTP 5xx",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_webapp_site_CL | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('http_5xx_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s",
+                                        "Callout": {
+                                            "Title": "Average HTTP 5xx",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "HTTP 5xx"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_webapp_site_CL  | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('http_5xx_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Site",
+                                            "Value": "HTTP 5xx"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['Average Response Time'], ['Function Execution Count'])=arg_max(TimeGenerated,columnifexists('average_response_time_d', ''),columnifexists('function_execution_count_d', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['Requests'])=arg_max(TimeGenerated,columnifexists('requests_d', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['HTTP 5xx'])=arg_max(TimeGenerated,columnifexists('http_5xx_d', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site HTTP Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['Average Memory Working Set'])=arg_max(TimeGenerated,columnifexists('average_memory_working_set_d', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['CPU Time'])=arg_max(TimeGenerated,columnifexists('cpu_time_d', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['Runtime Availability State'])=arg_max(TimeGenerated,columnifexists('runtime_availability_state_s', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_site_CL | summarize([\"Last Update Time\"], ['Certificates'], ['Container Size'], ['Daily Memory Time Quota'], ['Maximum Number Of Workers'], ['Mode'], ['Target Swap Slot'])=arg_max(TimeGenerated,columnifexists('certificates_s', ''),columnifexists('container_size_d', ''),columnifexists('daily_memory_time_quota_d', ''),columnifexists('maximum_number_of_workers_d', ''),columnifexists('mode_s', ''),columnifexists('target_swap_slot_s', '')) by Name=microsoft_azure_webapp_site_name_s",
+                                            "displayName": "Site Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['Average Response Time'])=arg_max(TimeGenerated,columnifexists('average_response_time_d', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['Requests'])=arg_max(TimeGenerated,columnifexists('requests_d', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['Http Server Errors'])=arg_max(TimeGenerated,columnifexists('http_server_errors_d', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot HTTP Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['Average Memory Working Set'])=arg_max(TimeGenerated,columnifexists('average_memory_working_set_d', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['I/O Read Operations'], ['I/O Write Operations'])=arg_max(TimeGenerated,columnifexists('io_read_operations_d', ''),columnifexists('io_write_operations_d', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot Disk"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['Function Execution Count'], ['Runtime Availability State'])=arg_max(TimeGenerated,columnifexists('function_execution_count_d', ''),columnifexists('runtime_availability_state_s', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['CPU Time'])=arg_max(TimeGenerated,columnifexists('cpu_time_d', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_slot_CL | summarize([\"Last Update Time\"], ['Certificates'], ['Container Size'], ['Daily Memory Time Quota'], ['Maximum Number Of Workers'], ['Mode'], ['Target Swap Slot'])=arg_max(TimeGenerated,columnifexists('certificates_s', ''),columnifexists('container_size_d', ''),columnifexists('daily_memory_time_quota_d', ''),columnifexists('maximum_number_of_workers_d', ''),columnifexists('mode_s', ''),columnifexists('target_swap_slot_s', '')) by Name=microsoft_azure_webapp_slot_name_s",
+                                            "displayName": "Slot Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_function_CL | summarize([\"Last Update Time\"], ['App ID'], ['Configuration HREF'], ['HREF'], ['Script HREF'], ['Script Root Path HREF'], ['Type'])=arg_max(TimeGenerated,columnifexists('app_id_s', ''),columnifexists('configuration_href_s', ''),columnifexists('href_s', ''),columnifexists('script_href_s', ''),columnifexists('script_root_path_href_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_webapp_function_name_s",
+                                            "displayName": "Function Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_webapp_configuration_CL | summarize([\"Last Update Time\"], ['Auto Swap Slot'], ['Load Balancing'], ['Maximum CPU Usage'], ['Maximum Disk Size'], ['Maximum Memory'], ['Number Of Workers'], ['Tracing Options'])=arg_max(TimeGenerated,columnifexists('auto_swap_slot_s', ''),columnifexists('load_balancing_s', ''),columnifexists('maximum_cpu_usage_d', ''),columnifexists('maximum_disk_size_d', ''),columnifexists('maximum_memory_d', ''),columnifexists('number_of_workers_d', ''),columnifexists('tracing_options_s', '')) by Name=microsoft_azure_webapp_configuration_name_s",
+                                            "displayName": "Configuration Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "state_s",
+                            "QueryForValues": "union microsoft_azure_webapp_site_CL, microsoft_azure_webapp_slot_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "kind_s",
+                            "QueryForValues": "union microsoft_azure_webapp_site_CL, microsoft_azure_webapp_slot_CL | distinct kind_s",
+                            "Title": "Kind"
+                          },{
+                            "FieldName": "microsoft_azure_webapp_site_name_s",
+                            "QueryForValues": "microsoft_azure_webapp_site_CL | distinct microsoft_azure_webapp_site_name_s",
+                            "Title": "Site"
+                          },{
+                            "FieldName": "microsoft_azure_webapp_slot_name_s",
+                            "QueryForValues": "microsoft_azure_webapp_slot_CL | distinct microsoft_azure_webapp_slot_name_s",
+                            "Title": "Slot"
+                          },{
+                            "FieldName": "microsoft_azure_webapp_function_name_s",
+                            "QueryForValues": "microsoft_azure_webapp_function_CL | distinct microsoft_azure_webapp_function_name_s",
+                            "Title": "Function"
+                          },{
+                            "FieldName": "microsoft_azure_webapp_configuration_name_s",
+                            "QueryForValues": "microsoft_azure_webapp_configuration_CL | distinct microsoft_azure_webapp_configuration_name_s",
+                            "Title": "Configuration"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_webapp_site_CL | project ['Average Response Time'] = columnifexists('average_response_time_d', double(null)), ['Enabled'] = columnifexists('enabled_d', double(null)), TimeGenerated, Name=microsoft_azure_webapp_site_name_s  | extend Healthy = case(isnotnull(['Average Response Time']) or isnotnull(['Enabled']), (['Average Response Time'] < 1.0 or isnull(['Average Response Time'])) and (['Enabled'] == 'true' or isnull(['Enabled'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Site",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

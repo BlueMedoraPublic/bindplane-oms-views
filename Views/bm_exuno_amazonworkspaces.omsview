@@ -1,0 +1,677 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon WorkSpaces Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon WorkSpaces Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon WorkSpaces Environment",
+                        "Name": "Amazon WorkSpaces Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon WorkSpaces Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon WorkSpaces",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Workspaces is a fully managed secure Desktop-as-a-Service solution which runs on AWS."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon Workspaces, it's important to monitor connection successes and failures to find potential discrepancies between client and workspace. Additionally, tracking in-session latency ensures connections are made efficiently."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Workspace Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_workspaces_workspace_CL | where ${Compute Type} and ${ID} and ${Region} and ${Workspace}  | project ['Connection Failures'] = columnifexists('connection_failures_d', double(null)), ['Unhealthy'] = columnifexists('unhealthy_d', double(null)), TimeGenerated, Name=amazon_workspaces_workspace_name_s  | extend Healthy = case(isnotnull(['Connection Failures']) or isnotnull(['Unhealthy']), (['Connection Failures'] < 1.0 or isnull(['Connection Failures'])) and (['Unhealthy'] < 1.0 or isnull(['Unhealthy'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_workspaces_workspace_CL | where ${Compute Type} and ${ID} and ${Region} and ${Workspace}  | project ['Connection Failures'] = columnifexists('connection_failures_d', double(null)), ['Unhealthy'] = columnifexists('unhealthy_d', double(null)), TimeGenerated, Name=amazon_workspaces_workspace_name_s  | extend Healthy = case(isnotnull(['Connection Failures']) or isnotnull(['Unhealthy']), (['Connection Failures'] < 1.0 or isnull(['Connection Failures'])) and (['Unhealthy'] < 1.0 or isnull(['Unhealthy'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Workspace Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_workspaces_workspace_CL | project ['Connection Failures'] = columnifexists('connection_failures_d', double(null)), ['Unhealthy'] = columnifexists('unhealthy_d', double(null)), TimeGenerated, Name=amazon_workspaces_workspace_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Connection Failures']) or isnotnull(['Unhealthy']), (['Connection Failures'] < 1.0 or isnull(['Connection Failures'])) and (['Unhealthy'] < 1.0 or isnull(['Unhealthy'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_workspaces_workspace_CL | project ['Connection Failures'] = columnifexists('connection_failures_d', double(null)), ['Unhealthy'] = columnifexists('unhealthy_d', double(null)), TimeGenerated, Name=amazon_workspaces_workspace_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Connection Failures']) or isnotnull(['Unhealthy']), (['Connection Failures'] < 1.0 or isnull(['Connection Failures'])) and (['Unhealthy'] < 1.0 or isnull(['Unhealthy'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Directory Average In Session Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average In Session Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_workspaces_directory_CL | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('average_in_session_latency_d',0.0), 0.0)) by amazon_workspaces_directory_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average In Session Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_workspaces_directory_CL  | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('average_in_session_latency_d',0.0), 0.0)) by amazon_workspaces_directory_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Directory",
+                                            "Value": "Average In Session Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Workspace In Session Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "In Session Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_workspaces_workspace_CL | where ${Compute Type} and ${ID} and ${Region} and ${Workspace} | summarize avg(coalesce(columnifexists('in_session_latency_d',0.0), 0.0)) by amazon_workspaces_workspace_name_s",
+                                        "Callout": {
+                                            "Title": "Average In Session Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_workspaces_workspace_CL  | where ${Compute Type} and ${ID} and ${Region} and ${Workspace} | summarize avg(coalesce(columnifexists('in_session_latency_d',0.0), 0.0)) by amazon_workspaces_workspace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Workspace",
+                                            "Value": "In Session Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Directory Connection Failures",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connection Failures",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_workspaces_directory_CL | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('connection_failures_d',0.0), 0.0)) by amazon_workspaces_directory_name_s",
+                                        "Callout": {
+                                            "Title": "Average Connection Failures",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_workspaces_directory_CL  | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('connection_failures_d',0.0), 0.0)) by amazon_workspaces_directory_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Directory",
+                                            "Value": "Connection Failures"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Directory Connection Successes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connection Successes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_workspaces_directory_CL | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('connection_successes_d',0.0), 0.0)) by amazon_workspaces_directory_name_s",
+                                        "Callout": {
+                                            "Title": "Average Connection Successes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_workspaces_directory_CL  | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('connection_successes_d',0.0), 0.0)) by amazon_workspaces_directory_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Directory",
+                                            "Value": "Connection Successes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Workspace Connection Failures",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connection Failures",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_workspaces_workspace_CL | where ${Compute Type} and ${ID} and ${Region} and ${Workspace} | summarize avg(coalesce(columnifexists('connection_failures_d',0.0), 0.0)) by amazon_workspaces_workspace_name_s",
+                                        "Callout": {
+                                            "Title": "Average Connection Failures",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_workspaces_workspace_CL  | where ${Compute Type} and ${ID} and ${Region} and ${Workspace} | summarize avg(coalesce(columnifexists('connection_failures_d',0.0), 0.0)) by amazon_workspaces_workspace_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Workspace",
+                                            "Value": "Connection Failures"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_workspaces_workspace_CL | summarize([\"Last Update Time\"], ['In Session Latency'], ['Connection Failures'], ['Connection Successes'], ['Connection Attempts'])=arg_max(TimeGenerated,columnifexists('in_session_latency_d', ''),columnifexists('connection_failures_d', ''),columnifexists('connection_successes_d', ''),columnifexists('connection_attempts_d', '')) by Name=amazon_workspaces_workspace_name_s",
+                                            "displayName": "Workspace Connections"
+                                        }
+                                        ,{
+                                            "query": "amazon_workspaces_workspace_CL | summarize([\"Last Update Time\"], ['Bundle ID'], ['Connection State Timestamp'], ['Directory ID'], ['Error Message'], ['Running Mode'], ['Subnet ID'], ['User Name'])=arg_max(TimeGenerated,columnifexists('bundle_id_s', ''),columnifexists('connection_state_timestamp_s', ''),columnifexists('directory_id_s', ''),columnifexists('error_message_s', ''),columnifexists('running_mode_s', ''),columnifexists('subnet_id_s', ''),columnifexists('user_name_s', '')) by Name=amazon_workspaces_workspace_name_s",
+                                            "displayName": "Workspace Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_workspaces_directory_CL | summarize([\"Last Update Time\"], ['Average In Session Latency'], ['Connection Failures'], ['Connection Successes'], ['Connection Attempts'])=arg_max(TimeGenerated,columnifexists('average_in_session_latency_d', ''),columnifexists('connection_failures_d', ''),columnifexists('connection_successes_d', ''),columnifexists('connection_attempts_d', '')) by Name=amazon_workspaces_directory_name_s",
+                                            "displayName": "Directory Connections"
+                                        }
+                                        ,{
+                                            "query": "amazon_workspaces_directory_CL | summarize([\"Last Update Time\"], ['Alias'], ['Customer User Name'], ['IAM Role ID'], ['State'], ['Subnet IDs'], ['Type'])=arg_max(TimeGenerated,columnifexists('alias_s', ''),columnifexists('customer_user_name_s', ''),columnifexists('iam_role_id_s', ''),columnifexists('state_s', ''),columnifexists('subnet_ids_s', ''),columnifexists('type_s', '')) by Name=amazon_workspaces_directory_name_s",
+                                            "displayName": "Directory Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_workspaces_bundle_CL | summarize([\"Last Update Time\"], ['Compute Type'], ['Description'], ['Owner'], ['Root Storage Capacity'], ['User Storage Capacity'])=arg_max(TimeGenerated,columnifexists('compute_type_s', ''),columnifexists('description_s', ''),columnifexists('owner_s', ''),columnifexists('root_storage_capacity_s', ''),columnifexists('user_storage_capacity_s', '')) by Name=amazon_workspaces_bundle_name_s",
+                                            "displayName": "Bundle Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "compute_type_s",
+                            "QueryForValues": "amazon_workspaces_workspace_CL | distinct compute_type_s",
+                            "Title": "Compute Type"
+                          },{
+                            "FieldName": "id_s",
+                            "QueryForValues": "amazon_workspaces_workspace_CL | distinct id_s",
+                            "Title": "ID"
+                          },{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_workspaces_workspace_CL, amazon_workspaces_directory_CL, amazon_workspaces_bundle_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_workspaces_workspace_name_s",
+                            "QueryForValues": "amazon_workspaces_workspace_CL | distinct amazon_workspaces_workspace_name_s",
+                            "Title": "Workspace"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "amazon_workspaces_directory_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "amazon_workspaces_directory_name_s",
+                            "QueryForValues": "amazon_workspaces_directory_CL | distinct amazon_workspaces_directory_name_s",
+                            "Title": "Directory"
+                          },{
+                            "FieldName": "amazon_workspaces_bundle_name_s",
+                            "QueryForValues": "amazon_workspaces_bundle_CL | distinct amazon_workspaces_bundle_name_s",
+                            "Title": "Bundle"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_workspaces_workspace_CL | project ['Connection Failures'] = columnifexists('connection_failures_d', double(null)), ['Unhealthy'] = columnifexists('unhealthy_d', double(null)), TimeGenerated, Name=amazon_workspaces_workspace_name_s  | extend Healthy = case(isnotnull(['Connection Failures']) or isnotnull(['Unhealthy']), (['Connection Failures'] < 1.0 or isnull(['Connection Failures'])) and (['Unhealthy'] < 1.0 or isnull(['Unhealthy'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Workspace",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

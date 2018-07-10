@@ -1,0 +1,685 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon ECS Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon ECS Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon ECS Environment",
+                        "Name": "Amazon ECS Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon ECS Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAP4NJREFUeNrtvXeYXMWZ9n1X1Tmn8+QkzYw0yggFJFgyNliAvRivjWxskjEGL2uDvezyYrMgMPsSnT5Ar7GNsdfYFpZNWoG8KKBFEkFCGQUEymGSJqfOfULV98c5PdMjJJDQ9HT3dP2uS5qenu6q6tPnuavqqarnASQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpHkLiTTDZAML8XFxTAMg0yfPt3ldrsVACL5N8uyREtLS9zr9fIdO3ZkuqmSYUAKwAikpKQElmWRUaNGua+77rqi6dOnjy4rK6ssKiqq9fv95ZZlsUAgME5V1UIMCAARQuh9fX0HAESi0Wh3T09PfVdXV3t9fX37smXLulesWBEpLy8XHR0dmf6IkiFCCsAI4etf/zo2bNig3nLLLeXnnnvu5Lq6unOKiopmeL3e8S6Xq0ZRlEJKqYcQojpvOd53LwBACGFwzuOmafaZptkZiUT2dXd3b21padm+bdu2XY8//viRH/zgB/q9996b6Y8uOQWkAOQwmqZB13Vy5513ln7pS186e8KECZcXFxef5/F4xiuKUkYIYUNZnxDCsiwrGIvFDnR3d7/b2Nj45po1azbee++9R1wul0gkEpm+JBJJ3kD+8z//c9SmTZtu6erqWq7reocQgovhg5um2dfT07N6x44d//7HP/7x9NLSUuWyyy7L9HWRSEYuQgjcf//95Zs2bbq5u7v7DdM0Q8No9MdWAs71cDi8Y+fOnT987LHHqgGQ6urqTF8qiWTksHDhQlx//fW+lStXfrG1tfXlbDD8o7EsK9rV1bVi9erVc//t3/6tSAhx6h9cIslnvvCFLwAA+8tf/nLG4cOHf6nremumDf2TMAyjs7m5+c+LFi268Ctf+Yr7xz/+caYvo0SSW9TV1QEA+cUvfjHmgw8+uDsUCm0XQliZNu6TwIrH44f37dv32O9///upY8eOZVdeeWWmL6tEkv0IIXD77bcXb9iw4cbu7u6VnPN4pq350+L4B7Zu3br1+4888kiVEAKEyMUnieQjfP/738eFF17oXrFixeUtLS1/NU2zJ9MGPFRYlhXu6Oj4+6pVq/7p9ttvDyxbtizTl1siyQ5mzZoFAOyZZ5457eDBg7+Ix+ONmTbYdKHrentDQ8NvFy1adN6cOXO0f/3Xf8305ZdIMkNZWRkAkHnz5o16//33/z0YDG7hnBuZNtJhwIrFYvt37dr141/+8pfjAJDy8vJMfx0SyfAhhMDVV18dWLt27Te6urpetywrkmmrHG4454menp63Nm3a9O277rqrTMhlQ8lI59///d8xc+ZM7fnnnz+nqanpD84OvrzGNM1ga2vri2+88cYVX/ziF73z58/P9NckkQwt06ZNAwA6f/78ifv27XsoGo3uE7m1rJd2EonEkUOHDs3/05/+NAMAO+ecczL9tUkkQ8OPfvSjivfee++7wWBwI+c8kWljy2LMUCi07YMPPvjRo48+WgOAaJqW6a9PIjl5li5dim9+85u+VatW/VNnZ+cS0zSDmbauXMGyrFhXV9cb69evv+E73/mO3FYsyR1uuukmXHTRRerChQvPrK+v/1UubN/NVgzD6G5paVn4+uuvX3r22We7HnjggUx/vRLJsbn44osBe54/7sMPP7w3Go3u4ZybmTaikUA8Hq8/cODAz37zm99MURSFyWPHkqxCCIF77rmnZP369d/q6+t717KsnN2+m61wzvVgMLh5x44dd9x7771VAMiECRMy/dVL8pknnngC119/vWfZsmWXOtt3ezNtKCMdy7LCXV1dy995552rr7322oCQ5wskmWDSpEnKwoULzzhw4MAvEolEkxjeiDx5j67r7U1NTb//29/+dvY555wjlwokwwaZP3/+2B07dtwZiUR2ynl+RrGi0ei+PXv2/N/58+dPAEAzfXNIRjC33HJLwZo1a67p6elZbVlWLNN3v8SGc54IBoMbNm/e/M/33ntvWabvE8kIY8aMGdqSJUsubmpqetYwjK5M3/CSY2OaZrCtre3lZcuWXf6tb33Ll+n7RpL70AULFkzbt2/fo/F4/JCQ8/xcgOu63nL48OFf/vWvf519zjnnqKd+G0jyjrvvvrti69att4VCoS1ynp97cM7NaDS6e+fOnf/hHDuW/gHJJ/PlL3/Z99Zbb13V3t6+OBuj70pODsuy4n19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",
+                                        "Label": "Amazon ECS",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Elastic Container Service (Amazon ECS) is a highly scalable, high-performance container orchestration service that supports Docker containers and allows you to easily run and scale containerized applications on AWS. Amazon ECS eliminates the need for you to install and operate your own container orchestration software, manage and scale a cluster of virtual machines, or schedule containers on those virtual machines."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor CPU and memory reservation and utilization across the cluster to ensure that containers have been appropriately provisioned for their workload."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Region} and ${Cluster}  | project ['CPU Reservation'] = columnifexists('cpu_reservation_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Reservation'] = columnifexists('memory_reservation_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=amazon_ecs_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Reservation']) or isnotnull(['CPU Utilization']) or isnotnull(['Memory Reservation']) or isnotnull(['Memory Utilization']), (['CPU Reservation'] < 95 or isnull(['CPU Reservation'])) and (['CPU Utilization'] < 95 or isnull(['CPU Utilization'])) and (['Memory Reservation'] < 95 or isnull(['Memory Reservation'])) and (['Memory Utilization'] < 95 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Region} and ${Cluster}  | project ['CPU Reservation'] = columnifexists('cpu_reservation_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Reservation'] = columnifexists('memory_reservation_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=amazon_ecs_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Reservation']) or isnotnull(['CPU Utilization']) or isnotnull(['Memory Reservation']) or isnotnull(['Memory Utilization']), (['CPU Reservation'] < 95 or isnull(['CPU Reservation'])) and (['CPU Utilization'] < 95 or isnull(['CPU Utilization'])) and (['Memory Reservation'] < 95 or isnull(['Memory Reservation'])) and (['Memory Utilization'] < 95 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_ecs_cluster_CL | project ['CPU Reservation'] = columnifexists('cpu_reservation_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Reservation'] = columnifexists('memory_reservation_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=amazon_ecs_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Reservation']) or isnotnull(['CPU Utilization']) or isnotnull(['Memory Reservation']) or isnotnull(['Memory Utilization']), (['CPU Reservation'] < 95 or isnull(['CPU Reservation'])) and (['CPU Utilization'] < 95 or isnull(['CPU Utilization'])) and (['Memory Reservation'] < 95 or isnull(['Memory Reservation'])) and (['Memory Utilization'] < 95 or isnull(['Memory Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_ecs_cluster_CL | project ['CPU Reservation'] = columnifexists('cpu_reservation_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Reservation'] = columnifexists('memory_reservation_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=amazon_ecs_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Reservation']) or isnotnull(['CPU Utilization']) or isnotnull(['Memory Reservation']) or isnotnull(['Memory Utilization']), (['CPU Reservation'] < 95 or isnull(['CPU Reservation'])) and (['CPU Utilization'] < 95 or isnull(['CPU Utilization'])) and (['Memory Reservation'] < 95 or isnull(['Memory Reservation'])) and (['Memory Utilization'] < 95 or isnull(['Memory Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster CPU Reservation",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Reservation",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_reservation_d',0.0), 0.0)) by amazon_ecs_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Reservation",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL  | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_reservation_d',0.0), 0.0)) by amazon_ecs_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "CPU Reservation"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_ecs_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL  | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_ecs_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Memory Reservation",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Reservation",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('memory_reservation_d',0.0), 0.0)) by amazon_ecs_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Reservation",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL  | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('memory_reservation_d',0.0), 0.0)) by amazon_ecs_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Memory Reservation"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_cluster_CL | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by amazon_ecs_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_cluster_CL  | where ${Region} and ${Cluster} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by amazon_ecs_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Service CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_ecs_service_CL | where ${Service} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_ecs_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_ecs_service_CL  | where ${Service} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_ecs_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Service",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_ecs_cluster_CL | summarize([\"Last Update Time\"], ['CPU Reservation'], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_reservation_d', ''),columnifexists('cpu_utilization_d', '')) by Name=amazon_ecs_cluster_name_s",
+                                            "displayName": "Cluster CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_cluster_CL | summarize([\"Last Update Time\"], ['Memory Reservation'], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('memory_reservation_d', ''),columnifexists('memory_utilization_d', '')) by Name=amazon_ecs_cluster_name_s",
+                                            "displayName": "Cluster Memory"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_cluster_CL | summarize([\"Last Update Time\"], ['Draining EC2 Services Count'], ['Draining Fargate Services Count'])=arg_max(TimeGenerated,columnifexists('draining_ec2_services_count_d', ''),columnifexists('draining_fargate_services_count_d', '')) by Name=amazon_ecs_cluster_name_s",
+                                            "displayName": "Cluster Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_cluster_CL | summarize([\"Last Update Time\"], ['ARN'])=arg_max(TimeGenerated,columnifexists('arn_s', '')) by Name=amazon_ecs_cluster_name_s",
+                                            "displayName": "Cluster Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_container_instance_CL | summarize([\"Last Update Time\"], ['Agent Hash'], ['Agent Version'], ['Cluster ARN'], ['Docker Version'], ['EC2 Instance ID'], ['ID'], ['Version Counter'])=arg_max(TimeGenerated,columnifexists('agent_hash_s', ''),columnifexists('agent_version_s', ''),columnifexists('cluster_arn_s', ''),columnifexists('docker_version_s', ''),columnifexists('ec2_instance_id_s', ''),columnifexists('id_s', ''),columnifexists('version_counter_d', '')) by Name=amazon_ecs_container_instance_name_s",
+                                            "displayName": "Container Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_service_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=amazon_ecs_service_name_s",
+                                            "displayName": "Service CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_service_CL | summarize([\"Last Update Time\"], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', '')) by Name=amazon_ecs_service_name_s",
+                                            "displayName": "Service Memory"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_service_CL | summarize([\"Last Update Time\"], ['Deployment Maximum Tasks'], ['Deployment Minimum Healthy Tasks'], ['Desired Tasks Count'], ['Launch Type'], ['Task Definition'], ['VPC Security Groups'], ['VPC Subnets'])=arg_max(TimeGenerated,columnifexists('deployment_maximum_tasks_d', ''),columnifexists('deployment_minimum_healthy_tasks_d', ''),columnifexists('desired_tasks_count_d', ''),columnifexists('launch_type_s', ''),columnifexists('task_definition_s', ''),columnifexists('vpc_security_groups_s', ''),columnifexists('vpc_subnets_s', '')) by Name=amazon_ecs_service_name_s",
+                                            "displayName": "Service Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_ecs_task_CL | summarize([\"Last Update Time\"], ['CPU Units'], ['Group'], ['Launch Type'], ['Memory'], ['Next Stop Time'], ['Started By'], ['Stopped Reason'])=arg_max(TimeGenerated,columnifexists('cpu_units_s', ''),columnifexists('group_s', ''),columnifexists('launch_type_s', ''),columnifexists('memory_s', ''),columnifexists('next_stop_time_s', ''),columnifexists('started_by_s', ''),columnifexists('stopped_reason_s', '')) by Name=amazon_ecs_task_name_s",
+                                            "displayName": "Task Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_ecs_cluster_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_ecs_cluster_name_s",
+                            "QueryForValues": "amazon_ecs_cluster_CL | distinct amazon_ecs_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "amazon_ecs_container_instance_name_s",
+                            "QueryForValues": "amazon_ecs_container_instance_CL | distinct amazon_ecs_container_instance_name_s",
+                            "Title": "Container Instance"
+                          },{
+                            "FieldName": "amazon_ecs_service_name_s",
+                            "QueryForValues": "amazon_ecs_service_CL | distinct amazon_ecs_service_name_s",
+                            "Title": "Service"
+                          },{
+                            "FieldName": "amazon_ecs_task_name_s",
+                            "QueryForValues": "amazon_ecs_task_CL | distinct amazon_ecs_task_name_s",
+                            "Title": "Task"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_ecs_cluster_CL | project ['CPU Reservation'] = columnifexists('cpu_reservation_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Reservation'] = columnifexists('memory_reservation_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=amazon_ecs_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Reservation']) or isnotnull(['CPU Utilization']) or isnotnull(['Memory Reservation']) or isnotnull(['Memory Utilization']), (['CPU Reservation'] < 95 or isnull(['CPU Reservation'])) and (['CPU Utilization'] < 95 or isnull(['CPU Utilization'])) and (['Memory Reservation'] < 95 or isnull(['Memory Reservation'])) and (['Memory Utilization'] < 95 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Cluster",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

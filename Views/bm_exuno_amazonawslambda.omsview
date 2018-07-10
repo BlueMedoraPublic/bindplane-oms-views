@@ -1,0 +1,590 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Lambda Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Lambda Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Lambda Environment",
+                        "Name": "Amazon Lambda Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Lambda Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon Lambda",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources for you."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the Lambda functions' elapsed time as well as the number of invocations that are throttled."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Function Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_awslambda_function_CL | where ${Region} and ${Runtime} and ${Function}  | project ['Dead Letter Error'] = columnifexists('dead_letter_error_d', double(null)), ['Errors'] = columnifexists('errors_d', double(null)), ['Throttles'] = columnifexists('throttles_d', double(null)), TimeGenerated, Name=amazon_awslambda_function_name_s  | extend Healthy = case(isnotnull(['Dead Letter Error']) or isnotnull(['Errors']) or isnotnull(['Throttles']), (['Dead Letter Error'] == 0.0 or isnull(['Dead Letter Error'])) and (['Errors'] == 0.0 or isnull(['Errors'])) and (['Throttles'] == 0.0 or isnull(['Throttles'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_awslambda_function_CL | where ${Region} and ${Runtime} and ${Function}  | project ['Dead Letter Error'] = columnifexists('dead_letter_error_d', double(null)), ['Errors'] = columnifexists('errors_d', double(null)), ['Throttles'] = columnifexists('throttles_d', double(null)), TimeGenerated, Name=amazon_awslambda_function_name_s  | extend Healthy = case(isnotnull(['Dead Letter Error']) or isnotnull(['Errors']) or isnotnull(['Throttles']), (['Dead Letter Error'] == 0.0 or isnull(['Dead Letter Error'])) and (['Errors'] == 0.0 or isnull(['Errors'])) and (['Throttles'] == 0.0 or isnull(['Throttles'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Function Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_awslambda_function_CL | project ['Dead Letter Error'] = columnifexists('dead_letter_error_d', double(null)), ['Errors'] = columnifexists('errors_d', double(null)), ['Throttles'] = columnifexists('throttles_d', double(null)), TimeGenerated, Name=amazon_awslambda_function_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Dead Letter Error']) or isnotnull(['Errors']) or isnotnull(['Throttles']), (['Dead Letter Error'] == 0.0 or isnull(['Dead Letter Error'])) and (['Errors'] == 0.0 or isnull(['Errors'])) and (['Throttles'] == 0.0 or isnull(['Throttles'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_awslambda_function_CL | project ['Dead Letter Error'] = columnifexists('dead_letter_error_d', double(null)), ['Errors'] = columnifexists('errors_d', double(null)), ['Throttles'] = columnifexists('throttles_d', double(null)), TimeGenerated, Name=amazon_awslambda_function_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Dead Letter Error']) or isnotnull(['Errors']) or isnotnull(['Throttles']), (['Dead Letter Error'] == 0.0 or isnull(['Dead Letter Error'])) and (['Errors'] == 0.0 or isnull(['Errors'])) and (['Throttles'] == 0.0 or isnull(['Throttles'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Function Duration",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Duration",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_awslambda_function_CL | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('duration_d',0.0), 0.0)) by amazon_awslambda_function_name_s",
+                                        "Callout": {
+                                            "Title": "Average Duration",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_awslambda_function_CL  | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('duration_d',0.0), 0.0)) by amazon_awslambda_function_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Function",
+                                            "Value": "Duration"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Function Throttles",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Throttles",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_awslambda_function_CL | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('throttles_d',0.0), 0.0)) by amazon_awslambda_function_name_s",
+                                        "Callout": {
+                                            "Title": "Average Throttles",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Throttles"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_awslambda_function_CL  | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('throttles_d',0.0), 0.0)) by amazon_awslambda_function_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Function",
+                                            "Value": "Throttles"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Function Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_awslambda_function_CL | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('errors_d',0.0), 0.0)) by amazon_awslambda_function_name_s",
+                                        "Callout": {
+                                            "Title": "Average Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_awslambda_function_CL  | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('errors_d',0.0), 0.0)) by amazon_awslambda_function_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Function",
+                                            "Value": "Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Function Invocations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Invocations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_awslambda_function_CL | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('invocations_d',0.0), 0.0)) by amazon_awslambda_function_name_s",
+                                        "Callout": {
+                                            "Title": "Average Invocations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Invocations"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_awslambda_function_CL  | where ${Region} and ${Runtime} and ${Function} | summarize avg(coalesce(columnifexists('invocations_d',0.0), 0.0)) by amazon_awslambda_function_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Function",
+                                            "Value": "Invocations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_awslambda_function_CL | summarize([\"Last Update Time\"], ['Duration'], ['Throttles'], ['Errors'], ['Invocations'])=arg_max(TimeGenerated,columnifexists('duration_d', ''),columnifexists('throttles_d', ''),columnifexists('errors_d', ''),columnifexists('invocations_d', '')) by Name=amazon_awslambda_function_name_s",
+                                            "displayName": "Function Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_awslambda_function_CL | summarize([\"Last Update Time\"], ['Code Size'], ['Description'], ['Environment Variables'], ['Role'], ['Runtime'], ['Tracing Mode'], ['VPC ID'])=arg_max(TimeGenerated,columnifexists('code_size_d', ''),columnifexists('description_s', ''),columnifexists('environment_variables_s', ''),columnifexists('role_s', ''),columnifexists('runtime_s', ''),columnifexists('tracing_mode_s', ''),columnifexists('vpc_id_s', '')) by Name=amazon_awslambda_function_name_s",
+                                            "displayName": "Function Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_awslambda_account_CL | summarize([\"Last Update Time\"], ['Code Size Unzipped'], ['Code Size Zipped'])=arg_max(TimeGenerated,columnifexists('code_size_unzipped_d', ''),columnifexists('code_size_zipped_d', '')) by Name=amazon_awslambda_account_name_s",
+                                            "displayName": "Account Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_awslambda_tag_CL | summarize([\"Last Update Time\"], ['Value'])=arg_max(TimeGenerated,columnifexists('value_s', '')) by Name=amazon_awslambda_tag_name_s",
+                                            "displayName": "Tag Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_awslambda_function_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "runtime_s",
+                            "QueryForValues": "amazon_awslambda_function_CL | distinct runtime_s",
+                            "Title": "Runtime"
+                          },{
+                            "FieldName": "amazon_awslambda_function_name_s",
+                            "QueryForValues": "amazon_awslambda_function_CL | distinct amazon_awslambda_function_name_s",
+                            "Title": "Function"
+                          },{
+                            "FieldName": "amazon_awslambda_account_name_s",
+                            "QueryForValues": "amazon_awslambda_account_CL | distinct amazon_awslambda_account_name_s",
+                            "Title": "Account"
+                          },{
+                            "FieldName": "amazon_awslambda_tag_name_s",
+                            "QueryForValues": "amazon_awslambda_tag_CL | distinct amazon_awslambda_tag_name_s",
+                            "Title": "Tag"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_awslambda_function_CL | project ['Dead Letter Error'] = columnifexists('dead_letter_error_d', double(null)), ['Errors'] = columnifexists('errors_d', double(null)), ['Throttles'] = columnifexists('throttles_d', double(null)), TimeGenerated, Name=amazon_awslambda_function_name_s  | extend Healthy = case(isnotnull(['Dead Letter Error']) or isnotnull(['Errors']) or isnotnull(['Throttles']), (['Dead Letter Error'] == 0.0 or isnull(['Dead Letter Error'])) and (['Errors'] == 0.0 or isnull(['Errors'])) and (['Throttles'] == 0.0 or isnull(['Throttles'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Function",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

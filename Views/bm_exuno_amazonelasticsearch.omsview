@@ -1,0 +1,665 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Elasticsearch Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Elasticsearch Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Elasticsearch Environment",
+                        "Name": "Amazon Elasticsearch Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Elasticsearch Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAANoJJREFUeNrt3Xl8VNXdP/DPuXf2LTvZSUIQgYRNBFlsVdye1qrQ2iqKolhrXbrwUK2itY9rt5/C41KL1g0fLKJVadkroBD2PawhZN/IMplk9uXec35/zEwSEJUlkzvLefflSyrJ3Dt35vu555x77rkAx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Gxiyi9A9zASklJQSAQIKWlpVqdTqcCwMJ/J8sya2lp8RoMBlpeXq70rnIDgAdAHEpNTYUsyyQ7O1s3c+bM5NLS0pz09PTM5OTkfJPJlCHLsmg2m4vUanUSegOAMMb83d3dVQBcbre702az1Vmt1ra6urq21atXd65bt86VkZHB2tvblX6LXD/hARAnfvzjH2PHjh3qOXPmZFx22WXDCgsLJyYnJ48yGAxDtFptnkqlShIEQU8IUYd+5es+ewYAjLEApdQrSVK3JEkdLpersrOzc19LS8uB/fv3H33xxRebH374Yf/jjz+u9FvnLgAPgBim0Wjg9/vJ3Llz037wgx9MKC4uvjYlJWWSXq8folKp0gkhYn9ujzEmy7Js93g8VZ2dnVsbGhq+KCsr2/n44483a7Va5vP5lD4kHJcwyO9///vsXbt2zbFarWv8fn87Y4yygUMlSeq22Wwby8vLf/3OO++MTEtLU11zzTVKHxeOi1+MMTz55JMZu3btuqezs/NzSZIcA1j0Z04CSv1Op7P80KFDv3nhhRdyAZDc3FylDxXHxY8lS5bg9ttvN65fv/77J0+e/DgaCv90siy7rVbruo0bN8741a9+lcwYu/A3znGJ7PrrrwcA8f/+7//G1NbWvuz3+08qXejfJhAIdDQ1Nb33ySefTL355pt1v/vd75Q+jBwXWwoLCwGA/OUvfxl8+PDhRx0OxwHGmKx0cZ8D2ev11lZWVr7w5ptvjigoKBBvuOEGpQ8rx0U/xhgefPDBlB07dtzZ2dm5nlLqVbqaz1dofGDfvn37HnruueeyGGMghF984riveOihhzB16lTdunXrrm1paflAkiSb0gXcX2RZdra3t/9rw4YNNz744IPm1atXK324OS46jB07FgDERYsWDa+urv6L1+ttULpgI8Xv97fV19f/7ZNPPpk0bdo0zS9+8QulDz/HKSM9PR0AyPz587MPHjz4a7vdvodSGlC6SAeA7PF4Thw9evR3L7/8chEAkpGRofTHwXEDhzGGW265xbxly5afWK3WtbIsu5SuyoFGKfXZbLYvd+3adfe8efPSGb9syMW7X//61xg9erRm6dKlExsbG98KzeBLaJIk2U+ePLns888//973v/99w8KFC5X+mDiuf5WUlACAsHDhwqGVlZXPuN3uShZbl/UizufzNdfU1Cx89913RwEQJ06cqPTHxnH945FHHhm0d+/e++12+05KqU/pYotiksPh2H/48OFHnn/++TwARKPRKP3xcdy5W7VqFWbNmmXcsGHDjR0dHSslSbIrXV2xQpZlj9Vq/Xz79u133HvvvXxaMRc7Zs+ejcsvv1y9ZMmSS+rq6l6Nhem70SoQCHS2tLQsWbt27dUTJkzQPvXUU0p/vBx3ZldccQUQ7OcXHTly5HG3211BKZWULqJ44PV666qqqv7017/+9WKVSiXy2465qMIYw2OPPZa6ffv2u7q7u7fKshyz03ejFaXUb7fbd5eXl//y8ccfzwJAiouLlf7ouUT20ksv4fbbb9evXr366tD03S6lCyXeybLstFqtazZv3nzLbbfdZmb8/gJOCRdddJFqyZIlY6qqqv7i8/ka2cCuyJPw/H5/W2Nj45v/+Mc/JkycOJFfKuAGDFm4cGFBeXn5XJfLdYj38xUlu93uyoqKiv9ZuHBhMQBB6S8HF8fmzJljKSsru9Vms22UZdmj9LefC6KU+ux2+47du3f/9PHHH09X+nvCxZlRo0ZpVq5ceUVjY+PbgUDAqvQXnjszSZLsra2tH69evfrau+66y6j094aLfcLixYtLKisrn/d6vTWM9/NjAfX7/S21tbUvf/DBB+MmTpyovvCvAZdwHn300UH79u17wOFw7OH9/NhDKZXcbvexQ4cO/TZ02zEfH+C+3U033WT88ssvp7e1tS2PxtV3uXMjy7K3u7u7bNu2bbPmzZuXovT3i4tSgwYNUn/66aeTGxoa3vD7/a1Kf3G5/iVJUldzc/P7q1ev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",
+                                        "Label": "Amazon Elasticsearch",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Elasticsearch is a popular open-source search and analytics engine for big data use cases such as log and click stream analysis. Amazon Elasticsearch Service manages the capacity, scaling, patching, and administration of Elasticsearch clusters for you while giving you direct access to the Elasticsearch API."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the cluster's data nodes and their dedicated master nodes for CPU, JVM memory, and storage space resource usage."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain}  | project ['Cluster Index Writes Blocked'] = columnifexists('cluster_index_writes_blocked_d', double(null)), ['Master Reachable From Node'] = columnifexists('master_reachable_from_node_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Automated Snapshot Failure'] = columnifexists('automated_snapshot_failure_d', double(null)), TimeGenerated, Name=amazon_elasticsearch_domain_name_s  | extend Healthy = case(isnotnull(['Cluster Index Writes Blocked']) or isnotnull(['Master Reachable From Node']) or isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Automated Snapshot Failure']), (['Cluster Index Writes Blocked'] == 0 or isnull(['Cluster Index Writes Blocked'])) and (['Master Reachable From Node'] == 1 or isnull(['Master Reachable From Node'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Write Latency'] < 0.1 or isnull(['Write Latency'])) and (['Automated Snapshot Failure'] <= 0 or isnull(['Automated Snapshot Failure'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain}  | project ['Cluster Index Writes Blocked'] = columnifexists('cluster_index_writes_blocked_d', double(null)), ['Master Reachable From Node'] = columnifexists('master_reachable_from_node_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Automated Snapshot Failure'] = columnifexists('automated_snapshot_failure_d', double(null)), TimeGenerated, Name=amazon_elasticsearch_domain_name_s  | extend Healthy = case(isnotnull(['Cluster Index Writes Blocked']) or isnotnull(['Master Reachable From Node']) or isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Automated Snapshot Failure']), (['Cluster Index Writes Blocked'] == 0 or isnull(['Cluster Index Writes Blocked'])) and (['Master Reachable From Node'] == 1 or isnull(['Master Reachable From Node'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Write Latency'] < 0.1 or isnull(['Write Latency'])) and (['Automated Snapshot Failure'] <= 0 or isnull(['Automated Snapshot Failure'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_elasticsearch_domain_CL | project ['Cluster Index Writes Blocked'] = columnifexists('cluster_index_writes_blocked_d', double(null)), ['Master Reachable From Node'] = columnifexists('master_reachable_from_node_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Automated Snapshot Failure'] = columnifexists('automated_snapshot_failure_d', double(null)), TimeGenerated, Name=amazon_elasticsearch_domain_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Cluster Index Writes Blocked']) or isnotnull(['Master Reachable From Node']) or isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Automated Snapshot Failure']), (['Cluster Index Writes Blocked'] == 0 or isnull(['Cluster Index Writes Blocked'])) and (['Master Reachable From Node'] == 1 or isnull(['Master Reachable From Node'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Write Latency'] < 0.1 or isnull(['Write Latency'])) and (['Automated Snapshot Failure'] <= 0 or isnull(['Automated Snapshot Failure'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_elasticsearch_domain_CL | project ['Cluster Index Writes Blocked'] = columnifexists('cluster_index_writes_blocked_d', double(null)), ['Master Reachable From Node'] = columnifexists('master_reachable_from_node_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Automated Snapshot Failure'] = columnifexists('automated_snapshot_failure_d', double(null)), TimeGenerated, Name=amazon_elasticsearch_domain_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Cluster Index Writes Blocked']) or isnotnull(['Master Reachable From Node']) or isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Automated Snapshot Failure']), (['Cluster Index Writes Blocked'] == 0 or isnull(['Cluster Index Writes Blocked'])) and (['Master Reachable From Node'] == 1 or isnull(['Master Reachable From Node'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Write Latency'] < 0.1 or isnull(['Write Latency'])) and (['Automated Snapshot Failure'] <= 0 or isnull(['Automated Snapshot Failure'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Master CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Master CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('master_cpu_utilization_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Master CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('master_cpu_utilization_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Master CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain JVM Memory Pressure",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "JVM Memory Pressure",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('jvm_memory_pressure_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average JVM Memory Pressure",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('jvm_memory_pressure_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "JVM Memory Pressure"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Master JVM Memory Pressure",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Master JVM Memory Pressure",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('master_jvm_memory_pressure_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Master JVM Memory Pressure",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('master_jvm_memory_pressure_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Master JVM Memory Pressure"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Domain Read IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Domain",
+                                            "Value": "Read IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=amazon_elasticsearch_domain_name_s",
+                                            "displayName": "Domain CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['Master CPU Utilization'], ['Master JVM Memory Pressure'])=arg_max(TimeGenerated,columnifexists('master_cpu_utilization_d', ''),columnifexists('master_jvm_memory_pressure_d', '')) by Name=amazon_elasticsearch_domain_name_s",
+                                            "displayName": "Domain Dedicated Master Nodes"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['JVM Memory Pressure'])=arg_max(TimeGenerated,columnifexists('jvm_memory_pressure_d', '')) by Name=amazon_elasticsearch_domain_name_s",
+                                            "displayName": "Domain Memory"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['Read IOPS'], ['Read Latency'], ['Read Throughput'], ['Write IOPS'], ['Write Latency'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('read_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_d', '')) by Name=amazon_elasticsearch_domain_name_s",
+                                            "displayName": "Domain EBS Volumes"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['Dedicated Master Type'], ['EBS Volume Type'], ['Instance Type'], ['Version'], ['VPC Availability Zones'], ['VPC ID'], ['VPC Subnets'])=arg_max(TimeGenerated,columnifexists('dedicated_master_type_s', ''),columnifexists('ebs_volume_type_s', ''),columnifexists('instance_type_s', ''),columnifexists('version_s', ''),columnifexists('vpc_availability_zones_s', ''),columnifexists('vpc_id_s', ''),columnifexists('vpc_subnets_s', '')) by Name=amazon_elasticsearch_domain_name_s",
+                                            "displayName": "Domain Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_elasticsearch_domain_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "version_s",
+                            "QueryForValues": "amazon_elasticsearch_domain_CL | distinct version_s",
+                            "Title": "Version"
+                          },{
+                            "FieldName": "instance_type_s",
+                            "QueryForValues": "amazon_elasticsearch_domain_CL | distinct instance_type_s",
+                            "Title": "Instance Type"
+                          },{
+                            "FieldName": "amazon_elasticsearch_domain_name_s",
+                            "QueryForValues": "amazon_elasticsearch_domain_CL | distinct amazon_elasticsearch_domain_name_s",
+                            "Title": "Domain"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_elasticsearch_domain_CL | project ['Cluster Index Writes Blocked'] = columnifexists('cluster_index_writes_blocked_d', double(null)), ['Master Reachable From Node'] = columnifexists('master_reachable_from_node_d', double(null)), ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Automated Snapshot Failure'] = columnifexists('automated_snapshot_failure_d', double(null)), TimeGenerated, Name=amazon_elasticsearch_domain_name_s  | extend Healthy = case(isnotnull(['Cluster Index Writes Blocked']) or isnotnull(['Master Reachable From Node']) or isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Automated Snapshot Failure']), (['Cluster Index Writes Blocked'] == 0 or isnull(['Cluster Index Writes Blocked'])) and (['Master Reachable From Node'] == 1 or isnull(['Master Reachable From Node'])) and (['Read Latency'] < 0.1 or isnull(['Read Latency'])) and (['Write Latency'] < 0.1 or isnull(['Write Latency'])) and (['Automated Snapshot Failure'] <= 0 or isnull(['Automated Snapshot Failure'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Domain",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,693 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Auto Scaling Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Auto Scaling Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Auto Scaling Environment",
+                        "Name": "Amazon Auto Scaling Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Auto Scaling Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon Auto Scaling",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "AWS Auto Scaling groups mange and automatically scale Amazon resources including EC2 instances, DyanamoDB tables, and more using scaling policies."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Amazon Auto Scaling Groups, it is important to track the number of instances in various states in relation to the capacity of the group."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group}  | project ['Total Instances'] = columnifexists('total_instances_d', double(null)), ['Desired Capacity'] = columnifexists('desired_capacity_d', double(null)), TimeGenerated, Name=amazon_autoscaling_auto_scaling_group_name_s  | extend Healthy = case(isnotnull(['Total Instances']) or isnotnull(['Desired Capacity']), (['Total Instances'] < ['Desired Capacity'] or isnull(['Total Instances']) or isnull(['Desired Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group}  | project ['Total Instances'] = columnifexists('total_instances_d', double(null)), ['Desired Capacity'] = columnifexists('desired_capacity_d', double(null)), TimeGenerated, Name=amazon_autoscaling_auto_scaling_group_name_s  | extend Healthy = case(isnotnull(['Total Instances']) or isnotnull(['Desired Capacity']), (['Total Instances'] < ['Desired Capacity'] or isnull(['Total Instances']) or isnull(['Desired Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_autoscaling_auto_scaling_group_CL | project ['Total Instances'] = columnifexists('total_instances_d', double(null)), ['Desired Capacity'] = columnifexists('desired_capacity_d', double(null)), TimeGenerated, Name=amazon_autoscaling_auto_scaling_group_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Total Instances']) or isnotnull(['Desired Capacity']), (['Total Instances'] < ['Desired Capacity'] or isnull(['Total Instances']) or isnull(['Desired Capacity'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_autoscaling_auto_scaling_group_CL | project ['Total Instances'] = columnifexists('total_instances_d', double(null)), ['Desired Capacity'] = columnifexists('desired_capacity_d', double(null)), TimeGenerated, Name=amazon_autoscaling_auto_scaling_group_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Total Instances']) or isnotnull(['Desired Capacity']), (['Total Instances'] < ['Desired Capacity'] or isnull(['Total Instances']) or isnull(['Desired Capacity'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group Total Instances",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Instances",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group} | summarize avg(coalesce(columnifexists('total_instances_d',0.0), 0.0)) by amazon_autoscaling_auto_scaling_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Instances",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Total Instances"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL  | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group} | summarize avg(coalesce(columnifexists('total_instances_d',0.0), 0.0)) by amazon_autoscaling_auto_scaling_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group",
+                                            "Value": "Total Instances"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Account Limits Auto Scaling Group Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Auto Scaling Group Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_autoscaling_account_limits_CL | where ${Region} and ${Account Limits} | summarize avg(coalesce(columnifexists('auto_scaling_group_usage_d',0.0), 0.0)) by amazon_autoscaling_account_limits_name_s",
+                                        "Callout": {
+                                            "Title": "Average Auto Scaling Group Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_autoscaling_account_limits_CL  | where ${Region} and ${Account Limits} | summarize avg(coalesce(columnifexists('auto_scaling_group_usage_d',0.0), 0.0)) by amazon_autoscaling_account_limits_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Account Limits",
+                                            "Value": "Auto Scaling Group Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Account Limits Launch Configuration Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Launch Configuration Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_autoscaling_account_limits_CL | where ${Region} and ${Account Limits} | summarize avg(coalesce(columnifexists('launch_configuration_usage_d',0.0), 0.0)) by amazon_autoscaling_account_limits_name_s",
+                                        "Callout": {
+                                            "Title": "Average Launch Configuration Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_autoscaling_account_limits_CL  | where ${Region} and ${Account Limits} | summarize avg(coalesce(columnifexists('launch_configuration_usage_d',0.0), 0.0)) by amazon_autoscaling_account_limits_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Account Limits",
+                                            "Value": "Launch Configuration Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group In-Service Instances",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "In-Service Instances",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group} | summarize avg(coalesce(columnifexists('in_service_instances_d',0.0), 0.0)) by amazon_autoscaling_auto_scaling_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average In-Service Instances",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "In-Service Instances"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL  | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group} | summarize avg(coalesce(columnifexists('in_service_instances_d',0.0), 0.0)) by amazon_autoscaling_auto_scaling_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group",
+                                            "Value": "In-Service Instances"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Group Pending Instances",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Pending Instances",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group} | summarize avg(coalesce(columnifexists('pending_instances_d',0.0), 0.0)) by amazon_autoscaling_auto_scaling_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Pending Instances",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Pending Instances"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_autoscaling_auto_scaling_group_CL  | where ${Availability Zone} and ${Region} and ${VPC Zone} and ${Group} | summarize avg(coalesce(columnifexists('pending_instances_d',0.0), 0.0)) by amazon_autoscaling_auto_scaling_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Group",
+                                            "Value": "Pending Instances"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_autoscaling_auto_scaling_group_CL | summarize([\"Last Update Time\"], ['Total Instances'], ['In-Service Instances'], ['Pending Instances'], ['Standby Instances'], ['Terminating Instances'])=arg_max(TimeGenerated,columnifexists('total_instances_d', ''),columnifexists('in_service_instances_d', ''),columnifexists('pending_instances_d', ''),columnifexists('standby_instances_d', ''),columnifexists('terminating_instances_d', '')) by Name=amazon_autoscaling_auto_scaling_group_name_s",
+                                            "displayName": "Group Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_autoscaling_auto_scaling_group_CL | summarize([\"Last Update Time\"], ['Availability Zone'], ['Default Cooldown'], ['Health Check Type'], ['Launch Configuration Name'], ['Placement Group'], ['Tags'], ['VPC Zone'])=arg_max(TimeGenerated,columnifexists('availability_zone_s', ''),columnifexists('default_cooldown_d', ''),columnifexists('health_check_type_s', ''),columnifexists('launch_configuration_name_s', ''),columnifexists('placement_group_s', ''),columnifexists('tags_s', ''),columnifexists('vpc_zone_s', '')) by Name=amazon_autoscaling_auto_scaling_group_name_s",
+                                            "displayName": "Group Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_autoscaling_scaling_policy_CL | summarize([\"Last Update Time\"], ['Group Name'], ['Type'])=arg_max(TimeGenerated,columnifexists('group_name_s', ''),columnifexists('type_s', '')) by Name=amazon_autoscaling_scaling_policy_name_s",
+                                            "displayName": "Scaling Policy Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_autoscaling_launch_configuration_CL | summarize([\"Last Update Time\"], ['EBS Optimized'], ['Image ID'], ['Instance Type'], ['Placement Tenancy'], ['Security Groups'], ['VPC ID'])=arg_max(TimeGenerated,columnifexists('ebs_optimized_d', ''),columnifexists('image_id_s', ''),columnifexists('instance_type_s', ''),columnifexists('placement_tenancy_s', ''),columnifexists('security_groups_s', ''),columnifexists('vpc_id_s', '')) by Name=amazon_autoscaling_launch_configuration_name_s",
+                                            "displayName": "Launch Configuration Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_autoscaling_account_limits_CL | summarize([\"Last Update Time\"], ['Auto Scaling Group Usage'], ['Launch Configuration Usage'])=arg_max(TimeGenerated,columnifexists('auto_scaling_group_usage_d', ''),columnifexists('launch_configuration_usage_d', '')) by Name=amazon_autoscaling_account_limits_name_s",
+                                            "displayName": "Account Limits Details"
+                                        }
+                                        ,{
+                                            "query": "amazon_autoscaling_account_limits_CL | summarize([\"Last Update Time\"], ['Maximum Number of Auto Scaling Groups'], ['Maximum Number of Launch Configurations'])=arg_max(TimeGenerated,columnifexists('maximum_number_of_auto_scaling_groups_d', ''),columnifexists('maximum_number_of_launch_configurations_d', '')) by Name=amazon_autoscaling_account_limits_name_s",
+                                            "displayName": "Account Limits Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "availability_zone_s",
+                            "QueryForValues": "amazon_autoscaling_auto_scaling_group_CL | distinct availability_zone_s",
+                            "Title": "Availability Zone"
+                          },{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_autoscaling_auto_scaling_group_CL, amazon_autoscaling_scaling_policy_CL, amazon_autoscaling_launch_configuration_CL, amazon_autoscaling_account_limits_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "vpc_zone_s",
+                            "QueryForValues": "amazon_autoscaling_auto_scaling_group_CL | distinct vpc_zone_s",
+                            "Title": "VPC Zone"
+                          },{
+                            "FieldName": "amazon_autoscaling_auto_scaling_group_name_s",
+                            "QueryForValues": "amazon_autoscaling_auto_scaling_group_CL | distinct amazon_autoscaling_auto_scaling_group_name_s",
+                            "Title": "Group"
+                          },{
+                            "FieldName": "group_name_s",
+                            "QueryForValues": "amazon_autoscaling_scaling_policy_CL | distinct group_name_s",
+                            "Title": "Group Name"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "amazon_autoscaling_scaling_policy_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "amazon_autoscaling_scaling_policy_name_s",
+                            "QueryForValues": "amazon_autoscaling_scaling_policy_CL | distinct amazon_autoscaling_scaling_policy_name_s",
+                            "Title": "Scaling Policy"
+                          },{
+                            "FieldName": "instance_type_s",
+                            "QueryForValues": "amazon_autoscaling_launch_configuration_CL | distinct instance_type_s",
+                            "Title": "Instance Type"
+                          },{
+                            "FieldName": "amazon_autoscaling_launch_configuration_name_s",
+                            "QueryForValues": "amazon_autoscaling_launch_configuration_CL | distinct amazon_autoscaling_launch_configuration_name_s",
+                            "Title": "Launch Configuration"
+                          },{
+                            "FieldName": "amazon_autoscaling_account_limits_name_s",
+                            "QueryForValues": "amazon_autoscaling_account_limits_CL | distinct amazon_autoscaling_account_limits_name_s",
+                            "Title": "Account Limits"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_autoscaling_auto_scaling_group_CL | project ['Total Instances'] = columnifexists('total_instances_d', double(null)), ['Desired Capacity'] = columnifexists('desired_capacity_d', double(null)), TimeGenerated, Name=amazon_autoscaling_auto_scaling_group_name_s  | extend Healthy = case(isnotnull(['Total Instances']) or isnotnull(['Desired Capacity']), (['Total Instances'] < ['Desired Capacity'] or isnull(['Total Instances']) or isnull(['Desired Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Group",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

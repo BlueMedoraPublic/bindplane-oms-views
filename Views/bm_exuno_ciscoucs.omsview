@@ -1,0 +1,721 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Cisco UCS Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Cisco UCS Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Cisco UCS Environment",
+                        "Name": "Cisco UCS Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Cisco UCS Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Cisco UCS",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Cisco Unified Computing System (UCS) combines the power of Cisco's networking with compute and storage to form a unified, scalable solution."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Cisco UCS, it is important to monitor memory usage, throughput, and the temperature of various hardware components."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade}  | project ['Memory Usage'] = columnifexists('memory_usage_d', double(null)), TimeGenerated, Name=cisco_ucs_blade_name_s  | extend Healthy = case(isnotnull(['Memory Usage']), (['Memory Usage'] < 90 or isnull(['Memory Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade}  | project ['Memory Usage'] = columnifexists('memory_usage_d', double(null)), TimeGenerated, Name=cisco_ucs_blade_name_s  | extend Healthy = case(isnotnull(['Memory Usage']), (['Memory Usage'] < 90 or isnull(['Memory Usage'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "cisco_ucs_blade_CL | project ['Memory Usage'] = columnifexists('memory_usage_d', double(null)), TimeGenerated, Name=cisco_ucs_blade_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Usage']), (['Memory Usage'] < 90 or isnull(['Memory Usage'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "cisco_ucs_blade_CL | project ['Memory Usage'] = columnifexists('memory_usage_d', double(null)), TimeGenerated, Name=cisco_ucs_blade_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Usage']), (['Memory Usage'] < 90 or isnull(['Memory Usage'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Available Memory",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Available Memory",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s",
+                                        "Callout": {
+                                            "Title": "Average Available Memory",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Mebibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_blade_CL  | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade",
+                                            "Value": "Available Memory"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cisco_ucs_blade_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_blade_CL  | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cisco_ucs_blade_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade",
+                                            "Value": "Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Unit Available Memory",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Available Memory",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_rack_unit_CL | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s",
+                                        "Callout": {
+                                            "Title": "Average Available Memory",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Mebibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_rack_unit_CL  | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack Unit",
+                                            "Value": "Available Memory"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Unit Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_rack_unit_CL | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_rack_unit_CL  | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack Unit",
+                                            "Value": "Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Unit Ambient Temperature",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Ambient Temperature",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_rack_unit_CL | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('ambient_temperature_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s",
+                                        "Callout": {
+                                            "Title": "Average Ambient Temperature",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Celsius"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_rack_unit_CL  | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('ambient_temperature_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack Unit",
+                                            "Value": "Ambient Temperature"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "35.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "31.5",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "cisco_ucs_blade_CL | summarize([\"Last Update Time\"], ['Available Memory'], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('available_memory_d', ''),columnifexists('memory_usage_d', '')) by Name=cisco_ucs_blade_name_s",
+                                            "displayName": "Blade Blade"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_blade_CL | summarize([\"Last Update Time\"], ['Model'], ['Operability'], ['Operating Power State'], ['Operating State'], ['Powered On'], ['Revision'], ['Service Profile'])=arg_max(TimeGenerated,columnifexists('model_s', ''),columnifexists('operability_s', ''),columnifexists('operating_power_state_s', ''),columnifexists('operating_state_s', ''),columnifexists('powered_on_s', ''),columnifexists('revision_s', ''),columnifexists('service_profile_s', '')) by Name=cisco_ucs_blade_name_s",
+                                            "displayName": "Blade Properties"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_rack_unit_CL | summarize([\"Last Update Time\"], ['Available Memory'])=arg_max(TimeGenerated,columnifexists('available_memory_d', '')) by Name=cisco_ucs_rack_unit_name_s",
+                                            "displayName": "Rack Unit Compute Rack Unit"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_rack_unit_CL | summarize([\"Last Update Time\"], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', '')) by Name=cisco_ucs_rack_unit_name_s",
+                                            "displayName": "Rack Unit Blade"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_rack_unit_CL | summarize([\"Last Update Time\"], ['Ambient Temperature'], ['Front Temperature'], ['Rear Temperature'], ['IO Hub 1 Temperature'], ['IO Hub 2 Temperature'])=arg_max(TimeGenerated,columnifexists('ambient_temperature_d', ''),columnifexists('front_temperature_d', ''),columnifexists('rear_temperature_d', ''),columnifexists('io_hub_1_temperature_d', ''),columnifexists('io_hub_2_temperature_d', '')) by Name=cisco_ucs_rack_unit_name_s",
+                                            "displayName": "Rack Unit Temperature"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_rack_unit_CL | summarize([\"Last Update Time\"], ['Model'], ['Operability'], ['Operating Power State'], ['Operating State'], ['Powered On'], ['Revision'], ['Service Profile'])=arg_max(TimeGenerated,columnifexists('model_s', ''),columnifexists('operability_s', ''),columnifexists('operating_power_state_s', ''),columnifexists('operating_state_s', ''),columnifexists('powered_on_s', ''),columnifexists('revision_s', ''),columnifexists('service_profile_s', '')) by Name=cisco_ucs_rack_unit_name_s",
+                                            "displayName": "Rack Unit Properties"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_ethernet_port_CL | summarize([\"Last Update Time\"], ['Data Received'])=arg_max(TimeGenerated,columnifexists('data_received_rate_d', '')) by Name=cisco_ucs_ethernet_port_name_s",
+                                            "displayName": "Ethernet Port Received Traffic"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_ethernet_port_CL | summarize([\"Last Update Time\"], ['Data Sent'])=arg_max(TimeGenerated,columnifexists('data_sent_rate_d', '')) by Name=cisco_ucs_ethernet_port_name_s",
+                                            "displayName": "Ethernet Port Sent Traffic"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_ethernet_port_CL | summarize([\"Last Update Time\"], ['Errors Received'], ['Frame Check Sequence Errors'])=arg_max(TimeGenerated,columnifexists('errors_received_rate_d', ''),columnifexists('frame_check_sequence_errors_rate_d', '')) by Name=cisco_ucs_ethernet_port_name_s",
+                                            "displayName": "Ethernet Port Network"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_ethernet_port_CL | summarize([\"Last Update Time\"], ['Endpoint Name'], ['Peer Name'], ['Rated Port Speed'], ['User Defined Name'], ['User Label'])=arg_max(TimeGenerated,columnifexists('endpoint_name_s', ''),columnifexists('peer_name_s', ''),columnifexists('rated_port_speed_d', ''),columnifexists('user_defined_name_s', ''),columnifexists('user_label_s', '')) by Name=cisco_ucs_ethernet_port_name_s",
+                                            "displayName": "Ethernet Port Properties"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_power_supply_CL | summarize([\"Last Update Time\"], ['Input 210 Volt'], ['Input Voltage'], ['Output 12 Volt'], ['Output 3.3 Volt'], ['Ambient Temperature'])=arg_max(TimeGenerated,columnifexists('input_210_volt_d', ''),columnifexists('input_voltage_d', ''),columnifexists('output_12_volt_d', ''),columnifexists('output_3_3_volt_d', ''),columnifexists('ambient_temperature_d', '')) by Name=cisco_ucs_power_supply_name_s",
+                                            "displayName": "Power Supply PSU"
+                                        }
+                                        ,{
+                                            "query": "cisco_ucs_power_supply_CL | summarize([\"Last Update Time\"], ['Input Status'], ['Operability'], ['Operating State'], ['Power State'], ['Powered On'], ['Thermal State'], ['Voltage State'])=arg_max(TimeGenerated,columnifexists('input_status_s', ''),columnifexists('operability_s', ''),columnifexists('operating_state_s', ''),columnifexists('power_state_s', ''),columnifexists('powered_on_s', ''),columnifexists('thermal_state_s', ''),columnifexists('voltage_state_s', '')) by Name=cisco_ucs_power_supply_name_s",
+                                            "displayName": "Power Supply Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "cisco_ucs_chassis_name_s",
+                            "QueryForValues": "union cisco_ucs_blade_CL, cisco_ucs_power_supply_CL | distinct cisco_ucs_chassis_name_s",
+                            "Title": "Chassis"
+                          },{
+                            "FieldName": "cisco_ucs_fabric_interconnect_name_s",
+                            "QueryForValues": "union cisco_ucs_blade_CL, cisco_ucs_rack_unit_CL, cisco_ucs_ethernet_port_CL, cisco_ucs_power_supply_CL | distinct cisco_ucs_fabric_interconnect_name_s",
+                            "Title": "Fabric Interconnect"
+                          },{
+                            "FieldName": "operating_state_s",
+                            "QueryForValues": "union cisco_ucs_blade_CL, cisco_ucs_rack_unit_CL, cisco_ucs_power_supply_CL | distinct operating_state_s",
+                            "Title": "Operating State"
+                          },{
+                            "FieldName": "cisco_ucs_blade_name_s",
+                            "QueryForValues": "union cisco_ucs_blade_CL, cisco_ucs_ethernet_port_CL | distinct cisco_ucs_blade_name_s",
+                            "Title": "Blade"
+                          },{
+                            "FieldName": "cisco_ucs_ucs_domain_name_s",
+                            "QueryForValues": "cisco_ucs_rack_unit_CL | distinct cisco_ucs_ucs_domain_name_s",
+                            "Title": "UCS Domain"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "cisco_ucs_rack_unit_CL | distinct model_s",
+                            "Title": "Model"
+                          },{
+                            "FieldName": "cisco_ucs_rack_unit_name_s",
+                            "QueryForValues": "union cisco_ucs_rack_unit_CL, cisco_ucs_power_supply_CL | distinct cisco_ucs_rack_unit_name_s",
+                            "Title": "Rack Unit"
+                          },{
+                            "FieldName": "cisco_ucs_io_module_name_s",
+                            "QueryForValues": "cisco_ucs_ethernet_port_CL | distinct cisco_ucs_io_module_name_s",
+                            "Title": "IO Module"
+                          },{
+                            "FieldName": "cisco_ucs_port_channel_name_s",
+                            "QueryForValues": "cisco_ucs_ethernet_port_CL | distinct cisco_ucs_port_channel_name_s",
+                            "Title": "Port Channel"
+                          },{
+                            "FieldName": "cisco_ucs_ethernet_port_name_s",
+                            "QueryForValues": "cisco_ucs_ethernet_port_CL | distinct cisco_ucs_ethernet_port_name_s",
+                            "Title": "Ethernet Port"
+                          },{
+                            "FieldName": "cisco_ucs_power_supply_name_s",
+                            "QueryForValues": "cisco_ucs_power_supply_CL | distinct cisco_ucs_power_supply_name_s",
+                            "Title": "Power Supply"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "cisco_ucs_blade_CL | project ['Memory Usage'] = columnifexists('memory_usage_d', double(null)), TimeGenerated, Name=cisco_ucs_blade_name_s  | extend Healthy = case(isnotnull(['Memory Usage']), (['Memory Usage'] < 90 or isnull(['Memory Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Blade",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

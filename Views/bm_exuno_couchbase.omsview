@@ -1,0 +1,709 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Couchbase Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Couchbase Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Couchbase Environment",
+                        "Name": "Couchbase Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Couchbase Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Couchbase",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Couchbase is a distributed open-source NoSQL database server."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Couchbase, it is important to monitor cpu, memory, and disk utilization, as well as throughput."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "couchbase_node_CL | where ${Cluster} and ${Node}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=couchbase_node_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "couchbase_node_CL | where ${Cluster} and ${Node}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=couchbase_node_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "couchbase_node_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=couchbase_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "couchbase_node_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=couchbase_node_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "couchbase_node_CL | where ${Cluster} and ${Node} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by couchbase_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "couchbase_node_CL  | where ${Cluster} and ${Node} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by couchbase_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "couchbase_node_CL | where ${Cluster} and ${Node} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by couchbase_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "couchbase_node_CL  | where ${Cluster} and ${Node} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by couchbase_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Data Used",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data Used",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "couchbase_bucket_CL | where ${Cluster} and ${Type} and ${Bucket} | summarize avg(coalesce(columnifexists('data_used_d',0.0), 0.0)) by couchbase_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data Used",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "couchbase_bucket_CL  | where ${Cluster} and ${Type} and ${Bucket} | summarize avg(coalesce(columnifexists('data_used_d',0.0), 0.0)) by couchbase_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "Data Used"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Disk Used",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Used",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "couchbase_bucket_CL | where ${Cluster} and ${Type} and ${Bucket} | summarize avg(coalesce(columnifexists('disk_used_d',0.0), 0.0)) by couchbase_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Used",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "couchbase_bucket_CL  | where ${Cluster} and ${Type} and ${Bucket} | summarize avg(coalesce(columnifexists('disk_used_d',0.0), 0.0)) by couchbase_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "Disk Used"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Bucket Memory Used",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Used",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "couchbase_bucket_CL | where ${Cluster} and ${Type} and ${Bucket} | summarize avg(coalesce(columnifexists('memory_used_d',0.0), 0.0)) by couchbase_bucket_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Used",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "couchbase_bucket_CL  | where ${Cluster} and ${Type} and ${Bucket} | summarize avg(coalesce(columnifexists('memory_used_d',0.0), 0.0)) by couchbase_bucket_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Bucket",
+                                            "Value": "Memory Used"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "couchbase_node_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=couchbase_node_name_s",
+                                            "displayName": "Node CPU"
+                                        }
+                                        ,{
+                                            "query": "couchbase_node_CL | summarize([\"Last Update Time\"], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', '')) by Name=couchbase_node_name_s",
+                                            "displayName": "Node Memory"
+                                        }
+                                        ,{
+                                            "query": "couchbase_node_CL | summarize([\"Last Update Time\"], ['Cluster Membership'], ['Collection Node'], ['Operating System'], ['Recovery Type'], ['Services'], ['Status'], ['Version'])=arg_max(TimeGenerated,columnifexists('cluster_membership_s', ''),columnifexists('collection_node_d', ''),columnifexists('operating_system_s', ''),columnifexists('recovery_type_s', ''),columnifexists('services_s', ''),columnifexists('status_s', ''),columnifexists('version_s', '')) by Name=couchbase_node_name_s",
+                                            "displayName": "Node Properties"
+                                        }
+                                        ,{
+                                            "query": "couchbase_bucket_CL | summarize([\"Last Update Time\"], ['Data Used'], ['Current Connections'], ['Read Operations'], ['Write Operations'], ['Ejections'])=arg_max(TimeGenerated,columnifexists('data_used_d', ''),columnifexists('current_connections_d', ''),columnifexists('read_operations_d', ''),columnifexists('write_operations_d', ''),columnifexists('ejections_d', '')) by Name=couchbase_bucket_name_s",
+                                            "displayName": "Bucket Details"
+                                        }
+                                        ,{
+                                            "query": "couchbase_bucket_CL | summarize([\"Last Update Time\"], ['Disk Used'], ['Read Rate'], ['Write Rate'], ['Disk Write Queue'])=arg_max(TimeGenerated,columnifexists('disk_used_d', ''),columnifexists('read_rate_d', ''),columnifexists('write_rate_d', ''),columnifexists('disk_write_queue_d', '')) by Name=couchbase_bucket_name_s",
+                                            "displayName": "Bucket Disk"
+                                        }
+                                        ,{
+                                            "query": "couchbase_bucket_CL | summarize([\"Last Update Time\"], ['Memory Used'], ['Active Resident Items Ratio'], ['Headroom'], ['Metadata in Memory Utilization'], ['Out of Memory Errors'], ['Quota Utilization'])=arg_max(TimeGenerated,columnifexists('memory_used_d', ''),columnifexists('active_resident_items_ratio_d', ''),columnifexists('headroom_d', ''),columnifexists('metadata_in_memory_utilization_d', ''),columnifexists('out_of_memory_errors_d', ''),columnifexists('quota_utilization_d', '')) by Name=couchbase_bucket_name_s",
+                                            "displayName": "Bucket Memory"
+                                        }
+                                        ,{
+                                            "query": "couchbase_bucket_CL | summarize([\"Last Update Time\"], ['Eviction Policy'], ['Memory High Water Mark'], ['Memory Low Water Mark'], ['Node Locator'], ['Proxy Port'], ['Threads Number'], ['Type'])=arg_max(TimeGenerated,columnifexists('eviction_policy_s', ''),columnifexists('memory_high_water_mark_d', ''),columnifexists('memory_low_water_mark_d', ''),columnifexists('node_locator_s', ''),columnifexists('proxy_port_d', ''),columnifexists('threads_number_d', ''),columnifexists('type_s', '')) by Name=couchbase_bucket_name_s",
+                                            "displayName": "Bucket Properties"
+                                        }
+                                        ,{
+                                            "query": "couchbase_query_CL | summarize([\"Last Update Time\"], ['Error Count Average'], ['Result Count Average'], ['Result Size Average'], ['Service Time Average'])=arg_max(TimeGenerated,columnifexists('error_count_average_d', ''),columnifexists('result_count_average_d', ''),columnifexists('result_size_average_d', ''),columnifexists('service_time_average_d', '')) by Name=couchbase_query_name_s",
+                                            "displayName": "Query Details"
+                                        }
+                                        ,{
+                                            "query": "couchbase_query_CL | summarize([\"Last Update Time\"], ['Statement'])=arg_max(TimeGenerated,columnifexists('statement_s', '')) by Name=couchbase_query_name_s",
+                                            "displayName": "Query Properties"
+                                        }
+                                        ,{
+                                            "query": "couchbase_query_engine_CL | summarize([\"Last Update Time\"], ['Active Requests'], ['Completed Requests'], ['Prepared Statement Utilization'])=arg_max(TimeGenerated,columnifexists('active_requests_d', ''),columnifexists('completed_requests_rate_d', ''),columnifexists('prepared_statement_utilization_d', '')) by Name=couchbase_query_engine_name_s",
+                                            "displayName": "Query Engine Details"
+                                        }
+                                        ,{
+                                            "query": "couchbase_query_engine_CL | summarize([\"Last Update Time\"], ['System CPU Utilization'])=arg_max(TimeGenerated,columnifexists('system_cpu_utilization_d', '')) by Name=couchbase_query_engine_name_s",
+                                            "displayName": "Query Engine CPU"
+                                        }
+                                        ,{
+                                            "query": "couchbase_query_engine_CL | summarize([\"Last Update Time\"], ['Used Memory'])=arg_max(TimeGenerated,columnifexists('used_memory_d', '')) by Name=couchbase_query_engine_name_s",
+                                            "displayName": "Query Engine Memory"
+                                        }
+                                        ,{
+                                            "query": "couchbase_query_engine_CL | summarize([\"Last Update Time\"], ['Completed Limit'], ['Completed Threshold'], ['Version'])=arg_max(TimeGenerated,columnifexists('completed_limit_d', ''),columnifexists('completed_threshold_d', ''),columnifexists('version_s', '')) by Name=couchbase_query_engine_name_s",
+                                            "displayName": "Query Engine Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "couchbase_cluster_name_s",
+                            "QueryForValues": "union couchbase_node_CL, couchbase_bucket_CL | distinct couchbase_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "couchbase_node_name_s",
+                            "QueryForValues": "union couchbase_node_CL, couchbase_query_engine_CL | distinct couchbase_node_name_s",
+                            "Title": "Node"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "couchbase_bucket_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "couchbase_bucket_name_s",
+                            "QueryForValues": "couchbase_bucket_CL | distinct couchbase_bucket_name_s",
+                            "Title": "Bucket"
+                          },{
+                            "FieldName": "couchbase_query_engine_name_s",
+                            "QueryForValues": "union couchbase_query_CL, couchbase_query_engine_CL | distinct couchbase_query_engine_name_s",
+                            "Title": "Query Engine"
+                          },{
+                            "FieldName": "couchbase_query_name_s",
+                            "QueryForValues": "couchbase_query_CL | distinct couchbase_query_name_s",
+                            "Title": "Query"
+                          },{
+                            "FieldName": "version_s",
+                            "QueryForValues": "couchbase_query_engine_CL | distinct version_s",
+                            "Title": "Version"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "couchbase_node_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=couchbase_node_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Node",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

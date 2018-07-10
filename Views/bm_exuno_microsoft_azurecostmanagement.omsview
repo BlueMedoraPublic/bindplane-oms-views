@@ -1,0 +1,382 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Cost Management Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Cost Management Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Cost Management Environment",
+                        "Name": "Microsoft Azure Cost Management Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Cost Management Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Cost Management",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Azure Cost Management is a multi-cloud cost management solution that helps you best utilize and manage Azure and other cloud resources."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor actual and estimated costs over time from each cloud service, as well as detect usage inefficiencies and unusual spending."
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Usage Detail Usage Quantity",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Usage Quantity",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_costmanagement_usage_detail_CL | where ${Billing Period} and ${Usage Detail} | summarize avg(coalesce(columnifexists('usage_quantity_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s",
+                                        "Callout": {
+                                            "Title": "Average Usage Quantity",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Usage Quantity"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_costmanagement_usage_detail_CL  | where ${Billing Period} and ${Usage Detail} | summarize avg(coalesce(columnifexists('usage_quantity_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Usage Detail",
+                                            "Value": "Usage Quantity"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Usage Detail Pretax Cost",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Pretax Cost",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_costmanagement_usage_detail_CL | where ${Billing Period} and ${Usage Detail} | summarize avg(coalesce(columnifexists('pretax_cost_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s",
+                                        "Callout": {
+                                            "Title": "Average Pretax Cost",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Pretax Cost"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_costmanagement_usage_detail_CL  | where ${Billing Period} and ${Usage Detail} | summarize avg(coalesce(columnifexists('pretax_cost_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Usage Detail",
+                                            "Value": "Pretax Cost"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Usage Detail Is Estimated",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Is Estimated",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_costmanagement_usage_detail_CL | where ${Billing Period} and ${Usage Detail} | summarize avg(coalesce(columnifexists('is_estimated_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s",
+                                        "Callout": {
+                                            "Title": "Average Is Estimated",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Is Estimated"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_costmanagement_usage_detail_CL  | where ${Billing Period} and ${Usage Detail} | summarize avg(coalesce(columnifexists('is_estimated_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Usage Detail",
+                                            "Value": "Is Estimated"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_costmanagement_usage_detail_CL | summarize([\"Last Update Time\"], ['Usage Quantity'], ['Pretax Cost'], ['Is Estimated'])=arg_max(TimeGenerated,columnifexists('usage_quantity_d', ''),columnifexists('pretax_cost_d', ''),columnifexists('is_estimated_d', '')) by Name=microsoft_azure_costmanagement_usage_detail_name_s",
+                                            "displayName": "Usage Detail Details"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_costmanagement_usage_detail_CL | summarize([\"Last Update Time\"], ['Currency'], ['Instance ID'], ['Instance Name'], ['Meter Name'], ['Subscription GUID'], ['Tags'], ['Type'])=arg_max(TimeGenerated,columnifexists('currency_s', ''),columnifexists('instance_id_s', ''),columnifexists('instance_name_s', ''),columnifexists('meter_name_s', ''),columnifexists('subscription_guid_g', ''),columnifexists('tags_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_costmanagement_usage_detail_name_s",
+                                            "displayName": "Usage Detail Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_costmanagement_billing_period_CL | summarize([\"Last Update Time\"], ['End Date'], ['Invoice IDs'], ['Start Date'], ['Type'])=arg_max(TimeGenerated,columnifexists('end_date_s', ''),columnifexists('invoice_ids_s', ''),columnifexists('start_date_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_costmanagement_billing_period_name_s",
+                                            "displayName": "Billing Period Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_azure_costmanagement_billing_period_name_s",
+                            "QueryForValues": "union microsoft_azure_costmanagement_usage_detail_CL, microsoft_azure_costmanagement_billing_period_CL | distinct microsoft_azure_costmanagement_billing_period_name_s",
+                            "Title": "Billing Period"
+                          },{
+                            "FieldName": "microsoft_azure_costmanagement_usage_detail_name_s",
+                            "QueryForValues": "microsoft_azure_costmanagement_usage_detail_CL | distinct microsoft_azure_costmanagement_usage_detail_name_s",
+                            "Title": "Usage Detail"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "microsoft_azure_costmanagement_usage_detail_CL  | summarize avg(coalesce(columnifexists('usage_quantity_d',0.0), 0.0)) by microsoft_azure_costmanagement_usage_detail_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Usage Quantity",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Usage Quantity"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

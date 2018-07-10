@@ -1,0 +1,693 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Hyper-V Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Hyper-V Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Hyper-V Environment",
+                        "Name": "Microsoft Hyper-V Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Hyper-V Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00bcf2"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Hyper-V",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Microsoft Hyper-V is Microsoft's native hypervisor."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor Virtual Machine CPU utilization and memory utilization, as well as IOPS, throughput, and latency."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine}  | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine}  | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_hyperv_virtual_machine_CL | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_hyperv_virtual_machine_CL | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine CPU Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "CPU Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Average Disk Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Disk Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Disk Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Average Disk Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Average Normalized IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Normalized IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Normalized IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Average Normalized IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Total Disk Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Disk Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('total_disk_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Disk Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('total_disk_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Total Disk Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['Memory Utilization'], ['Average Memory Pressure'], ['Memory Demand'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', ''),columnifexists('average_memory_pressure_d', ''),columnifexists('memory_demand_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['Average Disk Latency'], ['Average Normalized IOPS'], ['Total Disk Usage'])=arg_max(TimeGenerated,columnifexists('average_disk_latency_d', ''),columnifexists('average_normalized_iops_d', ''),columnifexists('total_disk_usage_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Disk"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['Inbound Traffic'], ['Outbound Traffic'])=arg_max(TimeGenerated,columnifexists('inbound_traffic_rate_d', ''),columnifexists('outbound_traffic_rate_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['Generation'], ['IP Addresses'], ['Last Snapshot'], ['MAC Addresses'], ['Processor Count'], ['Secure Boot'], ['Startup Memory'])=arg_max(TimeGenerated,columnifexists('generation_s', ''),columnifexists('ip_addresses_s', ''),columnifexists('last_snapshot_s', ''),columnifexists('mac_addresses_s', ''),columnifexists('processor_count_d', ''),columnifexists('secure_boot_s', ''),columnifexists('startup_memory_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_host_CL | summarize([\"Last Update Time\"], ['Memory Pressure'], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('memory_pressure_d', ''),columnifexists('memory_utilization_d', '')) by Name=microsoft_hyperv_host_name_s",
+                                            "displayName": "Host Memory"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_host_CL | summarize([\"Last Update Time\"], ['Processor Time'])=arg_max(TimeGenerated,columnifexists('processor_time_d', '')) by Name=microsoft_hyperv_host_name_s",
+                                            "displayName": "Host CPU"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_host_CL | summarize([\"Last Update Time\"], ['VM Count'])=arg_max(TimeGenerated,columnifexists('vm_count_d', '')) by Name=microsoft_hyperv_host_name_s",
+                                            "displayName": "Host Virtual Machines"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_host_CL | summarize([\"Last Update Time\"], ['Cluster Group Name'], ['IPv4 Addresses'], ['IPv6 Addresses'], ['Logical Processor Count'], ['Migration Enabled'])=arg_max(TimeGenerated,columnifexists('cluster_group_name_s', ''),columnifexists('ipv4_addresses_s', ''),columnifexists('ipv6_addresses_s', ''),columnifexists('logical_processor_count_d', ''),columnifexists('migration_enabled_d', '')) by Name=microsoft_hyperv_host_name_s",
+                                            "displayName": "Host Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_hard_disk_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Average Normalized IOPS'], ['Data Read'], ['Data Written'], ['Disk Usage'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('average_normalized_iops_d', ''),columnifexists('data_read_rate_d', ''),columnifexists('data_written_rate_d', ''),columnifexists('disk_usage_d', '')) by Name=microsoft_hyperv_hard_disk_name_s",
+                                            "displayName": "Hard Disk Utilization"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_hard_disk_CL | summarize([\"Last Update Time\"], ['Alignment'], ['Attached'], ['Parent Path'], ['Path'], ['VHD Format'], ['VHD Type'], ['Virtual Machine ID'])=arg_max(TimeGenerated,columnifexists('alignment_d', ''),columnifexists('attached_d', ''),columnifexists('parent_path_s', ''),columnifexists('path_s', ''),columnifexists('vhd_format_s', ''),columnifexists('vhd_type_s', ''),columnifexists('virtual_machine_id_s', '')) by Name=microsoft_hyperv_hard_disk_name_s",
+                                            "displayName": "Hard Disk Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_hyperv_network_adapter_CL | summarize([\"Last Update Time\"], ['Adapter ID'], ['Connected'], ['IP Addresses'], ['MAC Address'], ['Status Descriptions'], ['Switch Name'], ['VM ID'])=arg_max(TimeGenerated,columnifexists('adapter_id_s', ''),columnifexists('connected_d', ''),columnifexists('ip_addresses_s', ''),columnifexists('mac_address_s', ''),columnifexists('status_descriptions_s', ''),columnifexists('switch_name_s', ''),columnifexists('vm_id_s', '')) by Name=microsoft_hyperv_network_adapter_name_s",
+                                            "displayName": "Network Adapter Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_hyperv_host_name_s",
+                            "QueryForValues": "union microsoft_hyperv_virtual_machine_CL, microsoft_hyperv_host_CL | distinct microsoft_hyperv_host_name_s",
+                            "Title": "Host"
+                          },{
+                            "FieldName": "microsoft_hyperv_virtual_machine_name_s",
+                            "QueryForValues": "microsoft_hyperv_virtual_machine_CL | distinct microsoft_hyperv_virtual_machine_name_s",
+                            "Title": "Virtual Machine"
+                          },{
+                            "FieldName": "microsoft_hyperv_hard_disk_name_s",
+                            "QueryForValues": "microsoft_hyperv_hard_disk_CL | distinct microsoft_hyperv_hard_disk_name_s",
+                            "Title": "Hard Disk"
+                          },{
+                            "FieldName": "microsoft_hyperv_network_adapter_name_s",
+                            "QueryForValues": "microsoft_hyperv_network_adapter_CL | distinct microsoft_hyperv_network_adapter_name_s",
+                            "Title": "Network Adapter"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_hyperv_virtual_machine_CL | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Virtual Machine",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

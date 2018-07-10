@@ -1,0 +1,657 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Redis Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Redis Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Redis Environment",
+                        "Name": "Redis Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Redis Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Redis",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Redis is an in-memory data structure store used as a database, cache and message broker."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Redis, it is important to monitor the CPU utilization, query execution time, and connection errors made to the Redis Server in order to manage server traffic."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Server Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server}  | project ['Rejected Connections'] = columnifexists('rejected_connections_rate_d', double(null)), ['Sync Partial Error'] = columnifexists('sync_partial_error_rate_d', double(null)), TimeGenerated, Name=redis_server_name_s  | extend Healthy = case(isnotnull(['Rejected Connections']) or isnotnull(['Sync Partial Error']), (['Rejected Connections'] < 1 or isnull(['Rejected Connections'])) and (['Sync Partial Error'] < 1 or isnull(['Sync Partial Error'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server}  | project ['Rejected Connections'] = columnifexists('rejected_connections_rate_d', double(null)), ['Sync Partial Error'] = columnifexists('sync_partial_error_rate_d', double(null)), TimeGenerated, Name=redis_server_name_s  | extend Healthy = case(isnotnull(['Rejected Connections']) or isnotnull(['Sync Partial Error']), (['Rejected Connections'] < 1 or isnull(['Rejected Connections'])) and (['Sync Partial Error'] < 1 or isnull(['Sync Partial Error'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Server Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "redis_server_CL | project ['Rejected Connections'] = columnifexists('rejected_connections_rate_d', double(null)), ['Sync Partial Error'] = columnifexists('sync_partial_error_rate_d', double(null)), TimeGenerated, Name=redis_server_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Rejected Connections']) or isnotnull(['Sync Partial Error']), (['Rejected Connections'] < 1 or isnull(['Rejected Connections'])) and (['Sync Partial Error'] < 1 or isnull(['Sync Partial Error'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "redis_server_CL | project ['Rejected Connections'] = columnifexists('rejected_connections_rate_d', double(null)), ['Sync Partial Error'] = columnifexists('sync_partial_error_rate_d', double(null)), TimeGenerated, Name=redis_server_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Rejected Connections']) or isnotnull(['Sync Partial Error']), (['Rejected Connections'] < 1 or isnull(['Rejected Connections'])) and (['Sync Partial Error'] < 1 or isnull(['Sync Partial Error'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Server Rejected Connections",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Rejected Connections",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('rejected_connections_rate_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Rejected Connections",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('rejected_connections_rate_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Server",
+                                            "Value": "Rejected Connections"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Server Sync Partial Error",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Sync Partial Error",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('sync_partial_error_rate_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Sync Partial Error",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('sync_partial_error_rate_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Server",
+                                            "Value": "Sync Partial Error"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Server Used CPU System",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Used CPU System",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('used_cpu_system_rate_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Used CPU System",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('used_cpu_system_rate_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Server",
+                                            "Value": "Used CPU System"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Server Used CPU User",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Used CPU User",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('used_cpu_user_rate_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Used CPU User",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('used_cpu_user_rate_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Server",
+                                            "Value": "Used CPU User"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Server Loading Loaded Percent",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Loading Loaded Percent",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('loading_loaded_percent_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Loading Loaded Percent",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('loading_loaded_percent_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Server",
+                                            "Value": "Loading Loaded Percent"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Rejected Connections'])=arg_max(TimeGenerated,columnifexists('rejected_connections_rate_d', '')) by Name=redis_server_name_s",
+                                            "displayName": "Server Network"
+                                        }
+                                        ,{
+                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Sync Partial Error'])=arg_max(TimeGenerated,columnifexists('sync_partial_error_rate_d', '')) by Name=redis_server_name_s",
+                                            "displayName": "Server Details"
+                                        }
+                                        ,{
+                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Used CPU System'], ['Used CPU User'])=arg_max(TimeGenerated,columnifexists('used_cpu_system_rate_d', ''),columnifexists('used_cpu_user_rate_d', '')) by Name=redis_server_name_s",
+                                            "displayName": "Server CPU"
+                                        }
+                                        ,{
+                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Loading Loaded Percent'])=arg_max(TimeGenerated,columnifexists('loading_loaded_percent_d', '')) by Name=redis_server_name_s",
+                                            "displayName": "Server Status"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "redis_cluster_name_s",
+                            "QueryForValues": "redis_server_CL | distinct redis_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "role_s",
+                            "QueryForValues": "redis_server_CL | distinct role_s",
+                            "Title": "Role"
+                          },{
+                            "FieldName": "redis_server_name_s",
+                            "QueryForValues": "redis_server_CL | distinct redis_server_name_s",
+                            "Title": "Server"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "redis_server_CL | project ['Rejected Connections'] = columnifexists('rejected_connections_rate_d', double(null)), ['Sync Partial Error'] = columnifexists('sync_partial_error_rate_d', double(null)), TimeGenerated, Name=redis_server_name_s  | extend Healthy = case(isnotnull(['Rejected Connections']) or isnotnull(['Sync Partial Error']), (['Rejected Connections'] < 1 or isnull(['Rejected Connections'])) and (['Sync Partial Error'] < 1 or isnull(['Sync Partial Error'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Server",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

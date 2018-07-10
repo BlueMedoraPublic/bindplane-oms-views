@@ -1,0 +1,709 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "MySQL Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/MySQL Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "MySQL Environment",
+                        "Name": "MySQL Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "MySQL Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "MySQL",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "MySQL is an open source relational database management system."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In MySQL, it is important to monitor the number of database connections. When the current number of active connections exceeds the maximum allowed connections, the database will begin to refuse further requests. Likewise, it's important to monitor the average duration of queries, as long running queries may affect the responsiveness of an application."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mysql_database_CL | where ${Instance} and ${Database}  | project ['I/O Miscellaneous Latency'] = columnifexists('io_miscellaneous_latency_d', double(null)), ['I/O Read Latency'] = columnifexists('io_read_latency_d', double(null)), ['I/O Write Latency'] = columnifexists('io_write_latency_d', double(null)), TimeGenerated, Name=mysql_database_name_s  | extend Healthy = case(isnotnull(['I/O Miscellaneous Latency']) or isnotnull(['I/O Read Latency']) or isnotnull(['I/O Write Latency']), (['I/O Miscellaneous Latency'] < 200000000000 or isnull(['I/O Miscellaneous Latency'])) and (['I/O Read Latency'] < 200000000000 or isnull(['I/O Read Latency'])) and (['I/O Write Latency'] < 200000000000 or isnull(['I/O Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mysql_database_CL | where ${Instance} and ${Database}  | project ['I/O Miscellaneous Latency'] = columnifexists('io_miscellaneous_latency_d', double(null)), ['I/O Read Latency'] = columnifexists('io_read_latency_d', double(null)), ['I/O Write Latency'] = columnifexists('io_write_latency_d', double(null)), TimeGenerated, Name=mysql_database_name_s  | extend Healthy = case(isnotnull(['I/O Miscellaneous Latency']) or isnotnull(['I/O Read Latency']) or isnotnull(['I/O Write Latency']), (['I/O Miscellaneous Latency'] < 200000000000 or isnull(['I/O Miscellaneous Latency'])) and (['I/O Read Latency'] < 200000000000 or isnull(['I/O Read Latency'])) and (['I/O Write Latency'] < 200000000000 or isnull(['I/O Write Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "mysql_database_CL | project ['I/O Miscellaneous Latency'] = columnifexists('io_miscellaneous_latency_d', double(null)), ['I/O Read Latency'] = columnifexists('io_read_latency_d', double(null)), ['I/O Write Latency'] = columnifexists('io_write_latency_d', double(null)), TimeGenerated, Name=mysql_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['I/O Miscellaneous Latency']) or isnotnull(['I/O Read Latency']) or isnotnull(['I/O Write Latency']), (['I/O Miscellaneous Latency'] < 200000000000 or isnull(['I/O Miscellaneous Latency'])) and (['I/O Read Latency'] < 200000000000 or isnull(['I/O Read Latency'])) and (['I/O Write Latency'] < 200000000000 or isnull(['I/O Write Latency'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "mysql_database_CL | project ['I/O Miscellaneous Latency'] = columnifexists('io_miscellaneous_latency_d', double(null)), ['I/O Read Latency'] = columnifexists('io_read_latency_d', double(null)), ['I/O Write Latency'] = columnifexists('io_write_latency_d', double(null)), TimeGenerated, Name=mysql_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['I/O Miscellaneous Latency']) or isnotnull(['I/O Read Latency']) or isnotnull(['I/O Write Latency']), (['I/O Miscellaneous Latency'] < 200000000000 or isnull(['I/O Miscellaneous Latency'])) and (['I/O Read Latency'] < 200000000000 or isnull(['I/O Read Latency'])) and (['I/O Write Latency'] < 200000000000 or isnull(['I/O Write Latency'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Threads Connected",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Threads Connected",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mysql_instance_CL | where ${Version} and ${Replication Master} and ${Instance} | summarize avg(coalesce(columnifexists('threads_connected_d',0.0), 0.0)) by mysql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Threads Connected",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mysql_instance_CL  | where ${Version} and ${Replication Master} and ${Instance} | summarize avg(coalesce(columnifexists('threads_connected_d',0.0), 0.0)) by mysql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Threads Connected"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Query Average Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mysql_query_CL | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by mysql_query_name_g",
+                                        "Callout": {
+                                            "Title": "Average Average Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Picoseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mysql_query_CL  | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by mysql_query_name_g | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Query",
+                                            "Value": "Average Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Average Read/Write Wait Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Read/Write Wait Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mysql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('average_read_write_wait_time_d',0.0), 0.0)) by mysql_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Read/Write Wait Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Picoseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mysql_database_CL  | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('average_read_write_wait_time_d',0.0), 0.0)) by mysql_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Average Read/Write Wait Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Row Lock Time Average",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Row Lock Time Average",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mysql_instance_CL | where ${Version} and ${Replication Master} and ${Instance} | summarize avg(coalesce(columnifexists('row_lock_time_average_d',0.0), 0.0)) by mysql_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Row Lock Time Average",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mysql_instance_CL  | where ${Version} and ${Replication Master} and ${Instance} | summarize avg(coalesce(columnifexists('row_lock_time_average_d',0.0), 0.0)) by mysql_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Row Lock Time Average"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Unused Indexes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Unused Indexes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "mysql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('unused_indexes_d',0.0), 0.0)) by mysql_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Unused Indexes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Indexes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "mysql_database_CL  | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('unused_indexes_d',0.0), 0.0)) by mysql_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Unused Indexes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "mysql_database_CL | summarize([\"Last Update Time\"], ['Average Read/Write Wait Time'], ['Average Read Wait Time'], ['Average Write Wait Time'], ['Average Fetch Wait Time'], ['Average Insert Wait Time'], ['Average Delete Wait Time'], ['Average Update Wait Time'])=arg_max(TimeGenerated,columnifexists('average_read_write_wait_time_d', ''),columnifexists('average_read_wait_time_d', ''),columnifexists('average_write_wait_time_d', ''),columnifexists('average_fetch_wait_time_d', ''),columnifexists('average_insert_wait_time_d', ''),columnifexists('average_delete_wait_time_d', ''),columnifexists('average_update_wait_time_d', '')) by Name=mysql_database_name_s",
+                                            "displayName": "Database Wait Time"
+                                        }
+                                        ,{
+                                            "query": "mysql_database_CL | summarize([\"Last Update Time\"], ['Unused Indexes'])=arg_max(TimeGenerated,columnifexists('unused_indexes_d', '')) by Name=mysql_database_name_s",
+                                            "displayName": "Database Index"
+                                        }
+                                        ,{
+                                            "query": "mysql_database_CL | summarize([\"Last Update Time\"], ['Connect Threads'])=arg_max(TimeGenerated,columnifexists('connect_threads_d', '')) by Name=mysql_database_name_s",
+                                            "displayName": "Database Threads"
+                                        }
+                                        ,{
+                                            "query": "mysql_database_CL | summarize([\"Last Update Time\"], ['I/O Read Latency'], ['I/O Write Latency'], ['I/O Miscellaneous Latency'])=arg_max(TimeGenerated,columnifexists('io_read_latency_d', ''),columnifexists('io_write_latency_d', ''),columnifexists('io_miscellaneous_latency_d', '')) by Name=mysql_database_name_s",
+                                            "displayName": "Database I/O"
+                                        }
+                                        ,{
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Threads Connected'], ['Aborted Connections'])=arg_max(TimeGenerated,columnifexists('threads_connected_d', ''),columnifexists('aborted_connections_rate_d', '')) by Name=mysql_instance_name_s",
+                                            "displayName": "Instance Connection"
+                                        }
+                                        ,{
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Row Lock Time Average'], ['Lock Timeouts'])=arg_max(TimeGenerated,columnifexists('row_lock_time_average_d', ''),columnifexists('lock_timeouts_rate_d', '')) by Name=mysql_instance_name_s",
+                                            "displayName": "Instance Locking"
+                                        }
+                                        ,{
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Buffer Pool Pages Total'], ['Buffer Pool Read Requests'], ['Buffer Flush Percent For Dirty'], ['Buffer Flush Percent For LSN'])=arg_max(TimeGenerated,columnifexists('buffer_pool_pages_total_d', ''),columnifexists('buffer_pool_read_requests_rate_d', ''),columnifexists('buffer_flush_percent_for_dirty_d', ''),columnifexists('buffer_flush_percent_for_lsn_d', '')) by Name=mysql_instance_name_s",
+                                            "displayName": "Instance Buffer"
+                                        }
+                                        ,{
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Purge DML Delay Time'])=arg_max(TimeGenerated,columnifexists('purge_dml_delay_time_d', '')) by Name=mysql_instance_name_s",
+                                            "displayName": "Instance Purge"
+                                        }
+                                        ,{
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Log I/O Operations'])=arg_max(TimeGenerated,columnifexists('log_io_operations_rate_d', '')) by Name=mysql_instance_name_s",
+                                            "displayName": "Instance Recovery"
+                                        }
+                                        ,{
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Hostname'], ['Instance Name'], ['Maximum Connections'], ['Memory Pool Size'], ['Page Size'], ['Server ID'], ['Version'])=arg_max(TimeGenerated,columnifexists('hostname_s', ''),columnifexists('instance_name_s', ''),columnifexists('maximum_connections_d', ''),columnifexists('memory_pool_size_d', ''),columnifexists('page_size_d', ''),columnifexists('server_id_d', ''),columnifexists('version_s', '')) by Name=mysql_instance_name_s",
+                                            "displayName": "Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Average Lock Latency'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('average_lock_latency_d', '')) by Name=mysql_query_name_g",
+                                            "displayName": "Query Wait Time"
+                                        }
+                                        ,{
+                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['Average Temporary Tables Created In-Memory'], ['Average Temporary Tables Created On-Disk'], ['Average Errors'], ['Average Warnings'], ['Warning Count'])=arg_max(TimeGenerated,columnifexists('average_temporary_tables_created_in_memory_d', ''),columnifexists('average_temporary_tables_created_on_disk_d', ''),columnifexists('average_errors_d', ''),columnifexists('average_warnings_d', ''),columnifexists('warning_count_rate_d', '')) by Name=mysql_query_name_g",
+                                            "displayName": "Query Activity"
+                                        }
+                                        ,{
+                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['SQL Text'])=arg_max(TimeGenerated,columnifexists('sql_text_s', '')) by Name=mysql_query_name_g",
+                                            "displayName": "Query Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "mysql_instance_name_s",
+                            "QueryForValues": "union mysql_database_CL, mysql_instance_CL, mysql_query_CL | distinct mysql_instance_name_s",
+                            "Title": "Instance"
+                          },{
+                            "FieldName": "mysql_database_name_s",
+                            "QueryForValues": "union mysql_database_CL, mysql_query_CL | distinct mysql_database_name_s",
+                            "Title": "Database"
+                          },{
+                            "FieldName": "mysql_table_name_s",
+                            "QueryForValues": "mysql_index_CL | distinct mysql_table_name_s",
+                            "Title": "Table"
+                          },{
+                            "FieldName": "mysql_index_name_s",
+                            "QueryForValues": "mysql_index_CL | distinct mysql_index_name_s",
+                            "Title": "Index"
+                          },{
+                            "FieldName": "version_s",
+                            "QueryForValues": "mysql_instance_CL | distinct version_s",
+                            "Title": "Version"
+                          },{
+                            "FieldName": "mysql_replication_master_name_s",
+                            "QueryForValues": "mysql_instance_CL | distinct mysql_replication_master_name_s",
+                            "Title": "Replication Master"
+                          },{
+                            "FieldName": "mysql_query_name_g",
+                            "QueryForValues": "mysql_query_CL | distinct mysql_query_name_g",
+                            "Title": "Query"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "mysql_database_CL | project ['I/O Miscellaneous Latency'] = columnifexists('io_miscellaneous_latency_d', double(null)), ['I/O Read Latency'] = columnifexists('io_read_latency_d', double(null)), ['I/O Write Latency'] = columnifexists('io_write_latency_d', double(null)), TimeGenerated, Name=mysql_database_name_s  | extend Healthy = case(isnotnull(['I/O Miscellaneous Latency']) or isnotnull(['I/O Read Latency']) or isnotnull(['I/O Write Latency']), (['I/O Miscellaneous Latency'] < 200000000000 or isnull(['I/O Miscellaneous Latency'])) and (['I/O Read Latency'] < 200000000000 or isnull(['I/O Read Latency'])) and (['I/O Write Latency'] < 200000000000 or isnull(['I/O Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Database",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

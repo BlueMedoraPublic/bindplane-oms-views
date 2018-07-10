@@ -1,0 +1,673 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Kinesis Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Kinesis Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Kinesis Environment",
+                        "Name": "Amazon Kinesis Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Kinesis Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ba141a"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon Kinesis",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information. Amazon Kinesis offers key capabilities to cost-effectively process streaming data at any scale, along with the flexibility to choose the tools that best suit the requirements of your application."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the latency of data and video streaming applications"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firehose Delivery Stream Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream}  | project ['DescribeDeliveryStream Latency'] = columnifexists('describe_delivery_stream_latency_d', double(null)), ['ListDeliveryStreams Latency'] = columnifexists('list_delivery_streams_latency_d', double(null)), ['PutRecord Batch Latency'] = columnifexists('put_record_batch_latency_d', double(null)), ['PutRecord Latency'] = columnifexists('put_record_latency_d', double(null)), ['UpdateDeliveryStream Latency'] = columnifexists('update_delivery_stream_latency_d', double(null)), TimeGenerated, Name=amazon_kinesis_firehose_delivery_stream_name_s  | extend Healthy = case(isnotnull(['DescribeDeliveryStream Latency']) or isnotnull(['ListDeliveryStreams Latency']) or isnotnull(['PutRecord Batch Latency']) or isnotnull(['PutRecord Latency']) or isnotnull(['UpdateDeliveryStream Latency']), (['DescribeDeliveryStream Latency'] < 0.1 or isnull(['DescribeDeliveryStream Latency'])) and (['ListDeliveryStreams Latency'] < 0.1 or isnull(['ListDeliveryStreams Latency'])) and (['PutRecord Batch Latency'] < 0.1 or isnull(['PutRecord Batch Latency'])) and (['PutRecord Latency'] < 0.1 or isnull(['PutRecord Latency'])) and (['UpdateDeliveryStream Latency'] < 0.1 or isnull(['UpdateDeliveryStream Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream}  | project ['DescribeDeliveryStream Latency'] = columnifexists('describe_delivery_stream_latency_d', double(null)), ['ListDeliveryStreams Latency'] = columnifexists('list_delivery_streams_latency_d', double(null)), ['PutRecord Batch Latency'] = columnifexists('put_record_batch_latency_d', double(null)), ['PutRecord Latency'] = columnifexists('put_record_latency_d', double(null)), ['UpdateDeliveryStream Latency'] = columnifexists('update_delivery_stream_latency_d', double(null)), TimeGenerated, Name=amazon_kinesis_firehose_delivery_stream_name_s  | extend Healthy = case(isnotnull(['DescribeDeliveryStream Latency']) or isnotnull(['ListDeliveryStreams Latency']) or isnotnull(['PutRecord Batch Latency']) or isnotnull(['PutRecord Latency']) or isnotnull(['UpdateDeliveryStream Latency']), (['DescribeDeliveryStream Latency'] < 0.1 or isnull(['DescribeDeliveryStream Latency'])) and (['ListDeliveryStreams Latency'] < 0.1 or isnull(['ListDeliveryStreams Latency'])) and (['PutRecord Batch Latency'] < 0.1 or isnull(['PutRecord Batch Latency'])) and (['PutRecord Latency'] < 0.1 or isnull(['PutRecord Latency'])) and (['UpdateDeliveryStream Latency'] < 0.1 or isnull(['UpdateDeliveryStream Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firehose Delivery Stream Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_kinesis_firehose_delivery_stream_CL | project ['DescribeDeliveryStream Latency'] = columnifexists('describe_delivery_stream_latency_d', double(null)), ['ListDeliveryStreams Latency'] = columnifexists('list_delivery_streams_latency_d', double(null)), ['PutRecord Batch Latency'] = columnifexists('put_record_batch_latency_d', double(null)), ['PutRecord Latency'] = columnifexists('put_record_latency_d', double(null)), ['UpdateDeliveryStream Latency'] = columnifexists('update_delivery_stream_latency_d', double(null)), TimeGenerated, Name=amazon_kinesis_firehose_delivery_stream_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['DescribeDeliveryStream Latency']) or isnotnull(['ListDeliveryStreams Latency']) or isnotnull(['PutRecord Batch Latency']) or isnotnull(['PutRecord Latency']) or isnotnull(['UpdateDeliveryStream Latency']), (['DescribeDeliveryStream Latency'] < 0.1 or isnull(['DescribeDeliveryStream Latency'])) and (['ListDeliveryStreams Latency'] < 0.1 or isnull(['ListDeliveryStreams Latency'])) and (['PutRecord Batch Latency'] < 0.1 or isnull(['PutRecord Batch Latency'])) and (['PutRecord Latency'] < 0.1 or isnull(['PutRecord Latency'])) and (['UpdateDeliveryStream Latency'] < 0.1 or isnull(['UpdateDeliveryStream Latency'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_kinesis_firehose_delivery_stream_CL | project ['DescribeDeliveryStream Latency'] = columnifexists('describe_delivery_stream_latency_d', double(null)), ['ListDeliveryStreams Latency'] = columnifexists('list_delivery_streams_latency_d', double(null)), ['PutRecord Batch Latency'] = columnifexists('put_record_batch_latency_d', double(null)), ['PutRecord Latency'] = columnifexists('put_record_latency_d', double(null)), ['UpdateDeliveryStream Latency'] = columnifexists('update_delivery_stream_latency_d', double(null)), TimeGenerated, Name=amazon_kinesis_firehose_delivery_stream_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['DescribeDeliveryStream Latency']) or isnotnull(['ListDeliveryStreams Latency']) or isnotnull(['PutRecord Batch Latency']) or isnotnull(['PutRecord Latency']) or isnotnull(['UpdateDeliveryStream Latency']), (['DescribeDeliveryStream Latency'] < 0.1 or isnull(['DescribeDeliveryStream Latency'])) and (['ListDeliveryStreams Latency'] < 0.1 or isnull(['ListDeliveryStreams Latency'])) and (['PutRecord Batch Latency'] < 0.1 or isnull(['PutRecord Batch Latency'])) and (['PutRecord Latency'] < 0.1 or isnull(['PutRecord Latency'])) and (['UpdateDeliveryStream Latency'] < 0.1 or isnull(['UpdateDeliveryStream Latency'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firehose Delivery Stream Kinesis Time Behind Latest",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Kinesis Time Behind Latest",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('kinesis_time_behind_latest_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s",
+                                        "Callout": {
+                                            "Title": "Average Kinesis Time Behind Latest",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL  | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('kinesis_time_behind_latest_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firehose Delivery Stream",
+                                            "Value": "Kinesis Time Behind Latest"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firehose Delivery Stream DescribeDeliveryStream Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "DescribeDeliveryStream Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('describe_delivery_stream_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s",
+                                        "Callout": {
+                                            "Title": "Average DescribeDeliveryStream Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL  | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('describe_delivery_stream_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firehose Delivery Stream",
+                                            "Value": "DescribeDeliveryStream Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.09",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firehose Delivery Stream ListDeliveryStreams Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "ListDeliveryStreams Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('list_delivery_streams_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s",
+                                        "Callout": {
+                                            "Title": "Average ListDeliveryStreams Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL  | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('list_delivery_streams_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firehose Delivery Stream",
+                                            "Value": "ListDeliveryStreams Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.09",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firehose Delivery Stream PutRecord Batch Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "PutRecord Batch Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('put_record_batch_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s",
+                                        "Callout": {
+                                            "Title": "Average PutRecord Batch Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL  | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('put_record_batch_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firehose Delivery Stream",
+                                            "Value": "PutRecord Batch Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.09",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firehose Delivery Stream PutRecord Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "PutRecord Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('put_record_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s",
+                                        "Callout": {
+                                            "Title": "Average PutRecord Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_kinesis_firehose_delivery_stream_CL  | where ${Region} and ${Firehose Delivery Stream} | summarize avg(coalesce(columnifexists('put_record_latency_d',0.0), 0.0)) by amazon_kinesis_firehose_delivery_stream_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firehose Delivery Stream",
+                                            "Value": "PutRecord Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "0.1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.09",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_kinesis_firehose_delivery_stream_CL | summarize([\"Last Update Time\"], ['Kinesis Time Behind Latest'], ['DescribeDeliveryStream Latency'], ['ListDeliveryStreams Latency'], ['PutRecord Batch Latency'], ['UpdateDeliveryStream Latency'])=arg_max(TimeGenerated,columnifexists('kinesis_time_behind_latest_d', ''),columnifexists('describe_delivery_stream_latency_d', ''),columnifexists('list_delivery_streams_latency_d', ''),columnifexists('put_record_batch_latency_d', ''),columnifexists('update_delivery_stream_latency_d', '')) by Name=amazon_kinesis_firehose_delivery_stream_name_s",
+                                            "displayName": "Firehose Delivery Stream Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_kinesis_firehose_delivery_stream_CL | summarize([\"Last Update Time\"], ['PutRecord Latency'])=arg_max(TimeGenerated,columnifexists('put_record_latency_d', '')) by Name=amazon_kinesis_firehose_delivery_stream_name_s",
+                                            "displayName": "Firehose Delivery Stream Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_kinesis_firehose_delivery_stream_CL | summarize([\"Last Update Time\"], ['ARN'], ['Source Stream ARN'], ['Source Stream Role'], ['Status'], ['Stream Type'], ['Version ID'])=arg_max(TimeGenerated,columnifexists('arn_s', ''),columnifexists('source_stream_arn_s', ''),columnifexists('source_stream_role_s', ''),columnifexists('status_s', ''),columnifexists('stream_type_s', ''),columnifexists('version_id_s', '')) by Name=amazon_kinesis_firehose_delivery_stream_name_s",
+                                            "displayName": "Firehose Delivery Stream Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_kinesis_stream_CL | summarize([\"Last Update Time\"], ['GetRecords Latency'], ['GetRecords Successes'], ['PutRecord Successes'], ['PutRecords Latency'], ['PutRecords Successes'], ['Read Provisioned Throughput Exceeded'], ['Write Provisioned Throughput Exceeded'])=arg_max(TimeGenerated,columnifexists('get_records_latency_d', ''),columnifexists('get_records_successes_d', ''),columnifexists('put_record_successes_d', ''),columnifexists('put_records_latency_d', ''),columnifexists('put_records_successes_d', ''),columnifexists('read_provisioned_throughput_exceeded_d', ''),columnifexists('write_provisioned_throughput_exceeded_d', '')) by Name=amazon_kinesis_stream_name_s",
+                                            "displayName": "Stream Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_kinesis_stream_CL | summarize([\"Last Update Time\"], ['ARN'], ['Encryption Type'], ['KMS Key ID'], ['Retention Period'])=arg_max(TimeGenerated,columnifexists('arn_s', ''),columnifexists('encryption_type_s', ''),columnifexists('kms_key_id_s', ''),columnifexists('retention_period_d', '')) by Name=amazon_kinesis_stream_name_s",
+                                            "displayName": "Stream Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_kinesis_video_stream_CL | summarize([\"Last Update Time\"], ['GetMedia Successes'], ['PutMedia Connection Errors'], ['PutMedia Error ACK Count'], ['PutMedia Buffering ACK Latency'], ['PutMedia Persisted ACK Latency'], ['PutMedia Received ACK Latency'], ['ListFragments Latency'])=arg_max(TimeGenerated,columnifexists('get_media_successes_d', ''),columnifexists('put_media_connection_errors_d', ''),columnifexists('put_media_error_ack_count_d', ''),columnifexists('put_media_buffering_ack_latency_d', ''),columnifexists('put_media_persisted_ack_latency_d', ''),columnifexists('put_media_received_ack_latency_d', ''),columnifexists('list_fragments_latency_d', '')) by Name=amazon_kinesis_video_stream_name_s",
+                                            "displayName": "Video Stream Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_kinesis_video_stream_CL | summarize([\"Last Update Time\"], ['ARN'], ['Data Retention Period'], ['Device Name'], ['KMS Key ID'], ['Media Type'], ['Version'])=arg_max(TimeGenerated,columnifexists('arn_s', ''),columnifexists('data_retention_period_d', ''),columnifexists('device_name_s', ''),columnifexists('kms_key_id_s', ''),columnifexists('media_type_s', ''),columnifexists('version_s', '')) by Name=amazon_kinesis_video_stream_name_s",
+                                            "displayName": "Video Stream Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_kinesis_firehose_delivery_stream_CL, amazon_kinesis_stream_CL, amazon_kinesis_video_stream_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_kinesis_firehose_delivery_stream_name_s",
+                            "QueryForValues": "amazon_kinesis_firehose_delivery_stream_CL | distinct amazon_kinesis_firehose_delivery_stream_name_s",
+                            "Title": "Firehose Delivery Stream"
+                          },{
+                            "FieldName": "amazon_kinesis_stream_name_s",
+                            "QueryForValues": "amazon_kinesis_stream_CL | distinct amazon_kinesis_stream_name_s",
+                            "Title": "Stream"
+                          },{
+                            "FieldName": "amazon_kinesis_video_stream_name_s",
+                            "QueryForValues": "amazon_kinesis_video_stream_CL | distinct amazon_kinesis_video_stream_name_s",
+                            "Title": "Video Stream"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_kinesis_firehose_delivery_stream_CL | project ['DescribeDeliveryStream Latency'] = columnifexists('describe_delivery_stream_latency_d', double(null)), ['ListDeliveryStreams Latency'] = columnifexists('list_delivery_streams_latency_d', double(null)), ['PutRecord Batch Latency'] = columnifexists('put_record_batch_latency_d', double(null)), ['PutRecord Latency'] = columnifexists('put_record_latency_d', double(null)), ['UpdateDeliveryStream Latency'] = columnifexists('update_delivery_stream_latency_d', double(null)), TimeGenerated, Name=amazon_kinesis_firehose_delivery_stream_name_s  | extend Healthy = case(isnotnull(['DescribeDeliveryStream Latency']) or isnotnull(['ListDeliveryStreams Latency']) or isnotnull(['PutRecord Batch Latency']) or isnotnull(['PutRecord Latency']) or isnotnull(['UpdateDeliveryStream Latency']), (['DescribeDeliveryStream Latency'] < 0.1 or isnull(['DescribeDeliveryStream Latency'])) and (['ListDeliveryStreams Latency'] < 0.1 or isnull(['ListDeliveryStreams Latency'])) and (['PutRecord Batch Latency'] < 0.1 or isnull(['PutRecord Batch Latency'])) and (['PutRecord Latency'] < 0.1 or isnull(['PutRecord Latency'])) and (['UpdateDeliveryStream Latency'] < 0.1 or isnull(['UpdateDeliveryStream Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Firehose Delivery Stream",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

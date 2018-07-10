@@ -1,0 +1,548 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Elastic Block Storage Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Elastic Block Storage Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Elastic Block Storage Environment",
+                        "Name": "Amazon Elastic Block Storage Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Elastic Block Storage Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ba141a"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAIU5JREFUeNrt3XtcVHX+P/D3OXMfGO4YAiZKeUm81S830zJNa00rcdnU0khba63dNqJcRW2/eeviT2W1csnVEqO8hVIiSgFewAsXUUQFEZThJgzDwAxzP+d8fn+Atb++tmXNzJk55/18PPwnHs3nM59zPq855/P5nM8BQAghhBBCCCGEEEIIIYQQQgghhBBCCCGEkO+i+K4A8qzg4GBwOp1UXFycQqlUSgGA3Pwby7KkpaXFplaruYqKCr6rijwAA0CAQkJCgGVZqm/fvso5c+YExcXFRYaFhd0RFBTUz9/fP5xlWYlGoxkgk8kC4YcAoAghjq6urloAMFsslg6DwVCv1+vb6uvr23Jycjpyc3PN4eHhRKfT8f0VkYtgAAjEH//4Rzhz5oxswYIF4b/73e8GxcTEjAkKChquVqsHKhSKaKlUGkjTtIqiKFnv//JTx54AABBCnBzH2RiG6WIYpt1sNtd0dHSUt7S0nD937tzl9evXN//lL39xLF26lO+vjn4DDAAfJpfLweFwUElJSaHTp0+/PzY2dkpwcPADKpVqoFQqDaMoSuLK8gghLMuyRqvVWtvR0XGyoaHhaGFhYfHSpUubFQoFsdvtfDcJQqJB/eMf/+hbUlKyQK/XH3Y4HDpCCEc8h2MYpstgMBRUVFS8/umnn94TGhoqnTx5Mt/tgpBwEUJg+fLl4SUlJfM7Ojq+YxjG5MFOf+sk4DhHd3d3RWVl5Ztr166NAgAqKiqK76ZCSDgyMjLg2Wef9cvLy3vixo0b+7yh4/8Yy7IWvV6fW1BQEP+3v/0tiBDy2784QmL2+OOPAwBIPv/885HXr1/f5HA4bvDd0X+O0+lsb2pq2pGZmTnu6aefVq5YsYLvZkTIt8TExAAAUOvWrbvz4sWLi00m03lCCMt3574NrM1mu15TU7N269atQ/v37y+ZNm0a382KkPcjhMArr7wSfObMmXkdHR15HMfZ+O7Nv1bv+EB5eXn5q6tXr44ghABF4eQTQv/Lq6++CuPGjVPm5uZOaWlp+YJhGAPfHdhVWJbt1ul0X+fn5z/5yiuvaHJycvhuboS8w6hRowAAJGlpaUPq6urW2Wy2Br47rLs4HI42rVb7r8zMzAcmTZok/+tf/8p38yPEj7CwMAAAKiUlpe+FCxdeNxqNZRzHOfnupB7AWq3Wq5cvX16xadOmAQBAhYeH8304EPIcQggkJCRoioqKntHr9UdYljXz3Ss9jeM4u8FgOFZSUvJCcnJyGMFpQyR0r7/+OowYMUK+a9euMY2Njdt6V/CJGsMwxhs3buz57rvvpj7xxBPq1NRUvg8TQq41bNgwAAA6NTX1rpqampUWi6WG+Na0ntvZ7fbma9eupX722WfDAUAyZswYvg8bQq7x1ltv9Tl79uzLRqOxmOM4O9+dzYsxJpPp3MWLF99as2ZNNABQcrmc78OH0O07dOgQzJ071y8/P//J9vb2bIZhjHz3Ll/BsqxVr9d/d/r06edefPFFXFaMfEdiYiKMHz9elpGRcW99ff2HvrB811s5nc6OlpaWjCNHjjx6//33K95++22+Dy9CtzZhwgSAnvv8AZcuXVpqsViqOY5j+O5EQmCz2epra2vf//jjjwdLpVIJPnaMvAohBJYsWRJy+vTp57u6uk6yLOuzy3e9FcdxDqPRWFpRUfHa0qVLIwCAio2N5fvQIzHbsGEDPPvss6qcnJxHe5fvdvLdUYSOZdluvV5/+MSJEwmzZ8/WEHy+APHh7rvvlmZkZIysra1dZ7fbG4lnd+QRPYfD0dbY2Lj1yy+/vH/MmDE4VYA8hkpNTe1fUVGRZDabK/E+n1esxWKpqa6u/p/U1NRYAKD5PjmQgC1YsCCgsLBwlsFgKGBZ1sr32Y96cBxnNxqNZ0pLS/+0dOnSML7PEyQww4cPl2dnZ09obGzc7nQ69Xyf8OjWGIYxtra27svJyZny/PPP+/F93iDfR6enpw+rqalZY7PZrhG8z/cFnMPhaLl+/fqmL774YvSYMWNkv/00QKKzePHiPuXl5YtMJlMZ3uf7Ho7jGIvFUlVZWfn33seOcXwA/bynnnrK79ixYzPa2tqyvHH3XXR7WJa1dXV1FZ46dWpucnJyMN/nF/JSffr0ke3fv39sQ0PDJw6Ho5XvExe5FsMwnc3NzTtzcnImxcfHK/k+37wBrp7oQaWlpd09ceLE56Kjo+eoVKq7ANtGqIjD4WhqaGj4sri4OOO1116rbG9vZ/muFOLJK6+8ElJSUjK/q6vrFMdxDr5/pZBncBzHdHd3V5w/f/5vK1eu7Mv3eYg87NFHH1Xl5ub+vq2tLdPpdOLyXZFiWdas0+myCwsLE+bNm6fh+7xEbqZWq6UZGRn3arXaj3uX7yJEnE5ne2Nj47aDBw8+HBsbK5plxWK6z6VWrVoVNWPGjFkDBw5coFarhwBOC6H/H7HZbNcbGho+z87O3pGUlHQNADi+K4V+o4ULFwYXFhbONhgMR1mWtfD9a4O8G8dx9s7OzpNnz559+bXXXsNlxb5q4sSJqq+//vqRGzdu7Mblu+h2MQxjbGtryyooKHhq8uTJglxWLMhbgMjISMnq1auHTJo06U8RERF/UCgU0UL9rsj9HA7Hjba2tq/PnDmzff78+WUmk4nhu06uIrROQb377ruRjz/++NODBg1aqFar4yiKkvJdKSQIxGq1Xqmvr9+RlZWVsWTJkkYQwPiAYALgtddeC4yPj580YsSIRUFBQeNomlbzXSckPBzH2UwmU2l1dfW/09PTv/noo486+K6TqI0dO1aWmZn5YHNz8w6n09nO930jEgen02loa2v76vDhw1OmT5+u4rsf/Fq+fAVAb9u27a4HH3xwVkxMTKJSqcSnvZDH2e32xubm5l0FBQWfffDBB9XV1dU+NT7gkwGwdu3aiClTpkwfPHjwQn9//9EUReHz3og3hBDGYrFcrq2t3Z6dnb0vJSWlCQB84k0mPhUAixYt0iQkJEwYMWLESyEhIZNomhbk1AzyTRzHWYxGY3FlZeWWPXv2HNm8eXMX33X6Ob4SANI9e/aMeuCBB/4UERExUyaT4cvkkddiGKajtbX1QGlp6fZPPvmk9NChQ3a+6/RTvD0AqHfeeScyISHh2ZiYmPlqtXow4H0+8g2c3W7X1tfX78zPz9+5aNGiq+CFtwUSvivwU/r37y/bt2/flBkzZrwfHR2dKJfL+4L3BxZCN1FSqTQoJCTkwUGDBt0/bdo0o9FovHb58mWvGiT0ygBITk4Oee+99xaOHj16lUajuQ8H+ZCvoihKolQq7+zbt++E++67TxUZGVmVl5fXzXe9vq8f3xX4sWXLlvV56aWXlkdFRc2XSCT+fNfH1YjdBt3H88BecRZA0pu/Yn31NU0DYVmQ3zUYAh5/EiiFsqctBPqaL0KIvampKT09PX31smXLtHzXB8DLAmDDhg0xf/jDHxZHR0fPp2lacHu2cVYrGA9+BcYDu4HYrHxXx3vQUgiYkQBBf5wHlFwh9BBwdHR0fJuXl7di1qxZ5XzXx2ta+V//+tfAhISE1JCQkN8L6pK/92TmzN1gPLAHjF/v7vlPtASA47zoCPDZRASAlkDAkzMhMGEe0AphhwAAkM7OzqNHjhxJnj17Nq8h4BVjACkpKX1mz569LCIiYpYQOz/b1Qmdu3eAKfsAUDd7PMMAEK4nBMT+DwCA48B+tQqAZUExeChQUllvQAoyBCilUhkTGRk5IDIysujw4cOdfFWE9wBYtmxZ6Msvv/x2dHT0izRNC2MrJkKAcBxQNA2MrhU6v9gO3Xk5P7zCmsVNaP8XigJgObDXXAZgWFAMGgqUTC70EOgfHR0dEBYWVpqfn8/LwCCvATBq1Cjl22+//efY2NgkwTy9RwgAxwIlkQJzowkM6VvBUpgPFEX3/s3nnyB1H4r64UqAYUAx+B5BhwBFURKNRjMsKiqKnD9//nR9fb3T03XgMwCovXv3xo8cOfIdqVQawmM9XIcQICwLlFQKjvprYPhsC1hLT/1w8op1tP929IaA42o1EMYJyiHDgJIJ93aAoihpQEDAPffee68uLS3tHHh4sRBvAfDll1+Oevjhh9epVKpBfNXBpW7+8kulYK+pgs7PtoCtond8h6Kw89+O/wwB53+EABFmCNA0rQoICBg4evTo0r179zZ6smxeAiAxMTFo/vz5K8LCwn4PQhgHv3nPL5GCvaoSDNs/BHv1pZ6/Yef/dW6GQO0V4JyOnhCQSAFAmLMDMpksLDw8PDwoKOh4fn6+yVPl8hEA9L///e85d999dxJN0z67kcL3ejs3RdNgqzgLHVs3g+N6Ld+1EgaKAmBZcNZeAc7hAOXQuJ7p05t/ExZKpVLFhISE6LZs2VIMHroV8HgApKenD3vooYfeUyqVMZ4u2y0oCoCiwFJ6GvTbPgKmySsWeAnH91cCNUCcDlAOHQ4UTQsxAICiKKm/v3/0yJEjT+7bt6/FE2V6NADGjRunTkpKSg4PD3+KoijBPNVnKT4JHds+BKa15YepPuQ6348JXAFCOFAMiRNsCMhkslCNRgP19fXHqqqqHO4uz6MB8Mknn4wfMWLECqlUGujJct2G48BadBQMn20BTq8DSioFiuOAAsB/rv5HUQBAgKmrAVomB8XdQ34IAGEFAaVWq/tFREScTU9Pv+ruwjy2Zfa4ceP84uLinpXL5VGeKtOtCAF9YQG0frIJOFMnACUBYvfafR+EgaIB7A4wfrkDggmBvvGzBTk9KJPJ7hg6dOhz8fHxJ/fv3290Z1kea7mcnJyJEydO3KlQKAQRABzDQP6KN6E27whIlApgbTa+qyQKFC0BwnEQPiwOpm3aBgpNwPerLoXE6XS2Hj9+/IXJkycfdmc5HrkCGDp0qCouLm62UDr/TRZCoNPpACkQYJ0eX8QlUk4gAKBmWSFMIP8kmUx2xz333PPczJkzT2ZmZrrtKsAjAbBs2bLBoaGhEz1RlidJKQrkNA1SiRQYlsUBQE+gaCAcC1KB/eLfSmho6KMLFiwYnZmZecxdZXgiACRjxox5SqlUDvRAWR7FsixwhADDOIEjBBf8eAQHQAiwDqfgm1sul98xdOjQqQBQBABu2UrM7QGQkpISHh4e/ihFUbw/eehqMpUKJBIJyP38gWO8aqs3QWM5DqR+fuCFe2y6Gh0WFvbI2rVr+6akpDS4owC3B8CECROG+/n53ePucjyNomkY9cxcGDB+IkjkMiAsPuXnEb1Lq1WBQSBX+/X+J+HeeqnV6sFjx44dDQA+GQCSgQMHTpDJZKFuLsfjKJqGiGEjIGLYCL6rggQcAFKpNCgmJmYCAOQAgMtHmt06kvLWW2+FhoWFjQNBj9ci5F4hISFjV69e3ccdn+3WAHjggQf6q1SqWHeWgZDQKZXKAaNGjXLLILpbAyAmJmYYvsYLod9GJpOF9OvXL84dn+3OAJAEBQUNFuL23gh5EkVR8sDAwCEA4PINc902CDhs2DCFRqMR3Nz/TUxrS8+8v9Ano70aAZBIQRIU3PM+AQHz9/cfMG3aNFV2drZLBwLdFgDz5s0LUiqVd7q/afih37IBOIcDgMMdfvlCGAakYeEQNCsR5APu4rs6bqVUKqOnTp0akp2d7dJlwW4LgMDAQIVEItG4v2n4Yb9yETib2x/XRj+D7dADZ/aaV+25jUQi8Q8ICHD5ZY7bAoD0XBoL9vqYVvoBAAXAsEAILgLyuN7twmil8od3LAoc54Yt5d0WAL1v+PHYfgOeRlgGgGWBcCyOA/Dh+5esMKJof4qiFGp179JHF3LbLMCgQYOi5HJ5mHubhUcCXn2GvI9UKg3u169ftKs/120BIJPJFIJ6zx9CPKIoinbHA3XCf6gaIfSTMAAQEjEMAIREDAMAIRHDAEBIxDAAEBIxDACERAwDACERwwBASMQwABASMQwAhEQMAwAhEcMAQEjEMAAQEjEMAIREDAMAIRHDAEBIxDAAEBIxDACERAwDACERwwBASMQwABASMQwAhEQMAwAhEcMAQEjEMAAQEjEMAIREDAMAIRHDAEBIxDAAEBIxDACERAwDACERwwBASMQwABASMQwAhEQMAwAhEcMAQEjEMAAQEjEMAIREDAMAIRHDAEBIxDAAEBIxDACERAwDACERwwBASMQwABASMQwAhEQMAwAhEcMAQEjEMAAQEjEMAIREDAMAIRHDAEBIxDAAEBIxDACERAwDACERwwBASMQwABASMQwAhEQMAwAhEcMAQEjEMAAQEjEMAIREDAMAIRHDAEBIxDAAEBIxDACERAwDACERwwBASMQwABASMQwAhEQMAwAhEcMAQEjEMAAQEjEMAIREDAMAIRFzWwAQQlgA4Pj+gggJASGE6+1TLuW2ALh27Vqzw+Fod2+zICQOTqezQ6vVNrr6c90WAGaz2UIIsbu3WRASDYfVajW7+kPdFgA0TQMAUO5sEYTEhKJc353cFgCdnZ12lmWNbm0RhESCYZhuo9Foc/Xnui0A0tPTO61Wq9a9zYKQONjt9qbDhw8bXP25bguAy5cv27q7u+vc2ywIiYPNZms5cuSIy8fU3LkOgDMYDNUcx7n8sgUhMSGEONrb28sZhvGpAIDW1tarDMN0urMMhISOZVmTTqe74o7PdmsAFBYW1losFrdUHCGxsFgsV0tKSnwvAN599912o9FY7s4yEBI6k8l0PiUlpc0dn+3uZwEYrVZ7AqcDEfp1WJY1NzU1nQAAtyyqc/vDQIWFhcXd3d0X3F0OQkJks9munTt3rthdn+/2AFi6dGmTTqfLB3wwCKHbptPpvnv55Zevu+vzPfE4MHflypVv7XZ7kwfKQkgwHA7HjatXrx4CAIe7yvDIfgDLly8v0+l0hz1RFkJCYTAYCj/88MMz7izDIwFQXl5uqaurO8gwTIcnykPI17Esa6qvr8/Kyspy6wC6x3YE2rVrV5HBYDjmqfIQ8mWdnZ1F+/fv/9bd5XgsALZs2aI/e/bsv3AsAKH/zul06q9cufLZe++91+rusjy6J+A777xT2NbWlgU4I4DQT9LpdIfWrFmT44myPBoAp06dshw/fnyr2Wy+7MlyEfIVNpvt2vnz57dlZ2d7ZPGcx3cFnjt37oXa2tpPWJZ1+fZGCPkyQoizsbEx44knnjjlqTL52Bac/fzzz79sb28/yEPZCHmtzs7OE9988812cOO8/4/x8l6AdevW6U6ePLnRbDbjEmGEoOfSv6ys7IM33njjmifL5e3FIDNnziyprKxc53Q6dXzVASFvwLKsqaam5p9TpkzJ93TZUh6/N5ecnPzVjh07hg4YMOB1mqZVPNbltkkoGghNAyEcAOG7NiJEUQAEgKYooHx482lCiLO5uXnntm3b0gHA6eny+QwAKCoqsnz00Ucb33jjjT7R0dEvAICEz/rcjlaLBVirBQjLABBMAI+jKABCQK62gT/HgoLv+vw6pKOj49uvvvpq3T//+U+Xb/j5S/AaAAAAGzdu1I0cOXLd9OnTI0JDQ6eCj7yv8GyHHpxmM7AMBgAvegNAI5FDuJMBDd/1uX3EYDDkHTlyJCUpKek6X5XgPQAAAF544YXqTz/9dPGTTz4JvhICZicDToYBBgOAHxQFFCFAO53AEp9bV0YMBkPeoUOH3pw7d+55PiviFQEAADB//vxLvhQCUrpnDICmaSAYAB5HURQQjgOpRAIU5dWnyo95TecH8KIAAOgJgR07drw5efLkjoiIiARvHhikaAlQUilQAEBhAHgeRQHndAIl8apT+L8ihNj1ev2Rb7/9dsXcuXMr+K4PgJcFAABAYmJi1ZIlS5IXLFhwPSYm5iWZTHYH33W6FZqmgXMywHEsEA4DwNMoCoBwHADhgKa9fxaAYRhDU1PTzp07d65bsWKFy9/y+2t5bcs99NBDqvfee+/puLi41zUazf+hKMqrZgjar14BiqZ6Or/XtqLAEQBaKgVNnwiQqdV81+ansCaT6fylS5c2bd26df+2bdu8aoNcbz91qe3btw955JFHXoyKipotl8uj+K4QQr+U0+lsb21tzczLy/vwhRdeuAhe+BSsV/2q3kpWVlb72bNnj/fv3/+cn5+fVKVS3UnTtJLveiH0UziOM+v1+tySkpK309LSti5fvrwBvHS5mNcHAACAVqtldu7cWetwOArCw8OvqtXqIKVSGUlRlNeNYSDxIoQ4u7u7z1ZWVq7du3fv+sTExLLS0lK37OfvKt5+C3BL69ev7z916tRnY2Ji5qtUqljw8ilDJHic3W5vaGpq2pWfn//pwoULa8ALL/dvxSeuAH4sNze3q6ys7Ex4ePhJPz8/p5+fX3+JROLPd72Q+DAMo29tbd1fUFCQsnr16i83bNjQCl56uX8rPhkAAACNjY3cnj17mru7u49rNJpz/v7+KqVS2Y+maTnfdUPCx3GctbOz83hpaenbW7Zs+fjNN9+suXr1KsN3vW6XzwbATWfPnnWkp6fX+Pv7Hw0MDNRqNJpImUwW5m3ThkgYCCGMxWK5WFdXt2nnzp2rnn/++eKSkhIb3/X6tQTTSY4ePWo+cODAufDw8IKAgACjn5/fnVKpNBB8dJwDeR1it9sbm5qadh48eHB5YmLiN1lZWZ18V+q3EkwAAACYzWZy8OBBfV1d3Sl/f/+TgYGBtEqlulMikXjtKhHk/RiGMbS3tx8sLCxcnpKS8tnGjRuburu7fWKQ7+cIKgBuqqmpYffs2dPocDiOqtXqioCAgCClUhlFUZSM77oh30EIcRiNxpPnz59fuXHjxo3JycmX6+rqfO4+/78RZADcVFxcbE9PT6/29/fPDw0NveHv799XJpOF4vgA+hmcxWKpun79+se7d+9eOWvWrMKysjIr35VyB9HcHyuVSklqauqgxx57bEFkZOQfFQrFnWL6/uiXcTgcza2trVlFRUXb5syZcx4ABPWLL3oPPfSQcv/+/Q+1tLRkOJ3OdoIQIYRlWXNbW1vWd999N3X8+PGiGTMS3aWwVqtldu/erTUajfnBwcGXAgICwhQKRV9cVixOhBDGZDKVVFVVrUtPT//gxRdfPKfVaj2+OSdfxH4JTK1duzZ6xowZz915553PqdXqoTg+IBrEarXWNjY2fnHs2LEvFi5ceAV8aAUfcqGQkBDpjh07RtTX12+y2WxaQgjH9yUpch+n09nR1NT02YEDBx6MiorCmSHU49FHH1UdOnRocmtr61cMwxj5PlGRa7Esa9Xr9UdOnDiRkJycHMT3+eYN8HL3P1y7do3JyMioA4D88PBwrVqtDukdH8B28mGEENZsNldUVVV9cODAgfdnz559+tSpUz67fNeVxD4G8N9QmzdvHvjYY489Fx0dPUetVg8GbC9fQ+x2e0NDQ0PG6dOnv5g3b94l8JHHdJGXUKlU0r17996v1Wq32O32Zr4vY9EvwzBM540bN3YfPHjwkQkTJvjoi4OQ15g0aZI6Pz9/uk6n+4ZlWTPfJzi6NZZlrQaD4VhhYeGcJUuWhPJ93iCBWbVqVd/y8vJFRqOxmOM4J98nPOrBcRxjNpsvVlRUvJGamtof8HYNuRG9bdu2IVeuXFlptVqvEpw25BNnt9ubGxoatmRkZIweMmQILuhCnhEVFSXLysoa39zcvNPpdHbw3RPEhmGYLp1Ol3X48OHH4+Pj/fg+H3wRTm/9BiaTidu1a5eWpumjfn5+lzQaTbBCocDdit2MEOI0mUylFy5cWJ2Wlrb+1VdfraiqqhLN8l1XwgBwgdraWtvmzZsvRUREHFWr1Y0ajSaqd1sy3K3YtTir1Vqr1Wq3ZmZm/mPmzJlHHQ6HuaWlhe96+SwMABcwm80AAOBwOIzvv/9+6cCBA0+o1WqTn59ff6lUGgA4IPWbOZ3O1tbW1n0FBQXL//znP+/SaDS64uJigp0feZ01a9bAjBkzlNnZ2ZNaW1v3MgzTyff9sq9iGMbU3t5+qKCg4OlnnnnGn+CbmJEvUKvVQAiBv//976FFRUXPdnZ2nmBZ1sp3h/IVHMcxJpOprLy8fNHixYv7AAAVHBzM92FF6PaMHTsWAIDauHFjzIULF940m82XOY5j+e5g3sxqtV6rra394NNPPx0GAPT48eP5PoyChWMAbtbY2PMq+L59+3Zu2bKlODw8/GRwcDCtVCojJRKJhu/6eZPet+x8derUqf95/vnndwQEBNw4ffo00Wq1fFcNIdcghMCMGTP8cnNzp+p0uq8Zhuni+xeXbxzH2To6OvKLiopmzZo1K4DgfT4SMomk58IrKSkpvKSk5MWurq7TLMva+O6IPGC7u7svVFZWvpWamhoDACCV4hIKJBLR0dEAAPT69esHVlVVvW2xWGqISJYV2+32xrq6ug27du0aDQCSwYMH8304RAnHAHhkNBoBAEj//v0NK1euPBUbG1scGBgo6R0fEOTSVpZlu/V6/aEzZ86sSEpK2i6RSBpPnjxJ9Ho931VDiD8URQEhBOLj4/2PHz8+s729/RDDMCa+f6ldheM4e1dX18kzZ868sHLlyj6EEFAqlXw3O0LeZcCAAQAAsHjx4jvOnTv3F5PJVE4IYfjuwL8Ba7FYrly6dCklLS3tLgCgBg4cyHczI+TdHn74YQAAeufOncPr6urW2Wy263z35NvlcDhar1+//uG+ffvG3H///bLExES+mxUh35KcnAyjR49W5OTkTOp97FjPd8f+OQzDdOv1+py8vLwnFyxY4JeVlcV3MyLk2wghMH/+/MBTp07N0ev1ud64rJjjOIfJZCorLS19edWqVX0BAAYNGsR30yEkDDcHzVavXh1VWVmZbDQaSzmOs/Pd8QkhrNVqrauurn4nLS1tcJ8+fSTTpk3ju7nQL4DTgD6EYXpeVNvd3W1atmxZcb9+/fL8/PxaFAqFn1QqDaRp2qO733IcZzGbzZVNTU0ZRUVFa9asWbNHJpO15ubmkpqaGr6bC/0CGAA+qKmpCQCAaLXajo0bN56RSCSHFQrFeYqiDBKJRC6RSPxompaB6/chIBzHWe12e6PBYCiorq7edOjQof+bkJCQabfb6w8cOMAWFRXx3TzoNuBGFQIyfPhw5aJFi/rde++9991xxx33+vv7D1Kr1YPkcnkfmqZVNE0roeeY/5LjTjiOc3AcZ3Y6ne02m03b1dV1XqfTldfV1V3MzMys27NnjwnwhZo+DQNAgGJjY6G2tlYybdo0v/j4+L4DBgyI8vf3vyMoKChaJpOFaTSa/gDwk9uV2Ww2ncViabDZbPr29vZrDQ0NzWVlZa2bN2/uuu+++5iysjK+vyJyEQwAEYmLiwOj0SgJCAiQ0zRNEUKA/MeTdzTdkwkWi4W5evWqg+/6IoQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEELql/wfBuX4Ix7P+QwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wNi0wN1QxNDozNTowNi0wNDowMLuJ7XwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDYtMDdUMTQ6MzU6MDYtMDQ6MDDK1FXAAAAAAElFTkSuQmCC",
+                                        "Label": "Amazon Elastic Block Storage",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Elastic Block Store (EBS) provides persistent block storage volumes for use with Amazon EC2 in the AWS Cloud."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon EBS, monitoring the read and write I/O's assists in monitoring the data flow to and from the storage volumes."
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Total Read Data",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Read Data",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_read_data_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Read Data",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL  | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_read_data_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Total Read Data"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Total Write Data",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Write Data",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_write_data_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Write Data",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL  | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_write_data_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Total Write Data"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Total Read Operations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Read Operations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_read_operations_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Read Operations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL  | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_read_operations_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Total Read Operations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Total Write Operations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Write Operations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_write_operations_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Write Operations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL  | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('total_write_operations_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Total Write Operations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume I/O Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "I/O Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('io_rate_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average I/O Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticblockstorage_volume_CL  | where ${Region} and ${Type} and ${Volume} | summarize avg(coalesce(columnifexists('io_rate_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "I/O Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_elasticblockstorage_snapshot_CL | summarize([\"Last Update Time\"], ['Description'], ['Encrypted'], ['Owner Alias'], ['Progress'], ['State Message'], ['Tags'], ['Volume ID'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('encrypted_d', ''),columnifexists('owner_alias_s', ''),columnifexists('progress_s', ''),columnifexists('state_message_s', ''),columnifexists('tags_s', ''),columnifexists('volume_id_s', '')) by Name=amazon_elasticblockstorage_snapshot_name_s",
+                                            "displayName": "Snapshot Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticblockstorage_volume_CL | summarize([\"Last Update Time\"], ['Total Read Data'], ['Total Write Data'], ['Average Read Size'], ['Average Write Size'])=arg_max(TimeGenerated,columnifexists('total_read_data_d', ''),columnifexists('total_write_data_d', ''),columnifexists('average_read_size_d', ''),columnifexists('average_write_size_d', '')) by Name=amazon_elasticblockstorage_volume_name_s",
+                                            "displayName": "Volume Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticblockstorage_volume_CL | summarize([\"Last Update Time\"], ['Total Read Operations'], ['Total Write Operations'], ['I/O Rate'], ['Idle Time'])=arg_max(TimeGenerated,columnifexists('total_read_operations_d', ''),columnifexists('total_write_operations_d', ''),columnifexists('io_rate_d', ''),columnifexists('idle_time_d', '')) by Name=amazon_elasticblockstorage_volume_name_s",
+                                            "displayName": "Volume Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticblockstorage_volume_CL | summarize([\"Last Update Time\"], ['Availability Zone'], ['Encrypted'], ['KMS Key ID'], ['Size'], ['Snapshot ID'], ['Tags'], ['Type'])=arg_max(TimeGenerated,columnifexists('availability_zone_s', ''),columnifexists('encrypted_d', ''),columnifexists('kms_key_id_s', ''),columnifexists('size_d', ''),columnifexists('snapshot_id_s', ''),columnifexists('tags_s', ''),columnifexists('type_s', '')) by Name=amazon_elasticblockstorage_volume_name_s",
+                                            "displayName": "Volume Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_elasticblockstorage_snapshot_CL, amazon_elasticblockstorage_volume_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "volume_id_s",
+                            "QueryForValues": "amazon_elasticblockstorage_snapshot_CL | distinct volume_id_s",
+                            "Title": "Volume ID"
+                          },{
+                            "FieldName": "amazon_elasticblockstorage_snapshot_name_s",
+                            "QueryForValues": "amazon_elasticblockstorage_snapshot_CL | distinct amazon_elasticblockstorage_snapshot_name_s",
+                            "Title": "Snapshot"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "amazon_elasticblockstorage_volume_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "amazon_elasticblockstorage_volume_name_s",
+                            "QueryForValues": "amazon_elasticblockstorage_volume_CL | distinct amazon_elasticblockstorage_volume_name_s",
+                            "Title": "Volume"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "amazon_elasticblockstorage_volume_CL  | summarize avg(coalesce(columnifexists('total_read_data_d',0.0), 0.0)) by amazon_elasticblockstorage_volume_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Total Read Data",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Bytes"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,299 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Glacier Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Glacier Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Glacier Environment",
+                        "Name": "Amazon Glacier Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Glacier Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon Glacier",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Glacier is an object storage service for data archiving."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon Glacier, tracking the current size versus the total size ensures storage does not exceed capacity."
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Vault Number of Archives",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Number of Archives",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_glacier_vault_CL | where ${Region} and ${Vault} | summarize avg(coalesce(columnifexists('number_of_archives_d',0.0), 0.0)) by amazon_glacier_vault_name_s",
+                                        "Callout": {
+                                            "Title": "Average Number of Archives",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Number of Archives"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_glacier_vault_CL  | where ${Region} and ${Vault} | summarize avg(coalesce(columnifexists('number_of_archives_d',0.0), 0.0)) by amazon_glacier_vault_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Vault",
+                                            "Value": "Number of Archives"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Vault Size",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Size",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_glacier_vault_CL | where ${Region} and ${Vault} | summarize avg(coalesce(columnifexists('size_d',0.0), 0.0)) by amazon_glacier_vault_name_s",
+                                        "Callout": {
+                                            "Title": "Average Size",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_glacier_vault_CL  | where ${Region} and ${Vault} | summarize avg(coalesce(columnifexists('size_d',0.0), 0.0)) by amazon_glacier_vault_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Vault",
+                                            "Value": "Size"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_glacier_vault_CL | summarize([\"Last Update Time\"], ['Number of Archives'], ['Size'])=arg_max(TimeGenerated,columnifexists('number_of_archives_d', ''),columnifexists('size_d', '')) by Name=amazon_glacier_vault_name_s",
+                                            "displayName": "Vault Capacity"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_glacier_vault_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_glacier_vault_name_s",
+                            "QueryForValues": "amazon_glacier_vault_CL | distinct amazon_glacier_vault_name_s",
+                            "Title": "Vault"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "amazon_glacier_vault_CL  | summarize avg(coalesce(columnifexists('number_of_archives_d',0.0), 0.0)) by amazon_glacier_vault_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Number of Archives",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Number of Archives"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

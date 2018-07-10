@@ -1,0 +1,673 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Redshift Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Redshift Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Redshift Environment",
+                        "Name": "Amazon Redshift Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Redshift Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon Redshift",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Redshift is a data warehouse to analyze data using SQL and existing Buisness Intelligence tools."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon Redshift, receiving information about the flow of data (throughput, latency, etc) is essential to managing the flow of data."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Read IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Read IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Write IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Write IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Read Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Read Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Node Write Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Node",
+                                            "Value": "Write Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_redshift_cluster_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=amazon_redshift_cluster_name_s",
+                                            "displayName": "Cluster CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_redshift_cluster_CL | summarize([\"Last Update Time\"], ['Percentage Disk Space Used'], ['Read IOPS'], ['Read Latency'], ['Read Throughput'], ['Write IOPS'], ['Write Latency'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('percentage_disk_space_used_d', ''),columnifexists('read_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_d', '')) by Name=amazon_redshift_cluster_name_s",
+                                            "displayName": "Cluster Disk"
+                                        }
+                                        ,{
+                                            "query": "amazon_redshift_cluster_CL | summarize([\"Last Update Time\"], ['Availability Zone'], ['Cluster Endpoint'], ['Cluster Tags'], ['Number Of Compute Nodes'], ['Publicly Accessible'], ['Subnet Group Name'], ['Version'])=arg_max(TimeGenerated,columnifexists('availability_zone_s', ''),columnifexists('cluster_endpoint_s', ''),columnifexists('cluster_tags_s', ''),columnifexists('number_of_compute_nodes_d', ''),columnifexists('publicly_accessible_d', ''),columnifexists('subnet_group_name_s', ''),columnifexists('version_s', '')) by Name=amazon_redshift_cluster_name_s",
+                                            "displayName": "Cluster Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_redshift_node_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=amazon_redshift_node_name_s",
+                                            "displayName": "Node CPU"
+                                        }
+                                        ,{
+                                            "query": "amazon_redshift_node_CL | summarize([\"Last Update Time\"], ['Read IOPS'], ['Write IOPS'], ['Read Latency'], ['Write Latency'], ['Read Throughput'], ['Write Throughput'], ['Percentage Disk Space Used'])=arg_max(TimeGenerated,columnifexists('read_iops_d', ''),columnifexists('write_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('write_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('percentage_disk_space_used_d', '')) by Name=amazon_redshift_node_name_s",
+                                            "displayName": "Node Disk"
+                                        }
+                                        ,{
+                                            "query": "amazon_redshift_node_CL | summarize([\"Last Update Time\"], ['Node Role'], ['Private IP Address'], ['Public IP Address'])=arg_max(TimeGenerated,columnifexists('node_role_s', ''),columnifexists('private_ip_address_s', ''),columnifexists('public_ip_address_s', '')) by Name=amazon_redshift_node_name_s",
+                                            "displayName": "Node Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_redshift_cluster_CL, amazon_redshift_node_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "cluster_status_s",
+                            "QueryForValues": "amazon_redshift_cluster_CL | distinct cluster_status_s",
+                            "Title": "Cluster Status"
+                          },{
+                            "FieldName": "amazon_redshift_cluster_name_s",
+                            "QueryForValues": "amazon_redshift_cluster_CL | distinct amazon_redshift_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "node_role_s",
+                            "QueryForValues": "amazon_redshift_node_CL | distinct node_role_s",
+                            "Title": "Node Role"
+                          },{
+                            "FieldName": "amazon_redshift_node_name_s",
+                            "QueryForValues": "amazon_redshift_node_CL | distinct amazon_redshift_node_name_s",
+                            "Title": "Node"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Cluster",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

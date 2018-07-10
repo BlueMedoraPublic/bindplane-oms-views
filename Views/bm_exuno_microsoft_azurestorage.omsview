@@ -1,0 +1,709 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Storage Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Storage Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Storage Environment",
+                        "Name": "Microsoft Azure Storage Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Storage Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Storage",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Microsoft Azure Storage is a cloud-based storage service which includes Blob storage, File storage, and Queue Storage."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Microsoft Azure Storage, it is valuable to track availability, capacity, latency, and transactions for each storage type."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Service Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_storage_queue_service_CL | where ${Queue Service}  | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_storage_queue_service_CL | where ${Queue Service}  | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue Service Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_storage_queue_service_CL | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_storage_queue_service_CL | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blob Service Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_storage_blob_service_CL | where ${Blob Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_storage_blob_service_CL  | where ${Blob Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blob Service",
+                                            "Value": "Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "97.5",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "95.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "File Service Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_storage_file_service_CL | where ${File Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_file_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_storage_file_service_CL  | where ${File Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_file_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "File Service",
+                                            "Value": "Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "97.5",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "95.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Queue Service Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_storage_queue_service_CL | where ${Queue Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_queue_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_storage_queue_service_CL  | where ${Queue Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_queue_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Queue Service",
+                                            "Value": "Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "97.5",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "95.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Table Service Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_storage_table_service_CL | where ${Table Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_table_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_storage_table_service_CL  | where ${Table Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_table_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Table Service",
+                                            "Value": "Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "97.5",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "95.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blob Service Transactions",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Transactions",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_storage_blob_service_CL | where ${Blob Service} | summarize avg(coalesce(columnifexists('transactions_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Transactions",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Transactions"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_storage_blob_service_CL  | where ${Blob Service} | summarize avg(coalesce(columnifexists('transactions_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blob Service",
+                                            "Value": "Transactions"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Availability'], ['Queue Message Count'])=arg_max(TimeGenerated,columnifexists('availability_d', ''),columnifexists('queue_message_count_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
+                                            "displayName": "Queue Service Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
+                                            "displayName": "Queue Service Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Queue Capacity'])=arg_max(TimeGenerated,columnifexists('queue_capacity_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
+                                            "displayName": "Queue Service Capacity"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
+                                            "displayName": "Queue Service Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
+                                            "displayName": "File Service Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
+                                            "displayName": "File Service Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
+                                            "displayName": "File Service Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['File Capacity'])=arg_max(TimeGenerated,columnifexists('file_capacity_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
+                                            "displayName": "File Service Capacity"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
+                                            "displayName": "Blob Service Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
+                                            "displayName": "Blob Service Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Blob Capacity'])=arg_max(TimeGenerated,columnifexists('blob_capacity_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
+                                            "displayName": "Blob Service Capacity"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
+                                            "displayName": "Blob Service Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
+                                            "displayName": "Table Service Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
+                                            "displayName": "Table Service Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
+                                            "displayName": "Table Service Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Table Capacity'])=arg_max(TimeGenerated,columnifexists('table_capacity_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
+                                            "displayName": "Table Service Capacity"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_azure_storage_queue_service_name_s",
+                            "QueryForValues": "microsoft_azure_storage_queue_service_CL | distinct microsoft_azure_storage_queue_service_name_s",
+                            "Title": "Queue Service"
+                          },{
+                            "FieldName": "microsoft_azure_storage_file_service_name_s",
+                            "QueryForValues": "microsoft_azure_storage_file_service_CL | distinct microsoft_azure_storage_file_service_name_s",
+                            "Title": "File Service"
+                          },{
+                            "FieldName": "microsoft_azure_storage_blob_service_name_s",
+                            "QueryForValues": "microsoft_azure_storage_blob_service_CL | distinct microsoft_azure_storage_blob_service_name_s",
+                            "Title": "Blob Service"
+                          },{
+                            "FieldName": "microsoft_azure_storage_table_service_name_s",
+                            "QueryForValues": "microsoft_azure_storage_table_service_CL | distinct microsoft_azure_storage_table_service_name_s",
+                            "Title": "Table Service"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_storage_queue_service_CL | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Queue Service",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

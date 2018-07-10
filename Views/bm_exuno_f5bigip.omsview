@@ -1,0 +1,669 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "F5 BIG-IP Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/F5 BIG-IP Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "F5 BIG-IP Environment",
+                        "Name": "F5 BIG-IP Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "F5 BIG-IP Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "F5 BIG-IP",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "F5 BIG-IP is a family of products covering software and hardware designed around application availability, access control, and security solutions."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In F5 BIG-IP, it is important to monitor the number of requests made to a virtual server, in order to ensure that traffic is being balanced appropriately.\n\nLikewise, it's also important to monitor the network throughput passing through the load balancer."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Server Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "f5_bigip_virtual_server_CL | where ${Availability State} and ${System} and ${Virtual Server}  | project ['Availability State'] = columnifexists('availability_state_s', 'NULL_VALUE'), TimeGenerated, Name=f5_bigip_virtual_server_name_s  | extend Healthy = case(coalesce(['Availability State'], 'NULL_VALUE') != 'NULL_VALUE', (['Availability State'] == 'available' or coalesce(['Availability State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "f5_bigip_virtual_server_CL | where ${Availability State} and ${System} and ${Virtual Server}  | project ['Availability State'] = columnifexists('availability_state_s', 'NULL_VALUE'), TimeGenerated, Name=f5_bigip_virtual_server_name_s  | extend Healthy = case(coalesce(['Availability State'], 'NULL_VALUE') != 'NULL_VALUE', (['Availability State'] == 'available' or coalesce(['Availability State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Server Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "f5_bigip_virtual_server_CL | project ['Availability State'] = columnifexists('availability_state_s', 'NULL_VALUE'), TimeGenerated, Name=f5_bigip_virtual_server_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Availability State'], 'NULL_VALUE') != 'NULL_VALUE', (['Availability State'] == 'available' or coalesce(['Availability State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "f5_bigip_virtual_server_CL | project ['Availability State'] = columnifexists('availability_state_s', 'NULL_VALUE'), TimeGenerated, Name=f5_bigip_virtual_server_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Availability State'], 'NULL_VALUE') != 'NULL_VALUE', (['Availability State'] == 'available' or coalesce(['Availability State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Server Current Connections",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Current Connections",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "f5_bigip_virtual_server_CL | where ${Availability State} and ${System} and ${Virtual Server} | summarize avg(coalesce(columnifexists('current_connections_d',0.0), 0.0)) by f5_bigip_virtual_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Current Connections",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "f5_bigip_virtual_server_CL  | where ${Availability State} and ${System} and ${Virtual Server} | summarize avg(coalesce(columnifexists('current_connections_d',0.0), 0.0)) by f5_bigip_virtual_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Server",
+                                            "Value": "Current Connections"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Server Packets In",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Packets In",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "f5_bigip_virtual_server_CL | where ${Availability State} and ${System} and ${Virtual Server} | summarize avg(coalesce(columnifexists('packets_in_rate_d',0.0), 0.0)) by f5_bigip_virtual_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Packets In",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Packets per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "f5_bigip_virtual_server_CL  | where ${Availability State} and ${System} and ${Virtual Server} | summarize avg(coalesce(columnifexists('packets_in_rate_d',0.0), 0.0)) by f5_bigip_virtual_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Server",
+                                            "Value": "Packets In"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Server Packets Out",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Packets Out",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "f5_bigip_virtual_server_CL | where ${Availability State} and ${System} and ${Virtual Server} | summarize avg(coalesce(columnifexists('packets_out_rate_d',0.0), 0.0)) by f5_bigip_virtual_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Packets Out",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Packets per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "f5_bigip_virtual_server_CL  | where ${Availability State} and ${System} and ${Virtual Server} | summarize avg(coalesce(columnifexists('packets_out_rate_d',0.0), 0.0)) by f5_bigip_virtual_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Server",
+                                            "Value": "Packets Out"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Pool Active Member Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Active Member Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "f5_bigip_pool_CL | where ${Availability State} and ${Load Balancing Mode} and ${System} and ${Pool} | summarize avg(coalesce(columnifexists('active_member_count_d',0.0), 0.0)) by f5_bigip_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Active Member Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Active Member Count"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "f5_bigip_pool_CL  | where ${Availability State} and ${Load Balancing Mode} and ${System} and ${Pool} | summarize avg(coalesce(columnifexists('active_member_count_d',0.0), 0.0)) by f5_bigip_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Pool",
+                                            "Value": "Active Member Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Pool Current Connections",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Current Connections",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "f5_bigip_pool_CL | where ${Availability State} and ${Load Balancing Mode} and ${System} and ${Pool} | summarize avg(coalesce(columnifexists('current_connections_d',0.0), 0.0)) by f5_bigip_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Current Connections",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "f5_bigip_pool_CL  | where ${Availability State} and ${Load Balancing Mode} and ${System} and ${Pool} | summarize avg(coalesce(columnifexists('current_connections_d',0.0), 0.0)) by f5_bigip_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Pool",
+                                            "Value": "Current Connections"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "f5_bigip_virtual_server_CL | summarize([\"Last Update Time\"], ['Current Connections'], ['Packets In'], ['Packets Out'], ['Requests'])=arg_max(TimeGenerated,columnifexists('current_connections_d', ''),columnifexists('packets_in_rate_d', ''),columnifexists('packets_out_rate_d', ''),columnifexists('requests_rate_d', '')) by Name=f5_bigip_virtual_server_name_s",
+                                            "displayName": "Virtual Server Network"
+                                        }
+                                        ,{
+                                            "query": "f5_bigip_virtual_server_CL | summarize([\"Last Update Time\"], ['Application Service'], ['Destination'], ['Full Path'], ['Kind'], ['Pool'], ['Status Reason'])=arg_max(TimeGenerated,columnifexists('application_service_s', ''),columnifexists('destination_s', ''),columnifexists('full_path_s', ''),columnifexists('kind_s', ''),columnifexists('pool_s', ''),columnifexists('status_reason_s', '')) by Name=f5_bigip_virtual_server_name_s",
+                                            "displayName": "Virtual Server Properties"
+                                        }
+                                        ,{
+                                            "query": "f5_bigip_pool_CL | summarize([\"Last Update Time\"], ['Active Member Count'])=arg_max(TimeGenerated,columnifexists('active_member_count_d', '')) by Name=f5_bigip_pool_name_s",
+                                            "displayName": "Pool Status"
+                                        }
+                                        ,{
+                                            "query": "f5_bigip_pool_CL | summarize([\"Last Update Time\"], ['Current Connections'], ['Packets In'], ['Packets Out'], ['Requests'])=arg_max(TimeGenerated,columnifexists('current_connections_d', ''),columnifexists('packets_in_rate_d', ''),columnifexists('packets_out_rate_d', ''),columnifexists('requests_rate_d', '')) by Name=f5_bigip_pool_name_s",
+                                            "displayName": "Pool Network"
+                                        }
+                                        ,{
+                                            "query": "f5_bigip_pool_CL | summarize([\"Last Update Time\"], ['Description'], ['Full Path'], ['Kind'], ['Load Balancing Mode'], ['Monitor Rule'], ['Status Reason'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('full_path_s', ''),columnifexists('kind_s', ''),columnifexists('load_balancing_mode_s', ''),columnifexists('monitor_rule_s', ''),columnifexists('status_reason_s', '')) by Name=f5_bigip_pool_name_s",
+                                            "displayName": "Pool Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "availability_state_s",
+                            "QueryForValues": "union f5_bigip_virtual_server_CL, f5_bigip_pool_CL | distinct availability_state_s",
+                            "Title": "Availability State"
+                          },{
+                            "FieldName": "f5_bigip_system_name_s",
+                            "QueryForValues": "union f5_bigip_virtual_server_CL, f5_bigip_pool_CL | distinct f5_bigip_system_name_s",
+                            "Title": "System"
+                          },{
+                            "FieldName": "f5_bigip_virtual_server_name_s",
+                            "QueryForValues": "f5_bigip_virtual_server_CL | distinct f5_bigip_virtual_server_name_s",
+                            "Title": "Virtual Server"
+                          },{
+                            "FieldName": "load_balancing_mode_s",
+                            "QueryForValues": "f5_bigip_pool_CL | distinct load_balancing_mode_s",
+                            "Title": "Load Balancing Mode"
+                          },{
+                            "FieldName": "f5_bigip_pool_name_s",
+                            "QueryForValues": "f5_bigip_pool_CL | distinct f5_bigip_pool_name_s",
+                            "Title": "Pool"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "f5_bigip_virtual_server_CL | project ['Availability State'] = columnifexists('availability_state_s', 'NULL_VALUE'), TimeGenerated, Name=f5_bigip_virtual_server_name_s  | extend Healthy = case(coalesce(['Availability State'], 'NULL_VALUE') != 'NULL_VALUE', (['Availability State'] == 'available' or coalesce(['Availability State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Virtual Server",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

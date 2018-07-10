@@ -1,0 +1,681 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon ELB Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon ELB Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon ELB Environment",
+                        "Name": "Amazon ELB Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon ELB Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon ELB",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Elastic Load Balancer (ELB) automatically distributes incoming application traffic accross multiple targets."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon ELB, tracking connection errors allows quicker response to failures. \n\n Additionally, tracking data latency and processed amount ensures assurance of whether data transfers are quick or slow."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application / Network Load Balancer Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elb_load_balancer_v2_CL | where ${Region} and ${Type} and ${Application / Network Load Balancer}  | project ['Client TLS Negotiation Error Count'] = columnifexists('client_tls_negotiation_error_count_d', double(null)), ['HTTP Code Count - ELB - 4XX'] = columnifexists('http_code_count_elb_4xx_d', double(null)), ['HTTP Code Count - ELB - 5XX'] = columnifexists('http_code_count_elb_5xx_d', double(null)), ['HTTP Code Count - Target - 4XX'] = columnifexists('http_code_count_target_4xx_d', double(null)), ['HTTP Code Count - Target - 5XX'] = columnifexists('http_code_count_target_5xx_d', double(null)), ['Target Connection Error Count'] = columnifexists('target_connection_error_count_d', double(null)), ['Target TLS Negotiation Error Count'] = columnifexists('target_tls_negotiation_error_count_d', double(null)), TimeGenerated, Name=amazon_elb_load_balancer_v2_name_s  | extend Healthy = case(isnotnull(['Client TLS Negotiation Error Count']) or isnotnull(['HTTP Code Count - ELB - 4XX']) or isnotnull(['HTTP Code Count - ELB - 5XX']) or isnotnull(['HTTP Code Count - Target - 4XX']) or isnotnull(['HTTP Code Count - Target - 5XX']) or isnotnull(['Target Connection Error Count']) or isnotnull(['Target TLS Negotiation Error Count']), (['Client TLS Negotiation Error Count'] < 1.0 or isnull(['Client TLS Negotiation Error Count'])) and (['HTTP Code Count - ELB - 4XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 4XX'])) and (['HTTP Code Count - ELB - 5XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 5XX'])) and (['HTTP Code Count - Target - 4XX'] < 1.0 or isnull(['HTTP Code Count - Target - 4XX'])) and (['HTTP Code Count - Target - 5XX'] < 1.0 or isnull(['HTTP Code Count - Target - 5XX'])) and (['Target Connection Error Count'] < 1 or isnull(['Target Connection Error Count'])) and (['Target TLS Negotiation Error Count'] < 1.0 or isnull(['Target TLS Negotiation Error Count'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elb_load_balancer_v2_CL | where ${Region} and ${Type} and ${Application / Network Load Balancer}  | project ['Client TLS Negotiation Error Count'] = columnifexists('client_tls_negotiation_error_count_d', double(null)), ['HTTP Code Count - ELB - 4XX'] = columnifexists('http_code_count_elb_4xx_d', double(null)), ['HTTP Code Count - ELB - 5XX'] = columnifexists('http_code_count_elb_5xx_d', double(null)), ['HTTP Code Count - Target - 4XX'] = columnifexists('http_code_count_target_4xx_d', double(null)), ['HTTP Code Count - Target - 5XX'] = columnifexists('http_code_count_target_5xx_d', double(null)), ['Target Connection Error Count'] = columnifexists('target_connection_error_count_d', double(null)), ['Target TLS Negotiation Error Count'] = columnifexists('target_tls_negotiation_error_count_d', double(null)), TimeGenerated, Name=amazon_elb_load_balancer_v2_name_s  | extend Healthy = case(isnotnull(['Client TLS Negotiation Error Count']) or isnotnull(['HTTP Code Count - ELB - 4XX']) or isnotnull(['HTTP Code Count - ELB - 5XX']) or isnotnull(['HTTP Code Count - Target - 4XX']) or isnotnull(['HTTP Code Count - Target - 5XX']) or isnotnull(['Target Connection Error Count']) or isnotnull(['Target TLS Negotiation Error Count']), (['Client TLS Negotiation Error Count'] < 1.0 or isnull(['Client TLS Negotiation Error Count'])) and (['HTTP Code Count - ELB - 4XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 4XX'])) and (['HTTP Code Count - ELB - 5XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 5XX'])) and (['HTTP Code Count - Target - 4XX'] < 1.0 or isnull(['HTTP Code Count - Target - 4XX'])) and (['HTTP Code Count - Target - 5XX'] < 1.0 or isnull(['HTTP Code Count - Target - 5XX'])) and (['Target Connection Error Count'] < 1 or isnull(['Target Connection Error Count'])) and (['Target TLS Negotiation Error Count'] < 1.0 or isnull(['Target TLS Negotiation Error Count'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application / Network Load Balancer Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_elb_load_balancer_v2_CL | project ['Client TLS Negotiation Error Count'] = columnifexists('client_tls_negotiation_error_count_d', double(null)), ['HTTP Code Count - ELB - 4XX'] = columnifexists('http_code_count_elb_4xx_d', double(null)), ['HTTP Code Count - ELB - 5XX'] = columnifexists('http_code_count_elb_5xx_d', double(null)), ['HTTP Code Count - Target - 4XX'] = columnifexists('http_code_count_target_4xx_d', double(null)), ['HTTP Code Count - Target - 5XX'] = columnifexists('http_code_count_target_5xx_d', double(null)), ['Target Connection Error Count'] = columnifexists('target_connection_error_count_d', double(null)), ['Target TLS Negotiation Error Count'] = columnifexists('target_tls_negotiation_error_count_d', double(null)), TimeGenerated, Name=amazon_elb_load_balancer_v2_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Client TLS Negotiation Error Count']) or isnotnull(['HTTP Code Count - ELB - 4XX']) or isnotnull(['HTTP Code Count - ELB - 5XX']) or isnotnull(['HTTP Code Count - Target - 4XX']) or isnotnull(['HTTP Code Count - Target - 5XX']) or isnotnull(['Target Connection Error Count']) or isnotnull(['Target TLS Negotiation Error Count']), (['Client TLS Negotiation Error Count'] < 1.0 or isnull(['Client TLS Negotiation Error Count'])) and (['HTTP Code Count - ELB - 4XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 4XX'])) and (['HTTP Code Count - ELB - 5XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 5XX'])) and (['HTTP Code Count - Target - 4XX'] < 1.0 or isnull(['HTTP Code Count - Target - 4XX'])) and (['HTTP Code Count - Target - 5XX'] < 1.0 or isnull(['HTTP Code Count - Target - 5XX'])) and (['Target Connection Error Count'] < 1 or isnull(['Target Connection Error Count'])) and (['Target TLS Negotiation Error Count'] < 1.0 or isnull(['Target TLS Negotiation Error Count'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_elb_load_balancer_v2_CL | project ['Client TLS Negotiation Error Count'] = columnifexists('client_tls_negotiation_error_count_d', double(null)), ['HTTP Code Count - ELB - 4XX'] = columnifexists('http_code_count_elb_4xx_d', double(null)), ['HTTP Code Count - ELB - 5XX'] = columnifexists('http_code_count_elb_5xx_d', double(null)), ['HTTP Code Count - Target - 4XX'] = columnifexists('http_code_count_target_4xx_d', double(null)), ['HTTP Code Count - Target - 5XX'] = columnifexists('http_code_count_target_5xx_d', double(null)), ['Target Connection Error Count'] = columnifexists('target_connection_error_count_d', double(null)), ['Target TLS Negotiation Error Count'] = columnifexists('target_tls_negotiation_error_count_d', double(null)), TimeGenerated, Name=amazon_elb_load_balancer_v2_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Client TLS Negotiation Error Count']) or isnotnull(['HTTP Code Count - ELB - 4XX']) or isnotnull(['HTTP Code Count - ELB - 5XX']) or isnotnull(['HTTP Code Count - Target - 4XX']) or isnotnull(['HTTP Code Count - Target - 5XX']) or isnotnull(['Target Connection Error Count']) or isnotnull(['Target TLS Negotiation Error Count']), (['Client TLS Negotiation Error Count'] < 1.0 or isnull(['Client TLS Negotiation Error Count'])) and (['HTTP Code Count - ELB - 4XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 4XX'])) and (['HTTP Code Count - ELB - 5XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 5XX'])) and (['HTTP Code Count - Target - 4XX'] < 1.0 or isnull(['HTTP Code Count - Target - 4XX'])) and (['HTTP Code Count - Target - 5XX'] < 1.0 or isnull(['HTTP Code Count - Target - 5XX'])) and (['Target Connection Error Count'] < 1 or isnull(['Target Connection Error Count'])) and (['Target TLS Negotiation Error Count'] < 1.0 or isnull(['Target TLS Negotiation Error Count'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application / Network Load Balancer Data Processed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data Processed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elb_load_balancer_v2_CL | where ${Region} and ${Type} and ${Application / Network Load Balancer} | summarize avg(coalesce(columnifexists('data_processed_d',0.0), 0.0)) by amazon_elb_load_balancer_v2_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data Processed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elb_load_balancer_v2_CL  | where ${Region} and ${Type} and ${Application / Network Load Balancer} | summarize avg(coalesce(columnifexists('data_processed_d',0.0), 0.0)) by amazon_elb_load_balancer_v2_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application / Network Load Balancer",
+                                            "Value": "Data Processed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application / Network Load Balancer Target Response Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Target Response Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elb_load_balancer_v2_CL | where ${Region} and ${Type} and ${Application / Network Load Balancer} | summarize avg(coalesce(columnifexists('target_response_time_d',0.0), 0.0)) by amazon_elb_load_balancer_v2_name_s",
+                                        "Callout": {
+                                            "Title": "Average Target Response Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elb_load_balancer_v2_CL  | where ${Region} and ${Type} and ${Application / Network Load Balancer} | summarize avg(coalesce(columnifexists('target_response_time_d',0.0), 0.0)) by amazon_elb_load_balancer_v2_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application / Network Load Balancer",
+                                            "Value": "Target Response Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Classic Load Balancer Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elb_load_balancer_CL | where ${Region} and ${Scheme} and ${Security Groups} and ${Classic Load Balancer} | summarize avg(coalesce(columnifexists('latency_d',0.0), 0.0)) by amazon_elb_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elb_load_balancer_CL  | where ${Region} and ${Scheme} and ${Security Groups} and ${Classic Load Balancer} | summarize avg(coalesce(columnifexists('latency_d',0.0), 0.0)) by amazon_elb_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Classic Load Balancer",
+                                            "Value": "Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Classic Load Balancer Estimated Data Processed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Estimated Data Processed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elb_load_balancer_CL | where ${Region} and ${Scheme} and ${Security Groups} and ${Classic Load Balancer} | summarize avg(coalesce(columnifexists('estimated_data_processed_d',0.0), 0.0)) by amazon_elb_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Estimated Data Processed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elb_load_balancer_CL  | where ${Region} and ${Scheme} and ${Security Groups} and ${Classic Load Balancer} | summarize avg(coalesce(columnifexists('estimated_data_processed_d',0.0), 0.0)) by amazon_elb_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Classic Load Balancer",
+                                            "Value": "Estimated Data Processed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Classic Load Balancer Unhealthy Host Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Unhealthy Host Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elb_load_balancer_CL | where ${Region} and ${Scheme} and ${Security Groups} and ${Classic Load Balancer} | summarize avg(coalesce(columnifexists('unhealthy_host_count_d',0.0), 0.0)) by amazon_elb_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Unhealthy Host Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Unhealthy Host Count"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elb_load_balancer_CL  | where ${Region} and ${Scheme} and ${Security Groups} and ${Classic Load Balancer} | summarize avg(coalesce(columnifexists('unhealthy_host_count_d',0.0), 0.0)) by amazon_elb_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Classic Load Balancer",
+                                            "Value": "Unhealthy Host Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_elb_load_balancer_v2_CL | summarize([\"Last Update Time\"], ['Data Processed'], ['Target Response Time'], ['HTTP Code Count - ELB - 4XX'], ['HTTP Code Count - ELB - 5XX'], ['HTTP Code Count - Target - 4XX'], ['HTTP Code Count - Target - 5XX'])=arg_max(TimeGenerated,columnifexists('data_processed_d', ''),columnifexists('target_response_time_d', ''),columnifexists('http_code_count_elb_4xx_d', ''),columnifexists('http_code_count_elb_5xx_d', ''),columnifexists('http_code_count_target_4xx_d', ''),columnifexists('http_code_count_target_5xx_d', '')) by Name=amazon_elb_load_balancer_v2_name_s",
+                                            "displayName": "Application / Network Load Balancer Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_elb_load_balancer_v2_CL | summarize([\"Last Update Time\"], ['Active Connection Count'], ['Client TLS Negotiation Error Count'], ['Target Connection Error Count'], ['Target TLS Negotiation Error Count'])=arg_max(TimeGenerated,columnifexists('active_connection_count_d', ''),columnifexists('client_tls_negotiation_error_count_d', ''),columnifexists('target_connection_error_count_d', ''),columnifexists('target_tls_negotiation_error_count_d', '')) by Name=amazon_elb_load_balancer_v2_name_s",
+                                            "displayName": "Application / Network Load Balancer Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_elb_load_balancer_v2_CL | summarize([\"Last Update Time\"], ['Availability Zones'], ['DNS Name'], ['IP Address Type'], ['Scheme'], ['Tags'], ['Type'], ['VPC ID'])=arg_max(TimeGenerated,columnifexists('availability_zones_s', ''),columnifexists('dns_name_s', ''),columnifexists('ip_address_type_s', ''),columnifexists('scheme_s', ''),columnifexists('tags_s', ''),columnifexists('type_s', ''),columnifexists('vpc_id_s', '')) by Name=amazon_elb_load_balancer_v2_name_s",
+                                            "displayName": "Application / Network Load Balancer Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_elb_load_balancer_CL | summarize([\"Last Update Time\"], ['Latency'], ['Estimated Data Processed'], ['HTTP Code Count - Backend - 4XX'], ['HTTP Code Count - Backend - 5XX'], ['HTTP Code Count - ELB - 4XX'], ['HTTP Code Count - ELB - 5XX'], ['Request Count'])=arg_max(TimeGenerated,columnifexists('latency_d', ''),columnifexists('estimated_data_processed_d', ''),columnifexists('http_code_count_backend_4xx_d', ''),columnifexists('http_code_count_backend_5xx_d', ''),columnifexists('http_code_count_elb_4xx_d', ''),columnifexists('http_code_count_elb_5xx_d', ''),columnifexists('request_count_d', '')) by Name=amazon_elb_load_balancer_name_s",
+                                            "displayName": "Classic Load Balancer Performance"
+                                        }
+                                        ,{
+                                            "query": "amazon_elb_load_balancer_CL | summarize([\"Last Update Time\"], ['Unhealthy Host Count'], ['Healthy Host Count'])=arg_max(TimeGenerated,columnifexists('unhealthy_host_count_d', ''),columnifexists('healthy_host_count_d', '')) by Name=amazon_elb_load_balancer_name_s",
+                                            "displayName": "Classic Load Balancer Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_elb_load_balancer_CL | summarize([\"Last Update Time\"], ['Backend Connection Errors'])=arg_max(TimeGenerated,columnifexists('backend_connection_errors_d', '')) by Name=amazon_elb_load_balancer_name_s",
+                                            "displayName": "Classic Load Balancer Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_elb_load_balancer_CL | summarize([\"Last Update Time\"], ['Availability Zones'], ['Hosted Zone ID'], ['Hosted Zone Name'], ['Scheme'], ['Security Groups'], ['Tags'], ['VPC ID'])=arg_max(TimeGenerated,columnifexists('availability_zones_s', ''),columnifexists('hosted_zone_id_s', ''),columnifexists('hosted_zone_name_s', ''),columnifexists('scheme_s', ''),columnifexists('security_groups_s', ''),columnifexists('tags_s', ''),columnifexists('vpc_id_s', '')) by Name=amazon_elb_load_balancer_name_s",
+                                            "displayName": "Classic Load Balancer Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_elb_load_balancer_v2_CL, amazon_elb_load_balancer_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "amazon_elb_load_balancer_v2_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "amazon_elb_load_balancer_v2_name_s",
+                            "QueryForValues": "amazon_elb_load_balancer_v2_CL | distinct amazon_elb_load_balancer_v2_name_s",
+                            "Title": "Application / Network Load Balancer"
+                          },{
+                            "FieldName": "scheme_s",
+                            "QueryForValues": "amazon_elb_load_balancer_CL | distinct scheme_s",
+                            "Title": "Scheme"
+                          },{
+                            "FieldName": "security_groups_s",
+                            "QueryForValues": "amazon_elb_load_balancer_CL | distinct security_groups_s",
+                            "Title": "Security Groups"
+                          },{
+                            "FieldName": "amazon_elb_load_balancer_name_s",
+                            "QueryForValues": "amazon_elb_load_balancer_CL | distinct amazon_elb_load_balancer_name_s",
+                            "Title": "Classic Load Balancer"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_elb_load_balancer_v2_CL | project ['Client TLS Negotiation Error Count'] = columnifexists('client_tls_negotiation_error_count_d', double(null)), ['HTTP Code Count - ELB - 4XX'] = columnifexists('http_code_count_elb_4xx_d', double(null)), ['HTTP Code Count - ELB - 5XX'] = columnifexists('http_code_count_elb_5xx_d', double(null)), ['HTTP Code Count - Target - 4XX'] = columnifexists('http_code_count_target_4xx_d', double(null)), ['HTTP Code Count - Target - 5XX'] = columnifexists('http_code_count_target_5xx_d', double(null)), ['Target Connection Error Count'] = columnifexists('target_connection_error_count_d', double(null)), ['Target TLS Negotiation Error Count'] = columnifexists('target_tls_negotiation_error_count_d', double(null)), TimeGenerated, Name=amazon_elb_load_balancer_v2_name_s  | extend Healthy = case(isnotnull(['Client TLS Negotiation Error Count']) or isnotnull(['HTTP Code Count - ELB - 4XX']) or isnotnull(['HTTP Code Count - ELB - 5XX']) or isnotnull(['HTTP Code Count - Target - 4XX']) or isnotnull(['HTTP Code Count - Target - 5XX']) or isnotnull(['Target Connection Error Count']) or isnotnull(['Target TLS Negotiation Error Count']), (['Client TLS Negotiation Error Count'] < 1.0 or isnull(['Client TLS Negotiation Error Count'])) and (['HTTP Code Count - ELB - 4XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 4XX'])) and (['HTTP Code Count - ELB - 5XX'] < 1.0 or isnull(['HTTP Code Count - ELB - 5XX'])) and (['HTTP Code Count - Target - 4XX'] < 1.0 or isnull(['HTTP Code Count - Target - 4XX'])) and (['HTTP Code Count - Target - 5XX'] < 1.0 or isnull(['HTTP Code Count - Target - 5XX'])) and (['Target Connection Error Count'] < 1 or isnull(['Target Connection Error Count'])) and (['Target TLS Negotiation Error Count'] < 1.0 or isnull(['Target TLS Negotiation Error Count'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Application / Network Load Balancer",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,578 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon Elastic File System Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon Elastic File System Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon Elastic File System Environment",
+                        "Name": "Amazon Elastic File System Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon Elastic File System Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAANX5JREFUeNrt3Xl8VcX9P/7XWe+5S3JvVkIWEhbDjriALCqoVau2FpRP3aXSj7Uu9VNKtQrUtgr01/pT+KjV0n60FkvdrbSyVqBqENlkFyFkD4SQ3Cx3P9vM949zExZRQXJzbnLn+XjELBfPmTv3zHvmzMyZARiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiG6bk4uxPAdK+MjAzous6NGDHCoSiKCIB2vGaaJm1oaIi5XC6ya9cuu5PKdAMWAHqhzMxMmKbJ9e3bV7nlllt8I0aMyM/Ozu7j8/mKPB5PjmmaQlpaWn9Jkrw4FgA4SqnW3t5eASAciURaWltba/x+/9GampqjK1eubFmzZk04JyeHNjU12f0WmS7CAkAv8V//9V/YtGmTNGPGjJyLLrqotKSkZKzP5xvpcrkGOByOQlEUvTzPOzmOk+L/y5d99hQAKKU6ISRmGEa7YRjN4XC4vKWlZXtDQ8POHTt27HvqqacOP/DAA9qjjz5q91tnzgILAD2YLMvQNI2bOXNm1ne+850xAwcOvDIjI2Oc0+kcIIpiNsdxQleej1JqmqYZiEajFS0tLR/X1dX9p6ysbPOjjz562OFwUFVV7c4ShkkZ3K9+9au+W7ZsmeH3+1dpmtZEKSW0+xDDMNpbW1vX79q166d/+ctfhmVlZYnf+ta37M4Xhum9KKWYO3duzpYtW+5qaWl53zCMYDcW+lNHAkK0UCi0a8+ePT9fsGBBAQCuoKDA7qximN5j6dKluPXWW91r16699siRI28lQ8E/mWmaEb/fv2b9+vVT/+d//sdHKT37N84wqezqq68GAOFvf/vbudXV1c9omnbE7oL+dXRdbz506NBf33nnnYnf+973lF/+8pd2ZyPD9CwlJSUAwD355JP99u7d+3AwGNxJKTXtLtxnwIzFYtXl5eUL/vznPw8tLi4WrrvuOruzlWGSH6UU9913X8amTZvuaGlpWUsIidldmr+peP/A9u3bt98/b968PEopOI4NPjHMF9x///2YOHGismbNmisbGhr+bhhGq90FuKuYphlqamr657p167573333pa1cudLu7GaY5DB69GgAEBYvXjyksrLyyVgsVmd3gU0UTdOO1tbW/vGdd94Zd/nll8s/+clP7M5+hrFHdnY2AHCzZ8/uu3v37p8GAoFthBDd7kLaDcxoNHpw3759v3zmmWf6A+BycnLs/jgYpvtQSjFt2rS0DRs2fN/v9682TTNsd6nsboQQtbW19YMtW7b8YNasWdmUDRsyvd1Pf/pTjBo1Sn7ttdfG1tfXvxifwZfSDMMIHDly5I3333//mmuvvda1aNEiuz8mhulaw4cPBwB+0aJFg8rLyx+PRCLltGcN6yWcqqqHq6qqFr388ssjAQhjx461+2NjmK7x0EMP5X766af3BAKBzYQQ1e7ClsSMYDC4Y+/evQ/Nnz+/EAAny7LdHx/DnLkVK1bg9ttvd69bt+67zc3Nyw3DCNhdunoK0zSjfr///U8++eS2H/7wh2xaMdNzTJ8+HRdffLG0dOnS82tqap7rCdN3k5Wu6y0NDQ1LV69efcWYMWMcjz32mN0fL8Oc2qRJkwDrPr//Z5999mgkEtlPCDHsLkS9QSwWq6moqPjd888/P1gURYE9dswkFUopHnnkkcxPPvnkzvb29o9N0+yx03eTFSFECwQCW3ft2vXgo48+mgeAGzhwoN0fPZPKnn76adx6663OlStXXhGfvttmd0Hp7UzTDPn9/lUfffTRtJtvvjmNsucLGDucc8454tKlS8+tqKh4UlXVetq9K/KkPE3TjtbX1//51VdfHTN27Fg2VMB0G27RokXFu3btmhkOh/ew+3xbmZFIpHz//v2/XrRo0UAAvN0XB9OLzZgxI72srOym1tbW9aZpRu2++hkLIUQNBAKbtm7d+t+PPvpott3XCdPLjBw5Ul6+fPmk+vr6l3Rd99t9wTOnZhhGoLGx8a2VK1deeeedd7rtvm6Yno9fsmTJ8PLy8vmxWKyKsvv8noBomtZQXV39zN///vfzxo4dK539ZcCknIcffjh3+/bt9waDwW3sPr/nIYQYkUjk8z179vwi/tgx6x9gvt7111/v/uCDD6YcPXp0WTKuvsucGdM0Y+3t7WUbN268fdasWRl2X19MksrNzZX+8Y9/jK+rq/uTpmmNdl+4TNcyDKPt8OHDr6xcufLyqVOnKnZfb8mAzZ6wcIsXLz7nsssuu62wsPAWp9M5CCxveiuqadqhurq6Vzdv3rz0wQcf3NPc3GzanSjGJvfdd1/mli1b7mpvb99ICNHsrqWY7kEIMUKh0K6dO3f+z+OPP97X7uuQ6WZXXHGFc82aNd8+evToO7qus+m7Kco0zXBTU9PysrKyaXfccUea3dclk2Aul0tcunTp+bW1tc/Hp+8yDNV1vbm+vv7F995779KBAwemzLTiVLrP5Z544omCKVOm3DRgwIAZLpdrCNiwEHMiGovFquvq6v62fPnyv86cObMKALE7UYmUEgHg7rvvzpg+ffrVw4cP/3F6evpYnueddqfJLsQw0FS+H+Xr10DbvR2jzrsA7nGXQBk6ApyUMhXfV6KUaoFAYFtlZeVfX3755befeeaZZrvTlCi9OgBcdtllzpkzZ140duzYe7Oysr4limKm3WmyCyUERw/sQ/na1TiwdjVaa6pQ5HJiTG4OpKxsuMZMgGv8pXAMHsYCQZxpmsGWlpb1e/fufXH+/Plr33///bDdaepqvTIA5OfnC/PmzRty+eWX/3deXt6NDoejsLe+169DDAPNB60av3ztKvirqgBqtWqL3G6MyckGz3GgAMSsbDgvnAD3+EvgGDwcHFuMEwCgadqRo0eP/nPTpk0v3XXXXduCwaBhd5q6Sm8rFNxvf/vb/Kuvvvp7paWld7tcrhEcx4l2J8oOxDTRXL4fB9auwsG1q+GvOVbwOxwfADp0BAKrRTAJjsFDWYvAQqPR6IGampq/Llu2bOkjjzxSj17QP9BrAsCDDz7onTp16uWjRo261+fzTeR53mV3muzQWeOvW4PydavQWl0FQk59nZ4qAHTobBGcPw7uiyfDUTqMtQgAEEJiwWBw6/79+/9vyZIl//rDH/7QYneazkaPDwDjx4+XHnrooTHjxo27Jycn5zpRFLPsTpMdiGmi+eABHHh/5ZfW+Cf7qgDQgQKQsnLgHDsRrnGXwFE6lAUCAIZhtLW2tq779NNP//jcc8+Vvffee1G70/RN9OQAwL/44ouDJkyYcFNJScl0RVFS8mmvzl79tatQ8cG/0VJV+aU1/slOJwB0ONYiGA/3xZNYZ2Gcqqr1hw8ffm39+vUv//73v9+/f//+HtU/0CMDwIIFC/KuvPLK7wwePPhuj8dzHsdxKfe898lN/eM7907XmQSADlaLIBfOMeOsUQN2awBKqRGJRPZVVFS8tHz58rdmz559KJ5VSa9HBYB77703bdq0aZNGjRr1o8zMzMt5nk+5FV9MXUfT/s9Qvn4NDn64Fm1nUOOf7JsEgONZowbj4b7kCsjnDAEnpmR/aydCSCQQCGzes2fPC2+88cbqZ599tt3uNH2dnhIAxDfeeGP0uHHj/jsvL+8GSZJSbjN5Sgga9uxE+dpVOPjBWrTV1YBSelYf4NkGACDeIuiTD+WiCfCMuxTyoMHgBMHu7LKVYRgtjY2N727duvWlP/3pT1tXrFih2p2mL5PsAYD7zW9+kz9t2rRbS0pK7nK5XIORgvf5AHB413b8e95c+CsOgHbRPnldEQA6UABiQRGyf3g/lHMvtDm3kgJRVbW2pqbmlXXr1r1y7733HkQS3hYkbaguLi6W3nrrrSunTJnyu8LCwumyLPdF8geshPFXHsTuf7wOU9O67JheWUaB29Ulm2pwAGgsBmXkaMglbLceAJwoir7MzMwJpaWlY6677rpAIBCo2rdvX1J1EiZlbTpr1qzMf/7zn/dffPHFL2RkZFyZynP3mZ6N4zjJ6/VOvOiii55bsGDBIwsWLMizO03HS7pemzlz5uT+6Ec/mltQUHCXIAgeu9PDMF1BkqQ+55xzzi/uuOOOvpTSeXPmzKm1O01AkrUAnn766ZIf/ehHvy4sLLybFX6mt+E4zlFQUDD9nnvuef71118/z+70AEkUAP74xz8OuPPOO58pKir6b57n2YKNTK/EcZyclZV17VVXXfXUa6+9ZnsQSIoAMHv27NxrrrnmoczMzGtScVIPk3I4n883+corr/ztokWL+tuZENsDwJw5c7LuueeeuYWFhT9I1Sf3mJTEZWRkXH7jjTfOnj9/vm2LktoaAEaPHq3cfPPNMwoLC2ewZj+TajiOkwoKCu646aabHpw0aZIts1rtDADcs88++93BgwfPTMUpvQwDWB2DxcXFP1q0aNHtsGFejm0B4NVXXz139OjRj0iSxNZkZ1KaKIqZpaWlD7755ptjuvvctgSA6dOn+y655JKfeDye0Xacn2GSjcvlGjpp0qRH5s+fn9+d57UjAPAPPPDADXl5eTfadH6GSUZcVlbW1ddff/0t6MZbgW4vgEuWLBk2ZMiQnwiC4O3uczNMMuN5XhkwYMCM119//dxuO2d3vsGJEye6Lrnkkhlut3tkd56XYXoKl8s1ZNy4cXdPnTq1W2bCdmsAmDt37kX5+fnf5zguaZ9CZBib8X379p36wAMPXNwtJ+uudzVx4kT3iBEjbpVluaC7zskwPZEkSX2GDh1629SpU9MTfa5uCwBz584dm5OTc013nY9herLs7Owr77///gmJPk+3BIChQ4c6R4wYcbPD4WC1P8OcBkmS+gwbNuy2G264IaGtgG4JAHPmzBmclZV1WXeci2F6i6ysrCtmzJiR0CcGuyMACGPHjr1eUZQB3XAuhuk1ZFnuM3To0GuQwIV7Eh4AZs+enZOTk3MF6/lnmDPGZ2dnT16wYEHCpssnPABMmjRppNvtHpbo8zBnpqtWFmYSy+VyDR4/fnzCbgMSHQCEAQMGTJIkKSX360tGlFLohCCom6gORrCnpR3+mAqdEBYUkpAoir6SkpJJABKyUE5CF+B46KGHsrKzsycihZfztlNHgSYAdJMgahJEDOtLNQkIVBxoD8PnkJDvcqLI7USh24UMhwxFsOqGrlgynDk7mZmZ4+fNm5c7d+7cQ1197IQGgHHjxhU7nU62SHw3o5TCpBSqSRA1CMKGVfh1Qr+wM4VOKZpiGppiGna3tMMjichzKij2uJDvdqKP0wGnKEJggcA2iqL0Hz169AAAPSsAlJSUDE/FbbzsQCiFQShinbW8iZhJYJxBq54ACOgGAnoI5YEQnIKAbEVGoduFIo8TfZ0K0mQJIsexlkE3kiQps6ioaASAj7r62IkMAILP5xvMlvpKDEopCADNJIiZBGGdIGqaUE3r72d9fAAR00RtOIq6cBRbmjlkyjLyXQr6pbnQ1+lEliJD4vku2VqM+XIcx8ler3cIrH4AvSuPnbAAMHz4cEdaWhob++9KFDAIgWpSRAwTYcMq/Kdq2nfxaaETisaYisaYit2tAbglAXlOBUVuF/p5XMhWZLjE1N4mPJE8Hk//6667zrl8+fIuDQAJGwW44447fIqi9Et81qQGxZeB9BGjEUrPxmETaFRNBHQTWoIL/6kYlKJdM7C/PYT1jX68ffgo3o9R1OUXgWRk251VvZKiKIXXXHNNZlcfN2EtAK/X6xAEIS2x2ZI6+gwZjhv/v4VoPdKAhooK1O7bi7p9e3GkshLtTU1QoxEQ00x4OnhBgMPpQnp2NnKLS9Bv6HAUDx+BvoMGISO3DzwZXX6NMgAEQfCkp6c7uvq4CQsA8SEoNrDcRTiOg8eXAY8vA0VDhuHCb18LLRZF29GjaKyuQv3+z1H72V4cOrAfrY2HEQmEQIgJnM3YPseB53koHg8y++Yjf8AgFI8YiYLSwcjrPwC+PnlwOJ3gBTbJszsQ0hW9OydKWACI7/DDNvpIEF4QoLg9yOvvQV7/ATj3siugxaII+P1orqtD/YHPUbfvM9SX70dTdQ0iwXbomva1AUFyOKB40tGnXzHyzxmEoqHDUTRkKLILi5CelQWHi63gbgeO4xwuV9dnfsIKaGlpaYEsy+yGsBvJihPZBYXILijEkHHjYeo6woF2NNXV4khlJeo+/wy1e/fiaF0NAs3NUKMRyIoD6ZnZyO1XgqKhQ1E0dDjyBw1CTlE/uNK9ECSJDfklAVEUM4qKigoBfNqlx01UgiVJcrB9/uwlSBLSs7KRnpWNgaPPByEEsWAQLUcacKSqEq1HGuDNyUX+oHPg69MHrnQveJ4t1JyMOI7jE/FAHWuipxCe5+HyeuHyelE4eAgIIazApzj26acwVvgZdgUwTApjAYBhUhjrA0hBlFLo0QiIqkKWZfCKE2Bj+SmJBYBejpgmiK4j2t6GUFMj2mqr4a+qQEtVBTyhAIblF0AuKIJUVAwxvxBSTh8IaengFAXgeIANAfZqLAD0IpQQGLEY1FCws7A3V5SjpboSrYdqEWlqhh4JQYtFwQEocrsRPXoY6s6tgCiCUxSI3gyI2X0g5hdCLu4PMb8QQlYORK8PkGRwIrtkehP2afZQlBAYqgo1FESwsQGttdXwV5ajtboKbYfrED7aBDXYDtMwAHriFNJT1umGARoKQQ+FoB+qA9251Zri63JBTPdBzO0DMa8QUlExpMJ+EHP6gHd7wClOcDxrKfRULAD0AB3N+Fig3SrsddVoqaxAS00F2g/VI9TUBC0YhKHFuuycHABqmkAwCD0YhH6oDsBWQBDAOZ0QfBmQcvpAyi+CVFgMsW8BhOxcCL5McLIMjvUp9AgsACQpPRpB88FytNVVo6WqAi01lWivr0Xw6FHEgm0gBvlCzd4tTBM0FIIRCsGor0Nke7yloDgh+jIg5uVDKuhn3UIU9oNU2A98GtsJPlmxAJCEKKU48P4qlD3/FCKtbaC6BkJpUq6s2tlSCIegh0PQDtUB2zaBEwQILg+8025D2ndusDuZzJdgASBJaZEwIn4/iGEA6DnLKnem0zRhBtthhkN2J4n5CiwAJAAxTRDDQLStBcHGIwgcqoPY6kduWhqEzGwI3gwIXh94txucyw1elACeA/jefd9MKQU1TVAa78AMBqAGA4i0tiDcdBThpkbk8jwy++ZDysuHmJsH3usDLzvYPIUEYQGgC+jRKGLBdgSPNKD9UJ11z15dgdbaaoSam6CGQhjodEDKzgFEAZwkg3e7wXvSIaZ5IWRmQcjOhZidA96XCSE9HaS1pcfU+l8l0uJHZNd2RPzNCDU1ItjYgMCRBoSaGhFra0Ms0Ao1FALRDcA0MTYnC0hPB+dQwKdnQM7rCym/AFJRSeeQpJDutSYvsWcZzhoLAGegs2Zvb0O4qRHth+rRUl0Bf9VBtNVUI3S0EbFgAKZhgFJyQgEmDhnUNMARE1TTYIZDMI82Qkd82SSOA8/xgCwDsoJAe2u3LPGVaPtW/RP7334NRiQCQ1NBKb6QNx04wFqwxDBAjRDMcAjRhjpEtgMcL4BzxUcf+lgdjVJhP4h5+RDik5d4h8KCwhliAeA0qaEgdr3zOhr37kJLXTUiTc1QI0GYsdgpt9Q6k9q748Kn1ARiUdBoBCQQPLvlvJKEGgwg2tb+jfOm89+Tk0Yftm0CJ8ngHDIEXxbEnDw4BgxE2jVTILB1CU8bCwCnKdragj3vvgl/dUWvaJr3dBwA6BqorsWDQg306gq4xl3CAsAZYO2lM0CIyQp/EkvEopm9HQsADJPCWABgmBTGAgDDpDAWABgmhbEAwDApjAUAhklhLAAwTApjAYBhUhgLAAyTwlgAYJgUxgIAw6QwFgAYJoWxAMAwKYwFAIZJYSwAMEwKYwGAYVIYCwAMk8JYAGCYFMYCAMOkMBYAGCaFsQDAMCmMBQCGSWEsADBMCmMBgGFSGAsADJPC2NZgp4kTBLhzcqGFwjB1FaaqARxAibXRJaUEhNDOfQK/bAPMU+nYHLTzXDwPCL0jNvMcD3DHvxd6xnseduQPF/+KZ5L1Gs+B4wXAoUDMyGCbg54hFgBOU3pePr71i1/B1DQYmgqi69BjMWiRMAxVhR6JwFBj0KNRmJoKLRKCqevQImFQ00QOB7i8XnAOBUB8t1un0yr3HA9OcYKXZetksgPundvBrVgGEALyFQXG7q3KvixlHenqN34ifCWlILoGANCiERjRKADAMAwY0TBAKQihMGNRpLtdcGVmWbslu9zgJAmcQwHncIB3OABZASfL4BUnOFkGpzjBiaL1bwQBcmGxzTnSs7AAcJo4nkf2oMFf+npHzc+d9LupaaCUguoaJEkCjddQHDhwknTcCU4syoNGXQDHkOEwNBVaJAJTVaFHwtB1zdpqW9eghyMwdBVmLAbTMEF0HYahghg6iKbBNAmMWCyeHmvfPEo6vlPwPGfVrLxgnZTvSAMHynHgRAGcKAOiAE6UrKDlUMDxHDjFKnCc4gQnO6wCKYngFJdVQB0KIMnIKx0KuXToF/Kl42dT0zp/J4YOkePASxIoAF6SrLQAx2r+L8kv5pthAaCLnHyBdvwuKlaND6fT+vtpHi97UCmyB5UCAIhpAgAosb4T48TfDTUGYhgwNA2mqsZ/VmEaOoxYDETXoYZDVgslHLaCSjiMNA7wpqdBcLoASQbvdIF3xAuzQwFE0dqCWxTByTIgCOBkBeA5699w3LEmN893/m412fkvFtqT8okDwMfzJZ5JJ7x2qp+ZrsUCQA/AC/EaOv5dkE58XXZ7Tv9gnX0Ux7VYOu+ru6aosQLbc7AAkGrihZxjTWgGbBiQYVIaawF0NUqsVja1hrs4HOt4A2B1tHGcNdTHsfjbkU+UEICSY8MK/InDfRzPsfxKABYAcOL9MI1/P3ZRUuvCJASUUICYgGn1uMM0QA0dMIz43zRQ3QCICaprgGkCRvzfEAoqCFbPdsfQliyDlx1A/DsnO6yRAZ4HeMHqWOvoZOspTfbjhyw78tA0rfwzDVBNA9FigKaDqDFA10G1GIiqgWoxcCax2qWCBE4QrY5IMf5dEK1hQVEEhI6/S+Al6zs4K0hwghDvYRTAdXZKcsc+X85KJrsNSqEAEGtrBUdM8BwHnlKrQJqGVYh13foyDMDQQQwdMHRQPX7hEh3QTWsozTTjve8UMKwAQSnprO2/znFtASvw8Dx4XrSGB3kOvCiCkyVAlK2hN4ccDxbxcXBJti5wQQAEEbyigJNkW/JUC7SDmib4eCHnTB1UVUE1FVRVQVQVRNfAaTqIqQG6AUpMcJSAmBQgJD7Id/o684yzCjnlBYCjAMeDFwRQXrACAieASiIEQbSCqdQRPCQryMYDCydYwQS8FRU4ngef5k2ZCUUpEwA2/vk5+D/fizRPOlxuN9xp6fCke+Byp8OhKBAkCYIgWBXtGdYOZ1KP0JMn9RACYqpWq8E0QUxiBRRDt2pLw4jXlAagqSDEAAzTaokA8Fz+bbgmXXlmtZlV/X3x+xlo3LcHm//0LEgkAkkSIYkiJEmGoiiQHQ5IDsX6WXFCkiTwolUYBUEAJ/DgeSuvjw+bp/MeuHh6KTWsP5jGsayMfzePz96OPI8XcFAcC/ZqDGY4DKpGQaNRmJEQeE8afLf9EHK//meUHz1VygQAf1UFarZv7fxdkCRIkgTZoUBxe+BOS4M73QePzweP1wt3WjqcLjcUlxuCKIKLj3N/2UVKaccUV3rsQiOmdUtg6KCGddFRXbNqR00F1TSrttRUUE23XtOt7zCMzuYzJaZ1zOP7EgCAF+AYdf7JCQE9vu/BNOLntW5VqK5ZAUXTrELA8+Ad1u0HJKlz3B+S1QTnOoYgTxoqNGIx1G7filig/YTTcxwHXhAgCCJ4QQAv8BBFCZJDgeSQITusACErTsiKAoeiwOF0QXG6IMkOSA4HJFmGKEmQJBmCJFkTjzgeXPz43FfUzrQjnygBUVXQWAwkGgGJhEBCIZBI2PqKRqzWSsctXEeWZmRaeZUiUiYAnMzUdZi6jlgkgkBrS+ffOZ4Hz/OQZAcUlwsuTxpcaWnweDPg8XrhSffCm54OlyAcK7CaZn2pMavW1lVQVYvfRhxX+A09fnEeCxI4kyYwLwACb83cE3hwsgJKCMzGBuvWRVUB3bq3proWL+QaiH5cAKDHnR/omAgArqODTRCtJrQUnwEoO8BJ8Zl9HX0VkgQE2+HLzkGI42AahvVlGsd+Pq5Qfanj5vdz4MDxnBUEZDkeoGVIDgdkhwKH0wlZcUJxOq0golhfksMBRZLhBrUKdjhe0KNh0EjYCgKq2tmPw5woZQPAl6GEwCQEpmEgFgmjrbmp8zWO5yFKEoZkZWGI19vZsdVZqM8UxwHg4x1W/LFZdx01seyIz4G35sJ3PC9gzY1XwEkSBNmB6LaNx3Vaxo9LyKln4n3hDcf/Q+MNZ2KC6CqAsPVy/J7buk2wjs1zPNLB4YrvTYOuqdBiMcSiEajRCGKRCNRoFLFoBLFIGGokAjUWs6Yuaxp0TYVpGNb06I6vjoJpAoauIxr++nwTBBGCKIDneeS53Tg/IwN8x2fBnDYWAM4AJQS6qkINh0Bk6Yzuu01KERNFONK8kNxuSJ408IoTvKLEH2xxWA+3iFbhhygeG/riuM7a8pTiU4M7X/0G9/RfpuOe2zqudWwav8t2p6d/MY+OK9SEEGu+v65D11TomgZNjVkBIhJGLBJGNBxGLBRELBSEGgygrb0d2te1HiiFaegwDaupHqUE1OVMmY67rsQCQDcJaBp2NPvBB8NIy8xCGgHc4JGmuOAUZSiKEw6nE6Ikdc6j74nDVJ3p5nnEew9AZRmKywmYxBoqVWMgkQjMcAgkHILpckJ3yNAkEbtUFTWhkN1vI2WwANBNKIBQNAI1FEJT4xEAiHeWCRAlGYrLBcXthjvNi/SMTKRlZMCd7oXT7Yl3kMkQRKtjLVkDQ2enpWnEO+CinfflZjAAEg6DxiIgsXgfhUk6RzM4ABKlEJLzrfVaLADYiJgmiGlC1zREwyEg3t3QUYuK8U4wxeWCKy0dnnQvPD4f0rw+uL0+ON2ezl51Pj5pKJHBoXOkg1KrY1OzRhRION75Fg5aP0fCoLFoZyfpCZ2OTFJhASAJddxHa2oMmhpDONAO/5EGAFZwEEQRgihBdjjgdHvg9KTB4/XCm5kNj88HlycNissFh+IEL8aH5M7g/tgaSjNBTWKNYqgxkFjEKtzBAMxQ0Ophj0Wt0Y/4TEhQ1gHX07AA0MNQSmHoOgxdhxqNINjWGn/FGkbjeT4+vu6E0+2BOz0dHq8PHl8G0rw+uNLS4XA6IckyJEkGR0nnUCaJxu/LQ0GrRo+EQaMRqzmvxac2f4MlvZjkxQJAr0FBCYVJCKKhEKKh0AlDmDwvWJNrHDIcTjdcHg8KfD6UuJxANAoai4Eax9XmTEpgASBFEGJCU834LUUALY0A53ajICcbfJJ2KjKJxwZOGSaFsQDAMCmMBQCGSWEsADBMCmMBgGFSGAsADJPCWABgmBTGAgDDpDAWABgmhbEAwDApjAUAhklhCQsAlFITJy6DzzDMN0QpJfEy1aUSFgCqqqoOa5rWnNhsYZjUoOt6S21tbX1XHzdhASAcDkcopWpis4VhUoYWjX7teslnLGEBIL4CDXvOlGG6SCKWe0tYAGhra1NN0wwkNEcYJkUYhhEKBAKxrj5uwgLAkiVL2qLRaG1is4VhUoOqqodWrVrVevZHOlHCAsC+fftioVCoMrHZwjCpIRaLNaxevbrL+9QSOQ+AtLa27ieEdHmzhWFSCaVUa25u3m4YRo8KAGhsbDxoGEZbIs/BML2daZrBpqamA4k4dkIDQFlZWUUkEklIwhkmVUQikYNbtmzpeQHgt7/9bXMgENieyHOcrmTdTotJLhwSu7vSNxEMBnfOnj37aCKOnehnAYza2tqPkmE4sHj8xcgoGWjttsswJ6EAeK8XzrETwPsy7U5OJ9M0w4cOHfoIQEIm1SV8X4CysrLNI0eO3O31eicm+lxf5fybp6PognE4uH4NDqxfjZbKSraVFRMv+Jlwn38h3OMvhTJiNDiHYneyOsVisaodO3ZsTtTxEx4AHn300UPTpk1b5/V6x8PGpw95UUSfocORUzoEgy67CuVrV+Hgf9agtboKhLBAkGooANGbAeWCi6yCP3xUUhX8Dk1NTe/fc8891Yk6fnfsDEQOHDjw76Kioh84HI6ibjjfV+IFwQoE5wzGOVd8+4QWAaWEzV3u5SgAISMDzvMugmvcxVCGnwtecdqdrFPSNO3IwYMHVwDQEnWObtkabO7cudtGjRq1qrCw8O7uON/pOLlFcOD9laj44N+sRdBLUQBiegaUC8bAPWEyHMNHgU/CGv94ra2tZc8999ymRJ6jWwLA9u3bI5WVle/l5eXdKIpi8vSw4MQWQemV11q3ButXw19VxfoIeoHja3z3+EuhDBsJLklr/OOZphmsqalZtmzZsoR2oAvd9YacTmfzuHHjRrnd7qHddc4zwfE8PNk5KDx/DPJHXwin1wc10IZYexvoSdthZykO9HE6v3K4iMLakZf3pEMu6Q+zoATVdTUwdN3ut9rJK8socLuSZtiLchyE0mFAXgFMw4ShRU9rK3KPJKLI7T5hk9OOe3z3hEnw3nAr0r/9XUhFxeBEye63eVpaW1vXv/TSS0+XlZV1+SPAx+vWT37VqlVXTZ48+SWHw1HQnef9Johpovngfhx4fxUOrl0Nf82xFkGpNx0jMzK+UHAoAMHlBp+ZDUfJQMiDBkMeNBhSXj6a6mrwj5/di0hL8qyRUuR2Y0wS7Q7M8QK8d/0YjgmTEWxqxNF9e9GwZyeOfL4X7YdqoQWDIIbxhf+vj1PBhNxcCDxvfQbeTLguvAiu8ZdCGTqiR9T4x9N13b9169b7J0yY8Hqiz9Wt24P/5je/KRs2bNiyoqKiHyPJ1yPkBQG5g4che2ApSq+4GuXr1qB83Sq0Vld1/hsKgJNkCL4MyIXFkEuHQB5QCrmwH4TMbEAUwVnrIoBrOGT3W+oReF6A4vVB8WUg55whGHLN9Yi1t6GlpgpN+z9Dw+6dOHpwH4INh6FHY6Adt2kcB8GbAef5Y+CaMBmOYSOTtnPv6zQ1Na2YP3/+yu44V7cGgI0bN0Y+/PDDP0+ZMmWS2+0e3p3n/qZ4UUTukOHIKR2Kcy6/GgfWrgJ2boWS2wfywHPgGDQEUr/+ELOywXvS7E5uryNIEtzZOXBn56DogrHQo1GE/U1oqapA42e7cWTfHohHG+CZMAlpEyfBMXREjy34gDXuv3PnzheXL1/eLZPnujUAAMDtt9++e+fOnX8aPnz4AkEQ3N19/m+K43nkDhmG7EGlUJsa4XB7wLs9gNBt3SgMAMnphK+wH3yF/dB/4iTosSii/mak5eT26IIPAJRSvb6+fum11167sbvOaUcz3Pzb3/72anNz83s2nPus8aIIZ98C8OleVvhtxvE8ZJcb3qLiHl/4AaCtre2jf/3rXy8hgeP+J7PlPvzJJ59s+vjjjxeGw+HddpyfYZJNLBar2rZt2+9/9rOfVZ390U6fbR1xN9xww5Y9e/Y8qet6k11pYJhkYJpmsLy8/H+vvPLKdd19bjt74smsWbPerq2t/T9CSNTGdDCMbSil+uHDh1958cUXlwDo9kkitg7FbdiwIfKHP/xh4eHDh/8OoMt3PWGYJEdbWlr+/fbbbz/5v//7v12+4OfpsH0sfuHChU1r16590u/3r0Iv3kpMVJzw9Stm6xF8CQqAz8iwOldTA21tbV27evXq2TNnzqy2KxFJ0Y397rvv+ocOHbqjqKiov8vlGoReuKGI05eB3CHDOqcYR9vbTmuaayIlw1TgY1N2L4V36i1wnjcGnNDto9Pd/rZbW1vXrlix4ue33377TjsTkhQBAACWLVvW1JuDAMdx8GTnovCCi1Aw+kIoXh9irS2ItrfDKgbdz84A0DFl13PxZHhvvBVpV38XUlEJuN4/tJo0hR9IogAAWEFg+PDhn+bk5Pjcbncpx3E948mNM8DxPNzxh44KzrsQroxMRNpaoLa3f+Gho0SzKwAIHTX+jbfCc9V3IPegh3TOBqVU9fv9K9asWfPIbbfdtsvu9ABJFgAA4N13322WZbmspKTETE9PHyIIgsfuNCWCFQhyUXj+WBTa1CLozgBAAfDpGfBcfJlV8K/+LuSikpQo+ABgGEZrfX39Sy+99NKcBx54oNzu9HRIugAAAGVlZZEdO3Z8MmzYsGqv11sky3JfjuudvWcntAhGXwhXZiaibS2ItiU+EHRXABC8GXBPvBS+FKvx48xgMLhj165djy9cuPD5p556KqnmvST7fTb30ksvDZk8efIPCwoKbpZlOekfIz5bxDTRdOBzlK9bjQNrV6O1JnELkyTyceCOzj3nhePgGndJ0q65l0i6rjc3Nja+s3bt2ud+8IMf7EUSjnIlZQvgeMuWLWv+9NNPPywuLt7hdrtFp9PZj+f5XnslcTwPT07usRZBRiYi7a2ItrWhq1sEiWgBdHbuTbgE3htuQdq3r48vxNHre/Y7EULCfr9/zZYtWx5bvHjxn+fOnVsHu3p6v0bSBwAAqK2tNV555ZUKTdPW5+TkHHS5XD5FUfI5juu1V9WxQDAWBaMugNPrQ6y9tUs7C7syAHTU+K6Jk+G7saPgl6RUwaeU6qFQ6NM9e/YsePPNN5+aPn36tq1btyZkPf+ukuy3AKf01FNPFV9zzTW3lpSU3OV0OgciCSY0JRoxDDSV77dWMV63Gi1VZ7+KcVfcApy8yq4zydbV7yZEVdW6Q4cOvbZu3bq/3H333eVIwub+qfSIFsDJ1qxZ075t27ZNOTk5H7vdbt3tdhf31tGCDie0CM69AEq6F7FgG9RTrFl4us6mBdCxyq5rwqXw3XAb0r/d0aufOjU+ABiG4W9sbPzH+vXrZ8+bN+/Vp59+uhFJ2tw/lR4ZAACgvr6evPHGG4dDodCHaWlpOzwej1NRlCKe52W705ZIHYGg6IKxKBx9AZy+bz5q8E0CgFXjZ8YX27wF6SnY1AcAQki0ra3tw61btz72wgsvPP/zn/+8/ODBg8bZH7l79dgA0OHTTz/VlixZUu7xeP7j9Xpr09LS8iVJyuY4rse/t6/SOY/gvDHIP/erVzH+MmcSAE69ym7qjON35gOlRiQS2VtZWfnMK6+88sSdd965ecuWLTG70/VN9cg+gC+Tm5srPPHEEwMnT558W79+/e5QFKUYKdA/AHSsYnwAB95fifL3V6Gltvprhw9Ppw+gN6yy20Woqqr1R44c+ce6dev+b86cOfsaGhp6XI1/sl5VS4bDYfree+/5KysrN3o8no+9Xi/vdDr7CYLgsjttiXb8hKLC863hw+jXTDH+uhZAqk7ZPZlhGK3Nzc3vlZWVzZ09e/bLCxcuPBQKhXpEJ9/X6VUBoEN5ebn5xhtv1Gua9h+Xy7UrPT3dpyhKQW98tuBkx08x/rqHjk4VAFJ9yu7xKKVaIBD4eOfOnY8vXLhw4axZs/ZVVlb2+Fr/eL0yAHTYvHmzumTJkv0ej2ddVlbWEY/H01eSpKze3j8AnNgiyB99wSmnGJ8cAFJ8yu7xSCQS+by6uvr5119//fGbbrqpbNu2bb1y1ape1QfwVRRFERYtWlR61VVXzcjPz/8vh8PRL5XePyUERw/sQ/naY1OMi1xOjMnNgZTiU3aPp2na4cbGxmUbNmx48ZZbbtkJoFfV+CdLmQLQ4ZJLLlF+9rOfjRk3btyPs7OzrxZFMcvuNHWnjglF5evXQN2xFSNHnYu08ZdCSc0JPMfyhZCI3+9/f9euXX/89a9//UFZWVnE7jQxCXT33Xf7Pvjgg2ktLS1rTdOMUiYlEUL09vb2T7Zv337vY4891sfu67K7pVwL4OT3v2DBgsIpU6bc1q9fv9tcLtfQVOgfYAAANBqNVtTX1//9gw8++Pvdd999AD1oBh/ThTIzM8W//vWvo2pqap6JxWK1lFJid83EJI6u6y2HDh16+d13351QUFCQkr2czClcccUVzhUrVnyrsbHxbcMwAnZfqEzXMk0z6vf7V3/00UfTZs2a5bP7eksGrLl7nKqqKmPp0qWVANbl5OTUulyuTIfD0ZfdFvRslFIzHA7v+vzzz3//7rvv/u7mm2/+ZOPGjT12+m5XSvU+gK/CPfvsswOuuuqq2woLC29xuVyDwfKrp6GqqtbV1dUt/eSTT/5+xx13fIYe8pgukyScTqf45ptvjqmtrX1BVdXDdjdjmdNjGEbbkSNHXn/vvfcmT5o0yWH3dcT0cJdffrlr3bp132lqavqXaZphuy9w5tRM04y2trZ+UFZWdssjjzySUnM8mG7wxBNP9N2+ffu9gUBgMyFEt/uCZyyEECMcDu/dtWvXzxYtWlQMdrvGJBD/4osvDjlw4MDj0Wj0IGXDhnYiqqoerqure2Hp0qXnDRkyJLVWJmHsU1BQIC1btuziw4cPv6LreovdJSHVGIbR3tTUtGzVqlVXT5061W339dATseGtsxAMBslrr71Wy/P8f9xu92dpaWkZDoejV69WnAwopXowGNy6e/fueYsXL37q/vvv3/X555/rdqerJ2IBoAtUVFTEnn322c/y8vL+43K56tPS0griy5KlxGpE3YhEo9GK2traP7/zzju/uuGGG/6jaVq4oaHB7nT1WCwAdIFwOAwA0DQt8Lvf/W7rgAEDPnK5XEG3210simI6WIfUWdN1vbGxsfGt9evXz/3xj3/8WlpaWtPmzZspK/xM0pk/fz6mTJmiLF++/PLGxsY3DcNos/t+uacyDCPY3Ny8Yv369d/7/ve/76HdvIMyw3wjLpcLlFL84he/yNqwYcOtbW1tH7HHjk8fIcQIBoPbtm/ffu/DDz+cC4DLyMiw+2NlmDMzfvx4AOAWLlxYsnv37p+Hw+F9hBDT7gKWzKLRaFVFRcXv//KXvwwHwF988cV2f4y9FusDSLD6+noAQN++fdteeOGFzTk5OR9nZGTwiqLkC4KQZnf6kkl8l523N27c+Os777zzr+np6Uc++eQTWltba3fSGKZrUEoxZcoU95o1a65pamr6p2EY7XbXuHYjhMRaWlrWbdiw4aabbropnbL7fKY3EwSr4TVz5sycLVu2/LC9vf0T0zRjdhdEG5ihUGj3nj17Hlq0aFEJAIgptsUYk8IKCwsBgH/qqacGfP75549FIpFymiLTilVVra+srHz6tddeOw+AMHjwYLs/jpTE+gBsFAgEAIAWFxe3Pv744xsHDhy42ev1CvH+gV45tdU0zZDf71+xadOmX86cOfMlQRDqP/74Y+r3++1OGsPYh+M4UEoxdepUz4cffnhDc3PzCsMwgnbX1F2FEKK2t7d/vGnTph88/vjjuZRSKErqLkPOMKfUv39/AMDDDz/cZ8eOHQ8Eg8HtlFLD7gJ8FsxIJHLgs88+m7148eJBALgBAwbYnc0Mk9wuvfRSAOBfeeWVkZWVlU/GYrFqu0vymdI0rbG6uvq5t956a+yYMWOk6dOn252tDNOzzJo1C+edd55j5cqVl8cfO/bbXbC/jmEYIb/fv3Lt2rXfnTFjhnvZsmV2ZyPD9GyUUtx1113ejRs33uL3+9ck47RiQogWDAa3bd269Z4nnniiLwCUlpbanXUM0zt0dJrNmzevYM+ePbMCgcBWQohqd8GnlJrRaLRy//79v1m8ePHg3Nxc4brrrrM7u5jTwIYBexDDsDaqDYVCwTlz5mwuKipa63a7GxwOh1sURS/P8926+i0hJBIOh/ccOnRo6YYNG+bPnz//DUmSGtesWUPLy8vtzi7mNLAA0AMdOnQIAGhtbW3LwoULNwmCsMrhcOzkOK5VEARZEAQ3z/MSun4dAkoIiaqqWt/a2rp+//79z6xYseL/nzZt2juqqta8++675oYNG+zOHuYMsIUqepGRI0cq9957b9H5559/QZ8+fc73eDylLperVJblXJ7nnTzPK7A+89P53CkhRCOEhHVdb47FYrXt7e07m5qatldWVu595513Kt94440g2IaaPRoLAL3QwIEDUVFRIVx33XXuqVOn9u3fv3+Bx+Pp4/P5CiVJyk5LSysG8KXLlcVisaZIJFIXi8X8zc3NVXV1dYe3bdvW+Oyzz7ZfcMEFxrZt2+x+i0wXYQEghYwYMQKBQEBIT0+XeZ7nKKWgxz15x/NWTIhEIsbBgwc1u9PLMAzDMAzDMAzDMAzDMAzDMAzDMAzDMAzDMAzDMAzDMAzDnNL/A6btaQ/xbXYiAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTA3VDE0OjM1OjA2LTA0OjAwu4ntfAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0wN1QxNDozNTowNi0wNDowMMrUVcAAAAAASUVORK5CYII=",
+                                        "Label": "Amazon Elastic File System",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon Elastic File System provides file storage for use with AWS Cloud services."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Amazon Elastic File System, it is important to measure read, write and total Input/Output for efficient performance and cost savings."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL | where ${Performance Mode} and ${Region} and ${File System}  | project ['I/O Limit'] = columnifexists('io_limit_d', double(null)), TimeGenerated, Name=amazon_elasticfilesystem_file_system_name_s  | extend Healthy = case(isnotnull(['I/O Limit']), (['I/O Limit'] < 90.00 or isnull(['I/O Limit'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL | where ${Performance Mode} and ${Region} and ${File System}  | project ['I/O Limit'] = columnifexists('io_limit_d', double(null)), TimeGenerated, Name=amazon_elasticfilesystem_file_system_name_s  | extend Healthy = case(isnotnull(['I/O Limit']), (['I/O Limit'] < 90.00 or isnull(['I/O Limit'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": " Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_elasticfilesystem_file_system_CL | project ['I/O Limit'] = columnifexists('io_limit_d', double(null)), TimeGenerated, Name=amazon_elasticfilesystem_file_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['I/O Limit']), (['I/O Limit'] < 90.00 or isnull(['I/O Limit'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_elasticfilesystem_file_system_CL | project ['I/O Limit'] = columnifexists('io_limit_d', double(null)), TimeGenerated, Name=amazon_elasticfilesystem_file_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['I/O Limit']), (['I/O Limit'] < 90.00 or isnull(['I/O Limit'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " I/O Limit",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "I/O Limit",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('io_limit_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average I/O Limit",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL  | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('io_limit_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "I/O Limit"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Total I/O",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total I/O",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('total_io_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total I/O",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL  | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('total_io_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Total I/O"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Read I/O",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read I/O",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('read_io_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read I/O",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL  | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('read_io_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Read I/O"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Write I/O",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write I/O",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('write_io_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write I/O",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_elasticfilesystem_file_system_CL  | where ${Performance Mode} and ${Region} and ${File System} | summarize avg(coalesce(columnifexists('write_io_d',0.0), 0.0)) by amazon_elasticfilesystem_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Write I/O"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_elasticfilesystem_file_system_CL | summarize([\"Last Update Time\"], ['I/O Limit'])=arg_max(TimeGenerated,columnifexists('io_limit_d', '')) by Name=amazon_elasticfilesystem_file_system_name_s",
+                                            "displayName": " Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticfilesystem_file_system_CL | summarize([\"Last Update Time\"], ['Total I/O'], ['Read I/O'], ['Write I/O'])=arg_max(TimeGenerated,columnifexists('total_io_d', ''),columnifexists('read_io_d', ''),columnifexists('write_io_d', '')) by Name=amazon_elasticfilesystem_file_system_name_s",
+                                            "displayName": " Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticfilesystem_file_system_CL | summarize([\"Last Update Time\"], ['Encrypted'], ['KMS Key ID'], ['Owner ID'])=arg_max(TimeGenerated,columnifexists('encrypted_d', ''),columnifexists('kms_key_id_s', ''),columnifexists('owner_id_s', '')) by Name=amazon_elasticfilesystem_file_system_name_s",
+                                            "displayName": " Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "performance_mode_s",
+                            "QueryForValues": "amazon_elasticfilesystem_file_system_CL | distinct performance_mode_s",
+                            "Title": "Performance Mode"
+                          },{
+                            "FieldName": "region_s",
+                            "QueryForValues": "amazon_elasticfilesystem_file_system_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "amazon_elasticfilesystem_file_system_name_s",
+                            "QueryForValues": "amazon_elasticfilesystem_file_system_CL | distinct amazon_elasticfilesystem_file_system_name_s",
+                            "Title": "File System"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_elasticfilesystem_file_system_CL | project ['I/O Limit'] = columnifexists('io_limit_d', double(null)), TimeGenerated, Name=amazon_elasticfilesystem_file_system_name_s  | extend Healthy = case(isnotnull(['I/O Limit']), (['I/O Limit'] < 90.00 or isnull(['I/O Limit'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

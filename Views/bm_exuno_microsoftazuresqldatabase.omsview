@@ -1,0 +1,673 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure SQL Database Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure SQL Database Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure SQL Database Environment",
+                        "Name": "Microsoft Azure SQL Database Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure SQL Database Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00bcf2"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure SQL Database",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "SQL Database is a general-purpose relational database managed service in Microsoft Azure that supports structures such as relational data, JSON, spatial, and XML. SQL Database offers logical servers that can contain single SQL databases and elastic pools, and Managed Instances (in public preview) that contain system and user databases."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor CPU and memory usage, as well as IOPS and read/write delay."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database}  | project ['Average CPU Utilization'] = columnifexists('average_cpu_utilization_d', double(null)), ['Average Log Write Resource Utilization'] = columnifexists('average_log_write_resource_utilization_d', double(null)), ['Average Memory Usage'] = columnifexists('average_memory_usage_d', double(null)), ['In-Memory OLTP Storage Utilization'] = columnifexists('in_memory_oltp_storage_utilization_d', double(null)), ['Maximum Concurrent Sessions'] = columnifexists('maximum_concurrent_sessions_d', double(null)), ['Maximum Concurrent Workers'] = columnifexists('maximum_concurrent_workers_d', double(null)), ['Read Delay'] = columnifexists('read_delay_rate_d', double(null)), ['Write Delay'] = columnifexists('write_delay_rate_d', double(null)), TimeGenerated, Name=microsoft_azuresqldatabase_database_name_s  | extend Healthy = case(isnotnull(['Average CPU Utilization']) or isnotnull(['Average Log Write Resource Utilization']) or isnotnull(['Average Memory Usage']) or isnotnull(['In-Memory OLTP Storage Utilization']) or isnotnull(['Maximum Concurrent Sessions']) or isnotnull(['Maximum Concurrent Workers']) or isnotnull(['Read Delay']) or isnotnull(['Write Delay']), (['Average CPU Utilization'] < 85 or isnull(['Average CPU Utilization'])) and (['Average Log Write Resource Utilization'] < 85 or isnull(['Average Log Write Resource Utilization'])) and (['Average Memory Usage'] < 85 or isnull(['Average Memory Usage'])) and (['In-Memory OLTP Storage Utilization'] < 85 or isnull(['In-Memory OLTP Storage Utilization'])) and (['Maximum Concurrent Sessions'] < 85 or isnull(['Maximum Concurrent Sessions'])) and (['Maximum Concurrent Workers'] < 85 or isnull(['Maximum Concurrent Workers'])) and (['Read Delay'] < 1000 or isnull(['Read Delay'])) and (['Write Delay'] < 1000 or isnull(['Write Delay'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database}  | project ['Average CPU Utilization'] = columnifexists('average_cpu_utilization_d', double(null)), ['Average Log Write Resource Utilization'] = columnifexists('average_log_write_resource_utilization_d', double(null)), ['Average Memory Usage'] = columnifexists('average_memory_usage_d', double(null)), ['In-Memory OLTP Storage Utilization'] = columnifexists('in_memory_oltp_storage_utilization_d', double(null)), ['Maximum Concurrent Sessions'] = columnifexists('maximum_concurrent_sessions_d', double(null)), ['Maximum Concurrent Workers'] = columnifexists('maximum_concurrent_workers_d', double(null)), ['Read Delay'] = columnifexists('read_delay_rate_d', double(null)), ['Write Delay'] = columnifexists('write_delay_rate_d', double(null)), TimeGenerated, Name=microsoft_azuresqldatabase_database_name_s  | extend Healthy = case(isnotnull(['Average CPU Utilization']) or isnotnull(['Average Log Write Resource Utilization']) or isnotnull(['Average Memory Usage']) or isnotnull(['In-Memory OLTP Storage Utilization']) or isnotnull(['Maximum Concurrent Sessions']) or isnotnull(['Maximum Concurrent Workers']) or isnotnull(['Read Delay']) or isnotnull(['Write Delay']), (['Average CPU Utilization'] < 85 or isnull(['Average CPU Utilization'])) and (['Average Log Write Resource Utilization'] < 85 or isnull(['Average Log Write Resource Utilization'])) and (['Average Memory Usage'] < 85 or isnull(['Average Memory Usage'])) and (['In-Memory OLTP Storage Utilization'] < 85 or isnull(['In-Memory OLTP Storage Utilization'])) and (['Maximum Concurrent Sessions'] < 85 or isnull(['Maximum Concurrent Sessions'])) and (['Maximum Concurrent Workers'] < 85 or isnull(['Maximum Concurrent Workers'])) and (['Read Delay'] < 1000 or isnull(['Read Delay'])) and (['Write Delay'] < 1000 or isnull(['Write Delay'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": " Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azuresqldatabase_database_CL | project ['Average CPU Utilization'] = columnifexists('average_cpu_utilization_d', double(null)), ['Average Log Write Resource Utilization'] = columnifexists('average_log_write_resource_utilization_d', double(null)), ['Average Memory Usage'] = columnifexists('average_memory_usage_d', double(null)), ['In-Memory OLTP Storage Utilization'] = columnifexists('in_memory_oltp_storage_utilization_d', double(null)), ['Maximum Concurrent Sessions'] = columnifexists('maximum_concurrent_sessions_d', double(null)), ['Maximum Concurrent Workers'] = columnifexists('maximum_concurrent_workers_d', double(null)), ['Read Delay'] = columnifexists('read_delay_rate_d', double(null)), ['Write Delay'] = columnifexists('write_delay_rate_d', double(null)), TimeGenerated, Name=microsoft_azuresqldatabase_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average CPU Utilization']) or isnotnull(['Average Log Write Resource Utilization']) or isnotnull(['Average Memory Usage']) or isnotnull(['In-Memory OLTP Storage Utilization']) or isnotnull(['Maximum Concurrent Sessions']) or isnotnull(['Maximum Concurrent Workers']) or isnotnull(['Read Delay']) or isnotnull(['Write Delay']), (['Average CPU Utilization'] < 85 or isnull(['Average CPU Utilization'])) and (['Average Log Write Resource Utilization'] < 85 or isnull(['Average Log Write Resource Utilization'])) and (['Average Memory Usage'] < 85 or isnull(['Average Memory Usage'])) and (['In-Memory OLTP Storage Utilization'] < 85 or isnull(['In-Memory OLTP Storage Utilization'])) and (['Maximum Concurrent Sessions'] < 85 or isnull(['Maximum Concurrent Sessions'])) and (['Maximum Concurrent Workers'] < 85 or isnull(['Maximum Concurrent Workers'])) and (['Read Delay'] < 1000 or isnull(['Read Delay'])) and (['Write Delay'] < 1000 or isnull(['Write Delay'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azuresqldatabase_database_CL | project ['Average CPU Utilization'] = columnifexists('average_cpu_utilization_d', double(null)), ['Average Log Write Resource Utilization'] = columnifexists('average_log_write_resource_utilization_d', double(null)), ['Average Memory Usage'] = columnifexists('average_memory_usage_d', double(null)), ['In-Memory OLTP Storage Utilization'] = columnifexists('in_memory_oltp_storage_utilization_d', double(null)), ['Maximum Concurrent Sessions'] = columnifexists('maximum_concurrent_sessions_d', double(null)), ['Maximum Concurrent Workers'] = columnifexists('maximum_concurrent_workers_d', double(null)), ['Read Delay'] = columnifexists('read_delay_rate_d', double(null)), ['Write Delay'] = columnifexists('write_delay_rate_d', double(null)), TimeGenerated, Name=microsoft_azuresqldatabase_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average CPU Utilization']) or isnotnull(['Average Log Write Resource Utilization']) or isnotnull(['Average Memory Usage']) or isnotnull(['In-Memory OLTP Storage Utilization']) or isnotnull(['Maximum Concurrent Sessions']) or isnotnull(['Maximum Concurrent Workers']) or isnotnull(['Read Delay']) or isnotnull(['Write Delay']), (['Average CPU Utilization'] < 85 or isnull(['Average CPU Utilization'])) and (['Average Log Write Resource Utilization'] < 85 or isnull(['Average Log Write Resource Utilization'])) and (['Average Memory Usage'] < 85 or isnull(['Average Memory Usage'])) and (['In-Memory OLTP Storage Utilization'] < 85 or isnull(['In-Memory OLTP Storage Utilization'])) and (['Maximum Concurrent Sessions'] < 85 or isnull(['Maximum Concurrent Sessions'])) and (['Maximum Concurrent Workers'] < 85 or isnull(['Maximum Concurrent Workers'])) and (['Read Delay'] < 1000 or isnull(['Read Delay'])) and (['Write Delay'] < 1000 or isnull(['Write Delay'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Average CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('average_cpu_utilization_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL  | where ${Database} | summarize avg(coalesce(columnifexists('average_cpu_utilization_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Average CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Average Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('average_memory_usage_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Average Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL  | where ${Database} | summarize avg(coalesce(columnifexists('average_memory_usage_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Average Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Read Delay",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Delay",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('read_delay_rate_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Delay",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL  | where ${Database} | summarize avg(coalesce(columnifexists('read_delay_rate_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Read Delay"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1000.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "900.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " Write Delay",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Delay",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('write_delay_rate_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Delay",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL  | where ${Database} | summarize avg(coalesce(columnifexists('write_delay_rate_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "Write Delay"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1000.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "900.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": " IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('iops_rate_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azuresqldatabase_database_CL  | where ${Database} | summarize avg(coalesce(columnifexists('iops_rate_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "",
+                                            "Value": "IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Average CPU Utilization'], ['Average Memory Usage'], ['In-Memory OLTP Storage Utilization'], ['Average Log Write Resource Utilization'], ['Maximum Concurrent Sessions'], ['Maximum Concurrent Workers'])=arg_max(TimeGenerated,columnifexists('average_cpu_utilization_d', ''),columnifexists('average_memory_usage_d', ''),columnifexists('in_memory_oltp_storage_utilization_d', ''),columnifexists('average_log_write_resource_utilization_d', ''),columnifexists('maximum_concurrent_sessions_d', ''),columnifexists('maximum_concurrent_workers_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
+                                            "displayName": " Utilization"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Read Delay'], ['Write Delay'], ['IOPS'])=arg_max(TimeGenerated,columnifexists('read_delay_rate_d', ''),columnifexists('write_delay_rate_d', ''),columnifexists('iops_rate_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
+                                            "displayName": " Disk Access"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Data Space Usage'], ['Index Space Usage'])=arg_max(TimeGenerated,columnifexists('data_space_usage_d', ''),columnifexists('index_space_usage_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
+                                            "displayName": " Capacity"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Active Connections'])=arg_max(TimeGenerated,columnifexists('active_connections_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
+                                            "displayName": " Connection Capacity"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Active Transactions'])=arg_max(TimeGenerated,columnifexists('active_transactions_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
+                                            "displayName": " Active Processes"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Auto Close'], ['Auto Shrink'], ['ID'], ['Read Only'], ['Service Tier'], ['Single User Mode'])=arg_max(TimeGenerated,columnifexists('auto_close_s', ''),columnifexists('auto_shrink_s', ''),columnifexists('id_d', ''),columnifexists('read_only_s', ''),columnifexists('service_tier_s', ''),columnifexists('single_user_mode_s', '')) by Name=microsoft_azuresqldatabase_database_name_s",
+                                            "displayName": " Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_object_CL | summarize([\"Last Update Time\"], ['Average Page Lock Wait Duration'], ['Average Row Lock Wait Duration'])=arg_max(TimeGenerated,columnifexists('average_page_lock_wait_duration_d', ''),columnifexists('average_row_lock_wait_duration_d', '')) by Name=microsoft_azuresqldatabase_object_name_s",
+                                            "displayName": "Object General"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azuresqldatabase_object_CL | summarize([\"Last Update Time\"], ['Database Name'])=arg_max(TimeGenerated,columnifexists('database_name_s', '')) by Name=microsoft_azuresqldatabase_object_name_s",
+                                            "displayName": "Object Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_azuresqldatabase_database_name_s",
+                            "QueryForValues": "microsoft_azuresqldatabase_database_CL | distinct microsoft_azuresqldatabase_database_name_s",
+                            "Title": "Database"
+                          },{
+                            "FieldName": "microsoft_azuresqldatabase_database_name_s",
+                            "QueryForValues": "microsoft_azuresqldatabase_object_CL | distinct microsoft_azuresqldatabase_database_name_s",
+                            "Title": ""
+                          },{
+                            "FieldName": "microsoft_azuresqldatabase_object_name_s",
+                            "QueryForValues": "microsoft_azuresqldatabase_object_CL | distinct microsoft_azuresqldatabase_object_name_s",
+                            "Title": "Object"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azuresqldatabase_database_CL | project ['Average CPU Utilization'] = columnifexists('average_cpu_utilization_d', double(null)), ['Average Log Write Resource Utilization'] = columnifexists('average_log_write_resource_utilization_d', double(null)), ['Average Memory Usage'] = columnifexists('average_memory_usage_d', double(null)), ['In-Memory OLTP Storage Utilization'] = columnifexists('in_memory_oltp_storage_utilization_d', double(null)), ['Maximum Concurrent Sessions'] = columnifexists('maximum_concurrent_sessions_d', double(null)), ['Maximum Concurrent Workers'] = columnifexists('maximum_concurrent_workers_d', double(null)), ['Read Delay'] = columnifexists('read_delay_rate_d', double(null)), ['Write Delay'] = columnifexists('write_delay_rate_d', double(null)), TimeGenerated, Name=microsoft_azuresqldatabase_database_name_s  | extend Healthy = case(isnotnull(['Average CPU Utilization']) or isnotnull(['Average Log Write Resource Utilization']) or isnotnull(['Average Memory Usage']) or isnotnull(['In-Memory OLTP Storage Utilization']) or isnotnull(['Maximum Concurrent Sessions']) or isnotnull(['Maximum Concurrent Workers']) or isnotnull(['Read Delay']) or isnotnull(['Write Delay']), (['Average CPU Utilization'] < 85 or isnull(['Average CPU Utilization'])) and (['Average Log Write Resource Utilization'] < 85 or isnull(['Average Log Write Resource Utilization'])) and (['Average Memory Usage'] < 85 or isnull(['Average Memory Usage'])) and (['In-Memory OLTP Storage Utilization'] < 85 or isnull(['In-Memory OLTP Storage Utilization'])) and (['Maximum Concurrent Sessions'] < 85 or isnull(['Maximum Concurrent Sessions'])) and (['Maximum Concurrent Workers'] < 85 or isnull(['Maximum Concurrent Workers'])) and (['Read Delay'] < 1000 or isnull(['Read Delay'])) and (['Write Delay'] < 1000 or isnull(['Write Delay'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

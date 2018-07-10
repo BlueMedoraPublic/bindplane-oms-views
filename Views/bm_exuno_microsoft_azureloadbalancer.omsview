@@ -1,0 +1,689 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Load Balancer Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Load Balancer Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Load Balancer Environment",
+                        "Name": "Microsoft Azure Load Balancer Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Load Balancer Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Load Balancer",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "With Azure Load Balancer you can scale your applications and create high availability for your services. Load Balancer supports inbound and outbound scenarios, provides low latency and high throughput, and scales up to millions of flows for all TCP and UDP applications."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the availablity of your applications as well as inbound and outbound data flow."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Usage Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL | where ${API Usage}  | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL | where ${API Usage}  | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API Usage Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_loadbalancer_api_usage_CL | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_loadbalancer_api_usage_CL | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Usage Total Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL | where ${API Usage} | summarize avg(coalesce(columnifexists('total_requests_d',0.0), 0.0)) by microsoft_azure_loadbalancer_api_usage_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Total Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL  | where ${API Usage} | summarize avg(coalesce(columnifexists('total_requests_d',0.0), 0.0)) by microsoft_azure_loadbalancer_api_usage_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API Usage",
+                                            "Value": "Total Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Load Balancer Total Data Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Data Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_data_throughput_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Data Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_data_throughput_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Load Balancer",
+                                            "Value": "Total Data Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Load Balancer Total Packets Routed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Packets Routed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_packets_routed_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Packets Routed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Packets"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_packets_routed_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Load Balancer",
+                                            "Value": "Total Packets Routed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Load Balancer Virtual IP Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Virtual IP Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Virtual IP Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Virtual IP Availability"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Load Balancer",
+                                            "Value": "Virtual IP Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Frontend Server Virtual IP Availability",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Virtual IP Availability",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_frontend_server_CL | where ${Frontend IP Configuration} and ${Frontend Server} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_frontend_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Virtual IP Availability",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Virtual IP Availability"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_frontend_server_CL  | where ${Frontend IP Configuration} and ${Frontend Server} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_frontend_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Frontend Server",
+                                            "Value": "Virtual IP Availability"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_loadbalancer_api_usage_CL | summarize([\"Last Update Time\"], ['Total Requests'])=arg_max(TimeGenerated,columnifexists('total_requests_d', '')) by Name=microsoft_azure_loadbalancer_api_usage_name_s",
+                                            "displayName": "API Usage Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Total Data Throughput'], ['Total Packets Routed'], ['Data Throughput In'], ['Data Throughput Out'], ['Packets Routed In'], ['Packets Routed Out'])=arg_max(TimeGenerated,columnifexists('total_data_throughput_d', ''),columnifexists('total_packets_routed_d', ''),columnifexists('data_throughput_in_d', ''),columnifexists('data_throughput_out_d', ''),columnifexists('packets_routed_in_d', ''),columnifexists('packets_routed_out_d', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
+                                            "displayName": "Load Balancer Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Virtual IP Availability'])=arg_max(TimeGenerated,columnifexists('virtual_ip_availability_d', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
+                                            "displayName": "Load Balancer Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Location'], ['Provisioning State'], ['Resource Group'], ['SKU Name'], ['SKU Tier'], ['Tags'], ['Type'])=arg_max(TimeGenerated,columnifexists('location_s', ''),columnifexists('provisioning_state_s', ''),columnifexists('resource_group_s', ''),columnifexists('sku_name_s', ''),columnifexists('sku_tier_s', ''),columnifexists('tags_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
+                                            "displayName": "Load Balancer Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_frontend_server_CL | summarize([\"Last Update Time\"], ['Virtual IP Availability'])=arg_max(TimeGenerated,columnifexists('virtual_ip_availability_d', '')) by Name=microsoft_azure_loadbalancer_frontend_server_name_s",
+                                            "displayName": "Frontend Server Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_frontend_server_CL | summarize([\"Last Update Time\"], ['Total Data Throughput'], ['Total Packets Routed'], ['Data Throughput In'], ['Data Throughput Out'], ['Packets Routed In'], ['Packets Routed Out'])=arg_max(TimeGenerated,columnifexists('total_data_throughput_d', ''),columnifexists('total_packets_routed_d', ''),columnifexists('data_throughput_in_d', ''),columnifexists('data_throughput_out_d', ''),columnifexists('packets_routed_in_d', ''),columnifexists('packets_routed_out_d', '')) by Name=microsoft_azure_loadbalancer_frontend_server_name_s",
+                                            "displayName": "Frontend Server Network"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_frontend_application_CL | summarize([\"Last Update Time\"], ['Virtual IP Availability'])=arg_max(TimeGenerated,columnifexists('virtual_ip_availability_d', '')) by Name=microsoft_azure_loadbalancer_frontend_application_name_s",
+                                            "displayName": "Frontend Application Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_frontend_application_CL | summarize([\"Last Update Time\"], ['Total Data Throughput'], ['Total Packets Routed'], ['Data Throughput In'], ['Data Throughput Out'], ['Packets Routed In'], ['Packets Routed Out'])=arg_max(TimeGenerated,columnifexists('total_data_throughput_d', ''),columnifexists('total_packets_routed_d', ''),columnifexists('data_throughput_in_d', ''),columnifexists('data_throughput_out_d', ''),columnifexists('packets_routed_in_d', ''),columnifexists('packets_routed_out_d', '')) by Name=microsoft_azure_loadbalancer_frontend_application_name_s",
+                                            "displayName": "Frontend Application Network"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "microsoft_azure_loadbalancer_api_usage_name_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_api_usage_CL | distinct microsoft_azure_loadbalancer_api_usage_name_s",
+                            "Title": "API Usage"
+                          },{
+                            "FieldName": "resource_group_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_load_balancer_CL | distinct resource_group_s",
+                            "Title": "Resource Group"
+                          },{
+                            "FieldName": "microsoft_azure_loadbalancer_load_balancer_name_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_load_balancer_CL | distinct microsoft_azure_loadbalancer_load_balancer_name_s",
+                            "Title": "Load Balancer"
+                          },{
+                            "FieldName": "microsoft_azure_loadbalancer_frontend_ip_configuration_name_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_frontend_server_CL | distinct microsoft_azure_loadbalancer_frontend_ip_configuration_name_s",
+                            "Title": "Frontend IP Configuration"
+                          },{
+                            "FieldName": "microsoft_azure_loadbalancer_frontend_server_name_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_frontend_server_CL | distinct microsoft_azure_loadbalancer_frontend_server_name_s",
+                            "Title": "Frontend Server"
+                          },{
+                            "FieldName": "microsoft_azure_loadbalancer_load_balancing_rule_name_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_frontend_application_CL | distinct microsoft_azure_loadbalancer_load_balancing_rule_name_s",
+                            "Title": "Load Balancing Rule"
+                          },{
+                            "FieldName": "microsoft_azure_loadbalancer_frontend_application_name_s",
+                            "QueryForValues": "microsoft_azure_loadbalancer_frontend_application_CL | distinct microsoft_azure_loadbalancer_frontend_application_name_s",
+                            "Title": "Frontend Application"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_loadbalancer_api_usage_CL | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "API Usage",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

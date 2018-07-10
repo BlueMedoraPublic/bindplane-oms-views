@@ -1,0 +1,677 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Amazon VPC Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Amazon VPC Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Amazon VPC Environment",
+                        "Name": "Amazon VPC Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Amazon VPC Overview",
+                                        "NewGroup": false,
+                                        "Color": "#eb3c00"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Amazon VPC",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Amazon's Virtual Private Cloud is a highly customizable private cloud network for AWS resources. Hardware VPNs can be used to connect other hardware to the VPC."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring the VPC, it is important to track connections, and throughput data in order to find any hot spots that need to be provisioned differently."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NAT Gateway Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway}  | project ['Error Port Allocation'] = columnifexists('error_port_allocation_d', double(null)), ['State'] = columnifexists('state_s', 'NULL_VALUE'), TimeGenerated, Name=amazon_vpc_nat_gateway_name_s  | extend Healthy = case(isnotnull(['Error Port Allocation']) or coalesce(['State'], 'NULL_VALUE') != 'NULL_VALUE', (['Error Port Allocation'] < 1.0 or isnull(['Error Port Allocation'])) and (['State'] == 'available' or coalesce(['State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway}  | project ['Error Port Allocation'] = columnifexists('error_port_allocation_d', double(null)), ['State'] = columnifexists('state_s', 'NULL_VALUE'), TimeGenerated, Name=amazon_vpc_nat_gateway_name_s  | extend Healthy = case(isnotnull(['Error Port Allocation']) or coalesce(['State'], 'NULL_VALUE') != 'NULL_VALUE', (['Error Port Allocation'] < 1.0 or isnull(['Error Port Allocation'])) and (['State'] == 'available' or coalesce(['State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NAT Gateway Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "amazon_vpc_nat_gateway_CL | project ['Error Port Allocation'] = columnifexists('error_port_allocation_d', double(null)), ['State'] = columnifexists('state_s', 'NULL_VALUE'), TimeGenerated, Name=amazon_vpc_nat_gateway_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Error Port Allocation']) or coalesce(['State'], 'NULL_VALUE') != 'NULL_VALUE', (['Error Port Allocation'] < 1.0 or isnull(['Error Port Allocation'])) and (['State'] == 'available' or coalesce(['State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "amazon_vpc_nat_gateway_CL | project ['Error Port Allocation'] = columnifexists('error_port_allocation_d', double(null)), ['State'] = columnifexists('state_s', 'NULL_VALUE'), TimeGenerated, Name=amazon_vpc_nat_gateway_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Error Port Allocation']) or coalesce(['State'], 'NULL_VALUE') != 'NULL_VALUE', (['Error Port Allocation'] < 1.0 or isnull(['Error Port Allocation'])) and (['State'] == 'available' or coalesce(['State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NAT Gateway Active Connection Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Active Connection Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('active_connection_count_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s",
+                                        "Callout": {
+                                            "Title": "Average Active Connection Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_vpc_nat_gateway_CL  | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('active_connection_count_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NAT Gateway",
+                                            "Value": "Active Connection Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NAT Gateway Connection Established Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connection Established Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('connection_established_count_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s",
+                                        "Callout": {
+                                            "Title": "Average Connection Established Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_vpc_nat_gateway_CL  | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('connection_established_count_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NAT Gateway",
+                                            "Value": "Connection Established Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NAT Gateway Data In From Source",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data In From Source",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('data_in_from_source_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data In From Source",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_vpc_nat_gateway_CL  | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('data_in_from_source_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NAT Gateway",
+                                            "Value": "Data In From Source"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NAT Gateway Data Out To Source",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data Out To Source",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('data_out_to_source_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data Out To Source",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_vpc_nat_gateway_CL  | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('data_out_to_source_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NAT Gateway",
+                                            "Value": "Data Out To Source"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NAT Gateway Data In From Destination",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data In From Destination",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_vpc_nat_gateway_CL | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('data_in_from_destination_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data In From Destination",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_vpc_nat_gateway_CL  | where ${Region} and ${Subnet ID} and ${VPC ID} and ${NAT Gateway} | summarize avg(coalesce(columnifexists('data_in_from_destination_d',0.0), 0.0)) by amazon_vpc_nat_gateway_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NAT Gateway",
+                                            "Value": "Data In From Destination"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "amazon_vpc_nat_gateway_CL | summarize([\"Last Update Time\"], ['Active Connection Count'], ['Connection Established Count'], ['Data In From Source'], ['Data Out To Source'], ['Data In From Destination'], ['Data Out To Destination'])=arg_max(TimeGenerated,columnifexists('active_connection_count_d', ''),columnifexists('connection_established_count_d', ''),columnifexists('data_in_from_source_d', ''),columnifexists('data_out_to_source_d', ''),columnifexists('data_in_from_destination_d', ''),columnifexists('data_out_to_destination_d', '')) by Name=amazon_vpc_nat_gateway_name_s",
+                                            "displayName": "NAT Gateway Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_vpc_nat_gateway_CL | summarize([\"Last Update Time\"], ['Error Port Allocation'])=arg_max(TimeGenerated,columnifexists('error_port_allocation_d', '')) by Name=amazon_vpc_nat_gateway_name_s",
+                                            "displayName": "NAT Gateway Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_vpc_nat_gateway_CL | summarize([\"Last Update Time\"], ['Creation Time'], ['Subnet ID'], ['Tags'], ['VPC ID'])=arg_max(TimeGenerated,columnifexists('creation_time_s', ''),columnifexists('subnet_id_s', ''),columnifexists('tags_s', ''),columnifexists('vpc_id_s', '')) by Name=amazon_vpc_nat_gateway_name_s",
+                                            "displayName": "NAT Gateway Properties"
+                                        }
+                                        ,{
+                                            "query": "amazon_vpc_tunnel_CL | summarize([\"Last Update Time\"], ['Data In'], ['Data Out'])=arg_max(TimeGenerated,columnifexists('data_in_d', ''),columnifexists('data_out_d', '')) by Name=amazon_vpc_tunnel_name_s",
+                                            "displayName": "Tunnel Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_vpc_vpn_CL | summarize([\"Last Update Time\"], ['Tunnel Data In'], ['Tunnel Data Out'])=arg_max(TimeGenerated,columnifexists('tunnel_data_in_d', ''),columnifexists('tunnel_data_out_d', '')) by Name=amazon_vpc_vpn_name_s",
+                                            "displayName": "VPN Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_vpc_vpn_CL | summarize([\"Last Update Time\"], ['Tags'])=arg_max(TimeGenerated,columnifexists('tags_s', '')) by Name=amazon_vpc_vpn_name_s",
+                                            "displayName": "VPN Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "region_s",
+                            "QueryForValues": "union amazon_vpc_nat_gateway_CL, amazon_vpc_tunnel_CL, amazon_vpc_vpn_CL | distinct region_s",
+                            "Title": "Region"
+                          },{
+                            "FieldName": "subnet_id_s",
+                            "QueryForValues": "amazon_vpc_nat_gateway_CL | distinct subnet_id_s",
+                            "Title": "Subnet ID"
+                          },{
+                            "FieldName": "vpc_id_s",
+                            "QueryForValues": "amazon_vpc_nat_gateway_CL | distinct vpc_id_s",
+                            "Title": "VPC ID"
+                          },{
+                            "FieldName": "amazon_vpc_nat_gateway_name_s",
+                            "QueryForValues": "amazon_vpc_nat_gateway_CL | distinct amazon_vpc_nat_gateway_name_s",
+                            "Title": "NAT Gateway"
+                          },{
+                            "FieldName": "amazon_vpc_tunnel_name_s",
+                            "QueryForValues": "amazon_vpc_tunnel_CL | distinct amazon_vpc_tunnel_name_s",
+                            "Title": "Tunnel"
+                          },{
+                            "FieldName": "amazon_vpc_vpn_name_s",
+                            "QueryForValues": "amazon_vpc_vpn_CL | distinct amazon_vpc_vpn_name_s",
+                            "Title": "VPN"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "amazon_vpc_nat_gateway_CL | project ['Error Port Allocation'] = columnifexists('error_port_allocation_d', double(null)), ['State'] = columnifexists('state_s', 'NULL_VALUE'), TimeGenerated, Name=amazon_vpc_nat_gateway_name_s  | extend Healthy = case(isnotnull(['Error Port Allocation']) or coalesce(['State'], 'NULL_VALUE') != 'NULL_VALUE', (['Error Port Allocation'] < 1.0 or isnull(['Error Port Allocation'])) and (['State'] == 'available' or coalesce(['State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "NAT Gateway",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
