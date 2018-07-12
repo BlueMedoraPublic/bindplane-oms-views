@@ -1,0 +1,511 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Lenovo Network Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Lenovo Network Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Lenovo Network Environment",
+                        "Name": "Lenovo Network Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Lenovo Network Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Lenovo Network",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Lenovo Network is a network scaling service for modern data centers."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Lenovo Network, it is important to monitor the data sent and received on the network switch's ports to ensure efficient performance."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_network_switch_CL | where ${Switch}  | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_network_switch_CL | where ${Switch}  | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "lenovo_network_switch_CL | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "lenovo_network_switch_CL | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Port Errors with Inbound Packets",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Errors with Inbound Packets",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('errors_with_inbound_packets_d',0.0), 0.0)) by lenovo_network_port_name_s",
+                                        "Callout": {
+                                            "Title": "Average Errors with Inbound Packets",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_network_port_CL  | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('errors_with_inbound_packets_d',0.0), 0.0)) by lenovo_network_port_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Port",
+                                            "Value": "Errors with Inbound Packets"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Port Outbound Packet Errors",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Outbound Packet Errors",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('outbound_packet_errors_d',0.0), 0.0)) by lenovo_network_port_name_s",
+                                        "Callout": {
+                                            "Title": "Average Outbound Packet Errors",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Errors"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_network_port_CL  | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('outbound_packet_errors_d',0.0), 0.0)) by lenovo_network_port_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Port",
+                                            "Value": "Outbound Packet Errors"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Number of Processes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Number of Processes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_network_switch_CL | where ${Switch} | summarize avg(coalesce(columnifexists('number_of_processes_d',0.0), 0.0)) by lenovo_network_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Number of Processes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Processes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_network_switch_CL  | where ${Switch} | summarize avg(coalesce(columnifexists('number_of_processes_d',0.0), 0.0)) by lenovo_network_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch",
+                                            "Value": "Number of Processes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "lenovo_network_switch_CL | summarize([\"Last Update Time\"], ['Number of Processes'])=arg_max(TimeGenerated,columnifexists('number_of_processes_d', '')) by Name=lenovo_network_switch_name_s",
+                                            "displayName": "Switch Details"
+                                        }
+                                        ,{
+                                            "query": "lenovo_network_switch_CL | summarize([\"Last Update Time\"], ['Description'], ['Management IP'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('management_ip_s', '')) by Name=lenovo_network_switch_name_s",
+                                            "displayName": "Switch Properties"
+                                        }
+                                        ,{
+                                            "query": "lenovo_network_port_CL | summarize([\"Last Update Time\"], ['Errors with Inbound Packets'], ['Outbound Packet Errors'])=arg_max(TimeGenerated,columnifexists('errors_with_inbound_packets_d', ''),columnifexists('outbound_packet_errors_d', '')) by Name=lenovo_network_port_name_s",
+                                            "displayName": "Port Details"
+                                        }
+                                        ,{
+                                            "query": "lenovo_network_port_CL | summarize([\"Last Update Time\"], ['Address'], ['Description'], ['MTU'], ['Type'])=arg_max(TimeGenerated,columnifexists('address_s', ''),columnifexists('description_s', ''),columnifexists('mtu_d', ''),columnifexists('type_s', '')) by Name=lenovo_network_port_name_s",
+                                            "displayName": "Port Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "lenovo_network_switch_name_s",
+                            "QueryForValues": "union lenovo_network_switch_CL, lenovo_network_port_CL | distinct lenovo_network_switch_name_s",
+                            "Title": "Switch"
+                          },{
+                            "FieldName": "operational_state_d",
+                            "QueryForValues": "lenovo_network_port_CL | distinct operational_state_d",
+                            "Title": "Operational State"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "lenovo_network_port_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "lenovo_network_port_name_s",
+                            "QueryForValues": "lenovo_network_port_CL | distinct lenovo_network_port_name_s",
+                            "Title": "Port"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "lenovo_network_switch_CL | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Switch",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

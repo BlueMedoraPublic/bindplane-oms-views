@@ -1,0 +1,68 @@
+
+{
+   "$schema":"http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+   "contentVersion":"1.0.0.0",
+   "parameters":{
+      "location":{
+         "type":"string",
+         "allowedValues":[
+            "Australia Southeast",
+            "East US",
+            "Japan East",
+            "Southeast Asia",
+            "UK South",
+            "West Central US",
+            "West Europe"
+         ],
+         "defaultValue":"East US"
+      },
+      "workspace":{
+         "type":"string",
+         "defaultValue":""
+      }
+   },
+   "variables":{
+      "workspaceapiversion":"2017-04-26-preview",
+      "OMSViews":{
+         "viewNames":[
+            "bm_exuno_amazonec2.omsview"
+         ]
+      }
+   },
+   "resources":[
+      {
+         "apiVersion":"2017-05-10",
+         "name":"[replace(variables('OMSViews').viewNames[copyIndex()], '%20', '_')]",
+         "type":"Microsoft.Resources/deployments",
+         "copy":{
+            "name":"viewCopy",
+            "count":"[length(variables('OMSViews').viewNames)]",
+            "mode":"Serial"
+         },
+         "properties":{
+            "mode":"Incremental",
+            "templateLink":{
+               "uri":"[concat('https://raw.githubusercontent.com/BlueMedoraPublic/bindplane-oms-views/master/Views/', variables('OMSViews').viewNames[copyIndex()])]",
+               "contentVersion":"1.0.0.0"
+            },
+          "parameters": {
+            "workspace": {
+              "value": "[parameters('workspace')]"
+            },
+            "location": {
+              "value": "[parameters('location')]"
+            },
+            "resourcegroup": {
+              "value": "[resourceGroup().name]"
+            },
+            "subscriptionId": {
+              "value": "[subscription().subscriptionId]"
+            },
+            "workspaceapiversion": {
+              "value": "[variables('workspaceapiversion')]"
+            }
+          }
+         }
+      }
+   ]
+}

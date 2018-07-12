@@ -345,7 +345,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Disk Latency",
+                                            "Title": "Average Disk Latency",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -420,7 +420,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Normalized IOPS",
+                                            "Title": "Average Normalized IOPS",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

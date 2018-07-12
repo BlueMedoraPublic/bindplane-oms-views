@@ -345,7 +345,7 @@
                                     "LineChart": {
                                         "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('average_all_requests_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
                                         "Callout": {
-                                            "Title": "Average Average All Requests",
+                                            "Title": "Average All Requests",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -495,7 +495,7 @@
                                     "LineChart": {
                                         "Query": "amazon_s3_bucket_CL | where ${Owner Name} and ${Region} and ${Bucket} | summarize avg(coalesce(columnifexists('average_first_byte_latency_d',0.0), 0.0)) by amazon_s3_bucket_name_s",
                                         "Callout": {
-                                            "Title": "Average Average First Byte Latency",
+                                            "Title": "Average First Byte Latency",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

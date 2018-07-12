@@ -1,0 +1,705 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Palo Alto Networks Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Palo Alto Networks Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Palo Alto Networks Environment",
+                        "Name": "Palo Alto Networks Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Palo Alto Networks Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAOCJJREFUeNrt3Xl4FEX+P/B3d8995Jgc5CQhIUAgIIeCIAhyqIi6oCjIzxXEVddjXVnUFVddD2Bdd1U81hX9isqxoiJeSDgElIQzIOEKhCQkJCEhyUwmcx/dXfX7I+FQ0YV1Mp1k6vU8/uETpqumpurTdXYDDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMN0XpzSGWDCKzY2FqIocnl5eVqdTqcCQE//TZZlWl9f7zcYDOTAgQNKZ5UJAxYAuiCLxQJZlrnk5GTdbbfdFpOXl5cSHx/fLSYmJt1kMiXIsiyYzeYearU6GmcDAEcpDTocjgoAHq/X22y320/YbLbGEydONObn5zdv2LDBk5CQQJuampT+ikyIsADQRdxyyy3YtWuXevbs2QnDhg3rlZmZOTQmJqa/wWDI0mq1aSqVKprneT3Hceq2j/zcb08BgFIqEkL8kiQ5JEmyejyesubm5n319fX7i4uLj7z00kt1Dz74YHDevHlKf3XmV2ABoBPTaDQIBoPcnDlz4q6//vrLsrOzJ8TGxl6u1+uzVCpVPMdxQijTo5TKsiw7fT5fRXNz8/aamppvCwsLd8+bN69Oq9XSQCCgdJEwTMTg/vrXvyYXFRXNttls64LBYBOllNDwIZIkOex2+5YDBw48/N577/WNi4tTjR8/XulyYZiui1KKJ598MqGoqOjO5ubmbyRJcoWx0Z8/EhASdLvdBw4dOvTIwoULUwFwqampShcVw3QdK1aswIwZM4ybNm267tSpU6s6QsP/MVmWvTabbcOWLVum/PGPf4yhlP76L84wkeyaa64BAGH58uWXVFVVvRYMBk8p3dD/G1EUrSdPnvxg9erVV/zmN7/RPfXUU0oXI8N0LpmZmQDA/eMf/+h++PDhx1wu135Kqax0474Ist/vryorK1v4zjvv5GZkZAiTJk1SulgZpuOjlOL++++P3bVr12+bm5s3EUL8Srfm/1Xb/MC+ffv2PTB//vwkSik4ji0+McxPPPDAA7jiiit0GzZsmFBfX/8fSZLsSjfgUJFl2d3U1PTl5s2bb7j//vvN+fn5Shc3w3QMAwcOBABh8eLFfY4fP/4Pv99fo3SDbS/BYLCxurr6rdWrV18+duxYzR/+8Aeli59hlBEfHw8A3BNPPJF88ODBh51O515CiKh0Iw0D2efzlR85cuSp1157rQcALiEhQemfg2HCh1KKqVOnmrdt23arzWZbL8uyR+lWGW6EkIDdbv+uqKho1ty5c+MpWzZkurqHH34YAwYM0KxcuXJobW3tu207+CKaJEnOU6dOffzNN99MvO666wyLFi1S+mdimNDq168fAPCLFi3qWVZW9pzX6y2jnWtZr90FAoG6ysrKRe+//35/AMLQoUOV/tkYJjQeffTRxO+///5ep9O5mxASULqxdWCSy+UqPnz48KMLFixIA8BpNBqlfz6GuXhr167F7bffbty8efMNVqv1a0mSnEq3rs5ClmWfzWb7ZufOnf/vrrvuYtuKmc5j5syZGDlypHrFihWDT5w48UZn2L7bUYmi2FxfX79i/fr14y677DLt008/rfTPyzDnN3r0aKB1nN+jpKRkntfrLSWESEo3oq7A7/efqKio+Pubb77ZW6VSCezYMdOhUErx+OOPW3bu3HmHw+HYLstyp92+21ERQoJOp3PPgQMHHpo3b14SAC47O1vpn56JZC+//DJmzJihz8/PH9e2fbdF6YbS1cmy7LbZbOsKCgqmTp8+3UzZ+QIm3KZMmYKcnBzVihUrLqmoqPhHIBCopeF9Ik/ECwaDjbW1te98+OGHlw0dOlTz4IMPKl0tmK4uLi4OALhFixZlHDhwYI7H4znExvmKkr1eb1lpaekzixYtygbAs2EB0y7cbjdmz54dVVhYOM1ut2+RZdmndO1nWhFCAk6nc9eePXt+N2/evHhKKQQhpM9EZSLVjBkz0L9/f83XX389ura2dokoijalKzxzfpIkORsaGlbl5+dPuOOOO4yff/650tWH6azS09MBgF+6dGm/srKyBX6/v5KycX5nQILBYH1VVdVr//nPfwYNHTpUfddddyldnZjO5rHHHkvct2/ffS6Xay8b53c+hBDJ6/UePXTo0J/bjh3zI0aMULpaMR3Zrl27cOONNxq/++67yY2NjV90xKfvMhdHlmW/w+Eo3LFjx+1z586N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",
+                                        "Label": "Palo Alto Networks",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Palo Alto Networks Advanced Firewall detects known and unknown threats, including in encrypted traffic, using intelligence generated across many thousands of customer deployments."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor firewall sent/receive throughput, memory utilization, and CPU utilization. Additionally, it is important to monitor any network attacks and errors on the interface."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firewall Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "paloalto_networks_firewall_CL | where ${Family} and ${Operational Mode} and ${Firewall}  | project ['CPU Busy'] = columnifexists('cpu_busy_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Session Utilization'] = columnifexists('session_utilization_d', double(null)), ['Swap Utilization'] = columnifexists('swap_utilization_d', double(null)), TimeGenerated, Name=paloalto_networks_firewall_name_s  | extend Healthy = case(isnotnull(['CPU Busy']) or isnotnull(['Memory Utilization']) or isnotnull(['Session Utilization']) or isnotnull(['Swap Utilization']), (['CPU Busy'] < 85 or isnull(['CPU Busy'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Session Utilization'] < 85 or isnull(['Session Utilization'])) and (['Swap Utilization'] < 85 or isnull(['Swap Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "paloalto_networks_firewall_CL | where ${Family} and ${Operational Mode} and ${Firewall}  | project ['CPU Busy'] = columnifexists('cpu_busy_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Session Utilization'] = columnifexists('session_utilization_d', double(null)), ['Swap Utilization'] = columnifexists('swap_utilization_d', double(null)), TimeGenerated, Name=paloalto_networks_firewall_name_s  | extend Healthy = case(isnotnull(['CPU Busy']) or isnotnull(['Memory Utilization']) or isnotnull(['Session Utilization']) or isnotnull(['Swap Utilization']), (['CPU Busy'] < 85 or isnull(['CPU Busy'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Session Utilization'] < 85 or isnull(['Session Utilization'])) and (['Swap Utilization'] < 85 or isnull(['Swap Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firewall Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "paloalto_networks_firewall_CL | project ['CPU Busy'] = columnifexists('cpu_busy_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Session Utilization'] = columnifexists('session_utilization_d', double(null)), ['Swap Utilization'] = columnifexists('swap_utilization_d', double(null)), TimeGenerated, Name=paloalto_networks_firewall_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Busy']) or isnotnull(['Memory Utilization']) or isnotnull(['Session Utilization']) or isnotnull(['Swap Utilization']), (['CPU Busy'] < 85 or isnull(['CPU Busy'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Session Utilization'] < 85 or isnull(['Session Utilization'])) and (['Swap Utilization'] < 85 or isnull(['Swap Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "paloalto_networks_firewall_CL | project ['CPU Busy'] = columnifexists('cpu_busy_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Session Utilization'] = columnifexists('session_utilization_d', double(null)), ['Swap Utilization'] = columnifexists('swap_utilization_d', double(null)), TimeGenerated, Name=paloalto_networks_firewall_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Busy']) or isnotnull(['Memory Utilization']) or isnotnull(['Session Utilization']) or isnotnull(['Swap Utilization']), (['CPU Busy'] < 85 or isnull(['CPU Busy'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Session Utilization'] < 85 or isnull(['Session Utilization'])) and (['Swap Utilization'] < 85 or isnull(['Swap Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firewall CPU Busy",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Busy",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "paloalto_networks_firewall_CL | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('cpu_busy_d',0.0), 0.0)) by paloalto_networks_firewall_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Busy",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "paloalto_networks_firewall_CL  | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('cpu_busy_d',0.0), 0.0)) by paloalto_networks_firewall_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firewall",
+                                            "Value": "CPU Busy"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firewall Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "paloalto_networks_firewall_CL | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by paloalto_networks_firewall_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "paloalto_networks_firewall_CL  | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by paloalto_networks_firewall_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firewall",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firewall Average Load 5 Minutes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Load 5 Minutes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "paloalto_networks_firewall_CL | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('average_load_5_minutes_d',0.0), 0.0)) by paloalto_networks_firewall_name_s",
+                                        "Callout": {
+                                            "Title": "Average Load 5 Minutes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Average Load 5 Minutes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "paloalto_networks_firewall_CL  | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('average_load_5_minutes_d',0.0), 0.0)) by paloalto_networks_firewall_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firewall",
+                                            "Value": "Average Load 5 Minutes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Firewall Connection Establish Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Connection Establish Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "paloalto_networks_firewall_CL | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('connection_establish_rate_d',0.0), 0.0)) by paloalto_networks_firewall_name_s",
+                                        "Callout": {
+                                            "Title": "Average Connection Establish Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "paloalto_networks_firewall_CL  | where ${Family} and ${Operational Mode} and ${Firewall} | summarize avg(coalesce(columnifexists('connection_establish_rate_d',0.0), 0.0)) by paloalto_networks_firewall_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Firewall",
+                                            "Value": "Connection Establish Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application Threats",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Threats",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "paloalto_networks_application_CL | where ${VSYS} and ${Application} | summarize avg(coalesce(columnifexists('threats_d',0.0), 0.0)) by paloalto_networks_application_name_s",
+                                        "Callout": {
+                                            "Title": "Average Threats",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Threats"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "paloalto_networks_application_CL  | where ${VSYS} and ${Application} | summarize avg(coalesce(columnifexists('threats_d',0.0), 0.0)) by paloalto_networks_application_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application",
+                                            "Value": "Threats"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "paloalto_networks_firewall_CL | summarize([\"Last Update Time\"], ['CPU Busy'], ['Average Load 5 Minutes'], ['CPU Kernel Processes'], ['CPU Niced User Space Processes'], ['CPU User Space Processes'], ['CPU Wait'])=arg_max(TimeGenerated,columnifexists('cpu_busy_d', ''),columnifexists('average_load_5_minutes_d', ''),columnifexists('cpu_kernel_processes_d', ''),columnifexists('cpu_niced_user_space_processes_d', ''),columnifexists('cpu_user_space_processes_d', ''),columnifexists('cpu_wait_d', '')) by Name=paloalto_networks_firewall_name_s",
+                                            "displayName": "Firewall CPU"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_firewall_CL | summarize([\"Last Update Time\"], ['Memory Utilization'], ['Swap Utilization'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', ''),columnifexists('swap_utilization_d', '')) by Name=paloalto_networks_firewall_name_s",
+                                            "displayName": "Firewall Memory"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_firewall_CL | summarize([\"Last Update Time\"], ['Connection Establish Rate'], ['Session Throughput'], ['Session Utilization'])=arg_max(TimeGenerated,columnifexists('connection_establish_rate_d', ''),columnifexists('session_throughput_d', ''),columnifexists('session_utilization_d', '')) by Name=paloalto_networks_firewall_name_s",
+                                            "displayName": "Firewall Session"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_firewall_CL | summarize([\"Last Update Time\"], ['Sent Throughput Rate'], ['Received Throughput Rate'], ['Dropped Rate'])=arg_max(TimeGenerated,columnifexists('sent_throughput_rate_d', ''),columnifexists('received_throughput_rate_d', ''),columnifexists('dropped_rate_rate_d', '')) by Name=paloalto_networks_firewall_name_s",
+                                            "displayName": "Firewall Network"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_firewall_CL | summarize([\"Last Update Time\"], ['Default Gateway'], ['High Availability Enabled'], ['High Availability Management IP'], ['High Availability Mode'], ['High Availability Peer IP'], ['VM Mode'], ['VPN Disable Mode'])=arg_max(TimeGenerated,columnifexists('default_gateway_s', ''),columnifexists('high_availability_enabled_d', ''),columnifexists('high_availability_management_ip_s', ''),columnifexists('high_availability_mode_s', ''),columnifexists('high_availability_peer_ip_s', ''),columnifexists('vm_mode_s', ''),columnifexists('vpn_disable_mode_s', '')) by Name=paloalto_networks_firewall_name_s",
+                                            "displayName": "Firewall Properties"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_application_CL | summarize([\"Last Update Time\"], ['Threats'], ['Sessions'], ['Throughput'], ['Packet Throughput'])=arg_max(TimeGenerated,columnifexists('threats_d', ''),columnifexists('sessions_d', ''),columnifexists('throughput_rate_d', ''),columnifexists('packet_throughput_rate_d', '')) by Name=paloalto_networks_application_name_s",
+                                            "displayName": "Application Details"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_interface_CL | summarize([\"Last Update Time\"], ['Data Dropped'])=arg_max(TimeGenerated,columnifexists('data_dropped_rate_d', '')) by Name=paloalto_networks_interface_name_s",
+                                            "displayName": "Interface Network"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_interface_CL | summarize([\"Last Update Time\"], ['IP Spoof Attacks'], ['Local Area Network Denial Attacks'], ['MAC Spoof Attacks'], ['Ping-Of-Death Attacks'], ['Teardrop Attacks'])=arg_max(TimeGenerated,columnifexists('ip_spoof_attacks_rate_d', ''),columnifexists('local_area_network_denial_attacks_rate_d', ''),columnifexists('mac_spoof_attacks_rate_d', ''),columnifexists('ping_of_death_attacks_rate_d', ''),columnifexists('teardrop_attacks_rate_d', '')) by Name=paloalto_networks_interface_name_s",
+                                            "displayName": "Interface Security"
+                                        }
+                                        ,{
+                                            "query": "paloalto_networks_interface_CL | summarize([\"Last Update Time\"], ['Forwarding'], ['IPv4 Address'], ['IPv6 Address'], ['Mode'], ['Rated Speed'], ['State'])=arg_max(TimeGenerated,columnifexists('forwarding_s', ''),columnifexists('ipv4_address_s', ''),columnifexists('ipv6_address_s', ''),columnifexists('mode_s', ''),columnifexists('rated_speed_s', ''),columnifexists('state_s', '')) by Name=paloalto_networks_interface_name_s",
+                                            "displayName": "Interface Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "family_s",
+                            "QueryForValues": "paloalto_networks_firewall_CL | distinct family_s",
+                            "Title": "Family"
+                          },{
+                            "FieldName": "operational_mode_s",
+                            "QueryForValues": "paloalto_networks_firewall_CL | distinct operational_mode_s",
+                            "Title": "Operational Mode"
+                          },{
+                            "FieldName": "paloalto_networks_firewall_name_s",
+                            "QueryForValues": "union paloalto_networks_firewall_CL, paloalto_networks_interface_CL | distinct paloalto_networks_firewall_name_s",
+                            "Title": "Firewall"
+                          },{
+                            "FieldName": "paloalto_networks_vsys_name_s",
+                            "QueryForValues": "union paloalto_networks_application_CL, paloalto_networks_interface_CL | distinct paloalto_networks_vsys_name_s",
+                            "Title": "VSYS"
+                          },{
+                            "FieldName": "paloalto_networks_application_name_s",
+                            "QueryForValues": "paloalto_networks_application_CL | distinct paloalto_networks_application_name_s",
+                            "Title": "Application"
+                          },{
+                            "FieldName": "paloalto_networks_virtual_router_name_s",
+                            "QueryForValues": "paloalto_networks_interface_CL | distinct paloalto_networks_virtual_router_name_s",
+                            "Title": "Virtual Router"
+                          },{
+                            "FieldName": "mode_s",
+                            "QueryForValues": "paloalto_networks_interface_CL | distinct mode_s",
+                            "Title": "Mode"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "paloalto_networks_interface_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "type_d",
+                            "QueryForValues": "paloalto_networks_interface_CL | distinct type_d",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "paloalto_networks_interface_name_s",
+                            "QueryForValues": "paloalto_networks_interface_CL | distinct paloalto_networks_interface_name_s",
+                            "Title": "Interface"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "paloalto_networks_firewall_CL | project ['CPU Busy'] = columnifexists('cpu_busy_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Session Utilization'] = columnifexists('session_utilization_d', double(null)), ['Swap Utilization'] = columnifexists('swap_utilization_d', double(null)), TimeGenerated, Name=paloalto_networks_firewall_name_s  | extend Healthy = case(isnotnull(['CPU Busy']) or isnotnull(['Memory Utilization']) or isnotnull(['Session Utilization']) or isnotnull(['Swap Utilization']), (['CPU Busy'] < 85 or isnull(['CPU Busy'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Session Utilization'] < 85 or isnull(['Session Utilization'])) and (['Swap Utilization'] < 85 or isnull(['Swap Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Firewall",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

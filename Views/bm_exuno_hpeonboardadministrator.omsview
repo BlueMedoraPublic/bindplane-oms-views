@@ -1,0 +1,705 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "HPE Onboard Administrator Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/HPE Onboard Administrator Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "HPE Onboard Administrator Environment",
+                        "Name": "HPE Onboard Administrator Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "HPE Onboard Administrator Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00b294"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYHDiMG2JsibgAAPxNJREFUeNrt3Xd0FNXbB/DvzNbspvfeIXQpShOkhV4ERJoFBFGa/kQUAdFXaSpKUbBgQaWLCKJA6FESaoyEEAJpEEIKqZtstu/M3PePhEgvuskkm/s5Bw+Gzcydu3OfmdsBiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIaLkbsBFB1y83NDVarlWnVqpVCqVRKAZDr/8bzPCkoKDCpVCohOTlZ7KRSdYAGADvk7u4OnucZPz8/5bhx41xbtWrl7+np6ePq6hrk6OjoxfO8xMnJKUwmk7ngnwDAEEIsFRUVWQD0BoOhTKPRXCktLS26cuVKUUxMTNmBAwf0Xl5epLi4WOxLpGyEBgA78fTTT+PUqVOySZMmeXXq1KlpaGhoR1dX19YqlSpcoVAESqVSF5ZlHRiGkVX/yt2+ewIAhBCrIAgmjuMqOI4r0ev1GWVlZWcKCgrOJiUlXVi+fHn+zJkzLfPmzRP70qn/gAaABkwul8NisTCzZs3yGDJkyGMRERF93dzcOjs4OIRLpVJPhmEktjwfIYTneV5rNBqzysrKjl+9evWP+Pj40/PmzctXKBTEbDaLnSUU1Wgw//d//+eXkJAwqbS0dJ/FYikmhAik7ggcx1VoNJrY5OTk177//vsWHh4e0ujoaLHzhaLsFyEECxYs8EpISHihrKzsEMdxlXVY6O8cCQTBotPpklNSUt5YunRpAAAmICBA7KyiKPuxadMmjB8/Xn348OFB165d214fCv6teJ43lJaWHoiNjR3xv//9z5UQ8t8vnKIas/79+wOAZOPGjY9kZ2d/ZrFYrold0O/HarWW5OXl/bhjx47Hn3zySeU777wjdjZSVMMSGhoKAMzHH38cfP78+TmVlZVnCSG82IX7IfAmkyk7IyNj6TfffNM8JCREMnjwYLGzlaLqP0IIpk+f7nbq1KnnysrKDguCYBK7NP9b1e0DZ86cOTNj8eLFvoQQMAztfKKo28yYMQOPP/648sCBA30LCgo2cxynEbsA2wrP87ri4uLfjhw5MnT69OlOMTExYmc3RdUPbdu2BQDJ2rVrm126dOljk8l0VewCW1ssFktRTk7OVzt27Ojcu3dv+SuvvCJ29lOUODw9PQGAmT9/vt+5c+de02q1iYIgWMUupHWANxqNmRcuXHjns88+CwPAeHl5if11UFTdIYRg1KhRTseOHRtdWlq6n+d5vdilsq4JgmDWaDR/JiQkTJw9e7Ynod2GlL177bXX0KZNG/nWrVs75ubmflc9gq9R4zhOe+3atW2HDh0aOGjQINWqVavE/pooyrZatmwJAOyqVasiMzIyFhoMhgzSsLr1ap3ZbM6/fPnyqh9++KE1AEnHjh3F/tooyjbefPNN77///vtlrVZ7WhAEs9iFrR7jKisrk86fP//mkiVLAgEwcrlc7K+Poh7e3r178eyzz6qPHDkytKSkZA/HcVqxS1dDwfO8sbS09NDJkyefmTx5Mh1WTDUcEyZMQLdu3WSbNm1qf+XKlTUNYfhufWW1WssKCgo27d+/v89jjz2mePfdd8X+einqznr06AFU1fPDUlNT5xkMhjRBEDixC5E9MJlMV7Kysj764osvoqRSqYROO6bqFUII5s6d637y5MnnKyoqjvM832CH79ZXgiBYtFrtX8nJya/OmzfPFwATEREh9ldPNWYrVqzA+PHjHWJiYvpUD98tF7ug2Due53WlpaX74uLiRo0dO9aJ0PkFVF0bMWIEmjRpIt20adMjWVlZH5vN5lxStyvyNHoWi6UoNzf3my1btjzWsWNH+cyZM8W+LSh75+HhAQDMqlWrQpKTk2fp9foUWs8XFW8wGDLS0tLeW7VqVQQAllYLqFqh0+kwadIk5/j4+DEajSaW53mj2Hc/VUUQBLNWqz31119/vThv3jxPQggkEpuuiUo1VuPHj0fr1q3le/bs6ZGbm7vOarWWin3DU3fGcZy2sLBwe0xMTN/nn39e/euvv4p9+1ANVVBQEACw69evb5mRkbHEZDJdJrSe3xAIFoulIDs7+7PNmze369ixo2zy5Mli305UQzNnzhzvM2fOTKusrEyk9fyGRxAEzmAwXExJSXmretox27VrV7FvK6o+O3XqFIYNG6b+888/hxcVFe2qj6vvUg+H53lTRUVF/IkTJ56dPXu2G6HDiqlbjR07Ft7e3rKdO3d2uXr16tcWi6VQ7BuXsi2O48rz8/M3xMTE9B4xYoRy2bJlYt92lNg6dOgAAMzatWubpqenv28wGNIJrefbM8FsNl/NzMxctnnz5kc8PT0lvXv3Fvs2pOpadX8+pk+f7p6QkPBCRUXFCUEQLGLfnVTdEASB0+l0yWfPnv3fwoUL/QDA399f7NuSqgv79u1Dnz59HA4cODCgqKhoh9VqpcN3Gyme5/XFxcV74uPjRz333HNOCQkJYt+eVG0ZOHAgVCqVdNOmTe1zcnK+qB6+S1HEarWW5Obmfrd79+4nIiIi5MOHDxf7dqVsxdnZGQCYRYsWBZ47d262Xq8/T+hyXNTtBKPReCk9PX3hypUrIwCw7u7uYt++1H81ZcoUt/j4+LEajeYPnucNYt9lVP0mCIK5vLz8+N9///3yq6++6gkALMuKfRtTD+PHH39Er169HH777bee165d+4kO36UeFsdx2qKiol2xsbHDoqOj1bR9oAEYPnw4/P39JevWrWuZnZ290mQy5RDarUf9B2azueDq1atrt2/f3snJyUk6duxYsW9z6lZNmjQBAOaDDz4I+Pvvv6frdLozjWSXHapuCAaD4eKFCxfmffjhh8EA2KZNm4p92/9ndjFfkhCCzMxMlw8//HDgoEGDFoeGhk5WKBRBDMPQihtlK4xMJvN0d3d/vE2bNl1GjBjB63S6qwkJCUaxE/ZfNOgAMGXKFCgUCpm7u3vnsWPHvtO8efPZarW6FcMwMrHTRtknhmGkSqUy2MfHp2enTp1a9+nTR1NeXl4wY8YMbt++fWIn7+GvR+wE/BtNmjRBRkYG+91330V27dp1TGho6ASlUhkGgD7xqTplNptz8/Pzt8bGxv6wbNmytCZNmnC7d+8WO1kPrEG9ASiVSlitVuh0Ot8PP/xwzBNPPLHY399/jEwm80QDDWZUwyaVSp1dXV07RkVF9YiOjpaZTKbcw4cPV7Zp0waFhYViJ+++GkwAiI2NhVwud3JwcOg3aNCg98LDw6cplcowhmEazDVQ9olhGFYul/t4eXk90aZNm05Dhgwx6PX63O3bt5tXrlwpdvLuqd4Xng4dOqCgoEA6ePDg9uPGjZvbsmXLuU5OTu0YhqEbxlH1CsMwMqVSGerv79+nbdu2IYmJiaVarbbo6aef5uPi4sRO3h1JxU7A3Tg4OMBoNDLDhg3zX79+/fjQ0NAXVCpVFGg9n6rnpFKpe0BAwERPT8/ezZs333DkyJENADIdHR2JTqcTO3k3qZdvANOnT0d+fr5s+/btfYcPH/5RYGDgBLlc7gdaz6caDkYqlbq6u7t3bdq06WODBw/WlpSUXJ4wYQJ36NAhsdNWo949TdPT0+Hg4OD+22+/zejWrduXbm5ufVmWdRA7XRT1bzAMI3NxcXm8U6dOa5YuXTpXEARfvV4vdrL+SZ/YCbhRfHw8YmJivF966aUFAQEBL0gkEkex00RRtkIIMefl5a1fv3794vnz5+e4uLhAq9WKnSzxKRQKAMCKFStCr1y58gXdcIOyV4IgmEtKSnb/9NNP7Qgh8PLyErXs1Ys3gKysLBw8eDB81KhRq9zd3QfQkXyUnSPl5eV/7N+/f/aYMWPO+Pv7o6CgQJSEiB4Ajh49in379nm//PLL7wcFBb3IMEy97ZmgKBsiZWVlBzZs2DBtwIABl5s1ayZKIkRtBNyyZQv279/v8fLLLy8IDAycSAs/1Ygwbm5uvZ966qn5v/zyi19ycrLY6albs2bNQtu2bZXnzp17k+d5ndh1M4oSgyAIpszMzA969OihnjdvntjFsm506dIFAJi4uLinLRZLvthfAkWJyWq1lp45c+ZlAJJu3brVaVkUpQ2AEIKtW7e2HTJkyHeOjo7txUgDRdUnBoMhde/evZNHjRp10t3dHRqNpk7OW+dtAMuWLcPEiRNdu3fv/oqjo2Pbuj4/RdVHKpWqeY8ePeYuXbrUf/369XV23jp9A2jevDkuXLjAJiQkTGzXrt0KiUTiUpfnp6j6TBAEU2pq6oLWrVuveuSRR/izZ8/W+jnr9A3g5MmTWL9+fYtmzZq9Qgs/Rd2MZVlleHj4pJ9++umRpKSkujlnXV3czJkzMWjQIFX37t0nqdXq1nV1XopqSFQqVbPOnTtPGTlypGNd9ArUWRWAEIJ9+/b16t279wa5XB5QV+elqIbGarUWxsXFTezdu/c+mUwGjuNq7Vx18gYwZcoUdOvWTd2qVavxtPBT1L3JZDKf5s2bPzNy5EjnGTNm1Oq56uQN4PrTv1evXhsUCgUNABR1H1artfDo0aMT+/Tps0+lUsForJ3Vx2v9DWD06NFo0aKFQ6tWrcbSwk9RD0Ymk/m0aNHimaeeesp52rRptXaeWn0DUKvVyMnJQUxMTNuRI0duc3BwaFKb56Moe2KxWAoOHjw4bvDgwX8qlUqYzWabn6NW3wDc3d3h4eEh6dix4zClUhlem+eiKHsjl8t9mjdvPpBhGGltzRastdl3LMti1qxZKCkp8fLy8upDl++mqIfGenp69ly6dKmfv7//1UmTJkEQBNueoLZS7ujoiFmzZqFHjx6t1Wp1i1rPKoqyQyqVKqpLly7tJkyYAKVSafPj11oA8Pb2BsMwkvDw8B4ymcyjVnOJouyUVCp1DQ0N7cEwjKxVq1a2P35tJXzChAnQarUenp6ej6MerDxEUQ2Vu7t7l8WLF3u7u7vnnT592qbHrpU3AG9vb7z00kvo3LlziIODQ0Sd5BJF2SmlUhnWtm3b8GnTpsHPz8+mx66VACCRSODt7Y3Q0NCWMplM3GVPKaqBk8lk7kFBQa0ANIxGwOv1f1dX1yiWZW3fckFRjQjDMHIXF5dmDMPIoqKibHrsWmkDcHV1RcuWLRVOTk6075+ibMDR0TFs8ODBDmq12mrL49ZKABg7diwqKipclUplcN1kD0XZN6VSGThw4EB3b29v7bZt22x23FoJAG5ubgCgkEgkTnWUPxRl1yQSiaOzs7PC3d3dpsetlTYAQggIIQBA6iBvKKpREAQBPM/b9Jg2DwDOzs5Qq9Wo3t6LbvRBUTbAMIxCpVKpIyMj4e3tbbPj2jwAeHh4YOjQoWjatGmAXC73rNNcoig7JZVK3YKCggLDw8Ph5GS7mrXNA4BEUjXnRyaTKegmnxRlGwzDsNcn1DGM7QbWiro3IEVR4qIBgKIaMRoAKKoRowGAohoxGgAoqhGjAYCiGjG7Gqgz5+wB/JaXBrnUDnofFTJMD2yDqRGPiZ0Syo7ZVQDQWk3IN+uh4KoCQENchuj62GlCZKjkbDrxi6JuY1cBgGVYSFkWMpYFYQCebWAhgBBIBAIJGPAsC9aGAz4o6k7sKgBcRxjAXapEX+8QCA1oOhIL4HDxFRRba2cbKIq6lV0GAEgkCFY5Y1WLfg2rmZMAQ0//jMJyY4NKNtVw2WcAQHVdWiYBGlg1QCAN6JWFavDog4aiGjEaACiqEaMBgKIaMRoAKKoRs+8A0MAaACEQmy72QFH3Y5+9AITAKvAoMFY2qFZ1lmFgEWy76CNF3YtdBgCGF5CmK0OPP39AAyr/YAAYeB5SMLDtBlAUdWd2GQCAqv50LceJnYyHZt91Mqq+sasAIJfLIJVJwEqqLqshFyZGLoVA6HsAVbvsKgDMCH0UY/xa2MckGpZFoNJR7FRQds6uAkATJw80cfIQOxkU1WA05LdkiqL+IxoAKKoRowGAohoxGgAoqhGjAYCiGjEaACiqEaMBgKIaMbsaB5CXl4eK8nIwLAulUomwsLDbPlNSUoKS4mIIhECpVCI8PLzO01lQUIDy8nKAELi4usLf31/UfNNoNCgsvAbhphVUCVhWAldXV/j6+tZ6GoxGI3KuXAEvCJBKpQgPD4dUKv7tmZ2dDaPBAIEQeHt7w8vLS+wk2ZT4OWxDqz/7DNt//hlymRxRzaKwc9eu2z6z/eefsfrTzyAQASGhodgbEwOWrdsXoc/XrMGO7dvBCwKGDBmC5StXippve/bswQdLlgAEICBgULWmIsuwkLAsmkRFYfKLkzFw0KBaS0Nqaiomv/ACzCYz3D098OuuXfWisL05ezbOp6TAYrFgzltv4aWpU8VOkk3ZVQDQ6fQw6PQQlDwE/s7j6AWeh0GvBwDwnDhTbwVegFFvAC8Id03ngzh48CC+/fobcDyHFi1aYtHiRTX/lpKSgg8/+ABmkxnOLs5Y9emncHJyunN6BAEGvQFSVgKBCOCqJ1ExDAOWZZGYkIDks0lIS0vH/157DbU10lqv04OzWqGr1NVe5j8kgedhNBhhMplgNNjfcu12FQAYhrnpz10+VPNvYi2+8UDpfAAF+fk4eewYOJ4HZ7l5F6FyjQanjp+AxWKBSq2uKdT3SpNABDg6OqJXdB8wDANdpQ7H4uNhMhohcDzWrP4MvXr1xCNt29Z6vtQX9TFNtmRXAcBWtFotNBoNZDIZvLy8IJP9s9eg1WKpCiIApLKb9yC8XshurbtarVWFUxAEKBSKB0oDEQQUFhXBbDLDxdUFrq6udzwXw7KQMgxkMhkEgQfH8f8EOJaBVCqFQqEAx3HgOA4SieSeN7OHhwdWffppzf+fPXsWz44dB6PRCN7KYe/evTcFgNLSUuh0OkhYFq5ubnB0vPcEpoqKClRUVIBlGHh4esLBweG+ecFzPATCA2BgtVqhUqlu+q4qystBCODk5AQ3d7fbfv96/gOo+S4rKyshYVmo1OqbPnvt2jWYzWa4u7vf9Y3JnthtALjbTX6vhqXy8nKsXLECMXv3QlNaBqlMhuCQEEx6cTLGjB4NMAzee+89nDx+AgyA5yZOwISJEwEAB/YfwIqPPwYv8Jj04osYN348AODQoUP4aOkH4DkOj3bsiGWffHzfp8m+mBh89eWXyMjIgMVkgrOrK3r06IE35syBv78/SkpK8OLkycjPzQPLsmAYBhcupKJ/dD+AVC0rZjKbwFcHA4Nej7GjRkMml2Hu2/PRs2fPu56bEAKe5yGRSAAAjzzyCNp1aI+4P4+C53nk5+YBALZs3oxftv+CrKws6LRasCwLD09P9Inug2kzZtzWsJmVlYUv1qzBn3/8WRMAvH18MHb8OMyYOfOueZKcnIx5b82FxWSCxWrFM889i5defhnHjh3Dj+u+R9LZsygvKwMhBE4uzujYsSOmTpuOtu3a1hxjxvTpuJSRCTAM/u/99xF75Ah+//03BAUHY/OWLVAqlbh44SKWLFmMvxMTYTaa4OXtjfHPPgNCqvLEXtltAKioqMChQ4cgCP/UsVmGQdrFi3f8fFFRESY+/zwunD8PQgCWZcFxHC6mpuL/FixAWUkpps2YjojwcGz44UcIgoDfdv2G5ydOBANg/759SDl3DgTAnt17agLAnt9348L582BYFqPGjAZw7xvqqy+/xIqPP4HZbK6ugzMoKSrGLz9vR1LSWWz7eRt4QUBy0llYTCY4qFQghMCgN+D8uXM1S6DJZLKatw1BEHDx4gUIgoDyMs198+7Wwmgymat+DkAirQoMnyz7GAX5+ZDJZFWNqKSqSrLhx/U4fvw4tvz0E7y9vQEAx+LjMX3qNFSUl4Nl2Zrrz750Cet/+LEqANySBqlUCq1Wi9mzZiHtwkUIgoB27dvjmWefBQB89+23iNm9B1KptCaoa0pKsW9vDOKOxuH7H39Ax06dqs6TdQnpaelgJSw+WLoEqSnnq4IcK4GEZZGZmYlnxo9HWXEJWAkLnudx9coVrPpkOWQKRVUwtNMYYJcBgGEY5Fy5gqlTXrrt3wghYFn2psAAAIsXLUJqynlIJBK0bN0ao8eMQVHhNXy99mtYTCasWb0aw0cMR78BA7Dso2WwWizITE9HUWEhPD09kXTmb8jkcrAsi7SLF1FeXg61Wo2/ExMhk8uhUqkQ3bfvPdOdnJyMFZ8sB8dxkCsUeGHSJISFh+Hnn7Yh6cwZXMrKxNq1azH7jTcwcuRIpF28iJSUlKqnr4cHOnfpDIABIQRlZaVIOJ0AAJBIpRg8dAhUDioEBQfdN/8sZjMkUikEXsCuXbuQnJRUU3WIiIwEAKhUKjzWqSM6dHgUSgclLmVm4Y/YI+A4HlkZmdiwfj1mv/EGysrKMOfNOdBWVEAikUAqk6Jbt+7w8fFGauoFaDR3CEiEgBCCdxYsQFZGJmRSGbx8ffDF2q+grn5ll0qkaN6yBTp37gw3d3eUFBcjZs9e6PV66CorsWL5CmzZ9lNNVU0qk0IikSD1XAqUDg5QKBRwVKtBACz78COUFBVBJpOBEIIOjz4KHx9vxB87Bp22EqzEfofL2GUAAKoKusDf3srPMAyYG7r9WJZFbm4uYg8dBsuycHN3x3ffr6vpgtJqtfhh3fcwmUyIi4vD6DFjENUsCmfPJEGn1+PM338jKioK+Xn5NU/O8vJyXEhNhbOLC65duwZCCMIjItCkSZN7pnnr5i0wm0xgGAYzp0/H62/MBgB069YdQwcPQllpGY4cOow5b72FT1auwE9bt2Lum3PAcRwiIiOx5ssva46VcPo0nh03HhzHQaVSYdVnn91Ud74ThmFQcO0aBg8aXFWNMJqQn5dbc12Ozk4YNuxJCIKADZs2IjQsDAaDAZzVCmcXF8yfOxebNmwEy7JIOnMGALB3zx4U5OdVF34ZPl39GfoPGFDzHZ1NOgtSXeCvUyiV+H7dOvz26y6wDAOpTIaPl3+CoKB/gtf8t+cjMCgIhBAYjUY4OjqhU+fOePP12ZBKpcjMyIBBr68JGADA8zz8/P2x4tNVaNmyFUpKSlCQn4/4uDhIpVLwgoDJU17EgnfeAQCkp6fjufHPoKS4WOzbudbYZQAghMDdwwPR/fqB3LCsFsuyuJCairNnkm76fEZ6OgwGAxiGgcViwYuTJ4PjOLAsiwpNOSQSCaxmM3JzrgIA+kRHIznpLHiex4njx6Gt0MJkMsHR0RGEEOgqdTh18hTUTo6wWixgGAZP9Oxxz7o/IQTJZ88CACQSCfbti0FsbCwEIoBlGJhNZkilUhQVF6GivByeXl7gOK7mmLe+0Viqz3v92BaL5f4BAAysFgsy0tKq/r+6sZNhWDi5OOGjZR8jJDQEAJB16RLemD0bly9dBsswUCodIJVVvY7fGHxPnz4NnhdAGIJeffqg34D+/5yPYWrq6teLP8swKNdo8O3ar8EyDGRSGd59/z107979prQaTSbMnD4DiQl/AQwBIYCnpyckEgl4ngcRhNvyhBCCZ557Dl26dgUAOLs4I+7oUXDVjYRubq6Y8tI/b41NmzZFSEgIiouKAPvsBLDPAAAAgYGB+ODDD277+Tdff31bANCUaWqqBnqdDkmJfwM1XYWAhJWAMIDeYAAA9O7dG1+u+RxGoxGJiX+jqKgYBoMB3Xo8AYYARw4fxqmTJyGXy8FxHBwcHBAdHX3XtBJUFdhKnQ4sy4JlGFy8cAEM88+bikQiARjAYrGC+xfjFx6kIYuAQCqVwj8gACBVvQhurq54rHMnjB03FpGRVW8wO3fuxJzZb1S1rhMCtVoFnU4HnU4PpVIBnv+nJ6KyUlezRFtwSDCY+5UkhgHPcbBUN0SyEhaBQTdXWy5evIhxo8egvLr6oFQqq17vz5+/qcfm9kMzcHVzvelnFeUVNXmjVCpv620R7HyZdrsNAHe74W/sErrOzd0NDFP1Oz6+Pnj9jTcgCAIIqgI/wzKQsBJEVr/CRzVrhsCgQGRmZCL94kVkZWRApVLh8a6PQyqT4s8//qh5BZZIJAgIDESr1q3vmJ7rT1m5XA4nR0cQQQDPMJgw8QW079Aelhu7sKRSSKTS227i68e56fpv+fcHGe1ICIGfnx9274upCUTKW7rpOKsVX37+OTirFRKWxfCRIzFp8iRwHIdvv/kWu3ftAsOyNcuxu7u5QRAEsCyL9Itp902DIAjw8vZCi5YtcejAQfA8jwXz52Pnrl3w8Kha7u3H739AeVkZJFIpWrdpjbffeRdOTo44dPAQPlu1CjzP3/P4N3L3cK/5u8FgRHFxMQIDA++ar/bGbgPAw2jStCmcnJ1RWaFFaWkZpFIpho8YUfPvhBCcS05GmzZtAFS1sPfs1RsZ6RkQBKGqRVkqRafOnSGRVPUtW8xVLeeCIKD7E0/c9GS6HpwYhoHBaKj5e9t2bZFy7hwA4GLaRcydP6+mDksAXL2SAweVA5RKJYCqobpAVeEuKSmB2WSGQlnV8i9hWTDVOyPxPI+Kigq4uLiAkHvvPsSyLFQq1V0DhtlsRmlpGViWhUwmw/hnxqNlq1YAAB9fnxs+WXWNXbt2wa87d4IBcPLkCWxYvx7jn3kGEokEWq0WJ44fR/8BA25ayNXKcZg1ezZSUlJQVlyCnOwreP+99/Dp6tVgAOTm5YKRSCDwPKL79sNjHR8DAOTm5j10gY2IjISDSgW9Tofy8nIs//hjLFqyBGq1GvFxccjIyKjp5bBHjT4ACIKAwMBA9BswENu2bAHDcZj1v9eweeMmhEdGQK/T46+EBAQFBWLbL7/U/F7v6D5Y/8MPVfVNQuDp6YHIJpGQSqVwc3fHtfx8sCwLuUKBPtF9bjqns4szCKoCydE//8RzzzyD12e/gUkvvohftm+H2WTGX6dOo1ePHujSpQuUDg64mpODlHMpWPHpqprqhLunR01//ZXsbIwcPhzuHu5Y9sknCAwMBMOwNeMAJjzzLELCwjD5xRfR/Ynud80PQkjNE/tOVGo1/P39UVpUBEII3vu/9zB+/DikpaVj44b1Vb0HNzxl+w8YgLVr1yL9YhqkUinee/ddbNq4Ed5eXkhPzwDDMDWNgv98JwTh4eGY//bbeGPW65BKpdjz+2706tULw0eOREREBI7G/gGZTIrNmzZBoVDAylmx7ptvYbVaHyoI+Pj4ILpvX/xSPYfk1x07cfrUabi5uSEtLQ281QpJPZiUVFvsqn+D53lYLBZYLBaYq5/A9/qMxWKp+fmCdxagR6+eAKpG4Z0+dQpbNm7Crp07kX35MoxG003HeeSRR+Du6QGj0QiT0YhWLVvC0ckJDg4OaN26NUwmU1XDoJMj2rZrd9Pv9omOhkKphNVqhcloQvzROJSUFCM8PByLliyFo5MjeJ5HYcE1/LpjJ7Zu2oyjf/wJo9F400CmTp06wcvHByZTVdpSz5/HH0diYTAYEBgUhNZtWsNsNoMQgsuXLyP28GGUlpT8q3y7jmEYvPLqK3BQqyEIAs6dPYu5b87Bum+/hVwmvy1vHZ2c8Onq1QgNDwPPV83RuHA+FUf/PIqrOTk1wUIQhJrfs1qtMBqNGDFyJHpFR8NoNMJiMmPB/LdxKSsLk198EX4B/rBaOeTn5WHxwoX4YPESVFRqq45jtsBs+uc6zBZzzbHvNCT6zbfmILJpU1irG1XzcnPxd2IiOM4KB5UKJpMJFov5tuqDPZDY+oDu7u549dVXkZOTExkUFDSKZVllXV3MlSvZkEgkaNKkCVq2boVevXrd9pmiwiKYTSaEhoWiZatW6NMnGgzDQKFQYPCQIfD184NBbwQv8HBQOiAgKAjRffvilVdfqWocqyaTyWC1WCCTyREeGYExY8fWdPMpFArodDqEhYdh4ODB6NGjx01p8A8IQFhYKAqLCmG1cnBzc8XwESMQEBCAFi1boEevXuA5HhaOg4Rl4ezqghYtW2LS5Mno168/5HI5gKpGq0cfewwlxSUwmIxQKJRo2rQpRj39NBwdHdH9iSdQXl6OSp0OcrkMQcEhGPHUyNtG6V0fzhsaGopmLVugX//+93yKRkRGom3bttBoNBCIAG8fHzw9ZgwmvTgZlZVahIWFo03bR2pa7r28vDDsySfh4OCAyspKMCwDJ2dntG7TBlOnTUPzFs1h0OuRl5eHoOAgRDWLQv/+/aFUKtG+Q3tcKyhAYFAQfHx9wAsCevfujV69e0On08FsscLVzQ09e/XCgnffgVarRXBwEJpENcWAgQMhk8mQnp4OD3d3hEdG4okePW6bAu7k5IT+A/pDb9CjokILmUyGFq1aYd7b89E0KgoyqQzBoSHo1r07mrdoUVe3800IIdb8/PydgYGBF1evXo2ysjKbHNfmLRyRkZHIyMhAXFzcgK5du26VSCQudZ5bNmAwGMDzPJRKJaQy6f1br29yvfnw/vQ6PRiWgYODw22Fzmq1wmQy3XHM+p3SKwg8HBxUNdWC60wmE6xWK5QKBaRyuU2/dJPJBIlEcs/W9xsJglDT5aq+zzU9CIvFAkII5AqFTa7LZDKBs1rheMM8gKop0uI2BgqCoE9ISHiuU6dOO5s0aYLMzEybHNd+Kzf/0f36zO/twW8WtePdC4FMJnvggnWv9CqVypqGQ1t72OOyLHvfCUMP4/rbkE2v55ZrErvw1ya7agOgKOrhNKoAQOy1L4ei/iW7qgIcPnQIGenpd23AYlkWPr6+GPbkk2Intc6cOH4cnl5e952HQDVOdhUAfv/td2xcvx7KmkU3bhkdRwS0atPmXwcA/oZFOOp6HcF/Y+eOHZj/1lw4OjlhT8xeePv4/PeDUnbFrgKAIAiQSCXo8vjjGDN27G19vgzDwMv73y80uWTJEhz940+89vosDBk6VOzLvS+VSgWpVAqVWn3b6kUUBdhZALguNCIco0Y/bfPjXs25itTz56EpLxf7Eh9I/wEDEBkZCRdXV7i7u//3A1J2xy4DAH+fBTCvy8/Ph9VqRUBAABiGQXJyMjSlZfD190OLGwZ8VFRUwGAwwGKxgGVZlJWVITs7GxKWha+f301ddYWFhcjKyITFYkFAUOBtdW+LxYyCgmtgWRZBQUG4kn0FBfn5CAsPg4+vL64VFMBkNiMgIAACz+PcuXOo1FbCL8AfzZo1u+0aioqKYDQa4ePjA5ZlkXz2LKRSGdq0fQRc9fp51uq+8hvbRioqKpCWlgZdZSVcXd0QHhF+20w4oGqU4PmUFJQUl8DZxQXNmkfB0dH+18qj/qXIyEgQQnD06NEBHMeVkzr0yoyZxNvDg8x+/fUH+vzop0aRls2bk5+3bSPDhgwhIYFBJMjPn7SIakamvvQS0Wq1hBBCPl+zhjSPiiKRoWEkIiSUNAkLJ82aNiXdunQlOVeuEEII4TmeLP9kOWnTsiUJCQgkwf4BJCoiksycPp1oNJqacyYnJ5MO7dqRIQMHkS+/+IJERUSSIH9/8uEHHxJCCHn+2edIq+YtyPJPPiF9evYiodVpahoeQSZOmECuVJ/vupnTp5MWUc3I2q++IkOHDCHBgYHksfbtibaigpw7d450aNuO9IvuS8xmc83v/Prrr+TR9h1ISGAQCQ0IJKFBwaRtq9Zk185fbzp2cnIyeXLoUBIRGkZC/ANIaFAwebxzF7J///66/FopQgjP87qTJ0+OIIQgsnpVJluwwzcABuXl5cjMyLhtWqhEKkVwcHDN4BHOaoVWU45FCxdCLpfj+QnPQ6fTYe+evdjz++/w9PTCoiWL0TQqCoMGD8Gp48dxNScH7R59FKGhIXB0dKwZzbZkyWKs/fIr+Pj44NXXXoObmxt27tyBX37eDpPZjG++/RZAVTuFrrISWTo9Vq1ciSZNm8Ld06NmJh1ntaJCo8GaTz+Dj58vJk6aBLPZjP379uHIwUPIvXoVP/38c80rvdVigUGnwxer18BitaJnz16QSFiAYSDwPLQV5Tetbnvu3DksmDcfHMdh6vRpCAsNw5Ur2di+fTtiY2MxbHhVA2l6ejomPvc8iooKMWDgQPTq1QupqanYunkLXp0xE1u2/YR2t8xxoChR3wBmzphJ/H18a56aN/4J9PUjbVu1vukJ+tTwEcTf24eMHjWKaDQaIlT/fOfOnSQ8OIR06diJGPT6ms9PnzqNBPr6kc2bNxNS82lCUlJSSMuoZqRNi5bk4oULNT/X6/WkX3Q0CQ8OIYmJiYQQQpKSkkjzqCgSGhhIVq1cVfNZQag63jNjx5EAH18ydvRoUl5eXnOWnJwc0uuJHiTI3598/NGymt+bOmUKCfYPID26dSdXsrNvyo+/ExNJ0/Bw0uuJHsRisRBCCPny8y+Iv7cP+WDp0ps+W15eTpLOnKlKCxHIlMkvkmD/APLeu/930+e+/fobEuwfQKa/PLUuv9pGr7beAOp/X9ZD4nkeQcHBGPbkkxg8ZMg/f4YOQZ++0beNP2clEsx45RW4urrWdBr26tkTakdHWMzmmxr8rq90U9W78E99+sD+/SjXlGPw0KGIatasZiagQqFAv/79YeU4JJw+XfN5gefh4+uLl6f+s/zUjfVziUSCiS+8ABcXl5qzBAUF4dXX/geGYXHgwP6qacg3zDmY/OJkBIeE3DVfSPUaBHKFHDKZDLGHjyA+Lg4mkwkEgIuLS816/yXFJTh98iTc3N0x6cXJMJvNNdc0aPAguLm7IfHvRBiqV0iiGi67qgIwqJrK26lLZ3z8yScP8BtVDWN3Gk/+MN1m6WlpYFkGMXv3Ivbw4ZqluSUsC71eD6vFguKioppxiIQQOCgdwLJ3mYzJMHccs9iuXTs4OTnh2rVCaMrK4Fm9cCkDpma1nPsZNGgwtmzejIsXLuDZ8c8gPDwc0X2j8dTTTyMqKgoAcPXqVZgtFvAchzGjRoGv3r6sepE0lGvKoTAaYTQa/+OcCUpsdhUAAAAM7rkk1J2QW5YPIzX/fbBJIEaTCWAYeHh6wMXZueZ41zfYbBIVhaDg4JuORm5ZCfdBSGUyyKTSqsJ5y9z0B52r7uvni63btuH7desQs3cvcq7k4Is1n2P9j+vx3qL3MXbsOJhNJnA8B5WDA/z9A25bFy8oOAhOzk4PPFGJqr/sLwDUgVuHGgf4+YHneQwfPhwzXn3FJrPH7lS4rubkoLyiAv4B/nB2dv7Xx/bw8MDsN9/E/157Dclnz+LHH37A77t+w7IPP8KgQYPh7eMDuVQGpYMDNmzeBKWD0q5nxDVmdtcGAKDW9pVnWRYCIbctLNq1e3coFAps++knaG5ZqIEANavyPCjOasWJY8dv+/nXa7+GxWxGx46d4ODg8K+mNhUXFQGoereRyWTo8Oij+GzNGgQGBsJoMKKkuBgREREIDA7CtYICbNm0+Y6F//oqRFTDZndvAAyqltT+5uuvb9/+mwH8/f3/9VyAwMBAEEHAz1t/QpPIJnB0VKNp06bo06cPOjz2GE4dP47xY8Zi+oyZiGgSCZ7jcOrkKSScPoWvv/vugc8jkUiw7ttvUVmpxYiRI2E0GrFl8xbsj9kHZxcXvFy9R/3DPJOvv7V88cUXyLmSg/HPjEdwcAjAVG1flpeXj8DgQPj6+QEAZr76Kma/NguLFy1CfkE+Bg0aDKWDEgX5+diyeQtGjxmDfv371d0XS9UKuwoAUpkMEqkU584mIzk5+fYPECCqWVRNABCqR8fd2mZAqjfIZKUykBvq1mPGjsGuXb/iXHIyRo98Cr6+Ptj5+28ICQ3F519+gTden41j8fGYMXUqWKm0ai89iQRP3LAZpyAIVT0J1YuJ3s3j3bvj520/Y+umzVVPekLg6+eLhYsXoVnzf0YEXl/D707LnQuCADAMzNUjAYGqILZx/XocOnAAEpkUIFW9Eq5ubli4eHFNo97QoUNRVlaGZR98gK+//Apff/kVGAkLBgzkcllNEKIaNrsKAE+PfhqPPtqhaqbeHaYEMwC8qjesBIDpM2agtLQUTZs2velzarUa773/PhiGgdsNY+gjIiOxfccOHNy/H9nZ2XB3d4eHpycAwNvbG9//+AOOHzuGhNOnUVZWBrVKjUfat7tpbcKQkBAsWroUKpXq7o1oDIMJL0zEm2/Nwf6YfajUahERGYnofn0RcMO6hAAwecqL6D9wANp16HDbYULDwrDkgw+gUv2zTNgLkyahY8dOOHnyBPKuXoWV49CiRUv07N3rtmNPmDABvXv3RuyRI1U9HQyL0PAwdO/eHU1uyTOKAiDuQKD6RPiXv/fM2HEkOCCQxMTEiH0JNrsm6r+jA4EaGHtsM7fHa2rsaACoZ0wmEwx6/UOPZaCof8Ou2gDswYQXJmLwkMFo0by52EmhGgEaAOqZocOGiZ0EqhGhVQCKasRoAKCoRowGAIpqxGgAoKhGjAYAimrEbB4AyPW58ITwAOxvQ3WKEgGpGojJV//dZse1eQCorKzE8ePHcfny5XyLxVJSh3lEUXbLarWW5eTk5GZkZKCystJmx7V5ACgqKkJ2djb0er2BEGKu01yiKPtlMRqN+suXL6Ooek0HW6iVNgCJRHJ97zw6fJyibIRhGJvvSVkrIwHLyspQUVFh5nleWyc5Q1F2juM4nVarNSlqNr61jVoJAFu2bEFJSUn5pEmTcpycnLrUSQ5RlB0zm815+/bt09h6FeZaqQJotVpcuHDBpNPpLtVJ7lCUnTOZTAX79+8327IBEKilAFBUVARCiKDRaNIEQaCrR1LUf0AIsZSUlJyxWq3mpKQkmx67VgIAy7KwWq0oLCzM5DiuvA7yiKLsFs/zlcXFxekA7riJzX9Ra42An332GUpLS7O6du2aLpfLfesgnyjKLhkMhsyEhIT03NxcFBcX2/TYtdZNFxkZiczMTOmVK1c+CQ4O/l+t5xJF2am8vLyvAwMDX+3SpYv5xIkTNj12rc0F0Ol0IIRwOTk5cbQ7kKL+HZ7n9Xl5eXGEEPPly5dtfvxaWxHIYrFg69atyM7OPt26detzLi4uj9dqTlGUHTKZTJeTkpJOG41GWCwWmx+/Vkfq+fn5oaCggM3IyHgvMjLybdDZhxT1ULKzs1eFhYW9NXDgQEtMTIzNj1+rBdJkMoEQIqSnpx80m815tXkuirI3FovlWmZm5l5CiGXfvn21co5aXRRUo9Fg4sSJSE5OTmzTps2+wMDAKbV5PoqyJxqNJn7NmjWnfv75Z5tOAb5RnUzWIVU7BQ3r2rXr91Kp1P2/H5Gi7BvP85WJiYnTO3bsuNHJyQk6na5WziOp7QtRKpWQy+WIj48v6dy5cxu1Wk0XvKeo+9BoNLHr1q1bkZmZqd+5c2etnafOpusSQrB///5+PXv2XKdQKAL++xEpyj5ZrdbSv/76a0aXLl1+kslk4Diu1s5VZxuDTJkyBefPn49v0aLFrqCgoKmgPQIUdUfFxcV7lyxZEhMREVGrhR+o4wU7CCHYtGlT2+HDh29Uq9Ut6/LcFNUQmEymy7GxsS8MHDjwT4ap/eJZp0/h6OhoPPvss+eysrK+5nleX5fnpqj6jhBizc3N3TRo0KATAwcOrJNz1mkAOHz4MNauXctv3LhxS0lJye66PDdF1Xfl5eVxv//++7qUlJRa6/e/VZ2v2efg4ACDwYCdO3d26tev3zdqtbp1XaeBouobk8l0OT4+flp0dPR+FxcXaLV1M32mzhvijEYj2rRpg5EjRyakpKR8bLVabTu/kaIaGJ7nKzMyMj7t27fvkeHDh9dZ4QdEXLX3pZdewvnz51U//vjjgrCwsNdYlnUQKy0UJZbqev83y5cvX9C8eXPN1KlT6/T8oi7bfeDAAcTExHi9/vrrHwQGBk5EHQxMoqh6hJSWlsZs2LBhRt++fbNbtWpV5wkQfd1+Qgh+/PHHqCFDhiz38PAYCDo+gGociEajORwTE/PG+PHjz/r7+6OgoKDOEyF6YXN2dsaECRPSfv/99zmlpaUxoPsJUvaPaDSaw3v37n1j/PjxZ6unzYudJvEoFAoQQvD999+3KCkp2U0I4QlF2SehrKzs4MaNGx8hhMDT01PUsid6FeA6lmXB8zzWr1/fLDo6er6vr+8o2jBI2RNCiLm0tHT/wYMH3xk3blxyXXb33Y3oVYDrBEEAwzAYNmzYxdWrV8/Oysr6xGq1FoqdLoqyBY7jNDk5OWu/+uqrGePGjUtWKpWiF36gHgWA69zc3GAymYonT578QUJCwmtarfYUqd4XnaIaIL6ysvLvxMTEWYsWLXqnV69euQzDwGymG2ffU5s2bQCAWbduXfNLly59Yjabc8WuvFHUw7BYLMVXr15d+8MPP7QGwHbpUv+2yay3/e6FhVVv/y1btiz59NNPj4aEhCSp1Wqpg4NDMMuySrHTR1F3IwiCvrS09EBCQsK7a9eu/Wb8+PFXP/30U5Kbmyt20m5TbxoB70WpVMJoNOLVV191f/bZZwc3adLkBVdX164Mw9h2r2SK+g8IIVadTpeUlpb2zcGDB3fPnz+/wMnJCbbe0LPRCgoKAgAsX748JDU1dZ7BYEgntMuQEh9vMpmys7KyPvzmm2+iALDt27cXu7g8kHpbBbiT662m/v7+Fd99990pLy+v42q12qpWq0MkEomj2OmjGh+O40oLCwt3xsbGzl+8ePEWX1/fwoMHD5KGMrCnQVQB7mb79u3Yt2+f49ixY59o3br1ZA8Pj340EFB1QRAEY0VFxfHk5OQvtm3bduTzzz8vl8vlsFqtYiet8SGE4L333vNOTEx8qbKy8i9BEMxivxNS9kkQBKtOp0tOTU2ds2TJkkAATEN53b+TBlUFuJv3338farVav2zZsiQvL69YZ2dnrVqtDpZKpS5o4G85VL1BzGZzbl5e3obdu3cvmDBhwu9yubw8NTW1QY/jt4sAAAAZGRnQ6/WkWbNmpRs3bjzh6Oh43MXFhXVwcAiWSCQqsdNHNVwcx2lKSkp2x8fHL5g/f/4P/fv3z/vqq6+E1NRUsZNG3Q0hBDNnznQ+fPjwsJKSkr08z+vFfn2kGhZBEMzl5eVHjx8/Pv6ll15yE/uerg12/XoskUjA8zwWLlzoN3z48NHh4eEvqFSqFgzDyMROG1WvCQaDIS03N3fL7t27N86ePTtbrVYTvd7+FrK2myrAnZDqDRWtVqvu/fff/8vf3/8PDw8Pi0qlCqDtA9SdWCyW/Pz8/E2HDh16p2fPntslEklZZmYmbd23B19//TW6d++u3LlzZ/eCgoJNVqu1ROzXTKp+4HleX1RUtOvQoUMDu3Xrpjp+/LjYtytVG1xdXUEIwZQpU1z//PPPUWVlZYd5njeKfQNS4hAEwVpRUXHyzJkz0959910fQgjc3Oyyuk/dqHnz5gDALF26NCg1NXWuTqc7JwgCJ/YNSdUZwWAwZKSnp79fPXyXadGihdi3ZZ2z6zaAeykpKQEAyGQy7aJFi04GBwfHubu780ql0l8qlTqDtg/YLY7jNNeuXdsWFxf3zujRo7fqdLqitLQ0FBfTLSoarb1796JPnz4Oe/fujS4sLPyF4zit2I8oyrZ4njeWlpbuj4uLGzV79mxX2rBH3YYQgjfeeMMzMTFxSnl5ebwgCBaxb1zqvxEEgausrDyTlJT0yooVKwIBQCajPcHUXURFRQEAs3r16oi0tLR39Xr9BUKIIPaNTD00wWQyXcnIyFi6YcOGVgDYli3prvQ3arRtAPdSWloKAHB0dNS8/vrrx1q1anXSyclJcHBwCJBIJE5ip4+6P57nK4qLi3+Lj49/e+7cuRsJIQUnT54ktJ5PPbQdO3agd+/eqiNHjgwpLi7+nQ4rrr94njdqNJo/4+Pjx82dO9eDVA8Go6j/hGEYEEKwaNEivzNnzkzTarWnBUGwin3DU1UEQeD0ev355OTk11etWhUCgAkLCxP7tqHsjZOTEwCw3333XbP09PSFRqMxk9D2ATEJZrM5/+rVq19u2rSpXbNmzaRjxowR+zah7N3AgQMREBAg27VrV7f8/PwNVqu1TOyS0NhwHFdRXFy8a9++ff1HjBihJoRAIqHNWlQdIoTgzTffdIuLi3u6rKzsIB1WXPsEQbBUVFScPHXq1MTZs2d7AYCvr6/YtwLVWPn4+AAAVq5cGZSUlPSqTqc7S4cV1wreYDBkZGZmLlmzZk0TAGyHDh3E/vobNPq+ZAPX54lbLBbtRx999Fd4eHicSqWqVKvVIXRYsW1YrdbCwsLC7bGxsQumTp261cnJqfj06dMNZvVdqhFZsmQJhg8frtyzZ0/vwsLCnzmOKxf70dlQcRxXWVJSsjc2NvbJ0aNHOxLarUc1BCqVCoQQvPXWWx7Hjh0bX15eHkfbBx5c9fDdxDNnzkybM2eONwCGTtOlGpzqDSGZlStXhp47d+4NvV5/QRAEupvRPRiNxstZWVnLvv/++5YA2G7duon9Ndot2gZQy65vCOnn51f+5Zdfnvby8jru5ubGKpVKfzqs+GbVu+z8cuLEifeef/75H52dna+dPHmS5OTkiJ00irINQgiGDx+uPnDgwMDi4uLfOI6rEPuJKzZBEExlZWVHjh07NmbMmDHOhNbzKXt2fbDKrFmzvBISEiZXVFSc5HneJHZBFAGv0+nOpaSkvLlq1apQAJBKpWJ/PRRVNwIDAwGAXb58efjFixffNRgMGaSRDCs2m825ly5dWrF169Z2ACTVU7CpOkbbAERUvdsxCQkJ0SxcuPBERETEaRcXF0l1+4Ba7PTVBp7ndaWlpXtPnTr1zqxZs9ZJJJLc48ePk+tTsCmqUbo+23DEiBGOR48eHVlSUrKX47hKsZ/UtiIIgrmiouL4qVOnJi5cuNCbEAKlUil2tlNU/XJ9CuucOXN8kpKSZlZWVp4hhDTkYcW8wWBIT01Nnb927dpIAEx4eLjY2UxR9dsTTzwBAOyGDRtaX7p06WOTyZQtdkl+WBaLpTA7O3vN9u3bOz722GOyCRMmiJ2tFNWwzJ49G+3atVPExMT0rp52XCp2wb4fjuN0paWlMYcPHx46adIk9a5du8TORopq2AgheOGFF1xOnDgxrrS09EB9HFYsCIKlsrIy8a+//np50aJFfgDQtGlTsbOOouzD9UazxYsXB6SkpMzWarV/CYJgFrvgE0J4o9F4KS0t7f21a9dGeXt7SwYPHix2dlEPgHYDNiAcxwEAdDpd5dtvv306KCjosFqtLlAoFGqpVOrCsqyiLtMjCIJBr9en5OXlbTp27NiSJUuWbJPJZIUHDhwgGRkZYmcX9QBoAGiA8vLyAIDk5OSUrVy58pREItmnUCjOMgyjkUgkcolEomZZVgbbr0NABEEwms3mXI1GE5uWlvbZ3r17Pxk1atQOs9l85ddff+WPHTsmdvZQD4EuVGFHWrdurZw2bVpQ+/btO/j4+LR3dHRsqlKpmsrlcm+WZR1YllWi6jt/kO+dCIJgEQRBb7VaS0wmU05FRcXZ4uLiM5cuXTq/Y8eOS9u2basEQAfuN2A0ANihiIgIZGVlSQYPHqweMWKEX1hYWICjo6OPq6troEwm83RycgoBwN7t900mU7HBYLhqMplKS0pKLl+9ejU/MTGxcPXq1RUdOnTgEhMTxb5EykZoAGhEWrVqBa1WK3F2dpazLMsQQkBumHnHslUxwWAwcJmZmRax00tRFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEVRFEXd0f8DDrd0lI8+66wAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMDdUMTQ6MzU6MDYtMDQ6MDC7ie18AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTA3VDE0OjM1OjA2LTA0OjAwytRVwAAAAABJRU5ErkJggg==",
+                                        "Label": "HPE Onboard Administrator",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "HPE Onboard Administrator is used to manage the environmental health of associated blade servers."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring HPE Onboard Administrator, be sure to watch the various status metrics that return for all objects."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_onboardadministrator_blade_CL | where ${Enclosure} and ${Health} and ${Model} and ${Blade}  | project ['Ambient Zone Temperature Sensors Above Caution'] = columnifexists('ambient_zone_temperature_sensors_above_caution_d', double(null)), ['Ambient Zone Temperature Sensors Above Critical'] = columnifexists('ambient_zone_temperature_sensors_above_critical_d', double(null)), ['Chassis Zone Temperature Sensors Above Caution'] = columnifexists('chassis_zone_temperature_sensors_above_caution_d', double(null)), ['Chassis Zone Temperature Sensors Above Critical'] = columnifexists('chassis_zone_temperature_sensors_above_critical_d', double(null)), ['Cooling Status'] = columnifexists('cooling_status_s', 'NULL_VALUE'), ['CPU Zone Temperature Sensors Above Caution'] = columnifexists('cpu_zone_temperature_sensors_above_caution_d', double(null)), ['CPU Zone Temperature Sensors Above Critical'] = columnifexists('cpu_zone_temperature_sensors_above_critical_d', double(null)), ['Device Degraded Status'] = columnifexists('device_degraded_status_s', 'NULL_VALUE'), ['Device Failure Status'] = columnifexists('device_failure_status_s', 'NULL_VALUE'), ['Disk Zone Temperature Sensors Above Caution'] = columnifexists('disk_zone_temperature_sensors_above_caution_d', double(null)), ['Disk Zone Temperature Sensors Above Critical'] = columnifexists('disk_zone_temperature_sensors_above_critical_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['iLO Network Status'] = columnifexists('ilo_network_status_s', 'NULL_VALUE'), ['Internal Data Status'] = columnifexists('internal_data_status_s', 'NULL_VALUE'), ['I/O Board Zone Temperature Sensors Above Caution'] = columnifexists('io_board_zone_temperature_sensors_above_caution_d', double(null)), ['I/O Board Zone Temperature Sensors Above Critical'] = columnifexists('io_board_zone_temperature_sensors_above_critical_d', double(null)), ['I/O Configuration Status'] = columnifexists('io_configuration_status_s', 'NULL_VALUE'), ['Location Status'] = columnifexists('location_status_s', 'NULL_VALUE'), ['Management Processor Status'] = columnifexists('management_processor_status_s', 'NULL_VALUE'), ['Memory Zone Temperature Sensors Above Caution'] = columnifexists('memory_zone_temperature_sensors_above_caution_d', double(null)), ['Memory Zone Temperature Sensors Above Critical'] = columnifexists('memory_zone_temperature_sensors_above_critical_d', double(null)), ['Mezzanine Card Status'] = columnifexists('mezzanine_card_status_s', 'NULL_VALUE'), ['Power Status'] = columnifexists('power_status_s', 'NULL_VALUE'), ['Power Supply Zone Temperature Sensors Above Caution'] = columnifexists('power_supply_zone_temperature_sensors_above_caution_d', double(null)), ['Power Supply Zone Temperature Sensors Above Critical'] = columnifexists('power_supply_zone_temperature_sensors_above_critical_d', double(null)), ['System Zone Temperature Sensors Above Caution'] = columnifexists('system_zone_temperature_sensors_above_caution_d', double(null)), ['System Zone Temperature Sensors Above Critical'] = columnifexists('system_zone_temperature_sensors_above_critical_d', double(null)), ['VCM Configured Status'] = columnifexists('vcm_configured_status_s', 'NULL_VALUE'), ['Virtual Fan'] = columnifexists('virtual_fan_d', double(null)), TimeGenerated, Name=hpe_onboardadministrator_blade_name_s  | extend Healthy = case(isnotnull(['Ambient Zone Temperature Sensors Above Caution']) or isnotnull(['Ambient Zone Temperature Sensors Above Critical']) or isnotnull(['Chassis Zone Temperature Sensors Above Caution']) or isnotnull(['Chassis Zone Temperature Sensors Above Critical']) or coalesce(['Cooling Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Zone Temperature Sensors Above Caution']) or isnotnull(['CPU Zone Temperature Sensors Above Critical']) or coalesce(['Device Degraded Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Device Failure Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Disk Zone Temperature Sensors Above Caution']) or isnotnull(['Disk Zone Temperature Sensors Above Critical']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['iLO Network Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Internal Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['I/O Board Zone Temperature Sensors Above Caution']) or isnotnull(['I/O Board Zone Temperature Sensors Above Critical']) or coalesce(['I/O Configuration Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Location Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Management Processor Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Zone Temperature Sensors Above Caution']) or isnotnull(['Memory Zone Temperature Sensors Above Critical']) or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Power Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Supply Zone Temperature Sensors Above Caution']) or isnotnull(['Power Supply Zone Temperature Sensors Above Critical']) or isnotnull(['System Zone Temperature Sensors Above Caution']) or isnotnull(['System Zone Temperature Sensors Above Critical']) or coalesce(['VCM Configured Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Virtual Fan']), (['Ambient Zone Temperature Sensors Above Caution'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Caution'])) and (['Ambient Zone Temperature Sensors Above Critical'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Critical'])) and (['Chassis Zone Temperature Sensors Above Caution'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Caution'])) and (['Chassis Zone Temperature Sensors Above Critical'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Critical'])) and (['Cooling Status'] == 'OK' or coalesce(['Cooling Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Zone Temperature Sensors Above Caution'] < 1 or isnull(['CPU Zone Temperature Sensors Above Caution'])) and (['CPU Zone Temperature Sensors Above Critical'] < 1 or isnull(['CPU Zone Temperature Sensors Above Critical'])) and (['Device Degraded Status'] == 'OK' or coalesce(['Device Degraded Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Device Failure Status'] == 'OK' or coalesce(['Device Failure Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Disk Zone Temperature Sensors Above Caution'] < 1 or isnull(['Disk Zone Temperature Sensors Above Caution'])) and (['Disk Zone Temperature Sensors Above Critical'] < 1 or isnull(['Disk Zone Temperature Sensors Above Critical'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['iLO Network Status'] == 'OK' or coalesce(['iLO Network Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Internal Data Status'] == 'OK' or coalesce(['Internal Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['I/O Board Zone Temperature Sensors Above Caution'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Caution'])) and (['I/O Board Zone Temperature Sensors Above Critical'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Critical'])) and (['I/O Configuration Status'] == 'OK' or coalesce(['I/O Configuration Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Location Status'] == 'OK' or coalesce(['Location Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Management Processor Status'] == 'OK' or coalesce(['Management Processor Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Zone Temperature Sensors Above Caution'] < 1 or isnull(['Memory Zone Temperature Sensors Above Caution'])) and (['Memory Zone Temperature Sensors Above Critical'] < 1 or isnull(['Memory Zone Temperature Sensors Above Critical'])) and (['Mezzanine Card Status'] == 'OK' or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Status'] == 'OK' or coalesce(['Power Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Supply Zone Temperature Sensors Above Caution'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Caution'])) and (['Power Supply Zone Temperature Sensors Above Critical'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Critical'])) and (['System Zone Temperature Sensors Above Caution'] < 1 or isnull(['System Zone Temperature Sensors Above Caution'])) and (['System Zone Temperature Sensors Above Critical'] < 1 or isnull(['System Zone Temperature Sensors Above Critical'])) and (['VCM Configured Status'] == 'OK' or coalesce(['VCM Configured Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Virtual Fan'] < 90 or isnull(['Virtual Fan'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_onboardadministrator_blade_CL | where ${Enclosure} and ${Health} and ${Model} and ${Blade}  | project ['Ambient Zone Temperature Sensors Above Caution'] = columnifexists('ambient_zone_temperature_sensors_above_caution_d', double(null)), ['Ambient Zone Temperature Sensors Above Critical'] = columnifexists('ambient_zone_temperature_sensors_above_critical_d', double(null)), ['Chassis Zone Temperature Sensors Above Caution'] = columnifexists('chassis_zone_temperature_sensors_above_caution_d', double(null)), ['Chassis Zone Temperature Sensors Above Critical'] = columnifexists('chassis_zone_temperature_sensors_above_critical_d', double(null)), ['Cooling Status'] = columnifexists('cooling_status_s', 'NULL_VALUE'), ['CPU Zone Temperature Sensors Above Caution'] = columnifexists('cpu_zone_temperature_sensors_above_caution_d', double(null)), ['CPU Zone Temperature Sensors Above Critical'] = columnifexists('cpu_zone_temperature_sensors_above_critical_d', double(null)), ['Device Degraded Status'] = columnifexists('device_degraded_status_s', 'NULL_VALUE'), ['Device Failure Status'] = columnifexists('device_failure_status_s', 'NULL_VALUE'), ['Disk Zone Temperature Sensors Above Caution'] = columnifexists('disk_zone_temperature_sensors_above_caution_d', double(null)), ['Disk Zone Temperature Sensors Above Critical'] = columnifexists('disk_zone_temperature_sensors_above_critical_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['iLO Network Status'] = columnifexists('ilo_network_status_s', 'NULL_VALUE'), ['Internal Data Status'] = columnifexists('internal_data_status_s', 'NULL_VALUE'), ['I/O Board Zone Temperature Sensors Above Caution'] = columnifexists('io_board_zone_temperature_sensors_above_caution_d', double(null)), ['I/O Board Zone Temperature Sensors Above Critical'] = columnifexists('io_board_zone_temperature_sensors_above_critical_d', double(null)), ['I/O Configuration Status'] = columnifexists('io_configuration_status_s', 'NULL_VALUE'), ['Location Status'] = columnifexists('location_status_s', 'NULL_VALUE'), ['Management Processor Status'] = columnifexists('management_processor_status_s', 'NULL_VALUE'), ['Memory Zone Temperature Sensors Above Caution'] = columnifexists('memory_zone_temperature_sensors_above_caution_d', double(null)), ['Memory Zone Temperature Sensors Above Critical'] = columnifexists('memory_zone_temperature_sensors_above_critical_d', double(null)), ['Mezzanine Card Status'] = columnifexists('mezzanine_card_status_s', 'NULL_VALUE'), ['Power Status'] = columnifexists('power_status_s', 'NULL_VALUE'), ['Power Supply Zone Temperature Sensors Above Caution'] = columnifexists('power_supply_zone_temperature_sensors_above_caution_d', double(null)), ['Power Supply Zone Temperature Sensors Above Critical'] = columnifexists('power_supply_zone_temperature_sensors_above_critical_d', double(null)), ['System Zone Temperature Sensors Above Caution'] = columnifexists('system_zone_temperature_sensors_above_caution_d', double(null)), ['System Zone Temperature Sensors Above Critical'] = columnifexists('system_zone_temperature_sensors_above_critical_d', double(null)), ['VCM Configured Status'] = columnifexists('vcm_configured_status_s', 'NULL_VALUE'), ['Virtual Fan'] = columnifexists('virtual_fan_d', double(null)), TimeGenerated, Name=hpe_onboardadministrator_blade_name_s  | extend Healthy = case(isnotnull(['Ambient Zone Temperature Sensors Above Caution']) or isnotnull(['Ambient Zone Temperature Sensors Above Critical']) or isnotnull(['Chassis Zone Temperature Sensors Above Caution']) or isnotnull(['Chassis Zone Temperature Sensors Above Critical']) or coalesce(['Cooling Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Zone Temperature Sensors Above Caution']) or isnotnull(['CPU Zone Temperature Sensors Above Critical']) or coalesce(['Device Degraded Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Device Failure Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Disk Zone Temperature Sensors Above Caution']) or isnotnull(['Disk Zone Temperature Sensors Above Critical']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['iLO Network Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Internal Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['I/O Board Zone Temperature Sensors Above Caution']) or isnotnull(['I/O Board Zone Temperature Sensors Above Critical']) or coalesce(['I/O Configuration Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Location Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Management Processor Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Zone Temperature Sensors Above Caution']) or isnotnull(['Memory Zone Temperature Sensors Above Critical']) or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Power Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Supply Zone Temperature Sensors Above Caution']) or isnotnull(['Power Supply Zone Temperature Sensors Above Critical']) or isnotnull(['System Zone Temperature Sensors Above Caution']) or isnotnull(['System Zone Temperature Sensors Above Critical']) or coalesce(['VCM Configured Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Virtual Fan']), (['Ambient Zone Temperature Sensors Above Caution'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Caution'])) and (['Ambient Zone Temperature Sensors Above Critical'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Critical'])) and (['Chassis Zone Temperature Sensors Above Caution'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Caution'])) and (['Chassis Zone Temperature Sensors Above Critical'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Critical'])) and (['Cooling Status'] == 'OK' or coalesce(['Cooling Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Zone Temperature Sensors Above Caution'] < 1 or isnull(['CPU Zone Temperature Sensors Above Caution'])) and (['CPU Zone Temperature Sensors Above Critical'] < 1 or isnull(['CPU Zone Temperature Sensors Above Critical'])) and (['Device Degraded Status'] == 'OK' or coalesce(['Device Degraded Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Device Failure Status'] == 'OK' or coalesce(['Device Failure Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Disk Zone Temperature Sensors Above Caution'] < 1 or isnull(['Disk Zone Temperature Sensors Above Caution'])) and (['Disk Zone Temperature Sensors Above Critical'] < 1 or isnull(['Disk Zone Temperature Sensors Above Critical'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['iLO Network Status'] == 'OK' or coalesce(['iLO Network Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Internal Data Status'] == 'OK' or coalesce(['Internal Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['I/O Board Zone Temperature Sensors Above Caution'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Caution'])) and (['I/O Board Zone Temperature Sensors Above Critical'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Critical'])) and (['I/O Configuration Status'] == 'OK' or coalesce(['I/O Configuration Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Location Status'] == 'OK' or coalesce(['Location Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Management Processor Status'] == 'OK' or coalesce(['Management Processor Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Zone Temperature Sensors Above Caution'] < 1 or isnull(['Memory Zone Temperature Sensors Above Caution'])) and (['Memory Zone Temperature Sensors Above Critical'] < 1 or isnull(['Memory Zone Temperature Sensors Above Critical'])) and (['Mezzanine Card Status'] == 'OK' or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Status'] == 'OK' or coalesce(['Power Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Supply Zone Temperature Sensors Above Caution'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Caution'])) and (['Power Supply Zone Temperature Sensors Above Critical'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Critical'])) and (['System Zone Temperature Sensors Above Caution'] < 1 or isnull(['System Zone Temperature Sensors Above Caution'])) and (['System Zone Temperature Sensors Above Critical'] < 1 or isnull(['System Zone Temperature Sensors Above Critical'])) and (['VCM Configured Status'] == 'OK' or coalesce(['VCM Configured Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Virtual Fan'] < 90 or isnull(['Virtual Fan'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "hpe_onboardadministrator_blade_CL | project ['Ambient Zone Temperature Sensors Above Caution'] = columnifexists('ambient_zone_temperature_sensors_above_caution_d', double(null)), ['Ambient Zone Temperature Sensors Above Critical'] = columnifexists('ambient_zone_temperature_sensors_above_critical_d', double(null)), ['Chassis Zone Temperature Sensors Above Caution'] = columnifexists('chassis_zone_temperature_sensors_above_caution_d', double(null)), ['Chassis Zone Temperature Sensors Above Critical'] = columnifexists('chassis_zone_temperature_sensors_above_critical_d', double(null)), ['Cooling Status'] = columnifexists('cooling_status_s', 'NULL_VALUE'), ['CPU Zone Temperature Sensors Above Caution'] = columnifexists('cpu_zone_temperature_sensors_above_caution_d', double(null)), ['CPU Zone Temperature Sensors Above Critical'] = columnifexists('cpu_zone_temperature_sensors_above_critical_d', double(null)), ['Device Degraded Status'] = columnifexists('device_degraded_status_s', 'NULL_VALUE'), ['Device Failure Status'] = columnifexists('device_failure_status_s', 'NULL_VALUE'), ['Disk Zone Temperature Sensors Above Caution'] = columnifexists('disk_zone_temperature_sensors_above_caution_d', double(null)), ['Disk Zone Temperature Sensors Above Critical'] = columnifexists('disk_zone_temperature_sensors_above_critical_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['iLO Network Status'] = columnifexists('ilo_network_status_s', 'NULL_VALUE'), ['Internal Data Status'] = columnifexists('internal_data_status_s', 'NULL_VALUE'), ['I/O Board Zone Temperature Sensors Above Caution'] = columnifexists('io_board_zone_temperature_sensors_above_caution_d', double(null)), ['I/O Board Zone Temperature Sensors Above Critical'] = columnifexists('io_board_zone_temperature_sensors_above_critical_d', double(null)), ['I/O Configuration Status'] = columnifexists('io_configuration_status_s', 'NULL_VALUE'), ['Location Status'] = columnifexists('location_status_s', 'NULL_VALUE'), ['Management Processor Status'] = columnifexists('management_processor_status_s', 'NULL_VALUE'), ['Memory Zone Temperature Sensors Above Caution'] = columnifexists('memory_zone_temperature_sensors_above_caution_d', double(null)), ['Memory Zone Temperature Sensors Above Critical'] = columnifexists('memory_zone_temperature_sensors_above_critical_d', double(null)), ['Mezzanine Card Status'] = columnifexists('mezzanine_card_status_s', 'NULL_VALUE'), ['Power Status'] = columnifexists('power_status_s', 'NULL_VALUE'), ['Power Supply Zone Temperature Sensors Above Caution'] = columnifexists('power_supply_zone_temperature_sensors_above_caution_d', double(null)), ['Power Supply Zone Temperature Sensors Above Critical'] = columnifexists('power_supply_zone_temperature_sensors_above_critical_d', double(null)), ['System Zone Temperature Sensors Above Caution'] = columnifexists('system_zone_temperature_sensors_above_caution_d', double(null)), ['System Zone Temperature Sensors Above Critical'] = columnifexists('system_zone_temperature_sensors_above_critical_d', double(null)), ['VCM Configured Status'] = columnifexists('vcm_configured_status_s', 'NULL_VALUE'), ['Virtual Fan'] = columnifexists('virtual_fan_d', double(null)), TimeGenerated, Name=hpe_onboardadministrator_blade_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Ambient Zone Temperature Sensors Above Caution']) or isnotnull(['Ambient Zone Temperature Sensors Above Critical']) or isnotnull(['Chassis Zone Temperature Sensors Above Caution']) or isnotnull(['Chassis Zone Temperature Sensors Above Critical']) or coalesce(['Cooling Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Zone Temperature Sensors Above Caution']) or isnotnull(['CPU Zone Temperature Sensors Above Critical']) or coalesce(['Device Degraded Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Device Failure Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Disk Zone Temperature Sensors Above Caution']) or isnotnull(['Disk Zone Temperature Sensors Above Critical']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['iLO Network Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Internal Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['I/O Board Zone Temperature Sensors Above Caution']) or isnotnull(['I/O Board Zone Temperature Sensors Above Critical']) or coalesce(['I/O Configuration Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Location Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Management Processor Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Zone Temperature Sensors Above Caution']) or isnotnull(['Memory Zone Temperature Sensors Above Critical']) or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Power Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Supply Zone Temperature Sensors Above Caution']) or isnotnull(['Power Supply Zone Temperature Sensors Above Critical']) or isnotnull(['System Zone Temperature Sensors Above Caution']) or isnotnull(['System Zone Temperature Sensors Above Critical']) or coalesce(['VCM Configured Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Virtual Fan']), (['Ambient Zone Temperature Sensors Above Caution'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Caution'])) and (['Ambient Zone Temperature Sensors Above Critical'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Critical'])) and (['Chassis Zone Temperature Sensors Above Caution'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Caution'])) and (['Chassis Zone Temperature Sensors Above Critical'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Critical'])) and (['Cooling Status'] == 'OK' or coalesce(['Cooling Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Zone Temperature Sensors Above Caution'] < 1 or isnull(['CPU Zone Temperature Sensors Above Caution'])) and (['CPU Zone Temperature Sensors Above Critical'] < 1 or isnull(['CPU Zone Temperature Sensors Above Critical'])) and (['Device Degraded Status'] == 'OK' or coalesce(['Device Degraded Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Device Failure Status'] == 'OK' or coalesce(['Device Failure Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Disk Zone Temperature Sensors Above Caution'] < 1 or isnull(['Disk Zone Temperature Sensors Above Caution'])) and (['Disk Zone Temperature Sensors Above Critical'] < 1 or isnull(['Disk Zone Temperature Sensors Above Critical'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['iLO Network Status'] == 'OK' or coalesce(['iLO Network Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Internal Data Status'] == 'OK' or coalesce(['Internal Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['I/O Board Zone Temperature Sensors Above Caution'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Caution'])) and (['I/O Board Zone Temperature Sensors Above Critical'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Critical'])) and (['I/O Configuration Status'] == 'OK' or coalesce(['I/O Configuration Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Location Status'] == 'OK' or coalesce(['Location Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Management Processor Status'] == 'OK' or coalesce(['Management Processor Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Zone Temperature Sensors Above Caution'] < 1 or isnull(['Memory Zone Temperature Sensors Above Caution'])) and (['Memory Zone Temperature Sensors Above Critical'] < 1 or isnull(['Memory Zone Temperature Sensors Above Critical'])) and (['Mezzanine Card Status'] == 'OK' or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Status'] == 'OK' or coalesce(['Power Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Supply Zone Temperature Sensors Above Caution'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Caution'])) and (['Power Supply Zone Temperature Sensors Above Critical'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Critical'])) and (['System Zone Temperature Sensors Above Caution'] < 1 or isnull(['System Zone Temperature Sensors Above Caution'])) and (['System Zone Temperature Sensors Above Critical'] < 1 or isnull(['System Zone Temperature Sensors Above Critical'])) and (['VCM Configured Status'] == 'OK' or coalesce(['VCM Configured Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Virtual Fan'] < 90 or isnull(['Virtual Fan'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "hpe_onboardadministrator_blade_CL | project ['Ambient Zone Temperature Sensors Above Caution'] = columnifexists('ambient_zone_temperature_sensors_above_caution_d', double(null)), ['Ambient Zone Temperature Sensors Above Critical'] = columnifexists('ambient_zone_temperature_sensors_above_critical_d', double(null)), ['Chassis Zone Temperature Sensors Above Caution'] = columnifexists('chassis_zone_temperature_sensors_above_caution_d', double(null)), ['Chassis Zone Temperature Sensors Above Critical'] = columnifexists('chassis_zone_temperature_sensors_above_critical_d', double(null)), ['Cooling Status'] = columnifexists('cooling_status_s', 'NULL_VALUE'), ['CPU Zone Temperature Sensors Above Caution'] = columnifexists('cpu_zone_temperature_sensors_above_caution_d', double(null)), ['CPU Zone Temperature Sensors Above Critical'] = columnifexists('cpu_zone_temperature_sensors_above_critical_d', double(null)), ['Device Degraded Status'] = columnifexists('device_degraded_status_s', 'NULL_VALUE'), ['Device Failure Status'] = columnifexists('device_failure_status_s', 'NULL_VALUE'), ['Disk Zone Temperature Sensors Above Caution'] = columnifexists('disk_zone_temperature_sensors_above_caution_d', double(null)), ['Disk Zone Temperature Sensors Above Critical'] = columnifexists('disk_zone_temperature_sensors_above_critical_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['iLO Network Status'] = columnifexists('ilo_network_status_s', 'NULL_VALUE'), ['Internal Data Status'] = columnifexists('internal_data_status_s', 'NULL_VALUE'), ['I/O Board Zone Temperature Sensors Above Caution'] = columnifexists('io_board_zone_temperature_sensors_above_caution_d', double(null)), ['I/O Board Zone Temperature Sensors Above Critical'] = columnifexists('io_board_zone_temperature_sensors_above_critical_d', double(null)), ['I/O Configuration Status'] = columnifexists('io_configuration_status_s', 'NULL_VALUE'), ['Location Status'] = columnifexists('location_status_s', 'NULL_VALUE'), ['Management Processor Status'] = columnifexists('management_processor_status_s', 'NULL_VALUE'), ['Memory Zone Temperature Sensors Above Caution'] = columnifexists('memory_zone_temperature_sensors_above_caution_d', double(null)), ['Memory Zone Temperature Sensors Above Critical'] = columnifexists('memory_zone_temperature_sensors_above_critical_d', double(null)), ['Mezzanine Card Status'] = columnifexists('mezzanine_card_status_s', 'NULL_VALUE'), ['Power Status'] = columnifexists('power_status_s', 'NULL_VALUE'), ['Power Supply Zone Temperature Sensors Above Caution'] = columnifexists('power_supply_zone_temperature_sensors_above_caution_d', double(null)), ['Power Supply Zone Temperature Sensors Above Critical'] = columnifexists('power_supply_zone_temperature_sensors_above_critical_d', double(null)), ['System Zone Temperature Sensors Above Caution'] = columnifexists('system_zone_temperature_sensors_above_caution_d', double(null)), ['System Zone Temperature Sensors Above Critical'] = columnifexists('system_zone_temperature_sensors_above_critical_d', double(null)), ['VCM Configured Status'] = columnifexists('vcm_configured_status_s', 'NULL_VALUE'), ['Virtual Fan'] = columnifexists('virtual_fan_d', double(null)), TimeGenerated, Name=hpe_onboardadministrator_blade_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Ambient Zone Temperature Sensors Above Caution']) or isnotnull(['Ambient Zone Temperature Sensors Above Critical']) or isnotnull(['Chassis Zone Temperature Sensors Above Caution']) or isnotnull(['Chassis Zone Temperature Sensors Above Critical']) or coalesce(['Cooling Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Zone Temperature Sensors Above Caution']) or isnotnull(['CPU Zone Temperature Sensors Above Critical']) or coalesce(['Device Degraded Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Device Failure Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Disk Zone Temperature Sensors Above Caution']) or isnotnull(['Disk Zone Temperature Sensors Above Critical']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['iLO Network Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Internal Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['I/O Board Zone Temperature Sensors Above Caution']) or isnotnull(['I/O Board Zone Temperature Sensors Above Critical']) or coalesce(['I/O Configuration Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Location Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Management Processor Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Zone Temperature Sensors Above Caution']) or isnotnull(['Memory Zone Temperature Sensors Above Critical']) or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Power Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Supply Zone Temperature Sensors Above Caution']) or isnotnull(['Power Supply Zone Temperature Sensors Above Critical']) or isnotnull(['System Zone Temperature Sensors Above Caution']) or isnotnull(['System Zone Temperature Sensors Above Critical']) or coalesce(['VCM Configured Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Virtual Fan']), (['Ambient Zone Temperature Sensors Above Caution'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Caution'])) and (['Ambient Zone Temperature Sensors Above Critical'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Critical'])) and (['Chassis Zone Temperature Sensors Above Caution'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Caution'])) and (['Chassis Zone Temperature Sensors Above Critical'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Critical'])) and (['Cooling Status'] == 'OK' or coalesce(['Cooling Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Zone Temperature Sensors Above Caution'] < 1 or isnull(['CPU Zone Temperature Sensors Above Caution'])) and (['CPU Zone Temperature Sensors Above Critical'] < 1 or isnull(['CPU Zone Temperature Sensors Above Critical'])) and (['Device Degraded Status'] == 'OK' or coalesce(['Device Degraded Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Device Failure Status'] == 'OK' or coalesce(['Device Failure Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Disk Zone Temperature Sensors Above Caution'] < 1 or isnull(['Disk Zone Temperature Sensors Above Caution'])) and (['Disk Zone Temperature Sensors Above Critical'] < 1 or isnull(['Disk Zone Temperature Sensors Above Critical'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['iLO Network Status'] == 'OK' or coalesce(['iLO Network Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Internal Data Status'] == 'OK' or coalesce(['Internal Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['I/O Board Zone Temperature Sensors Above Caution'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Caution'])) and (['I/O Board Zone Temperature Sensors Above Critical'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Critical'])) and (['I/O Configuration Status'] == 'OK' or coalesce(['I/O Configuration Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Location Status'] == 'OK' or coalesce(['Location Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Management Processor Status'] == 'OK' or coalesce(['Management Processor Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Zone Temperature Sensors Above Caution'] < 1 or isnull(['Memory Zone Temperature Sensors Above Caution'])) and (['Memory Zone Temperature Sensors Above Critical'] < 1 or isnull(['Memory Zone Temperature Sensors Above Critical'])) and (['Mezzanine Card Status'] == 'OK' or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Status'] == 'OK' or coalesce(['Power Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Supply Zone Temperature Sensors Above Caution'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Caution'])) and (['Power Supply Zone Temperature Sensors Above Critical'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Critical'])) and (['System Zone Temperature Sensors Above Caution'] < 1 or isnull(['System Zone Temperature Sensors Above Caution'])) and (['System Zone Temperature Sensors Above Critical'] < 1 or isnull(['System Zone Temperature Sensors Above Critical'])) and (['VCM Configured Status'] == 'OK' or coalesce(['VCM Configured Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Virtual Fan'] < 90 or isnull(['Virtual Fan'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Current Power Consumption",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Current Power Consumption",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_onboardadministrator_blade_CL | where ${Enclosure} and ${Health} and ${Model} and ${Blade} | summarize avg(coalesce(columnifexists('current_power_consumption_d',0.0), 0.0)) by hpe_onboardadministrator_blade_name_s",
+                                        "Callout": {
+                                            "Title": "Average Current Power Consumption",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Watts"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_onboardadministrator_blade_CL  | where ${Enclosure} and ${Health} and ${Model} and ${Blade} | summarize avg(coalesce(columnifexists('current_power_consumption_d',0.0), 0.0)) by hpe_onboardadministrator_blade_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade",
+                                            "Value": "Current Power Consumption"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Memory",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_onboardadministrator_blade_CL | where ${Enclosure} and ${Health} and ${Model} and ${Blade} | summarize avg(coalesce(columnifexists('memory_d',0.0), 0.0)) by hpe_onboardadministrator_blade_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Mebibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_onboardadministrator_blade_CL  | where ${Enclosure} and ${Health} and ${Model} and ${Blade} | summarize avg(coalesce(columnifexists('memory_d',0.0), 0.0)) by hpe_onboardadministrator_blade_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade",
+                                            "Value": "Memory"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Power Supply Current Power Output",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Current Power Output",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_onboardadministrator_power_supply_CL | where ${Enclosure} and ${Status} and ${Power Supply} | summarize avg(coalesce(columnifexists('current_power_output_d',0.0), 0.0)) by hpe_onboardadministrator_power_supply_name_s",
+                                        "Callout": {
+                                            "Title": "Average Current Power Output",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Watts"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_onboardadministrator_power_supply_CL  | where ${Enclosure} and ${Status} and ${Power Supply} | summarize avg(coalesce(columnifexists('current_power_output_d',0.0), 0.0)) by hpe_onboardadministrator_power_supply_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Power Supply",
+                                            "Value": "Current Power Output"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Fan Percent of Maximum Speed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Percent of Maximum Speed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_onboardadministrator_fan_CL | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('percent_of_maximum_speed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s",
+                                        "Callout": {
+                                            "Title": "Average Percent of Maximum Speed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_onboardadministrator_fan_CL  | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('percent_of_maximum_speed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Fan",
+                                            "Value": "Percent of Maximum Speed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Fan Power Consumed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Power Consumed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_onboardadministrator_fan_CL | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('power_consumed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s",
+                                        "Callout": {
+                                            "Title": "Average Power Consumed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Watts"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_onboardadministrator_fan_CL  | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('power_consumed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Fan",
+                                            "Value": "Power Consumed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "hpe_onboardadministrator_blade_CL | summarize([\"Last Update Time\"], ['System Zone Temperature Sensors Above Critical'], ['Virtual Fan'])=arg_max(TimeGenerated,columnifexists('system_zone_temperature_sensors_above_critical_d', ''),columnifexists('virtual_fan_d', '')) by Name=hpe_onboardadministrator_blade_name_s",
+                                            "displayName": "Blade Details"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_blade_CL | summarize([\"Last Update Time\"], ['Memory'])=arg_max(TimeGenerated,columnifexists('memory_d', '')) by Name=hpe_onboardadministrator_blade_name_s",
+                                            "displayName": "Blade Memory"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_blade_CL | summarize([\"Last Update Time\"], ['BIOS Version'], ['Blade Number'], ['Hostname'], ['Management Processor IP Address'], ['Management Processor Type'], ['Manufacturer'], ['Model'])=arg_max(TimeGenerated,columnifexists('bios_version_s', ''),columnifexists('blade_number_s', ''),columnifexists('hostname_s', ''),columnifexists('management_processor_ip_address_s', ''),columnifexists('management_processor_type_s', ''),columnifexists('manufacturer_s', ''),columnifexists('model_s', '')) by Name=hpe_onboardadministrator_blade_name_s",
+                                            "displayName": "Blade Properties"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_fan_CL | summarize([\"Last Update Time\"], ['Percent of Maximum Speed'], ['Power Consumed'])=arg_max(TimeGenerated,columnifexists('percent_of_maximum_speed_d', ''),columnifexists('power_consumed_d', '')) by Name=hpe_onboardadministrator_fan_name_s",
+                                            "displayName": "Fan Details"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_fan_CL | summarize([\"Last Update Time\"], ['Maximum speed'], ['Minimum speed'], ['Part Number'], ['Product Name'], ['Spare Part Number'], ['Version'])=arg_max(TimeGenerated,columnifexists('maximum_speed_d', ''),columnifexists('minimum_speed_d', ''),columnifexists('part_number_s', ''),columnifexists('product_name_s', ''),columnifexists('spare_part_number_s', ''),columnifexists('version_s', '')) by Name=hpe_onboardadministrator_fan_name_s",
+                                            "displayName": "Fan Properties"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_interconnect_port_CL | summarize([\"Last Update Time\"], ['Received Data'], ['Transmitted Data'], ['Received Packets'], ['Transmitted Packets'])=arg_max(TimeGenerated,columnifexists('received_data_d', ''),columnifexists('transmitted_data_d', ''),columnifexists('received_packets_d', ''),columnifexists('transmitted_packets_d', '')) by Name=hpe_onboardadministrator_interconnect_port_name_s",
+                                            "displayName": "Interconnect Port Network"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_interconnect_port_CL | summarize([\"Last Update Time\"], ['Connected From'], ['Connected To'], ['Paired With'], ['PID LED State'], ['Speed'], ['Status'], ['Used By'])=arg_max(TimeGenerated,columnifexists('connected_from_s', ''),columnifexists('connected_to_s', ''),columnifexists('paired_with_s', ''),columnifexists('pid_led_state_s', ''),columnifexists('speed_s', ''),columnifexists('status_s', ''),columnifexists('used_by_s', '')) by Name=hpe_onboardadministrator_interconnect_port_name_s",
+                                            "displayName": "Interconnect Port Properties"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_power_supply_CL | summarize([\"Last Update Time\"], ['Current Power Output'])=arg_max(TimeGenerated,columnifexists('current_power_output_d', '')) by Name=hpe_onboardadministrator_power_supply_name_s",
+                                            "displayName": "Power Supply Details"
+                                        }
+                                        ,{
+                                            "query": "hpe_onboardadministrator_power_supply_CL | summarize([\"Last Update Time\"], ['Part Number'], ['Power Supply Number'], ['Product Name'], ['Spare Part Number'], ['Version'])=arg_max(TimeGenerated,columnifexists('part_number_s', ''),columnifexists('power_supply_number_s', ''),columnifexists('product_name_s', ''),columnifexists('spare_part_number_s', ''),columnifexists('version_s', '')) by Name=hpe_onboardadministrator_power_supply_name_s",
+                                            "displayName": "Power Supply Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "hpe_onboardadministrator_enclosure_name_s",
+                            "QueryForValues": "union hpe_onboardadministrator_blade_CL, hpe_onboardadministrator_fan_CL, hpe_onboardadministrator_power_supply_CL | distinct hpe_onboardadministrator_enclosure_name_s",
+                            "Title": "Enclosure"
+                          },{
+                            "FieldName": "health_s",
+                            "QueryForValues": "hpe_onboardadministrator_blade_CL | distinct health_s",
+                            "Title": "Health"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "hpe_onboardadministrator_blade_CL | distinct model_s",
+                            "Title": "Model"
+                          },{
+                            "FieldName": "hpe_onboardadministrator_blade_name_s",
+                            "QueryForValues": "hpe_onboardadministrator_blade_CL | distinct hpe_onboardadministrator_blade_name_s",
+                            "Title": "Blade"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "union hpe_onboardadministrator_fan_CL, hpe_onboardadministrator_interconnect_port_CL, hpe_onboardadministrator_power_supply_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "hpe_onboardadministrator_fan_name_s",
+                            "QueryForValues": "hpe_onboardadministrator_fan_CL | distinct hpe_onboardadministrator_fan_name_s",
+                            "Title": "Fan"
+                          },{
+                            "FieldName": "hpe_onboardadministrator_port_name_s",
+                            "QueryForValues": "hpe_onboardadministrator_interconnect_port_CL | distinct hpe_onboardadministrator_port_name_s",
+                            "Title": "Port"
+                          },{
+                            "FieldName": "hpe_onboardadministrator_interconnect_name_s",
+                            "QueryForValues": "hpe_onboardadministrator_interconnect_port_CL | distinct hpe_onboardadministrator_interconnect_name_s",
+                            "Title": "Interconnect"
+                          },{
+                            "FieldName": "hpe_onboardadministrator_interconnect_port_name_s",
+                            "QueryForValues": "hpe_onboardadministrator_interconnect_port_CL | distinct hpe_onboardadministrator_interconnect_port_name_s",
+                            "Title": "Interconnect Port"
+                          },{
+                            "FieldName": "hpe_onboardadministrator_power_supply_name_s",
+                            "QueryForValues": "hpe_onboardadministrator_power_supply_CL | distinct hpe_onboardadministrator_power_supply_name_s",
+                            "Title": "Power Supply"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "hpe_onboardadministrator_blade_CL | project ['Ambient Zone Temperature Sensors Above Caution'] = columnifexists('ambient_zone_temperature_sensors_above_caution_d', double(null)), ['Ambient Zone Temperature Sensors Above Critical'] = columnifexists('ambient_zone_temperature_sensors_above_critical_d', double(null)), ['Chassis Zone Temperature Sensors Above Caution'] = columnifexists('chassis_zone_temperature_sensors_above_caution_d', double(null)), ['Chassis Zone Temperature Sensors Above Critical'] = columnifexists('chassis_zone_temperature_sensors_above_critical_d', double(null)), ['Cooling Status'] = columnifexists('cooling_status_s', 'NULL_VALUE'), ['CPU Zone Temperature Sensors Above Caution'] = columnifexists('cpu_zone_temperature_sensors_above_caution_d', double(null)), ['CPU Zone Temperature Sensors Above Critical'] = columnifexists('cpu_zone_temperature_sensors_above_critical_d', double(null)), ['Device Degraded Status'] = columnifexists('device_degraded_status_s', 'NULL_VALUE'), ['Device Failure Status'] = columnifexists('device_failure_status_s', 'NULL_VALUE'), ['Disk Zone Temperature Sensors Above Caution'] = columnifexists('disk_zone_temperature_sensors_above_caution_d', double(null)), ['Disk Zone Temperature Sensors Above Critical'] = columnifexists('disk_zone_temperature_sensors_above_critical_d', double(null)), ['Health'] = columnifexists('health_s', 'NULL_VALUE'), ['iLO Network Status'] = columnifexists('ilo_network_status_s', 'NULL_VALUE'), ['Internal Data Status'] = columnifexists('internal_data_status_s', 'NULL_VALUE'), ['I/O Board Zone Temperature Sensors Above Caution'] = columnifexists('io_board_zone_temperature_sensors_above_caution_d', double(null)), ['I/O Board Zone Temperature Sensors Above Critical'] = columnifexists('io_board_zone_temperature_sensors_above_critical_d', double(null)), ['I/O Configuration Status'] = columnifexists('io_configuration_status_s', 'NULL_VALUE'), ['Location Status'] = columnifexists('location_status_s', 'NULL_VALUE'), ['Management Processor Status'] = columnifexists('management_processor_status_s', 'NULL_VALUE'), ['Memory Zone Temperature Sensors Above Caution'] = columnifexists('memory_zone_temperature_sensors_above_caution_d', double(null)), ['Memory Zone Temperature Sensors Above Critical'] = columnifexists('memory_zone_temperature_sensors_above_critical_d', double(null)), ['Mezzanine Card Status'] = columnifexists('mezzanine_card_status_s', 'NULL_VALUE'), ['Power Status'] = columnifexists('power_status_s', 'NULL_VALUE'), ['Power Supply Zone Temperature Sensors Above Caution'] = columnifexists('power_supply_zone_temperature_sensors_above_caution_d', double(null)), ['Power Supply Zone Temperature Sensors Above Critical'] = columnifexists('power_supply_zone_temperature_sensors_above_critical_d', double(null)), ['System Zone Temperature Sensors Above Caution'] = columnifexists('system_zone_temperature_sensors_above_caution_d', double(null)), ['System Zone Temperature Sensors Above Critical'] = columnifexists('system_zone_temperature_sensors_above_critical_d', double(null)), ['VCM Configured Status'] = columnifexists('vcm_configured_status_s', 'NULL_VALUE'), ['Virtual Fan'] = columnifexists('virtual_fan_d', double(null)), TimeGenerated, Name=hpe_onboardadministrator_blade_name_s  | extend Healthy = case(isnotnull(['Ambient Zone Temperature Sensors Above Caution']) or isnotnull(['Ambient Zone Temperature Sensors Above Critical']) or isnotnull(['Chassis Zone Temperature Sensors Above Caution']) or isnotnull(['Chassis Zone Temperature Sensors Above Critical']) or coalesce(['Cooling Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Zone Temperature Sensors Above Caution']) or isnotnull(['CPU Zone Temperature Sensors Above Critical']) or coalesce(['Device Degraded Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Device Failure Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Disk Zone Temperature Sensors Above Caution']) or isnotnull(['Disk Zone Temperature Sensors Above Critical']) or coalesce(['Health'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['iLO Network Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Internal Data Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['I/O Board Zone Temperature Sensors Above Caution']) or isnotnull(['I/O Board Zone Temperature Sensors Above Critical']) or coalesce(['I/O Configuration Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Location Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Management Processor Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Zone Temperature Sensors Above Caution']) or isnotnull(['Memory Zone Temperature Sensors Above Critical']) or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['Power Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Power Supply Zone Temperature Sensors Above Caution']) or isnotnull(['Power Supply Zone Temperature Sensors Above Critical']) or isnotnull(['System Zone Temperature Sensors Above Caution']) or isnotnull(['System Zone Temperature Sensors Above Critical']) or coalesce(['VCM Configured Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Virtual Fan']), (['Ambient Zone Temperature Sensors Above Caution'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Caution'])) and (['Ambient Zone Temperature Sensors Above Critical'] < 1 or isnull(['Ambient Zone Temperature Sensors Above Critical'])) and (['Chassis Zone Temperature Sensors Above Caution'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Caution'])) and (['Chassis Zone Temperature Sensors Above Critical'] < 1 or isnull(['Chassis Zone Temperature Sensors Above Critical'])) and (['Cooling Status'] == 'OK' or coalesce(['Cooling Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Zone Temperature Sensors Above Caution'] < 1 or isnull(['CPU Zone Temperature Sensors Above Caution'])) and (['CPU Zone Temperature Sensors Above Critical'] < 1 or isnull(['CPU Zone Temperature Sensors Above Critical'])) and (['Device Degraded Status'] == 'OK' or coalesce(['Device Degraded Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Device Failure Status'] == 'OK' or coalesce(['Device Failure Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Disk Zone Temperature Sensors Above Caution'] < 1 or isnull(['Disk Zone Temperature Sensors Above Caution'])) and (['Disk Zone Temperature Sensors Above Critical'] < 1 or isnull(['Disk Zone Temperature Sensors Above Critical'])) and (['Health'] == 'OK' or coalesce(['Health'], 'NULL_VALUE') == 'NULL_VALUE') and (['iLO Network Status'] == 'OK' or coalesce(['iLO Network Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Internal Data Status'] == 'OK' or coalesce(['Internal Data Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['I/O Board Zone Temperature Sensors Above Caution'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Caution'])) and (['I/O Board Zone Temperature Sensors Above Critical'] < 1 or isnull(['I/O Board Zone Temperature Sensors Above Critical'])) and (['I/O Configuration Status'] == 'OK' or coalesce(['I/O Configuration Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Location Status'] == 'OK' or coalesce(['Location Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Management Processor Status'] == 'OK' or coalesce(['Management Processor Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Zone Temperature Sensors Above Caution'] < 1 or isnull(['Memory Zone Temperature Sensors Above Caution'])) and (['Memory Zone Temperature Sensors Above Critical'] < 1 or isnull(['Memory Zone Temperature Sensors Above Critical'])) and (['Mezzanine Card Status'] == 'OK' or coalesce(['Mezzanine Card Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Status'] == 'OK' or coalesce(['Power Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Power Supply Zone Temperature Sensors Above Caution'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Caution'])) and (['Power Supply Zone Temperature Sensors Above Critical'] < 1 or isnull(['Power Supply Zone Temperature Sensors Above Critical'])) and (['System Zone Temperature Sensors Above Caution'] < 1 or isnull(['System Zone Temperature Sensors Above Caution'])) and (['System Zone Temperature Sensors Above Critical'] < 1 or isnull(['System Zone Temperature Sensors Above Critical'])) and (['VCM Configured Status'] == 'OK' or coalesce(['VCM Configured Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Virtual Fan'] < 90 or isnull(['Virtual Fan'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Blade",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

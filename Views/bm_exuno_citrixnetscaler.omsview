@@ -590,69 +590,17 @@
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "citrix_netscaler_appliance_name_s",
-                            "QueryForValues": "citrix_netscaler_appliance_CL | distinct citrix_netscaler_appliance_name_s",
-                            "Title": "Appliance"
-                          },{
                             "FieldName": "system_type_s",
                             "QueryForValues": "citrix_netscaler_appliance_CL | distinct system_type_s",
                             "Title": "System Type"
                           },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_service_name_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct citrix_netscaler_global_service_load_balancing_service_name_s",
-                            "Title": "Global Service Load Balancing Service"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
-                            "Title": "Global Service Load Balancing Virtual Server"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_site_name_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct citrix_netscaler_global_service_load_balancing_site_name_s",
-                            "Title": "Global Service Load Balancing Site"
-                          },{
-                            "FieldName": "global_service_load_balancing_type_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_service_CL | distinct global_service_load_balancing_type_s",
-                            "Title": "Global Service Load Balancing Type"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_site_name_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_site_CL | distinct citrix_netscaler_global_service_load_balancing_site_name_s",
-                            "Title": "Global Service Load Balancing Site"
-                          },{
-                            "FieldName": "status_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_site_CL | distinct status_s",
-                            "Title": "Status"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct citrix_netscaler_global_service_load_balancing_virtual_server_name_s",
-                            "Title": "Global Service Load Balancing Virtual Server"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_site_name_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct citrix_netscaler_global_service_load_balancing_site_name_s",
-                            "Title": "Global Service Load Balancing Site"
-                          },{
-                            "FieldName": "current_state_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct current_state_s",
-                            "Title": "Current State"
-                          },{
-                            "FieldName": "service_type_s",
-                            "QueryForValues": "citrix_netscaler_global_service_load_balancing_virtual_server_CL | distinct service_type_s",
-                            "Title": "Service Type"
-                          },{
-                            "FieldName": "citrix_netscaler_high_availability_system_name_s",
-                            "QueryForValues": "citrix_netscaler_high_availability_system_CL | distinct citrix_netscaler_high_availability_system_name_s",
-                            "Title": "High Availability System"
-                          },{
-                            "FieldName": "citrix_netscaler_load_balancing_service_name_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_load_balancing_service_name_s",
-                            "Title": "Load Balancing Service"
+                            "FieldName": "citrix_netscaler_appliance_name_s",
+                            "QueryForValues": "union citrix_netscaler_appliance_CL, citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_appliance_name_s",
+                            "Title": "Appliance"
                           },{
                             "FieldName": "citrix_netscaler_load_balancing_virtual_server_name_s",
                             "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_load_balancing_virtual_server_name_s",
                             "Title": "Load Balancing Virtual Server"
-                          },{
-                            "FieldName": "citrix_netscaler_appliance_name_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_appliance_name_s",
-                            "Title": "Appliance"
                           },{
                             "FieldName": "service_state_s",
                             "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct service_state_s",
@@ -662,41 +610,9 @@
                             "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct service_type_s",
                             "Title": "Service Type"
                           },{
-                            "FieldName": "citrix_netscaler_load_balancing_virtual_server_name_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct citrix_netscaler_load_balancing_virtual_server_name_s",
-                            "Title": "Load Balancing Virtual Server"
-                          },{
-                            "FieldName": "citrix_netscaler_appliance_name_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct citrix_netscaler_appliance_name_s",
-                            "Title": "Appliance"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_service_name_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct citrix_netscaler_global_service_load_balancing_service_name_s",
-                            "Title": "Global Service Load Balancing Service"
-                          },{
-                            "FieldName": "current_state_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct current_state_s",
-                            "Title": "Current State"
-                          },{
-                            "FieldName": "service_type_s",
-                            "QueryForValues": "citrix_netscaler_load_balancing_virtual_server_CL | distinct service_type_s",
-                            "Title": "Service Type"
-                          },{
-                            "FieldName": "citrix_netscaler_target_server_name_s",
-                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_target_server_name_s",
-                            "Title": "Target Server"
-                          },{
                             "FieldName": "citrix_netscaler_load_balancing_service_name_s",
-                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_load_balancing_service_name_s",
+                            "QueryForValues": "citrix_netscaler_load_balancing_service_CL | distinct citrix_netscaler_load_balancing_service_name_s",
                             "Title": "Load Balancing Service"
-                          },{
-                            "FieldName": "citrix_netscaler_global_service_load_balancing_service_name_s",
-                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_global_service_load_balancing_service_name_s",
-                            "Title": "Global Service Load Balancing Service"
-                          },{
-                            "FieldName": "citrix_netscaler_appliance_name_s",
-                            "QueryForValues": "citrix_netscaler_target_server_CL | distinct citrix_netscaler_appliance_name_s",
-                            "Title": "Appliance"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",

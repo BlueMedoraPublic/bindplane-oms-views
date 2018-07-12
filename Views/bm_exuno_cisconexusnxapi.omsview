@@ -1,0 +1,685 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Cisco Nexus NX API Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Cisco Nexus NX API Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Cisco Nexus NX API Environment",
+                        "Name": "Cisco Nexus NX API Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Cisco Nexus NX API Overview",
+                                        "NewGroup": false,
+                                        "Color": "#ec008c"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Cisco Nexus NX API",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Cisco Nexus NX-API uses the NX-API to pull information on local switches, ports, and other network systems."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Cisco Nexus NX-API, it is important to monitor the input and output data from the L3 interfaces and ports to ensure sucessful connections to desired networks."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Fan Error Percentage'] = columnifexists('fan_error_percentage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Port Error Percentage'] = columnifexists('port_error_percentage_d', double(null)), ['Power Supplies In Error State'] = columnifexists('power_supplies_in_error_state_d', double(null)), ['Power Supply Error Percentage'] = columnifexists('power_supply_error_percentage_d', double(null)), ['Sensor Error Percentage'] = columnifexists('sensor_error_percentage_d', double(null)), ['Sensors In Error State'] = columnifexists('sensors_in_error_state_d', double(null)), TimeGenerated, Name=cisco_nexusnxapi_cisco_networking_switch_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Fan Error Percentage']) or isnotnull(['Memory Utilization']) or isnotnull(['Port Error Percentage']) or isnotnull(['Power Supplies In Error State']) or isnotnull(['Power Supply Error Percentage']) or isnotnull(['Sensor Error Percentage']) or isnotnull(['Sensors In Error State']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Fan Error Percentage'] < 10 or isnull(['Fan Error Percentage'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])) and (['Port Error Percentage'] < 1 or isnull(['Port Error Percentage'])) and (['Power Supplies In Error State'] < 1 or isnull(['Power Supplies In Error State'])) and (['Power Supply Error Percentage'] < 10 or isnull(['Power Supply Error Percentage'])) and (['Sensor Error Percentage'] < 10 or isnull(['Sensor Error Percentage'])) and (['Sensors In Error State'] < 1 or isnull(['Sensors In Error State'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Fan Error Percentage'] = columnifexists('fan_error_percentage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Port Error Percentage'] = columnifexists('port_error_percentage_d', double(null)), ['Power Supplies In Error State'] = columnifexists('power_supplies_in_error_state_d', double(null)), ['Power Supply Error Percentage'] = columnifexists('power_supply_error_percentage_d', double(null)), ['Sensor Error Percentage'] = columnifexists('sensor_error_percentage_d', double(null)), ['Sensors In Error State'] = columnifexists('sensors_in_error_state_d', double(null)), TimeGenerated, Name=cisco_nexusnxapi_cisco_networking_switch_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Fan Error Percentage']) or isnotnull(['Memory Utilization']) or isnotnull(['Port Error Percentage']) or isnotnull(['Power Supplies In Error State']) or isnotnull(['Power Supply Error Percentage']) or isnotnull(['Sensor Error Percentage']) or isnotnull(['Sensors In Error State']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Fan Error Percentage'] < 10 or isnull(['Fan Error Percentage'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])) and (['Port Error Percentage'] < 1 or isnull(['Port Error Percentage'])) and (['Power Supplies In Error State'] < 1 or isnull(['Power Supplies In Error State'])) and (['Power Supply Error Percentage'] < 10 or isnull(['Power Supply Error Percentage'])) and (['Sensor Error Percentage'] < 10 or isnull(['Sensor Error Percentage'])) and (['Sensors In Error State'] < 1 or isnull(['Sensors In Error State'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "cisco_nexusnxapi_cisco_networking_switch_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Fan Error Percentage'] = columnifexists('fan_error_percentage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Port Error Percentage'] = columnifexists('port_error_percentage_d', double(null)), ['Power Supplies In Error State'] = columnifexists('power_supplies_in_error_state_d', double(null)), ['Power Supply Error Percentage'] = columnifexists('power_supply_error_percentage_d', double(null)), ['Sensor Error Percentage'] = columnifexists('sensor_error_percentage_d', double(null)), ['Sensors In Error State'] = columnifexists('sensors_in_error_state_d', double(null)), TimeGenerated, Name=cisco_nexusnxapi_cisco_networking_switch_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Fan Error Percentage']) or isnotnull(['Memory Utilization']) or isnotnull(['Port Error Percentage']) or isnotnull(['Power Supplies In Error State']) or isnotnull(['Power Supply Error Percentage']) or isnotnull(['Sensor Error Percentage']) or isnotnull(['Sensors In Error State']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Fan Error Percentage'] < 10 or isnull(['Fan Error Percentage'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])) and (['Port Error Percentage'] < 1 or isnull(['Port Error Percentage'])) and (['Power Supplies In Error State'] < 1 or isnull(['Power Supplies In Error State'])) and (['Power Supply Error Percentage'] < 10 or isnull(['Power Supply Error Percentage'])) and (['Sensor Error Percentage'] < 10 or isnull(['Sensor Error Percentage'])) and (['Sensors In Error State'] < 1 or isnull(['Sensors In Error State'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "cisco_nexusnxapi_cisco_networking_switch_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Fan Error Percentage'] = columnifexists('fan_error_percentage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Port Error Percentage'] = columnifexists('port_error_percentage_d', double(null)), ['Power Supplies In Error State'] = columnifexists('power_supplies_in_error_state_d', double(null)), ['Power Supply Error Percentage'] = columnifexists('power_supply_error_percentage_d', double(null)), ['Sensor Error Percentage'] = columnifexists('sensor_error_percentage_d', double(null)), ['Sensors In Error State'] = columnifexists('sensors_in_error_state_d', double(null)), TimeGenerated, Name=cisco_nexusnxapi_cisco_networking_switch_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Fan Error Percentage']) or isnotnull(['Memory Utilization']) or isnotnull(['Port Error Percentage']) or isnotnull(['Power Supplies In Error State']) or isnotnull(['Power Supply Error Percentage']) or isnotnull(['Sensor Error Percentage']) or isnotnull(['Sensors In Error State']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Fan Error Percentage'] < 10 or isnull(['Fan Error Percentage'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])) and (['Port Error Percentage'] < 1 or isnull(['Port Error Percentage'])) and (['Power Supplies In Error State'] < 1 or isnull(['Power Supplies In Error State'])) and (['Power Supply Error Percentage'] < 10 or isnull(['Power Supply Error Percentage'])) and (['Sensor Error Percentage'] < 10 or isnull(['Sensor Error Percentage'])) and (['Sensors In Error State'] < 1 or isnull(['Sensors In Error State'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL  | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL  | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch",
+                                            "Value": "Memory Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Fan Error Percentage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Fan Error Percentage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('fan_error_percentage_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Fan Error Percentage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL  | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('fan_error_percentage_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch",
+                                            "Value": "Fan Error Percentage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "10.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "5.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Port Error Percentage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Port Error Percentage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('port_error_percentage_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Port Error Percentage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL  | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('port_error_percentage_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch",
+                                            "Value": "Port Error Percentage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.5",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Switch Power Supplies In Error State",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Power Supplies In Error State",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('power_supplies_in_error_state_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Power Supplies In Error State",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Power Supplies In Error State"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_nexusnxapi_cisco_networking_switch_CL  | where ${Device Type} and ${Health Status} and ${System State} and ${Switch} | summarize avg(coalesce(columnifexists('power_supplies_in_error_state_d',0.0), 0.0)) by cisco_nexusnxapi_cisco_networking_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Switch",
+                                            "Value": "Power Supplies In Error State"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "cisco_nexusnxapi_cisco_networking_switch_CL | summarize([\"Last Update Time\"], ['CPU Utilization'], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', ''),columnifexists('memory_utilization_d', '')) by Name=cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                            "displayName": "Switch Details"
+                                        }
+                                        ,{
+                                            "query": "cisco_nexusnxapi_cisco_networking_switch_CL | summarize([\"Last Update Time\"], ['Fan Error Percentage'], ['Port Error Percentage'], ['Power Supplies In Error State'], ['Power Supply Error Percentage'], ['Sensor Error Percentage'], ['Sensors In Error State'])=arg_max(TimeGenerated,columnifexists('fan_error_percentage_d', ''),columnifexists('port_error_percentage_d', ''),columnifexists('power_supplies_in_error_state_d', ''),columnifexists('power_supply_error_percentage_d', ''),columnifexists('sensor_error_percentage_d', ''),columnifexists('sensors_in_error_state_d', '')) by Name=cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                            "displayName": "Switch Status"
+                                        }
+                                        ,{
+                                            "query": "cisco_nexusnxapi_cisco_networking_switch_CL | summarize([\"Last Update Time\"], ['System Uptime'])=arg_max(TimeGenerated,columnifexists('system_uptime_d', '')) by Name=cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                            "displayName": "Switch "
+                                        }
+                                        ,{
+                                            "query": "cisco_nexusnxapi_cisco_networking_switch_CL | summarize([\"Last Update Time\"], ['Device Model'], ['Device Type'], ['Directly Attached MAC Addresses'], ['Health Status'], ['Local IP Addresses'], ['Management IP'], ['System State'])=arg_max(TimeGenerated,columnifexists('device_model_s', ''),columnifexists('device_type_s', ''),columnifexists('directly_attached_mac_addresses_s', ''),columnifexists('health_status_s', ''),columnifexists('local_ip_addresses_s', ''),columnifexists('management_ip_s', ''),columnifexists('system_state_s', '')) by Name=cisco_nexusnxapi_cisco_networking_switch_name_s",
+                                            "displayName": "Switch Properties"
+                                        }
+                                        ,{
+                                            "query": "cisco_nexusnxapi_cisco_networking_port_CL | summarize([\"Last Update Time\"], ['Inbound Packet Errors'], ['Inbound Throughput Rate'], ['Outbound Packet Errors'], ['Outbound Throughput Rate'])=arg_max(TimeGenerated,columnifexists('inbound_packet_errors_rate_d', ''),columnifexists('inbound_throughput_rate_d', ''),columnifexists('outbound_packet_errors_rate_d', ''),columnifexists('outbound_throughput_rate_rate_d', '')) by Name=cisco_nexusnxapi_cisco_networking_port_name_s",
+                                            "displayName": "Port Network"
+                                        }
+                                        ,{
+                                            "query": "cisco_nexusnxapi_cisco_networking_port_CL | summarize([\"Last Update Time\"], ['Admin Status Text'], ['Ethernet Type'], ['IP Address'], ['Port Name'], ['Rate Mode'], ['Status Text'], ['User Defined Name'])=arg_max(TimeGenerated,columnifexists('admin_status_text_s', ''),columnifexists('ethernet_type_d', ''),columnifexists('ip_address_s', ''),columnifexists('port_name_s', ''),columnifexists('rate_mode_s', ''),columnifexists('status_text_s', ''),columnifexists('user_defined_name_s', '')) by Name=cisco_nexusnxapi_cisco_networking_port_name_s",
+                                            "displayName": "Port Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "device_type_s",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_switch_CL | distinct device_type_s",
+                            "Title": "Device Type"
+                          },{
+                            "FieldName": "health_status_s",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_switch_CL | distinct health_status_s",
+                            "Title": "Health Status"
+                          },{
+                            "FieldName": "system_state_s",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_switch_CL | distinct system_state_s",
+                            "Title": "System State"
+                          },{
+                            "FieldName": "cisco_nexusnxapi_cisco_networking_switch_name_s",
+                            "QueryForValues": "union cisco_nexusnxapi_cisco_networking_switch_CL, cisco_nexusnxapi_cisco_networking_port_CL | distinct cisco_nexusnxapi_cisco_networking_switch_name_s",
+                            "Title": "Switch"
+                          },{
+                            "FieldName": "cisco_nexusnxapi_cisco_networking_vsan_name_s",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_port_CL | distinct cisco_nexusnxapi_cisco_networking_vsan_name_s",
+                            "Title": "VSAN"
+                          },{
+                            "FieldName": "cisco_nexusnxapi_cisco_networking_l3_interface_name_s",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_port_CL | distinct cisco_nexusnxapi_cisco_networking_l3_interface_name_s",
+                            "Title": "L3 Interface"
+                          },{
+                            "FieldName": "ethernet_type_d",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_port_CL | distinct ethernet_type_d",
+                            "Title": "Ethernet Type"
+                          },{
+                            "FieldName": "cisco_nexusnxapi_cisco_networking_port_name_s",
+                            "QueryForValues": "cisco_nexusnxapi_cisco_networking_port_CL | distinct cisco_nexusnxapi_cisco_networking_port_name_s",
+                            "Title": "Port"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "cisco_nexusnxapi_cisco_networking_switch_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Fan Error Percentage'] = columnifexists('fan_error_percentage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Port Error Percentage'] = columnifexists('port_error_percentage_d', double(null)), ['Power Supplies In Error State'] = columnifexists('power_supplies_in_error_state_d', double(null)), ['Power Supply Error Percentage'] = columnifexists('power_supply_error_percentage_d', double(null)), ['Sensor Error Percentage'] = columnifexists('sensor_error_percentage_d', double(null)), ['Sensors In Error State'] = columnifexists('sensors_in_error_state_d', double(null)), TimeGenerated, Name=cisco_nexusnxapi_cisco_networking_switch_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Fan Error Percentage']) or isnotnull(['Memory Utilization']) or isnotnull(['Port Error Percentage']) or isnotnull(['Power Supplies In Error State']) or isnotnull(['Power Supply Error Percentage']) or isnotnull(['Sensor Error Percentage']) or isnotnull(['Sensors In Error State']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Fan Error Percentage'] < 10 or isnull(['Fan Error Percentage'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])) and (['Port Error Percentage'] < 1 or isnull(['Port Error Percentage'])) and (['Power Supplies In Error State'] < 1 or isnull(['Power Supplies In Error State'])) and (['Power Supply Error Percentage'] < 10 or isnull(['Power Supply Error Percentage'])) and (['Sensor Error Percentage'] < 10 or isnull(['Sensor Error Percentage'])) and (['Sensors In Error State'] < 1 or isnull(['Sensors In Error State'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Switch",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

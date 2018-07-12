@@ -1,0 +1,560 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Redhat JBoss Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Redhat JBoss Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Redhat JBoss Environment",
+                        "Name": "Redhat JBoss Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Redhat JBoss Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Redhat JBoss",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Jboss is a deployment and monitoring tool for applications in various environments."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Jboss, it is important to monitor memory, load time, and processing time to ensure efficient application performance."
+                                        }
+                                    ]
+                                }
+                            },
+                            
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Datasource Active Connection Count",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Active Connection Count",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "rh_jboss_datasource_CL | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('active_connection_count_d',0.0), 0.0)) by rh_jboss_datasource_name_s",
+                                        "Callout": {
+                                            "Title": "Average Active Connection Count",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Connections"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "rh_jboss_datasource_CL  | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('active_connection_count_d',0.0), 0.0)) by rh_jboss_datasource_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Datasource",
+                                            "Value": "Active Connection Count"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Datasource Percent In Use",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Percent In Use",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "rh_jboss_datasource_CL | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('percent_in_use_d',0.0), 0.0)) by rh_jboss_datasource_name_s",
+                                        "Callout": {
+                                            "Title": "Average Percent In Use",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "rh_jboss_datasource_CL  | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('percent_in_use_d',0.0), 0.0)) by rh_jboss_datasource_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Datasource",
+                                            "Value": "Percent In Use"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Datasource Average Blocking Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Blocking Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "rh_jboss_datasource_CL | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('average_blocking_time_d',0.0), 0.0)) by rh_jboss_datasource_name_s",
+                                        "Callout": {
+                                            "Title": "Average Blocking Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "rh_jboss_datasource_CL  | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('average_blocking_time_d',0.0), 0.0)) by rh_jboss_datasource_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Datasource",
+                                            "Value": "Average Blocking Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Servlet Processing Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Processing Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "rh_jboss_servlet_CL | where ${Server} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by rh_jboss_servlet_name_s",
+                                        "Callout": {
+                                            "Title": "Average Processing Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "rh_jboss_servlet_CL  | where ${Server} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by rh_jboss_servlet_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Servlet",
+                                            "Value": "Processing Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Servlet Load Time",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Load Time",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "rh_jboss_servlet_CL | where ${Server} and ${Servlet} | summarize avg(coalesce(columnifexists('load_time_d',0.0), 0.0)) by rh_jboss_servlet_name_s",
+                                        "Callout": {
+                                            "Title": "Average Load Time",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "rh_jboss_servlet_CL  | where ${Server} and ${Servlet} | summarize avg(coalesce(columnifexists('load_time_d',0.0), 0.0)) by rh_jboss_servlet_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Servlet",
+                                            "Value": "Load Time"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "rh_jboss_datasource_CL | summarize([\"Last Update Time\"], ['Active Connection Count'], ['Percent In Use'])=arg_max(TimeGenerated,columnifexists('active_connection_count_d', ''),columnifexists('percent_in_use_d', '')) by Name=rh_jboss_datasource_name_s",
+                                            "displayName": "Datasource Network"
+                                        }
+                                        ,{
+                                            "query": "rh_jboss_datasource_CL | summarize([\"Last Update Time\"], ['Average Blocking Time'], ['Average Creation Time'])=arg_max(TimeGenerated,columnifexists('average_blocking_time_d', ''),columnifexists('average_creation_time_d', '')) by Name=rh_jboss_datasource_name_s",
+                                            "displayName": "Datasource Details"
+                                        }
+                                        ,{
+                                            "query": "rh_jboss_servlet_CL | summarize([\"Last Update Time\"], ['Processing Time'], ['Load Time'], ['Average Response Time'])=arg_max(TimeGenerated,columnifexists('processing_time_d', ''),columnifexists('load_time_d', ''),columnifexists('average_response_time_d', '')) by Name=rh_jboss_servlet_name_s",
+                                            "displayName": "Servlet Details"
+                                        }
+                                        ,{
+                                            "query": "rh_jboss_servlet_CL | summarize([\"Last Update Time\"], ['Deployment Name'])=arg_max(TimeGenerated,columnifexists('deployment_name_s', '')) by Name=rh_jboss_servlet_name_s",
+                                            "displayName": "Servlet Properties"
+                                        }
+                                        ,{
+                                            "query": "rh_jboss_server_CL | summarize([\"Last Update Time\"], ['Launch Type'], ['Namespaces'], ['Process Type'], ['Product Name'], ['Product Version'], ['Profile Name'], ['Release Version'])=arg_max(TimeGenerated,columnifexists('launch_type_s', ''),columnifexists('namespaces_s', ''),columnifexists('process_type_s', ''),columnifexists('product_name_s', ''),columnifexists('product_version_s', ''),columnifexists('profile_name_s', ''),columnifexists('release_version_s', '')) by Name=rh_jboss_server_name_s",
+                                            "displayName": "Server Properties"
+                                        }
+                                        ,{
+                                            "query": "rh_jboss_web_CL | summarize([\"Last Update Time\"], ['Session Average Alive Time'])=arg_max(TimeGenerated,columnifexists('session_average_alive_time_d', '')) by Name=rh_jboss_web_name_s",
+                                            "displayName": "Web Network"
+                                        }
+                                        ,{
+                                            "query": "rh_jboss_web_CL | summarize([\"Last Update Time\"], ['Context Root'], ['Virtual Host'])=arg_max(TimeGenerated,columnifexists('context_root_s', ''),columnifexists('virtual_host_s', '')) by Name=rh_jboss_web_name_s",
+                                            "displayName": "Web Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "rh_jboss_server_name_s",
+                            "QueryForValues": "union rh_jboss_datasource_CL, rh_jboss_servlet_CL, rh_jboss_server_CL, rh_jboss_web_CL | distinct rh_jboss_server_name_s",
+                            "Title": "Server"
+                          },{
+                            "FieldName": "rh_jboss_datasource_name_s",
+                            "QueryForValues": "rh_jboss_datasource_CL | distinct rh_jboss_datasource_name_s",
+                            "Title": "Datasource"
+                          },{
+                            "FieldName": "rh_jboss_servlet_name_s",
+                            "QueryForValues": "rh_jboss_servlet_CL | distinct rh_jboss_servlet_name_s",
+                            "Title": "Servlet"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "rh_jboss_server_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "rh_jboss_web_name_s",
+                            "QueryForValues": "rh_jboss_web_CL | distinct rh_jboss_web_name_s",
+                            "Title": "Web"
+                          }],
+                        "OverviewTile": {
+                            "Id": "LineChartCalloutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "LineChart": {
+                                    "Query": "rh_jboss_datasource_CL  | summarize avg(coalesce(columnifexists('active_connection_count_d',0.0), 0.0)) by rh_jboss_datasource_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Active Connection Count",
+                                        "Series": "",
+                                        "Operation": "Average"
+                                    },
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Connections"
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

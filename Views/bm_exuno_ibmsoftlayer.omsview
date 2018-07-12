@@ -98,7 +98,7 @@
                                     "LineChart": {
                                         "Query": "ibm_softlayer_hardware_CL | where ${Datacenter} and ${Network Status} and ${Hardware} | summarize avg(coalesce(columnifexists('average_daily_usage_d',0.0), 0.0)) by ibm_softlayer_hardware_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Daily Usage",
+                                            "Title": "Average Daily Usage",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -173,7 +173,7 @@
                                     "LineChart": {
                                         "Query": "ibm_softlayer_hardware_CL | where ${Datacenter} and ${Network Status} and ${Hardware} | summarize avg(coalesce(columnifexists('average_memory_usage_d',0.0), 0.0)) by ibm_softlayer_hardware_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Memory Usage",
+                                            "Title": "Average Memory Usage",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

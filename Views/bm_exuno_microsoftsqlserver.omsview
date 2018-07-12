@@ -420,7 +420,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_query_cpu_time_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Query CPU Time",
+                                            "Title": "Average Query CPU Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -495,7 +495,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_sqlserver_query_CL | where ${Instance} and ${Query} | summarize avg(coalesce(columnifexists('average_execution_time_d',0.0), 0.0)) by microsoft_sqlserver_query_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Execution Time",
+                                            "Title": "Average Execution Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

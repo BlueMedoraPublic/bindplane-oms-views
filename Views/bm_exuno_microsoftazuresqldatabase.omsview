@@ -195,7 +195,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('average_cpu_utilization_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
                                         "Callout": {
-                                            "Title": "Average Average CPU Utilization",
+                                            "Title": "Average CPU Utilization",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -270,7 +270,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_azuresqldatabase_database_CL | where ${Database} | summarize avg(coalesce(columnifexists('average_memory_usage_d',0.0), 0.0)) by microsoft_azuresqldatabase_database_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Memory Usage",
+                                            "Title": "Average Memory Usage",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

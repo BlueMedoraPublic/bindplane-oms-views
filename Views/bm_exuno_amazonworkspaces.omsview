@@ -195,7 +195,7 @@
                                     "LineChart": {
                                         "Query": "amazon_workspaces_directory_CL | where ${Region} and ${Type} and ${Directory} | summarize avg(coalesce(columnifexists('average_in_session_latency_d',0.0), 0.0)) by amazon_workspaces_directory_name_s",
                                         "Callout": {
-                                            "Title": "Average Average In Session Latency",
+                                            "Title": "Average In Session Latency",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

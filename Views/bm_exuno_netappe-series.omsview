@@ -1,0 +1,693 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "NetApp E Series Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/NetApp E Series Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "NetApp E Series Environment",
+                        "Name": "NetApp E Series Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "NetApp E Series Overview",
+                                        "NewGroup": false,
+                                        "Color": "#4423559"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "NetApp E Series",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "NetApp E-Series is a high performance and high capacity storage system."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In NetApp E-Series, it is important to monitor space utilization, IOPs, latency, throughput and cache operations."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Array Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array}  | project ['IOPS Utilization'] = columnifexists('iops_utilization_d', double(null)), ['Used Space Utilization'] = columnifexists('used_space_utilization_d', double(null)), TimeGenerated, Name=netapp_eseries_array_name_s  | extend Healthy = case(isnotnull(['IOPS Utilization']) or isnotnull(['Used Space Utilization']), (['IOPS Utilization'] < 85 or isnull(['IOPS Utilization'])) and (['Used Space Utilization'] < 85 or isnull(['Used Space Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array}  | project ['IOPS Utilization'] = columnifexists('iops_utilization_d', double(null)), ['Used Space Utilization'] = columnifexists('used_space_utilization_d', double(null)), TimeGenerated, Name=netapp_eseries_array_name_s  | extend Healthy = case(isnotnull(['IOPS Utilization']) or isnotnull(['Used Space Utilization']), (['IOPS Utilization'] < 85 or isnull(['IOPS Utilization'])) and (['Used Space Utilization'] < 85 or isnull(['Used Space Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Array Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "netapp_eseries_array_CL | project ['IOPS Utilization'] = columnifexists('iops_utilization_d', double(null)), ['Used Space Utilization'] = columnifexists('used_space_utilization_d', double(null)), TimeGenerated, Name=netapp_eseries_array_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['IOPS Utilization']) or isnotnull(['Used Space Utilization']), (['IOPS Utilization'] < 85 or isnull(['IOPS Utilization'])) and (['Used Space Utilization'] < 85 or isnull(['Used Space Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "netapp_eseries_array_CL | project ['IOPS Utilization'] = columnifexists('iops_utilization_d', double(null)), ['Used Space Utilization'] = columnifexists('used_space_utilization_d', double(null)), TimeGenerated, Name=netapp_eseries_array_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['IOPS Utilization']) or isnotnull(['Used Space Utilization']), (['IOPS Utilization'] < 85 or isnull(['IOPS Utilization'])) and (['Used Space Utilization'] < 85 or isnull(['Used Space Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Array Average Drive Combined IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Drive Combined IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('average_drive_combined_iops_d',0.0), 0.0)) by netapp_eseries_array_name_s",
+                                        "Callout": {
+                                            "Title": "Average Drive Combined IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_eseries_array_CL  | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('average_drive_combined_iops_d',0.0), 0.0)) by netapp_eseries_array_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Array",
+                                            "Value": "Average Drive Combined IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Array Average Drive Combined Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Drive Combined Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('average_drive_combined_latency_d',0.0), 0.0)) by netapp_eseries_array_name_s",
+                                        "Callout": {
+                                            "Title": "Average Drive Combined Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_eseries_array_CL  | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('average_drive_combined_latency_d',0.0), 0.0)) by netapp_eseries_array_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Array",
+                                            "Value": "Average Drive Combined Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Array Average Drive Combined Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Drive Combined Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('average_drive_combined_throughput_d',0.0), 0.0)) by netapp_eseries_array_name_s",
+                                        "Callout": {
+                                            "Title": "Average Drive Combined Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_eseries_array_CL  | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('average_drive_combined_throughput_d',0.0), 0.0)) by netapp_eseries_array_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Array",
+                                            "Value": "Average Drive Combined Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Array IOPS Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IOPS Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('iops_utilization_d',0.0), 0.0)) by netapp_eseries_array_name_s",
+                                        "Callout": {
+                                            "Title": "Average IOPS Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_eseries_array_CL  | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('iops_utilization_d',0.0), 0.0)) by netapp_eseries_array_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Array",
+                                            "Value": "IOPS Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Array Maximum IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Maximum IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "netapp_eseries_array_CL | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('maximum_iops_d',0.0), 0.0)) by netapp_eseries_array_name_s",
+                                        "Callout": {
+                                            "Title": "Average Maximum IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "netapp_eseries_array_CL  | where ${Application Version} and ${Boot Version} and ${Firmware Prefix} and ${Firmware Version} and ${NVSRAM Version} and ${Array} | summarize avg(coalesce(columnifexists('maximum_iops_d',0.0), 0.0)) by netapp_eseries_array_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Array",
+                                            "Value": "Maximum IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "netapp_eseries_array_CL | summarize([\"Last Update Time\"], ['Average Drive Combined Throughput'], ['IOPS Utilization'], ['Maximum IOPS'], ['Provisioned Space'], ['Total Disk Pool Capacity'], ['Total Volume Group Capacity'], ['Used Space'])=arg_max(TimeGenerated,columnifexists('average_drive_combined_throughput_d', ''),columnifexists('iops_utilization_d', ''),columnifexists('maximum_iops_d', ''),columnifexists('provisioned_space_d', ''),columnifexists('total_disk_pool_capacity_d', ''),columnifexists('total_volume_group_capacity_d', ''),columnifexists('used_space_d', '')) by Name=netapp_eseries_array_name_s",
+                                            "displayName": "Array "
+                                        }
+                                        ,{
+                                            "query": "netapp_eseries_array_CL | summarize([\"Last Update Time\"], ['Application Version'], ['Boot Version'], ['Chassis Serial Number'], ['Firmware Prefix'], ['Firmware Version'], ['Label'], ['Last Boot Time'])=arg_max(TimeGenerated,columnifexists('application_version_s', ''),columnifexists('boot_version_s', ''),columnifexists('chassis_serial_number_s', ''),columnifexists('firmware_prefix_s', ''),columnifexists('firmware_version_s', ''),columnifexists('label_s', ''),columnifexists('last_boot_time_s', '')) by Name=netapp_eseries_array_name_s",
+                                            "displayName": "Array Properties"
+                                        }
+                                        ,{
+                                            "query": "netapp_eseries_volume_CL | summarize([\"Last Update Time\"], ['Combined IOPS'], ['Combined Latency'], ['Combined Throughput'], ['Group IOPS Utilization'], ['Read Cache Utilization'], ['Write Cache Utilization'])=arg_max(TimeGenerated,columnifexists('combined_iops_d', ''),columnifexists('combined_latency_d', ''),columnifexists('combined_throughput_d', ''),columnifexists('group_iops_utilization_d', ''),columnifexists('read_cache_utilization_d', ''),columnifexists('write_cache_utilization_d', '')) by Name=netapp_eseries_volume_name_s",
+                                            "displayName": "Volume "
+                                        }
+                                        ,{
+                                            "query": "netapp_eseries_volume_CL | summarize([\"Last Update Time\"], ['Capacity'], ['Group Reference'], ['Mirror Active'], ['Mirror Enable'], ['Protection Type'], ['Raid Level'], ['Thin Provisioned'])=arg_max(TimeGenerated,columnifexists('capacity_d', ''),columnifexists('group_reference_s', ''),columnifexists('mirror_active_d', ''),columnifexists('mirror_enable_d', ''),columnifexists('protection_type_s', ''),columnifexists('raid_level_s', ''),columnifexists('thin_provisioned_d', '')) by Name=netapp_eseries_volume_name_s",
+                                            "displayName": "Volume Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "application_version_s",
+                            "QueryForValues": "netapp_eseries_array_CL | distinct application_version_s",
+                            "Title": "Application Version"
+                          },{
+                            "FieldName": "boot_version_s",
+                            "QueryForValues": "netapp_eseries_array_CL | distinct boot_version_s",
+                            "Title": "Boot Version"
+                          },{
+                            "FieldName": "firmware_prefix_s",
+                            "QueryForValues": "netapp_eseries_array_CL | distinct firmware_prefix_s",
+                            "Title": "Firmware Prefix"
+                          },{
+                            "FieldName": "firmware_version_s",
+                            "QueryForValues": "netapp_eseries_array_CL | distinct firmware_version_s",
+                            "Title": "Firmware Version"
+                          },{
+                            "FieldName": "nvsram_version_s",
+                            "QueryForValues": "netapp_eseries_array_CL | distinct nvsram_version_s",
+                            "Title": "NVSRAM Version"
+                          },{
+                            "FieldName": "netapp_eseries_array_name_s",
+                            "QueryForValues": "netapp_eseries_array_CL | distinct netapp_eseries_array_name_s",
+                            "Title": "Array"
+                          },{
+                            "FieldName": "netapp_eseries_dynamic_disk_pool_name_s",
+                            "QueryForValues": "netapp_eseries_volume_CL | distinct netapp_eseries_dynamic_disk_pool_name_s",
+                            "Title": "Dynamic Disk Pool"
+                          },{
+                            "FieldName": "netapp_eseries_volume_group_name_s",
+                            "QueryForValues": "netapp_eseries_volume_CL | distinct netapp_eseries_volume_group_name_s",
+                            "Title": "Volume Group"
+                          },{
+                            "FieldName": "protection_type_s",
+                            "QueryForValues": "netapp_eseries_volume_CL | distinct protection_type_s",
+                            "Title": "Protection Type"
+                          },{
+                            "FieldName": "raid_level_s",
+                            "QueryForValues": "netapp_eseries_volume_CL | distinct raid_level_s",
+                            "Title": "Raid Level"
+                          },{
+                            "FieldName": "use_s",
+                            "QueryForValues": "netapp_eseries_volume_CL | distinct use_s",
+                            "Title": "Use"
+                          },{
+                            "FieldName": "netapp_eseries_volume_name_s",
+                            "QueryForValues": "netapp_eseries_volume_CL | distinct netapp_eseries_volume_name_s",
+                            "Title": "Volume"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "netapp_eseries_array_CL | project ['IOPS Utilization'] = columnifexists('iops_utilization_d', double(null)), ['Used Space Utilization'] = columnifexists('used_space_utilization_d', double(null)), TimeGenerated, Name=netapp_eseries_array_name_s  | extend Healthy = case(isnotnull(['IOPS Utilization']) or isnotnull(['Used Space Utilization']), (['IOPS Utilization'] < 85 or isnull(['IOPS Utilization'])) and (['Used Space Utilization'] < 85 or isnull(['Used Space Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Array",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

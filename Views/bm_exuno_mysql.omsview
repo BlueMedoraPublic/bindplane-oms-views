@@ -270,7 +270,7 @@
                                     "LineChart": {
                                         "Query": "mysql_query_CL | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by mysql_query_name_g",
                                         "Callout": {
-                                            "Title": "Average Average Latency",
+                                            "Title": "Average Latency",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -345,7 +345,7 @@
                                     "LineChart": {
                                         "Query": "mysql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('average_read_write_wait_time_d',0.0), 0.0)) by mysql_database_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Read/Write Wait Time",
+                                            "Title": "Average Read/Write Wait Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

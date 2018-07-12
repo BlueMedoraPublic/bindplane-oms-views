@@ -195,7 +195,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_azure_webapp_site_CL | where ${State} and ${Kind} and ${Site} | summarize avg(coalesce(columnifexists('average_response_time_d',0.0), 0.0)) by microsoft_azure_webapp_site_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Response Time",
+                                            "Title": "Average Response Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -270,7 +270,7 @@
                                     "LineChart": {
                                         "Query": "microsoft_azure_webapp_slot_CL | where ${State} and ${Kind} and ${Slot} | summarize avg(coalesce(columnifexists('average_response_time_d',0.0), 0.0)) by microsoft_azure_webapp_slot_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Response Time",
+                                            "Title": "Average Response Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

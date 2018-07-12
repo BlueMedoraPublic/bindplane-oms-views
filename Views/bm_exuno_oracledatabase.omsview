@@ -98,7 +98,7 @@
                                     "LineChart": {
                                         "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Read Time",
+                                            "Title": "Average Read Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -173,7 +173,7 @@
                                     "LineChart": {
                                         "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_write_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Write Time",
+                                            "Title": "Average Write Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -248,7 +248,7 @@
                                     "LineChart": {
                                         "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
                                         "Callout": {
-                                            "Title": "Average Average I/O Time",
+                                            "Title": "Average I/O Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -513,7 +513,7 @@
                                 "LineChart": {
                                     "Query": "oracle_database_database_file_CL  | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
                                     "Callout": {
-                                        "Title": "Average Average Read Time",
+                                        "Title": "Average Read Time",
                                         "Series": "",
                                         "Operation": "Average"
                                     },

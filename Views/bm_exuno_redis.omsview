@@ -258,19 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Server Sync Partial Error",
+                                        "title": "Server Ping",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Sync Partial Error",
+                                        "Title": "Ping",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('sync_partial_error_rate_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('ping_d',0.0), 0.0)) by redis_server_name_s",
                                         "Callout": {
-                                            "Title": "Average Sync Partial Error",
+                                            "Title": "Average Ping",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -281,32 +281,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "per Second"
+                                            "customLabel": "Milliseconds"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('sync_partial_error_rate_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('ping_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Server",
-                                            "Value": "Sync Partial Error"
+                                            "Value": "Ping"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": true,
+                                            "isEnabled": false,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "1.0",
+                                                    "threshold": "90",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0.9",
+                                                    "threshold": "0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Server Loading Loaded Percent",
+                                        "title": "Server Evicted Keys",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Loading Loaded Percent",
+                                        "Title": "Evicted Keys",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('loading_loaded_percent_d',0.0), 0.0)) by redis_server_name_s",
+                                        "Query": "redis_server_CL | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('evicted_keys_rate_d',0.0), 0.0)) by redis_server_name_s",
                                         "Callout": {
-                                            "Title": "Average Loading Loaded Percent",
+                                            "Title": "Average Evicted Keys",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +506,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('loading_loaded_percent_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
+                                        "Query": "redis_server_CL  | where ${Cluster} and ${Role} and ${Server} | summarize avg(coalesce(columnifexists('evicted_keys_rate_d',0.0), 0.0)) by redis_server_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Server",
-                                            "Value": "Loading Loaded Percent"
+                                            "Value": "Evicted Keys"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,20 +566,16 @@
                                     "queries": [
 
                                         {
-                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Rejected Connections'])=arg_max(TimeGenerated,columnifexists('rejected_connections_rate_d', '')) by Name=redis_server_name_s",
+                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Rejected Connections'], ['Ping'])=arg_max(TimeGenerated,columnifexists('rejected_connections_rate_d', ''),columnifexists('ping_d', '')) by Name=redis_server_name_s",
                                             "displayName": "Server Network"
-                                        }
-                                        ,{
-                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Sync Partial Error'])=arg_max(TimeGenerated,columnifexists('sync_partial_error_rate_d', '')) by Name=redis_server_name_s",
-                                            "displayName": "Server Details"
                                         }
                                         ,{
                                             "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Used CPU System'], ['Used CPU User'])=arg_max(TimeGenerated,columnifexists('used_cpu_system_rate_d', ''),columnifexists('used_cpu_user_rate_d', '')) by Name=redis_server_name_s",
                                             "displayName": "Server CPU"
                                         }
                                         ,{
-                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Loading Loaded Percent'])=arg_max(TimeGenerated,columnifexists('loading_loaded_percent_d', '')) by Name=redis_server_name_s",
-                                            "displayName": "Server Status"
+                                            "query": "redis_server_CL | summarize([\"Last Update Time\"], ['Evicted Keys'])=arg_max(TimeGenerated,columnifexists('evicted_keys_rate_d', '')) by Name=redis_server_name_s",
+                                            "displayName": "Server Details"
                                         }
                                     ]
                                 }

@@ -195,7 +195,7 @@
                                     "LineChart": {
                                         "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('average_size_of_messages_published_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
                                         "Callout": {
-                                            "Title": "Average Average Size of Messages Published",
+                                            "Title": "Average Size of Messages Published",
                                             "Series": "",
                                             "Operation": "Average"
                                         },

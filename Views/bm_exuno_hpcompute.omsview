@@ -270,7 +270,7 @@
                                     "LineChart": {
                                         "Query": "hp_compute_chassis_CL | where ${Enclosure} and ${Health} and ${Model} and ${Type} and ${Chassis} | summarize avg(coalesce(columnifexists('average_cpu_temperature_d',0.0), 0.0)) by hp_compute_chassis_name_s",
                                         "Callout": {
-                                            "Title": "Average Average CPU Temperature",
+                                            "Title": "Average CPU Temperature",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -420,7 +420,7 @@
                                     "LineChart": {
                                         "Query": "hp_compute_rack_CL | where ${Health} and ${Model} and ${Type} and ${Rack} | summarize avg(coalesce(columnifexists('average_cpu_temperature_d',0.0), 0.0)) by hp_compute_rack_name_s",
                                         "Callout": {
-                                            "Title": "Average Average CPU Temperature",
+                                            "Title": "Average CPU Temperature",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
