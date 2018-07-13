@@ -78,8 +78,255 @@
                                     ]
                                 }
                             },
-                            
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "postgresql_database_CL | where ${Instance} and ${Database}  | project ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Queries Canceled Due to Conflicts'] = columnifexists('queries_canceled_due_to_conflicts_rate_d', double(null)), TimeGenerated, Name=postgresql_database_name_s  | extend Healthy = case(isnotnull(['Deadlocks']) or isnotnull(['Queries Canceled Due to Conflicts']), (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Queries Canceled Due to Conflicts'] < 1 or isnull(['Queries Canceled Due to Conflicts'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "postgresql_database_CL | where ${Instance} and ${Database}  | project ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Queries Canceled Due to Conflicts'] = columnifexists('queries_canceled_due_to_conflicts_rate_d', double(null)), TimeGenerated, Name=postgresql_database_name_s  | extend Healthy = case(isnotnull(['Deadlocks']) or isnotnull(['Queries Canceled Due to Conflicts']), (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Queries Canceled Due to Conflicts'] < 1 or isnull(['Queries Canceled Due to Conflicts'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "postgresql_database_CL | project ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Queries Canceled Due to Conflicts'] = columnifexists('queries_canceled_due_to_conflicts_rate_d', double(null)), TimeGenerated, Name=postgresql_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Deadlocks']) or isnotnull(['Queries Canceled Due to Conflicts']), (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Queries Canceled Due to Conflicts'] < 1 or isnull(['Queries Canceled Due to Conflicts'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "postgresql_database_CL | project ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Queries Canceled Due to Conflicts'] = columnifexists('queries_canceled_due_to_conflicts_rate_d', double(null)), TimeGenerated, Name=postgresql_database_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Deadlocks']) or isnotnull(['Queries Canceled Due to Conflicts']), (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Queries Canceled Due to Conflicts'] < 1 or isnull(['Queries Canceled Due to Conflicts'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
 
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Deadlocks",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Deadlocks",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "postgresql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('deadlocks_rate_d',0.0), 0.0)) by postgresql_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Deadlocks",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Locks per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "postgresql_database_CL  | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('deadlocks_rate_d',0.0), 0.0)) by postgresql_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Deadlocks"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Database Queries Canceled Due to Conflicts",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Queries Canceled Due to Conflicts",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "postgresql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('queries_canceled_due_to_conflicts_rate_d',0.0), 0.0)) by postgresql_database_name_s",
+                                        "Callout": {
+                                            "Title": "Average Queries Canceled Due to Conflicts",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "postgresql_database_CL  | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('queries_canceled_due_to_conflicts_rate_d',0.0), 0.0)) by postgresql_database_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Database",
+                                            "Value": "Queries Canceled Due to Conflicts"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
                             {
                                 "Id": "LineChartCalloutBuilderBlade",
                                 "Type": "Blade",
@@ -306,156 +553,6 @@
                             }
 ,
                             {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Database Buffer Hits",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Buffer Hits",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "postgresql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('buffer_hits_rate_d',0.0), 0.0)) by postgresql_database_name_s",
-                                        "Callout": {
-                                            "Title": "Average Buffer Hits",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Reads per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "postgresql_database_CL  | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('buffer_hits_rate_d',0.0), 0.0)) by postgresql_database_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Database",
-                                            "Value": "Buffer Hits"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Database Transactions Committed",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Transactions Committed",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "postgresql_database_CL | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('transactions_committed_rate_d',0.0), 0.0)) by postgresql_database_name_s",
-                                        "Callout": {
-                                            "Title": "Average Transactions Committed",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Transactions per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "postgresql_database_CL  | where ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('transactions_committed_rate_d',0.0), 0.0)) by postgresql_database_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Database",
-                                            "Value": "Transactions Committed"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
                                 "Id": "NotableQueriesBuilderBlade",
                                 "Type": "Blade",
                                 "Version": 0,
@@ -469,6 +566,14 @@
                                     "queries": [
 
                                         {
+                                            "query": "postgresql_database_CL | summarize([\"Last Update Time\"], ['Deadlocks'], ['Rows Inserted'], ['Rows Deleted'])=arg_max(TimeGenerated,columnifexists('deadlocks_rate_d', ''),columnifexists('rows_inserted_rate_d', ''),columnifexists('rows_deleted_rate_d', '')) by Name=postgresql_database_name_s",
+                                            "displayName": "Database Activity"
+                                        }
+                                        ,{
+                                            "query": "postgresql_database_CL | summarize([\"Last Update Time\"], ['Queries Canceled Due to Conflicts'])=arg_max(TimeGenerated,columnifexists('queries_canceled_due_to_conflicts_rate_d', '')) by Name=postgresql_database_name_s",
+                                            "displayName": "Database Canceled Queries"
+                                        }
+                                        ,{
                                             "query": "postgresql_database_CL | summarize([\"Last Update Time\"], ['Active Connections'])=arg_max(TimeGenerated,columnifexists('active_connections_d', '')) by Name=postgresql_database_name_s",
                                             "displayName": "Database Connection"
                                         }
@@ -477,16 +582,12 @@
                                             "displayName": "Database Buffer"
                                         }
                                         ,{
-                                            "query": "postgresql_database_CL | summarize([\"Last Update Time\"], ['Transactions Committed'], ['Transactions Rolled Back'])=arg_max(TimeGenerated,columnifexists('transactions_committed_rate_d', ''),columnifexists('transactions_rolled_back_rate_d', '')) by Name=postgresql_database_name_s",
-                                            "displayName": "Database Activity"
+                                            "query": "postgresql_database_CL | summarize([\"Last Update Time\"], ['Size'])=arg_max(TimeGenerated,columnifexists('size_d', '')) by Name=postgresql_database_name_s",
+                                            "displayName": "Database Details"
                                         }
                                         ,{
                                             "query": "postgresql_database_CL | summarize([\"Last Update Time\"], ['Tablespace Name'])=arg_max(TimeGenerated,columnifexists('tablespace_name_s', '')) by Name=postgresql_database_name_s",
                                             "displayName": "Database Properties"
-                                        }
-                                        ,{
-                                            "query": "postgresql_instance_CL | summarize([\"Last Update Time\"], ['Host'], ['Server IP'], ['Server Port'], ['Version'])=arg_max(TimeGenerated,columnifexists('host_s', ''),columnifexists('server_ip_s', ''),columnifexists('server_port_d', ''),columnifexists('version_s', '')) by Name=postgresql_instance_name_s",
-                                            "displayName": "Instance Properties"
                                         }
                                         ,{
                                             "query": "postgresql_query_CL | summarize([\"Last Update Time\"], ['Average Time'], ['Calls'])=arg_max(TimeGenerated,columnifexists('average_time_d', ''),columnifexists('calls_rate_d', '')) by Name=postgresql_query_name_s",
@@ -496,26 +597,18 @@
                                             "query": "postgresql_query_CL | summarize([\"Last Update Time\"], ['Text'], ['Username'])=arg_max(TimeGenerated,columnifexists('text_s', ''),columnifexists('username_s', '')) by Name=postgresql_query_name_s",
                                             "displayName": "Query Properties"
                                         }
-                                        ,{
-                                            "query": "postgresql_function_CL | summarize([\"Last Update Time\"], ['Schema Name'])=arg_max(TimeGenerated,columnifexists('schema_name_s', '')) by Name=postgresql_function_name_s",
-                                            "displayName": "Function Properties"
-                                        }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
                             "FieldName": "postgresql_instance_name_s",
-                            "QueryForValues": "union postgresql_database_CL, postgresql_instance_CL | distinct postgresql_instance_name_s",
+                            "QueryForValues": "postgresql_database_CL | distinct postgresql_instance_name_s",
                             "Title": "Instance"
                           },{
                             "FieldName": "postgresql_database_name_s",
-                            "QueryForValues": "union postgresql_database_CL, postgresql_query_CL, postgresql_function_CL | distinct postgresql_database_name_s",
+                            "QueryForValues": "union postgresql_database_CL, postgresql_query_CL | distinct postgresql_database_name_s",
                             "Title": "Database"
-                          },{
-                            "FieldName": "version_s",
-                            "QueryForValues": "postgresql_instance_CL | distinct version_s",
-                            "Title": "Version"
                           },{
                             "FieldName": "username_s",
                             "QueryForValues": "postgresql_query_CL | distinct username_s",
@@ -524,37 +617,48 @@
                             "FieldName": "postgresql_query_name_s",
                             "QueryForValues": "postgresql_query_CL | distinct postgresql_query_name_s",
                             "Title": "Query"
-                          },{
-                            "FieldName": "schema_name_s",
-                            "QueryForValues": "postgresql_function_CL | distinct schema_name_s",
-                            "Title": "Schema Name"
-                          },{
-                            "FieldName": "postgresql_function_name_s",
-                            "QueryForValues": "postgresql_function_CL | distinct postgresql_function_name_s",
-                            "Title": "Function"
                           }],
                         "OverviewTile": {
-                            "Id": "LineChartCalloutBuilderTile",
+                            "Id": "SingleQueryDonutBuilderTileV1",
                             "Type": "OverviewTile",
                             "Version": 2,
                             "Configuration": {
-                                "LineChart": {
-                                    "Query": "postgresql_database_CL  | summarize avg(coalesce(columnifexists('active_connections_d',0.0), 0.0)) by postgresql_database_name_s | order by avg_ desc",
-                                    "Callout": {
-                                        "Title": "Average Active Connections",
-                                        "Series": "",
-                                        "Operation": "Average"
+                                "Donut": {
+                                    "Query": "postgresql_database_CL | project ['Deadlocks'] = columnifexists('deadlocks_rate_d', double(null)), ['Queries Canceled Due to Conflicts'] = columnifexists('queries_canceled_due_to_conflicts_rate_d', double(null)), TimeGenerated, Name=postgresql_database_name_s  | extend Healthy = case(isnotnull(['Deadlocks']) or isnotnull(['Queries Canceled Due to Conflicts']), (['Deadlocks'] < 1 or isnull(['Deadlocks'])) and (['Queries Canceled Due to Conflicts'] < 1 or isnull(['Queries Canceled Due to Conflicts'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Database",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
                                     },
-                                    "yAxis": {
-                                        "isLogarithmic": false,
-                                        "units": {
-                                            "baseUnitType": "",
-                                            "baseUnit": "",
-                                            "displayUnit": ""
-                                        },
-                                        "customLabel": "Sessions"
-                                    }
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
                                 },
+
                                 "Advanced": {
                                     "DataFlowVerification": {
                                         "Enabled": false,
@@ -563,6 +667,7 @@
                                     }
                                 }
                             }
+
                         }
                     }
                 }

@@ -1,0 +1,745 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Cloud Foundry Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Cloud Foundry Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Cloud Foundry Environment",
+                        "Name": "Cloud Foundry Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Cloud Foundry Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Cloud Foundry",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Cloud Foundry is an open source cloud application platform, providing a choice of clouds, developer frameworks, and application services. Cloud Foundry makes it faster and easier to build, test, deploy, and scale applications."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor CPU, memory, and disk utilization, as well as latency."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application Instance CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL  | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_application_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application Instance",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application Instance Disk Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance} | summarize avg(coalesce(columnifexists('disk_usage_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL  | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance} | summarize avg(coalesce(columnifexists('disk_usage_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_application_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application Instance",
+                                            "Value": "Disk Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Application Instance Memory Usage",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Usage",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Usage",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL  | where ${Diego Cell} and ${Application} and ${State} and ${Application Instance} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_application_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Application Instance",
+                                            "Value": "Memory Usage"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Diego Cell VM CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "VM CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL | where ${Availability Zone} and ${Diego Cell} | summarize avg(coalesce(columnifexists('vm_cpu_utilization_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                                        "Callout": {
+                                            "Title": "Average VM CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL  | where ${Availability Zone} and ${Diego Cell} | summarize avg(coalesce(columnifexists('vm_cpu_utilization_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_diego_cell_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Diego Cell",
+                                            "Value": "VM CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Diego Brain VM CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "VM CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | where ${Availability Zone} and ${Diego Brain} | summarize avg(coalesce(columnifexists('vm_cpu_utilization_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                        "Callout": {
+                                            "Title": "Average VM CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL  | where ${Availability Zone} and ${Diego Brain} | summarize avg(coalesce(columnifexists('vm_cpu_utilization_d',0.0), 0.0)) by cloudfoundryfoundation_cloudfoundry_diego_brain_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Diego Brain",
+                                            "Value": "VM CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | summarize([\"Last Update Time\"], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                            "displayName": "Application Instance CPU"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | summarize([\"Last Update Time\"], ['Disk Usage'])=arg_max(TimeGenerated,columnifexists('disk_usage_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                            "displayName": "Application Instance Disk"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | summarize([\"Last Update Time\"], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                            "displayName": "Application Instance Memory"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | summarize([\"Last Update Time\"], ['Creation Date'], ['Host'], ['Port'], ['State'], ['URIs'])=arg_max(TimeGenerated,columnifexists('creation_date_s', ''),columnifexists('host_s', ''),columnifexists('port_d', ''),columnifexists('state_s', ''),columnifexists('uris_s', '')) by Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                                            "displayName": "Application Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL | summarize([\"Last Update Time\"], ['VM CPU Utilization'], ['VM User CPU Utilization'])=arg_max(TimeGenerated,columnifexists('vm_cpu_utilization_d', ''),columnifexists('vm_user_cpu_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                                            "displayName": "Diego Cell CPU"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL | summarize([\"Last Update Time\"], ['VM Load Average (15m)'])=arg_max(TimeGenerated,columnifexists('vm_load_average_15m_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                                            "displayName": "Diego Cell Performance"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL | summarize([\"Last Update Time\"], ['VM System Disk Utilization'], ['VM Persistent Disk Utilization'], ['VM Ephemeral Disk Utilization'], ['REP Remaining Disk Available'])=arg_max(TimeGenerated,columnifexists('vm_system_disk_utilization_d', ''),columnifexists('vm_persistent_disk_utilization_d', ''),columnifexists('vm_ephemeral_disk_utilization_d', ''),columnifexists('rep_remaining_disk_available_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                                            "displayName": "Diego Cell Disk"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL | summarize([\"Last Update Time\"], ['VM Active Memory Utilization'], ['VM Swap Utilization'], ['REP Remaining Memory Available'])=arg_max(TimeGenerated,columnifexists('vm_active_memory_utilization_d', ''),columnifexists('vm_swap_utilization_d', ''),columnifexists('rep_remaining_memory_available_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                                            "displayName": "Diego Cell Memory"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_cell_CL | summarize([\"Last Update Time\"], ['CID'])=arg_max(TimeGenerated,columnifexists('cid_s', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                                            "displayName": "Diego Cell Properties"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['VM CPU Utilization'], ['VM User CPU Utilization'])=arg_max(TimeGenerated,columnifexists('vm_cpu_utilization_d', ''),columnifexists('vm_user_cpu_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                            "displayName": "Diego Brain CPU"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['VM Load Average (15m)'])=arg_max(TimeGenerated,columnifexists('vm_load_average_15m_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                            "displayName": "Diego Brain Performance"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['VM System Disk Utilization'], ['VM Persistent Disk Utilization'], ['VM Ephemeral Disk Utilization'])=arg_max(TimeGenerated,columnifexists('vm_system_disk_utilization_d', ''),columnifexists('vm_persistent_disk_utilization_d', ''),columnifexists('vm_ephemeral_disk_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                            "displayName": "Diego Brain Disk"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['VM Active Memory Utilization'], ['VM Swap Utilization'])=arg_max(TimeGenerated,columnifexists('vm_active_memory_utilization_d', ''),columnifexists('vm_swap_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                            "displayName": "Diego Brain Memory"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['Cumulative Auctioneer LRP Instances Failed'], ['Cumulative Auctioneer Task Placements Failed'], ['Delta Average Cumulative Auctioneer LRP Instances Failed'], ['Delta Average Cumulative Auctioneer Task Placements Failed'])=arg_max(TimeGenerated,columnifexists('cumulative_auctioneer_lrp_instances_failed_rate_d', ''),columnifexists('cumulative_auctioneer_task_placements_failed_rate_d', ''),columnifexists('delta_average_cumulative_auctioneer_lrp_instances_failed_d', ''),columnifexists('delta_average_cumulative_auctioneer_task_placements_failed_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                            "displayName": "Diego Brain Details"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['CID'])=arg_max(TimeGenerated,columnifexists('cid_s', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                                            "displayName": "Diego Brain Properties"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['All Log Messages'], ['Completed Requests'], ['Outstanding Requests'], ['Total Users'])=arg_max(TimeGenerated,columnifexists('all_log_messages_rate_d', ''),columnifexists('completed_requests_rate_d', ''),columnifexists('outstanding_requests_rate_d', ''),columnifexists('total_users_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller Details"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['Thread Connections'], ['Thread Result Scheduled Tasks'], ['Thread Result Unscheduled Tasks'], ['Thread Scheduled Tasks'], ['Thread Unscheduled Tasks'], ['VM CPU Utilization'], ['VM User CPU Utilization'])=arg_max(TimeGenerated,columnifexists('thread_connections_d', ''),columnifexists('thread_result_scheduled_tasks_d', ''),columnifexists('thread_result_unscheduled_tasks_d', ''),columnifexists('thread_scheduled_tasks_d', ''),columnifexists('thread_unscheduled_tasks_d', ''),columnifexists('vm_cpu_utilization_d', ''),columnifexists('vm_user_cpu_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller CPU"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['Memory Usage'], ['Running Tasks Memory Usage'], ['VM Active Memory Utilization'], ['VM Swap Utilization'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', ''),columnifexists('running_tasks_memory_usage_d', ''),columnifexists('vm_active_memory_utilization_d', ''),columnifexists('vm_swap_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller Memory"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['Running Tasks'], ['Total Delayed Jobs'], ['Total Failed Jobs'], ['Uptime'])=arg_max(TimeGenerated,columnifexists('running_tasks_d', ''),columnifexists('total_delayed_jobs_d', ''),columnifexists('total_failed_jobs_d', ''),columnifexists('uptime_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller Status"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['VM Ephemeral Disk Utilization'], ['VM Persistent Disk Utilization'], ['VM System Disk Utilization'])=arg_max(TimeGenerated,columnifexists('vm_ephemeral_disk_utilization_d', ''),columnifexists('vm_persistent_disk_utilization_d', ''),columnifexists('vm_system_disk_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller Disk"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['VM Load Average (15m)'])=arg_max(TimeGenerated,columnifexists('vm_load_average_15m_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller Performance"
+                                        }
+                                        ,{
+                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['CID'])=arg_max(TimeGenerated,columnifexists('cid_s', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                                            "displayName": "Cloud Controller Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                            "QueryForValues": "union cloudfoundryfoundation_cloudfoundry_application_instance_CL, cloudfoundryfoundation_cloudfoundry_diego_cell_CL | distinct cloudfoundryfoundation_cloudfoundry_diego_cell_name_s",
+                            "Title": "Diego Cell"
+                          },{
+                            "FieldName": "cloudfoundryfoundation_cloudfoundry_application_name_s",
+                            "QueryForValues": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | distinct cloudfoundryfoundation_cloudfoundry_application_name_s",
+                            "Title": "Application"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                            "QueryForValues": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | distinct cloudfoundryfoundation_cloudfoundry_application_instance_name_s",
+                            "Title": "Application Instance"
+                          },{
+                            "FieldName": "cloudfoundryfoundation_cloudfoundry_availability_zone_name_s",
+                            "QueryForValues": "union cloudfoundryfoundation_cloudfoundry_diego_cell_CL, cloudfoundryfoundation_cloudfoundry_diego_brain_CL, cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | distinct cloudfoundryfoundation_cloudfoundry_availability_zone_name_s",
+                            "Title": "Availability Zone"
+                          },{
+                            "FieldName": "cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                            "QueryForValues": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | distinct cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
+                            "Title": "Diego Brain"
+                          },{
+                            "FieldName": "cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                            "QueryForValues": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | distinct cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
+                            "Title": "Cloud Controller"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "cloudfoundryfoundation_cloudfoundry_application_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=cloudfoundryfoundation_cloudfoundry_application_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Application Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

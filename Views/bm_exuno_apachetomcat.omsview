@@ -371,17 +371,17 @@
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Servlet Processing Time",
+                                        "title": "Servlet Error Count",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Processing Time",
+                                        "Title": "Error Count",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('error_count_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
                                         "Callout": {
-                                            "Title": "Average Processing Time",
+                                            "Title": "Average Error Count",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,32 +506,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Errors"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
+                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('error_count_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Servlet",
-                                            "Value": "Processing Time"
+                                            "Value": "Error Count"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -578,7 +578,7 @@
                                             "displayName": "Operating System Properties"
                                         }
                                         ,{
-                                            "query": "apache_tomcat_servlet_CL | summarize([\"Last Update Time\"], ['Class Load Time'], ['Error Count'], ['Load Time'], ['Processing Time'])=arg_max(TimeGenerated,columnifexists('class_load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('load_time_d', ''),columnifexists('processing_time_d', '')) by Name=apache_tomcat_servlet_name_s",
+                                            "query": "apache_tomcat_servlet_CL | summarize([\"Last Update Time\"], ['Class Load Time'], ['Error Count'], ['Load Time'], ['Error Count'], ['Processing Time'])=arg_max(TimeGenerated,columnifexists('class_load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('processing_time_d', '')) by Name=apache_tomcat_servlet_name_s",
                                             "displayName": "Servlet Details"
                                         }
                                         ,{

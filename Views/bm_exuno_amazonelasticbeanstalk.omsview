@@ -56,7 +56,7 @@
                                     "General": {
                                         "Title": "Amazon Elastic Beanstalk Overview",
                                         "NewGroup": false,
-                                        "Color": "#ba141a"
+                                        "Color": "#ff8c00"
                                     },
                                     "Header": {
                                         "Image": "data:image/png;base64,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",
@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance Health",
+                                        "title": "Environment Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL | where ${Region} and ${Type} and ${Environment Name} and ${Instance}  | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_instance_name_s  | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment}  | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Instances with Severe Health'] = columnifexists('instances_with_severe_health_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), ['Warning Instances'] = columnifexists('warning_instances_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_environment_name_s  | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Instances with Severe Health']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']) or isnotnull(['Warning Instances']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Instances with Severe Health'] < 1.0 or isnull(['Instances with Severe Health'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])) and (['Warning Instances'] < 1.0 or isnull(['Warning Instances'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL | where ${Region} and ${Type} and ${Environment Name} and ${Instance}  | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_instance_name_s  | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment}  | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Instances with Severe Health'] = columnifexists('instances_with_severe_health_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), ['Warning Instances'] = columnifexists('warning_instances_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_environment_name_s  | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Instances with Severe Health']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']) or isnotnull(['Warning Instances']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Instances with Severe Health'] < 1.0 or isnull(['Instances with Severe Health'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])) and (['Warning Instances'] < 1.0 or isnull(['Warning Instances'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Instance Name",
+                                            "Name": "Environment Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "amazon_elasticbeanstalk_instance_CL | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])), bool(null))",
+                                        "NavigationQuery": "amazon_elasticbeanstalk_environment_CL | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Instances with Severe Health'] = columnifexists('instances_with_severe_health_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), ['Warning Instances'] = columnifexists('warning_instances_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_environment_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Instances with Severe Health']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']) or isnotnull(['Warning Instances']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Instances with Severe Health'] < 1.0 or isnull(['Instances with Severe Health'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])) and (['Warning Instances'] < 1.0 or isnull(['Warning Instances'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "amazon_elasticbeanstalk_instance_CL | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])), bool(null))"
+                                            "NavigationQuery": "amazon_elasticbeanstalk_environment_CL | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Instances with Severe Health'] = columnifexists('instances_with_severe_health_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), ['Warning Instances'] = columnifexists('warning_instances_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_environment_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Instances with Severe Health']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']) or isnotnull(['Warning Instances']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Instances with Severe Health'] < 1.0 or isnull(['Instances with Severe Health'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])) and (['Warning Instances'] < 1.0 or isnull(['Warning Instances'])), bool(null))"
                                         }
                                     }
                                 }
@@ -258,19 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Environment Request Latency 50%",
+                                        "title": "Environment Warning Instances",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Request Latency 50%",
+                                        "Title": "Warning Instances",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('request_latency_50%_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('warning_instances_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s",
                                         "Callout": {
-                                            "Title": "Average Request Latency 50%",
+                                            "Title": "Average Warning Instances",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -281,32 +281,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Warning Instances"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_elasticbeanstalk_environment_CL  | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('request_latency_50%_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s | order by avg_ desc",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL  | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('warning_instances_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Environment",
-                                            "Value": "Request Latency 50%"
+                                            "Value": "Warning Instances"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -333,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance Request Latency 50%",
+                                        "title": "Environment Application 4xx Requests",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Request Latency 50%",
+                                        "Title": "Application 4xx Requests",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL | where ${Region} and ${Type} and ${Environment Name} and ${Instance} | summarize avg(coalesce(columnifexists('request_latency_50%_d',0.0), 0.0)) by amazon_elasticbeanstalk_instance_name_s",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('application_4xx_requests_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s",
                                         "Callout": {
-                                            "Title": "Average Request Latency 50%",
+                                            "Title": "Average Application 4xx Requests",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -356,32 +356,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Requests"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL  | where ${Region} and ${Type} and ${Environment Name} and ${Instance} | summarize avg(coalesce(columnifexists('request_latency_50%_d',0.0), 0.0)) by amazon_elasticbeanstalk_instance_name_s | order by avg_ desc",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL  | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('application_4xx_requests_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Instance",
-                                            "Value": "Request Latency 50%"
+                                            "Name": "Environment",
+                                            "Value": "Application 4xx Requests"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -408,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance Fastest 50% Application Latency",
+                                        "title": "Environment Application 5xx Requests",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Fastest 50% Application Latency",
+                                        "Title": "Application 5xx Requests",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL | where ${Region} and ${Type} and ${Environment Name} and ${Instance} | summarize avg(coalesce(columnifexists('fastest_50%_application_latency_d',0.0), 0.0)) by amazon_elasticbeanstalk_instance_name_s",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('application_5xx_requests_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s",
                                         "Callout": {
-                                            "Title": "Average Fastest 50% Application Latency",
+                                            "Title": "Average Application 5xx Requests",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -431,32 +431,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Seconds"
+                                            "customLabel": "Requests"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL  | where ${Region} and ${Type} and ${Environment Name} and ${Instance} | summarize avg(coalesce(columnifexists('fastest_50%_application_latency_d',0.0), 0.0)) by amazon_elasticbeanstalk_instance_name_s | order by avg_ desc",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL  | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('application_5xx_requests_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Instance",
-                                            "Value": "Fastest 50% Application Latency"
+                                            "Name": "Environment",
+                                            "Value": "Application 5xx Requests"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance System Average Load Last 5 Minutes",
+                                        "title": "Environment Status Codes 4XX",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "System Average Load Last 5 Minutes",
+                                        "Title": "Status Codes 4XX",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL | where ${Region} and ${Type} and ${Environment Name} and ${Instance} | summarize avg(coalesce(columnifexists('system_average_load_last_5_minutes_d',0.0), 0.0)) by amazon_elasticbeanstalk_instance_name_s",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('status_codes_4xx_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s",
                                         "Callout": {
-                                            "Title": "Average System Average Load Last 5 Minutes",
+                                            "Title": "Average Status Codes 4XX",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -511,27 +511,27 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_elasticbeanstalk_instance_CL  | where ${Region} and ${Type} and ${Environment Name} and ${Instance} | summarize avg(coalesce(columnifexists('system_average_load_last_5_minutes_d',0.0), 0.0)) by amazon_elasticbeanstalk_instance_name_s | order by avg_ desc",
+                                        "Query": "amazon_elasticbeanstalk_environment_CL  | where ${Region} and ${Environment} | summarize avg(coalesce(columnifexists('status_codes_4xx_d',0.0), 0.0)) by amazon_elasticbeanstalk_environment_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Instance",
-                                            "Value": "System Average Load Last 5 Minutes"
+                                            "Name": "Environment",
+                                            "Value": "Status Codes 4XX"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.5",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -566,8 +566,24 @@
                                     "queries": [
 
                                         {
-                                            "query": "amazon_elasticbeanstalk_instance_CL | summarize([\"Last Update Time\"], ['Request Latency 50%'], ['Status Codes 4XX'], ['Status Codes 5XX'])=arg_max(TimeGenerated,columnifexists('request_latency_50%_d', ''),columnifexists('status_codes_4xx_d', ''),columnifexists('status_codes_5xx_d', '')) by Name=amazon_elasticbeanstalk_instance_name_s",
-                                            "displayName": "Instance Application Metrics"
+                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Instances with Severe Health'])=arg_max(TimeGenerated,columnifexists('instances_with_severe_health_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
+                                            "displayName": "Environment Instance Health"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Warning Instances'])=arg_max(TimeGenerated,columnifexists('warning_instances_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
+                                            "displayName": "Environment Status"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Application 4xx Requests'], ['Application 5xx Requests'])=arg_max(TimeGenerated,columnifexists('application_4xx_requests_d', ''),columnifexists('application_5xx_requests_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
+                                            "displayName": "Environment Network"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Status Codes 4XX'], ['Status Codes 5XX'], ['Request Latency 50%'])=arg_max(TimeGenerated,columnifexists('status_codes_4xx_d', ''),columnifexists('status_codes_5xx_d', ''),columnifexists('request_latency_50%_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
+                                            "displayName": "Environment Application Metrics"
+                                        }
+                                        ,{
+                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Application Name'], ['Auto Scaling Groups'], ['Instances'], ['Launch Configurations'], ['Load Balancers'], ['Queues'], ['Triggers'])=arg_max(TimeGenerated,columnifexists('application_name_s', ''),columnifexists('auto_scaling_groups_s', ''),columnifexists('instances_s', ''),columnifexists('launch_configurations_s', ''),columnifexists('load_balancers_s', ''),columnifexists('queues_s', ''),columnifexists('triggers_s', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
+                                            "displayName": "Environment Properties"
                                         }
                                         ,{
                                             "query": "amazon_elasticbeanstalk_instance_CL | summarize([\"Last Update Time\"], ['Fastest 50% Application Latency'])=arg_max(TimeGenerated,columnifexists('fastest_50%_application_latency_d', '')) by Name=amazon_elasticbeanstalk_instance_name_s",
@@ -582,36 +598,12 @@
                                             "displayName": "Instance Network"
                                         }
                                         ,{
+                                            "query": "amazon_elasticbeanstalk_instance_CL | summarize([\"Last Update Time\"], ['Status Codes 4XX'], ['Status Codes 5XX'], ['Request Latency 50%'])=arg_max(TimeGenerated,columnifexists('status_codes_4xx_d', ''),columnifexists('status_codes_5xx_d', ''),columnifexists('request_latency_50%_d', '')) by Name=amazon_elasticbeanstalk_instance_name_s",
+                                            "displayName": "Instance Application Metrics"
+                                        }
+                                        ,{
                                             "query": "amazon_elasticbeanstalk_instance_CL | summarize([\"Last Update Time\"], ['Availability Zone'], ['Deployment ID'], ['Deployment Time'], ['Deployment Version Label'], ['Time Launched'], ['Type'])=arg_max(TimeGenerated,columnifexists('availability_zone_s', ''),columnifexists('deployment_id_d', ''),columnifexists('deployment_time_s', ''),columnifexists('deployment_version_label_s', ''),columnifexists('time_launched_s', ''),columnifexists('type_s', '')) by Name=amazon_elasticbeanstalk_instance_name_s",
                                             "displayName": "Instance Properties"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Instances with Severe Health'])=arg_max(TimeGenerated,columnifexists('instances_with_severe_health_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
-                                            "displayName": "Environment Instance Health"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Request Latency 50%'], ['Status Codes 4XX'], ['Status Codes 5XX'])=arg_max(TimeGenerated,columnifexists('request_latency_50%_d', ''),columnifexists('status_codes_4xx_d', ''),columnifexists('status_codes_5xx_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
-                                            "displayName": "Environment Application Metrics"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Application 4xx Requests'], ['Application 5xx Requests'])=arg_max(TimeGenerated,columnifexists('application_4xx_requests_d', ''),columnifexists('application_5xx_requests_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
-                                            "displayName": "Environment Network"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Warning Instances'])=arg_max(TimeGenerated,columnifexists('warning_instances_d', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
-                                            "displayName": "Environment Status"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_environment_CL | summarize([\"Last Update Time\"], ['Application Name'], ['Auto Scaling Groups'], ['Instances'], ['Launch Configurations'], ['Load Balancers'], ['Queues'], ['Triggers'])=arg_max(TimeGenerated,columnifexists('application_name_s', ''),columnifexists('auto_scaling_groups_s', ''),columnifexists('instances_s', ''),columnifexists('launch_configurations_s', ''),columnifexists('load_balancers_s', ''),columnifexists('queues_s', ''),columnifexists('triggers_s', '')) by Name=amazon_elasticbeanstalk_environment_name_s",
-                                            "displayName": "Environment Properties"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_application_CL | summarize([\"Last Update Time\"], ['Configuration Templates'], ['Date Created'], ['Date Updated'], ['Description'], ['Versions'])=arg_max(TimeGenerated,columnifexists('configuration_templates_s', ''),columnifexists('date_created_s', ''),columnifexists('date_updated_s', ''),columnifexists('description_s', ''),columnifexists('versions_s', '')) by Name=amazon_elasticbeanstalk_application_name_s",
-                                            "displayName": "Application Properties"
-                                        }
-                                        ,{
-                                            "query": "amazon_elasticbeanstalk_application_version_CL | summarize([\"Last Update Time\"], ['Date Created'], ['Date Updated'], ['Description'], ['S3 Bucket'], ['S3 Key'])=arg_max(TimeGenerated,columnifexists('date_created_s', ''),columnifexists('date_updated_s', ''),columnifexists('description_s', ''),columnifexists('s3_bucket_s', ''),columnifexists('s3_key_s', '')) by Name=amazon_elasticbeanstalk_application_version_name_s",
-                                            "displayName": "Application Version Properties"
                                         }
                                     ]
                                 }
@@ -619,8 +611,12 @@
                         ],
                         "Filters": [{
                             "FieldName": "region_s",
-                            "QueryForValues": "union amazon_elasticbeanstalk_instance_CL, amazon_elasticbeanstalk_environment_CL, amazon_elasticbeanstalk_application_CL, amazon_elasticbeanstalk_application_version_CL | distinct region_s",
+                            "QueryForValues": "union amazon_elasticbeanstalk_environment_CL, amazon_elasticbeanstalk_instance_CL | distinct region_s",
                             "Title": "Region"
+                          },{
+                            "FieldName": "amazon_elasticbeanstalk_environment_name_s",
+                            "QueryForValues": "amazon_elasticbeanstalk_environment_CL | distinct amazon_elasticbeanstalk_environment_name_s",
+                            "Title": "Environment"
                           },{
                             "FieldName": "type_s",
                             "QueryForValues": "amazon_elasticbeanstalk_instance_CL | distinct type_s",
@@ -633,18 +629,6 @@
                             "FieldName": "amazon_elasticbeanstalk_instance_name_s",
                             "QueryForValues": "amazon_elasticbeanstalk_instance_CL | distinct amazon_elasticbeanstalk_instance_name_s",
                             "Title": "Instance"
-                          },{
-                            "FieldName": "amazon_elasticbeanstalk_environment_name_s",
-                            "QueryForValues": "amazon_elasticbeanstalk_environment_CL | distinct amazon_elasticbeanstalk_environment_name_s",
-                            "Title": "Environment"
-                          },{
-                            "FieldName": "amazon_elasticbeanstalk_application_name_s",
-                            "QueryForValues": "amazon_elasticbeanstalk_application_CL | distinct amazon_elasticbeanstalk_application_name_s",
-                            "Title": "Application"
-                          },{
-                            "FieldName": "amazon_elasticbeanstalk_application_version_name_s",
-                            "QueryForValues": "amazon_elasticbeanstalk_application_version_CL | distinct amazon_elasticbeanstalk_application_version_name_s",
-                            "Title": "Application Version"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -652,9 +636,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "amazon_elasticbeanstalk_instance_CL | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_instance_name_s  | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "amazon_elasticbeanstalk_environment_CL | project ['Application 4xx Requests'] = columnifexists('application_4xx_requests_d', double(null)), ['Application 5xx Requests'] = columnifexists('application_5xx_requests_d', double(null)), ['Instances with Severe Health'] = columnifexists('instances_with_severe_health_d', double(null)), ['Status Codes 4XX'] = columnifexists('status_codes_4xx_d', double(null)), ['Status Codes 5XX'] = columnifexists('status_codes_5xx_d', double(null)), ['Warning Instances'] = columnifexists('warning_instances_d', double(null)), TimeGenerated, Name=amazon_elasticbeanstalk_environment_name_s  | extend Healthy = case(isnotnull(['Application 4xx Requests']) or isnotnull(['Application 5xx Requests']) or isnotnull(['Instances with Severe Health']) or isnotnull(['Status Codes 4XX']) or isnotnull(['Status Codes 5XX']) or isnotnull(['Warning Instances']), (['Application 4xx Requests'] < 1.0 or isnull(['Application 4xx Requests'])) and (['Application 5xx Requests'] < 1.0 or isnull(['Application 5xx Requests'])) and (['Instances with Severe Health'] < 1.0 or isnull(['Instances with Severe Health'])) and (['Status Codes 4XX'] < 1.0 or isnull(['Status Codes 4XX'])) and (['Status Codes 5XX'] < 1.0 or isnull(['Status Codes 5XX'])) and (['Warning Instances'] < 1.0 or isnull(['Warning Instances'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Instance",
+                                        "Text": "Environment",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

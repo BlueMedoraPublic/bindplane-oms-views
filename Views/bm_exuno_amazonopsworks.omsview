@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance}  | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance}  | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), ['CPU System'] = columnifexists('cpu_system_d', double(null)), ['CPU User'] = columnifexists('cpu_user_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']) or isnotnull(['CPU System']) or isnotnull(['CPU User']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])) and (['CPU System'] < 85 or isnull(['CPU System'])) and (['CPU User'] < 85 or isnull(['CPU User'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance}  | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance}  | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), ['CPU System'] = columnifexists('cpu_system_d', double(null)), ['CPU User'] = columnifexists('cpu_user_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']) or isnotnull(['CPU System']) or isnotnull(['CPU User']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])) and (['CPU System'] < 85 or isnull(['CPU System'])) and (['CPU User'] < 85 or isnull(['CPU User'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null))",
+                                        "NavigationQuery": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), ['CPU System'] = columnifexists('cpu_system_d', double(null)), ['CPU User'] = columnifexists('cpu_user_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']) or isnotnull(['CPU System']) or isnotnull(['CPU User']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])) and (['CPU System'] < 85 or isnull(['CPU System'])) and (['CPU User'] < 85 or isnull(['CPU User'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null))"
+                                            "NavigationQuery": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), ['CPU System'] = columnifexists('cpu_system_d', double(null)), ['CPU User'] = columnifexists('cpu_user_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']) or isnotnull(['CPU System']) or isnotnull(['CPU User']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])) and (['CPU System'] < 85 or isnull(['CPU System'])) and (['CPU User'] < 85 or isnull(['CPU User'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,19 +183,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance Active Processes",
+                                        "title": "Instance Memory Free",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Active Processes",
+                                        "Title": "Memory Free",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('active_processes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('memory_free_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average Active Processes",
+                                            "Title": "Average Memory Free",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -206,18 +206,93 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Active Processes"
+                                            "customLabel": "Bytes"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('active_processes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('memory_free_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Instance",
-                                            "Value": "Active Processes"
+                                            "Value": "Memory Free"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "0.0",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "-1",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Memory Used",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Used",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('memory_used_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Used",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('memory_used_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance",
+                                            "Value": "Memory Used"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -296,17 +371,17 @@
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "85.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "75.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -371,17 +446,17 @@
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "85.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "75.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -478,81 +553,6 @@
                             }
 ,
                             {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Instance Load Average for 5 Minutes",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Load Average for 5 Minutes",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "amazon_opsworks_instance_CL | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('load_average_for_5_minutes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s",
-                                        "Callout": {
-                                            "Title": "Average Load Average for 5 Minutes",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Load Average for 5 Minutes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "amazon_opsworks_instance_CL  | where ${Region} and ${Type} and ${Platform} and ${Instance} | summarize avg(coalesce(columnifexists('load_average_for_5_minutes_d',0.0), 0.0)) by amazon_opsworks_instance_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Instance",
-                                            "Value": "Load Average for 5 Minutes"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
                                 "Id": "NotableQueriesBuilderBlade",
                                 "Type": "Blade",
                                 "Version": 0,
@@ -566,16 +566,16 @@
                                     "queries": [
 
                                         {
-                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Active Processes'])=arg_max(TimeGenerated,columnifexists('active_processes_d', '')) by Name=amazon_opsworks_instance_name_s",
-                                            "displayName": "Instance Details"
+                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Memory Free'], ['Memory Used'], ['Memory Swap'])=arg_max(TimeGenerated,columnifexists('memory_free_d', ''),columnifexists('memory_used_d', ''),columnifexists('memory_swap_d', '')) by Name=amazon_opsworks_instance_name_s",
+                                            "displayName": "Instance Memory"
                                         }
                                         ,{
                                             "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['CPU System'], ['CPU User'], ['CPU Wait I/O'], ['Load Average for 5 Minutes'])=arg_max(TimeGenerated,columnifexists('cpu_system_d', ''),columnifexists('cpu_user_d', ''),columnifexists('cpu_wait_io_d', ''),columnifexists('load_average_for_5_minutes_d', '')) by Name=amazon_opsworks_instance_name_s",
                                             "displayName": "Instance CPU"
                                         }
                                         ,{
-                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Memory Free'], ['Memory Swap'], ['Memory Used'])=arg_max(TimeGenerated,columnifexists('memory_free_d', ''),columnifexists('memory_swap_d', ''),columnifexists('memory_used_d', '')) by Name=amazon_opsworks_instance_name_s",
-                                            "displayName": "Instance Memory"
+                                            "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Active Processes'])=arg_max(TimeGenerated,columnifexists('active_processes_d', '')) by Name=amazon_opsworks_instance_name_s",
+                                            "displayName": "Instance Details"
                                         }
                                         ,{
                                             "query": "amazon_opsworks_instance_CL | summarize([\"Last Update Time\"], ['Architecture'], ['Availability Zone'], ['Infrastructure Class'], ['O/S'], ['Root Device Type'], ['Subnet ID'], ['Virtualization Type'])=arg_max(TimeGenerated,columnifexists('architecture_s', ''),columnifexists('availability_zone_s', ''),columnifexists('infrastructure_class_s', ''),columnifexists('os_s', ''),columnifexists('root_device_type_s', ''),columnifexists('subnet_id_s', ''),columnifexists('virtualization_type_s', '')) by Name=amazon_opsworks_instance_name_s",
@@ -608,7 +608,7 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "amazon_opsworks_instance_CL | project ['Memory Free'] = columnifexists('memory_free_d', double(null)), ['Memory Used'] = columnifexists('memory_used_d', double(null)), ['Memory Total'] = columnifexists('memory_total_d', double(null)), ['CPU System'] = columnifexists('cpu_system_d', double(null)), ['CPU User'] = columnifexists('cpu_user_d', double(null)), TimeGenerated, Name=amazon_opsworks_instance_name_s  | extend Healthy = case(isnotnull(['Memory Free']) or isnotnull(['Memory Used']) or isnotnull(['Memory Total']) or isnotnull(['CPU System']) or isnotnull(['CPU User']), (['Memory Free'] > 0.0 or isnull(['Memory Free'])) and (['Memory Used'] < ['Memory Total'] or isnull(['Memory Used']) or isnull(['Memory Total'])) and (['CPU System'] < 85 or isnull(['CPU System'])) and (['CPU User'] < 85 or isnull(['CPU User'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
                                         "Text": "Instance",
                                         "Operation": "Sum",

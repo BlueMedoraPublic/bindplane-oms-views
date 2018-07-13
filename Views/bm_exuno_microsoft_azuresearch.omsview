@@ -1,0 +1,665 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Microsoft Azure Search Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Azure Search Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Microsoft Azure Search Environment",
+                        "Name": "Microsoft Azure Search Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Microsoft Azure Search Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Microsoft Azure Search",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Azure Search is an AI-powered cloud search service for web and mobile app development."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "It is important to monitor the latency of search queries, as well as the number of throttled requests that occur."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Search Service Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service}  | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service}  | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Search Service Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "microsoft_azure_search_search_service_CL | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "microsoft_azure_search_search_service_CL | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Search Service Throttled Search Queries",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Throttled Search Queries",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('throttled_search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Throttled Search Queries",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('throttled_search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Search Service",
+                                            "Value": "Throttled Search Queries"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "10.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "5.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Search Service Search Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Search Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_latency_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Search Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Seconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_latency_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Search Service",
+                                            "Value": "Search Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Search Service Search Queries",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Search Queries",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
+                                        "Callout": {
+                                            "Title": "Average Search Queries",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Search Service",
+                                            "Value": "Search Queries"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Usage Failed Requests",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Failed Requests",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_search_api_usage_CL | where ${API Usage} | summarize avg(coalesce(columnifexists('failed_requests_d',0.0), 0.0)) by microsoft_azure_search_api_usage_name_s",
+                                        "Callout": {
+                                            "Title": "Average Failed Requests",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Failed Requests"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_search_api_usage_CL  | where ${API Usage} | summarize avg(coalesce(columnifexists('failed_requests_d',0.0), 0.0)) by microsoft_azure_search_api_usage_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API Usage",
+                                            "Value": "Failed Requests"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "API Usage Average Request Retries",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Request Retries",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_search_api_usage_CL | where ${API Usage} | summarize avg(coalesce(columnifexists('average_request_retries_d',0.0), 0.0)) by microsoft_azure_search_api_usage_name_s",
+                                        "Callout": {
+                                            "Title": "Average Request Retries",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Average Request Retries"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_search_api_usage_CL  | where ${API Usage} | summarize avg(coalesce(columnifexists('average_request_retries_d',0.0), 0.0)) by microsoft_azure_search_api_usage_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "API Usage",
+                                            "Value": "Average Request Retries"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "microsoft_azure_search_search_service_CL | summarize([\"Last Update Time\"], ['Throttled Search Queries'], ['Search Latency'], ['Search Queries'])=arg_max(TimeGenerated,columnifexists('throttled_search_queries_d', ''),columnifexists('search_latency_d', ''),columnifexists('search_queries_d', '')) by Name=microsoft_azure_search_search_service_name_s",
+                                            "displayName": "Search Service Performance"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_search_search_service_CL | summarize([\"Last Update Time\"], ['Hosting Mode'], ['Partition Count'], ['Provisioning State'], ['Replica Count'], ['Resource Group'], ['SKU'])=arg_max(TimeGenerated,columnifexists('hosting_mode_s', ''),columnifexists('partition_count_d', ''),columnifexists('provisioning_state_s', ''),columnifexists('replica_count_d', ''),columnifexists('resource_group_s', ''),columnifexists('sku_s', '')) by Name=microsoft_azure_search_search_service_name_s",
+                                            "displayName": "Search Service Properties"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_search_api_usage_CL | summarize([\"Last Update Time\"], ['Failed Requests'], ['Average Request Retries'], ['Successful Requests'], ['Total Requests'])=arg_max(TimeGenerated,columnifexists('failed_requests_d', ''),columnifexists('average_request_retries_d', ''),columnifexists('successful_requests_d', ''),columnifexists('total_requests_d', '')) by Name=microsoft_azure_search_api_usage_name_s",
+                                            "displayName": "API Usage Network"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "resource_group_s",
+                            "QueryForValues": "microsoft_azure_search_search_service_CL | distinct resource_group_s",
+                            "Title": "Resource Group"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "microsoft_azure_search_search_service_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "microsoft_azure_search_search_service_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "microsoft_azure_search_search_service_name_s",
+                            "QueryForValues": "union microsoft_azure_search_search_service_CL, microsoft_azure_search_query_key_CL | distinct microsoft_azure_search_search_service_name_s",
+                            "Title": "Search Service"
+                          },{
+                            "FieldName": "microsoft_azure_search_query_key_name_s",
+                            "QueryForValues": "microsoft_azure_search_query_key_CL | distinct microsoft_azure_search_query_key_name_s",
+                            "Title": "Query Key"
+                          },{
+                            "FieldName": "microsoft_azure_search_api_usage_name_s",
+                            "QueryForValues": "microsoft_azure_search_api_usage_CL | distinct microsoft_azure_search_api_usage_name_s",
+                            "Title": "API Usage"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "microsoft_azure_search_search_service_CL | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Search Service",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

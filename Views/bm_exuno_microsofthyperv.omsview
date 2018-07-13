@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine}  | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine}  | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine}  | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine}  | project ['Average Memory Pressure'] = columnifexists('average_memory_pressure_d', double(null)), ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), ['Target Memory Pressure Average'] = columnifexists('target_memory_pressure_average_d', double(null)), TimeGenerated, Name=microsoft_hyperv_virtual_machine_name_s  | extend Healthy = case(isnotnull(['Average Memory Pressure']) or isnotnull(['CPU Usage']) or isnotnull(['Memory Utilization']) or isnotnull(['Target Memory Pressure Average']), (['Average Memory Pressure'] < 85 or isnull(['Average Memory Pressure'])) and (['CPU Usage'] < 85 or isnull(['CPU Usage'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])) and (['Target Memory Pressure Average'] < 85 or isnull(['Target Memory Pressure Average'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
                                             "Title": "Average CPU Usage",
                                             "Series": "",
@@ -211,7 +211,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -268,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
                                             "Title": "Average Memory Utilization",
                                             "Series": "",
@@ -286,7 +286,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -343,7 +343,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
                                             "Title": "Average Disk Latency",
                                             "Series": "",
@@ -361,7 +361,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_disk_latency_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -418,7 +418,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
                                             "Title": "Average Normalized IOPS",
                                             "Series": "",
@@ -436,7 +436,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -493,7 +493,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('total_disk_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('total_disk_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
                                             "Title": "Average Total Disk Usage",
                                             "Series": "",
@@ -511,7 +511,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('total_disk_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('total_disk_usage_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -621,6 +621,10 @@
                             "FieldName": "microsoft_hyperv_host_name_s",
                             "QueryForValues": "union microsoft_hyperv_virtual_machine_CL, microsoft_hyperv_host_CL | distinct microsoft_hyperv_host_name_s",
                             "Title": "Host"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "microsoft_hyperv_virtual_machine_CL | distinct state_s",
+                            "Title": "State"
                           },{
                             "FieldName": "microsoft_hyperv_virtual_machine_name_s",
                             "QueryForValues": "microsoft_hyperv_virtual_machine_CL | distinct microsoft_hyperv_virtual_machine_name_s",

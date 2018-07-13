@@ -1,0 +1,689 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Pure Storage FlashArray Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Pure Storage FlashArray Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Pure Storage FlashArray Environment",
+                        "Name": "Pure Storage FlashArray Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Pure Storage FlashArray Overview",
+                                        "NewGroup": false,
+                                        "Color": "#e81123"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Pure Storage FlashArray",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Pure Storage FlashArray is a storage solution built from the ground up on Flash."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "When monitoring Pure Storage FlashArray, it is best to monitor capacity, latency, IOPs, and bandwidth."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume}  | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['SAN Read Latency'] = columnifexists('san_read_latency_d', double(null)), ['SAN Write Latency'] = columnifexists('san_write_latency_d', double(null)), ['Total Used Space Ratio'] = columnifexists('total_used_space_ratio_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=purestorage_flasharray_volume_name_s  | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['SAN Read Latency']) or isnotnull(['SAN Write Latency']) or isnotnull(['Total Used Space Ratio']) or isnotnull(['Write Latency']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['SAN Read Latency'] < 100 or isnull(['SAN Read Latency'])) and (['SAN Write Latency'] < 100 or isnull(['SAN Write Latency'])) and (['Total Used Space Ratio'] < 85 or isnull(['Total Used Space Ratio'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume}  | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['SAN Read Latency'] = columnifexists('san_read_latency_d', double(null)), ['SAN Write Latency'] = columnifexists('san_write_latency_d', double(null)), ['Total Used Space Ratio'] = columnifexists('total_used_space_ratio_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=purestorage_flasharray_volume_name_s  | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['SAN Read Latency']) or isnotnull(['SAN Write Latency']) or isnotnull(['Total Used Space Ratio']) or isnotnull(['Write Latency']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['SAN Read Latency'] < 100 or isnull(['SAN Read Latency'])) and (['SAN Write Latency'] < 100 or isnull(['SAN Write Latency'])) and (['Total Used Space Ratio'] < 85 or isnull(['Total Used Space Ratio'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "purestorage_flasharray_volume_CL | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['SAN Read Latency'] = columnifexists('san_read_latency_d', double(null)), ['SAN Write Latency'] = columnifexists('san_write_latency_d', double(null)), ['Total Used Space Ratio'] = columnifexists('total_used_space_ratio_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=purestorage_flasharray_volume_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['SAN Read Latency']) or isnotnull(['SAN Write Latency']) or isnotnull(['Total Used Space Ratio']) or isnotnull(['Write Latency']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['SAN Read Latency'] < 100 or isnull(['SAN Read Latency'])) and (['SAN Write Latency'] < 100 or isnull(['SAN Write Latency'])) and (['Total Used Space Ratio'] < 85 or isnull(['Total Used Space Ratio'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "purestorage_flasharray_volume_CL | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['SAN Read Latency'] = columnifexists('san_read_latency_d', double(null)), ['SAN Write Latency'] = columnifexists('san_write_latency_d', double(null)), ['Total Used Space Ratio'] = columnifexists('total_used_space_ratio_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=purestorage_flasharray_volume_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['SAN Read Latency']) or isnotnull(['SAN Write Latency']) or isnotnull(['Total Used Space Ratio']) or isnotnull(['Write Latency']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['SAN Read Latency'] < 100 or isnull(['SAN Read Latency'])) and (['SAN Write Latency'] < 100 or isnull(['SAN Write Latency'])) and (['Total Used Space Ratio'] < 85 or isnull(['Total Used Space Ratio'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Total Used Space Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Used Space Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('total_used_space_ratio_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Used Space Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "purestorage_flasharray_volume_CL  | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('total_used_space_ratio_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Total Used Space Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Snapshot Space Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Snapshot Space Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('snapshot_space_ratio_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Snapshot Space Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "purestorage_flasharray_volume_CL  | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('snapshot_space_ratio_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Snapshot Space Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Read Bandwidth",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Bandwidth",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('read_bandwidth_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Bandwidth",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "purestorage_flasharray_volume_CL  | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('read_bandwidth_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Read Bandwidth"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Write Bandwidth",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Bandwidth",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('write_bandwidth_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Bandwidth",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "purestorage_flasharray_volume_CL  | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('write_bandwidth_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Write Bandwidth"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Volume Read IOPS",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read IOPS",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "purestorage_flasharray_volume_CL | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read IOPS",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Reads per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "purestorage_flasharray_volume_CL  | where ${Volume Group} and ${Protection Group} and ${Host} and ${Host Group} and ${Array} and ${Volume} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by purestorage_flasharray_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Volume",
+                                            "Value": "Read IOPS"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "purestorage_flasharray_volume_CL | summarize([\"Last Update Time\"], ['Total Used Space Ratio'], ['Snapshot Space Ratio'])=arg_max(TimeGenerated,columnifexists('total_used_space_ratio_d', ''),columnifexists('snapshot_space_ratio_d', '')) by Name=purestorage_flasharray_volume_name_s",
+                                            "displayName": "Volume Capacity"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_volume_CL | summarize([\"Last Update Time\"], ['Read Bandwidth'], ['Write Bandwidth'], ['Read IOPS'], ['Write IOPS'], ['Read Latency'], ['Write Latency'])=arg_max(TimeGenerated,columnifexists('read_bandwidth_d', ''),columnifexists('write_bandwidth_d', ''),columnifexists('read_iops_d', ''),columnifexists('write_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('write_latency_d', '')) by Name=purestorage_flasharray_volume_name_s",
+                                            "displayName": "Volume Performance"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_volume_CL | summarize([\"Last Update Time\"], ['Creation Timestamp'], ['NAA ID'], ['Serial Number'])=arg_max(TimeGenerated,columnifexists('creation_timestamp_s', ''),columnifexists('naa_id_s', ''),columnifexists('serial_number_s', '')) by Name=purestorage_flasharray_volume_name_s",
+                                            "displayName": "Volume Properties"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_array_CL | summarize([\"Last Update Time\"], ['Queue Depth'], ['Read IOPS'], ['Write IOPS'], ['Read Latency'], ['Write Latency'], ['SAN Read Latency'], ['SAN Write Latency'])=arg_max(TimeGenerated,columnifexists('queue_depth_d', ''),columnifexists('read_iops_d', ''),columnifexists('write_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('write_latency_d', ''),columnifexists('san_read_latency_d', ''),columnifexists('san_write_latency_d', '')) by Name=purestorage_flasharray_array_name_s",
+                                            "displayName": "Array Performance"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_array_CL | summarize([\"Last Update Time\"], ['Snapshot Space Ratio'], ['Total Used Space Ratio'])=arg_max(TimeGenerated,columnifexists('snapshot_space_ratio_d', ''),columnifexists('total_used_space_ratio_d', '')) by Name=purestorage_flasharray_array_name_s",
+                                            "displayName": "Array Capacity"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_array_CL | summarize([\"Last Update Time\"], ['Hostname'], ['Revision'], ['Version'])=arg_max(TimeGenerated,columnifexists('hostname_s', ''),columnifexists('revision_s', ''),columnifexists('version_s', '')) by Name=purestorage_flasharray_array_name_s",
+                                            "displayName": "Array Properties"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_host_CL | summarize([\"Last Update Time\"], ['Read Latency'], ['SAN Read Latency'], ['SAN Write Latency'], ['Total Bandwidth'], ['Total IOPS'], ['Write IOPS'], ['Write Latency'])=arg_max(TimeGenerated,columnifexists('read_latency_d', ''),columnifexists('san_read_latency_d', ''),columnifexists('san_write_latency_d', ''),columnifexists('total_bandwidth_d', ''),columnifexists('total_iops_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_latency_d', '')) by Name=purestorage_flasharray_host_name_s",
+                                            "displayName": "Host Performance"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_host_CL | summarize([\"Last Update Time\"], ['Total Used Space Ratio'])=arg_max(TimeGenerated,columnifexists('total_used_space_ratio_d', '')) by Name=purestorage_flasharray_host_name_s",
+                                            "displayName": "Host Capacity"
+                                        }
+                                        ,{
+                                            "query": "purestorage_flasharray_host_CL | summarize([\"Last Update Time\"], ['IQNs'], ['WWNs'])=arg_max(TimeGenerated,columnifexists('iqns_s', ''),columnifexists('wwns_s', '')) by Name=purestorage_flasharray_host_name_s",
+                                            "displayName": "Host Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "purestorage_flasharray_volume_group_name_s",
+                            "QueryForValues": "purestorage_flasharray_volume_CL | distinct purestorage_flasharray_volume_group_name_s",
+                            "Title": "Volume Group"
+                          },{
+                            "FieldName": "purestorage_flasharray_protection_group_name_s",
+                            "QueryForValues": "union purestorage_flasharray_volume_CL, purestorage_flasharray_host_CL | distinct purestorage_flasharray_protection_group_name_s",
+                            "Title": "Protection Group"
+                          },{
+                            "FieldName": "purestorage_flasharray_host_name_s",
+                            "QueryForValues": "union purestorage_flasharray_volume_CL, purestorage_flasharray_host_CL | distinct purestorage_flasharray_host_name_s",
+                            "Title": "Host"
+                          },{
+                            "FieldName": "purestorage_flasharray_host_group_name_s",
+                            "QueryForValues": "union purestorage_flasharray_volume_CL, purestorage_flasharray_host_CL | distinct purestorage_flasharray_host_group_name_s",
+                            "Title": "Host Group"
+                          },{
+                            "FieldName": "purestorage_flasharray_array_name_s",
+                            "QueryForValues": "union purestorage_flasharray_volume_CL, purestorage_flasharray_array_CL, purestorage_flasharray_host_CL | distinct purestorage_flasharray_array_name_s",
+                            "Title": "Array"
+                          },{
+                            "FieldName": "purestorage_flasharray_volume_name_s",
+                            "QueryForValues": "purestorage_flasharray_volume_CL | distinct purestorage_flasharray_volume_name_s",
+                            "Title": "Volume"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "purestorage_flasharray_volume_CL | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['SAN Read Latency'] = columnifexists('san_read_latency_d', double(null)), ['SAN Write Latency'] = columnifexists('san_write_latency_d', double(null)), ['Total Used Space Ratio'] = columnifexists('total_used_space_ratio_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), TimeGenerated, Name=purestorage_flasharray_volume_name_s  | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['SAN Read Latency']) or isnotnull(['SAN Write Latency']) or isnotnull(['Total Used Space Ratio']) or isnotnull(['Write Latency']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['SAN Read Latency'] < 100 or isnull(['SAN Read Latency'])) and (['SAN Write Latency'] < 100 or isnull(['SAN Write Latency'])) and (['Total Used Space Ratio'] < 85 or isnull(['Total Used Space Ratio'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Volume",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

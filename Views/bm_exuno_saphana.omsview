@@ -446,17 +446,17 @@
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": true,
+                                            "isEnabled": false,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "85.0",
+                                                    "threshold": "90",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "76.5",
+                                                    "threshold": "0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -582,7 +582,7 @@
                                             "displayName": "Host CPU"
                                         }
                                         ,{
-                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['Database Memory Utilization'], ['Physical Memory Utilization'])=arg_max(TimeGenerated,columnifexists('database_memory_utilization_d', ''),columnifexists('physical_memory_utilization_d', '')) by Name=sap_hana_host_name_s",
+                                            "query": "sap_hana_host_CL | summarize([\"Last Update Time\"], ['Physical Memory Utilization'])=arg_max(TimeGenerated,columnifexists('physical_memory_utilization_d', '')) by Name=sap_hana_host_name_s",
                                             "displayName": "Host Memory"
                                         }
                                         ,{

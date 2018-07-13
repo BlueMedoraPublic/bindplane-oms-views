@@ -333,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance IOPS",
+                                        "title": "Database Read Total",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "IOPS",
+                                        "Title": "Read Total",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('iops_rate_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
+                                        "Query": "microsoft_sqlserver_database_CL | where ${Always On Availability Group} and ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('read_total_rate_d',0.0), 0.0)) by microsoft_sqlserver_database_name_s",
                                         "Callout": {
-                                            "Title": "Average IOPS",
+                                            "Title": "Average Read Total",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -356,18 +356,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Operations per Second"
+                                            "customLabel": "Bytes per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('iops_rate_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
+                                        "Query": "microsoft_sqlserver_database_CL  | where ${Always On Availability Group} and ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('read_total_rate_d',0.0), 0.0)) by microsoft_sqlserver_database_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Instance",
-                                            "Value": "IOPS"
+                                            "Name": "Database",
+                                            "Value": "Read Total"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -408,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance Average Query CPU Time",
+                                        "title": "Database write_total",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Average Query CPU Time",
+                                        "Title": "write_total",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_query_cpu_time_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
+                                        "Query": "microsoft_sqlserver_database_CL | where ${Always On Availability Group} and ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('write_total_rate_d',0.0), 0.0)) by microsoft_sqlserver_database_name_s",
                                         "Callout": {
-                                            "Title": "Average Query CPU Time",
+                                            "Title": "Average write_total",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -431,18 +431,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Bytes per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_query_cpu_time_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
+                                        "Query": "microsoft_sqlserver_database_CL  | where ${Always On Availability Group} and ${Instance} and ${Database} | summarize avg(coalesce(columnifexists('write_total_rate_d',0.0), 0.0)) by microsoft_sqlserver_database_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Instance",
-                                            "Value": "Average Query CPU Time"
+                                            "Name": "Database",
+                                            "Value": "write_total"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Query Average Execution Time",
+                                        "title": "Instance Number of Unhealthy Cluster Nodes",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Average Execution Time",
+                                        "Title": "Number of Unhealthy Cluster Nodes",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_sqlserver_query_CL | where ${Instance} and ${Query} | summarize avg(coalesce(columnifexists('average_execution_time_d',0.0), 0.0)) by microsoft_sqlserver_query_name_s",
+                                        "Query": "microsoft_sqlserver_instance_CL | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('number_of_unhealthy_cluster_nodes_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average Execution Time",
+                                            "Title": "Average Number of Unhealthy Cluster Nodes",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,32 +506,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Microseconds"
+                                            "customLabel": "Number of Unhealthy Cluster Nodes"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_sqlserver_query_CL  | where ${Instance} and ${Query} | summarize avg(coalesce(columnifexists('average_execution_time_d',0.0), 0.0)) by microsoft_sqlserver_query_name_s | order by avg_ desc",
+                                        "Query": "microsoft_sqlserver_instance_CL  | where ${Cluster Status} and ${Instance} | summarize avg(coalesce(columnifexists('number_of_unhealthy_cluster_nodes_d',0.0), 0.0)) by microsoft_sqlserver_instance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Query",
-                                            "Value": "Average Execution Time"
+                                            "Name": "Instance",
+                                            "Value": "Number of Unhealthy Cluster Nodes"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -574,6 +574,10 @@
                                             "displayName": "Instance Memory"
                                         }
                                         ,{
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Number of Unhealthy Cluster Nodes'])=arg_max(TimeGenerated,columnifexists('number_of_unhealthy_cluster_nodes_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Cluster State"
+                                        }
+                                        ,{
                                             "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['IOPS'])=arg_max(TimeGenerated,columnifexists('iops_rate_d', '')) by Name=microsoft_sqlserver_instance_name_s",
                                             "displayName": "Instance Disk Access"
                                         }
@@ -582,12 +586,12 @@
                                             "displayName": "Instance Queries"
                                         }
                                         ,{
-                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Average Wait Time'], ['Lock Wait Time'], ['Lock Timeouts'])=arg_max(TimeGenerated,columnifexists('average_wait_time_d', ''),columnifexists('lock_wait_time_d', ''),columnifexists('lock_timeouts_rate_d', '')) by Name=microsoft_sqlserver_instance_name_s",
-                                            "displayName": "Instance Locks"
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Wait Time'])=arg_max(TimeGenerated,columnifexists('wait_time_rate_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Wait"
                                         }
                                         ,{
-                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Number of Unhealthy Cluster Nodes'])=arg_max(TimeGenerated,columnifexists('number_of_unhealthy_cluster_nodes_d', '')) by Name=microsoft_sqlserver_instance_name_s",
-                                            "displayName": "Instance Cluster State"
+                                            "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Lock Wait Time'], ['Lock Timeouts'])=arg_max(TimeGenerated,columnifexists('lock_wait_time_d', ''),columnifexists('lock_timeouts_rate_d', '')) by Name=microsoft_sqlserver_instance_name_s",
+                                            "displayName": "Instance Locks"
                                         }
                                         ,{
                                             "query": "microsoft_sqlserver_instance_CL | summarize([\"Last Update Time\"], ['Failed Jobs'])=arg_max(TimeGenerated,columnifexists('failed_jobs_d', '')) by Name=microsoft_sqlserver_instance_name_s",
@@ -610,7 +614,7 @@
                                             "displayName": "Instance Properties"
                                         }
                                         ,{
-                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['IOPS'], ['Read Delay'], ['Write Delay'], ['Read Operations'], ['Write Operations'])=arg_max(TimeGenerated,columnifexists('iops_rate_d', ''),columnifexists('read_delay_rate_d', ''),columnifexists('write_delay_rate_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('write_operations_rate_d', '')) by Name=microsoft_sqlserver_database_name_s",
+                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['Read Total'], ['write_total'], ['IOPS'], ['Read Operations'], ['Write Operations'], ['Read Delay'], ['Write Delay'])=arg_max(TimeGenerated,columnifexists('read_total_rate_d', ''),columnifexists('write_total_rate_d', ''),columnifexists('iops_rate_d', ''),columnifexists('read_operations_rate_d', ''),columnifexists('write_operations_rate_d', ''),columnifexists('read_delay_rate_d', ''),columnifexists('write_delay_rate_d', '')) by Name=microsoft_sqlserver_database_name_s",
                                             "displayName": "Database Disk Access"
                                         }
                                         ,{

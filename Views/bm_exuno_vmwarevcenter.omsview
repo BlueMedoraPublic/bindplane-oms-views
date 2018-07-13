@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Cluster Health",
+                                        "title": "Host System Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_cluster_CL | where ${Cluster}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_cluster_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_cluster_CL | where ${Cluster}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_cluster_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Cluster Name",
+                                            "Name": "Host System Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "vmware_vcenter_cluster_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationQuery": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "vmware_vcenter_cluster_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                            "NavigationQuery": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
                                         }
                                     }
                                 }
@@ -183,19 +183,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Cluster Available CPU",
+                                        "title": "Host System Average CPU Speed",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Available CPU",
+                                        "Title": "Average CPU Speed",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_cluster_CL | where ${Cluster} | summarize avg(coalesce(columnifexists('available_cpu_d',0.0), 0.0)) by vmware_vcenter_cluster_name_s",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('average_cpu_speed_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
                                         "Callout": {
-                                            "Title": "Average Available CPU",
+                                            "Title": "Average CPU Speed",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -211,13 +211,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_cluster_CL  | where ${Cluster} | summarize avg(coalesce(columnifexists('available_cpu_d',0.0), 0.0)) by vmware_vcenter_cluster_name_s | order by avg_ asc",
+                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('average_cpu_speed_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Cluster",
-                                            "Value": "Available CPU"
+                                            "Name": "Host System",
+                                            "Value": "Average CPU Speed"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -258,169 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Cluster Available Memory",
+                                        "title": "Host System CPU Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Available Memory",
+                                        "Title": "CPU Utilization",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_cluster_CL | where ${Cluster} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by vmware_vcenter_cluster_name_s",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
                                         "Callout": {
-                                            "Title": "Average Available Memory",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Bytes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "vmware_vcenter_cluster_CL  | where ${Cluster} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by vmware_vcenter_cluster_name_s | order by avg_ asc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Cluster",
-                                            "Value": "Available Memory"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Datacenter Disk Space",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Disk Space",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "vmware_vcenter_datacenter_CL | where ${Datacenter} | summarize avg(coalesce(columnifexists('disk_space_d',0.0), 0.0)) by vmware_vcenter_datacenter_name_s",
-                                        "Callout": {
-                                            "Title": "Average Disk Space",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Terabytes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "vmware_vcenter_datacenter_CL  | where ${Datacenter} | summarize avg(coalesce(columnifexists('disk_space_d',0.0), 0.0)) by vmware_vcenter_datacenter_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Datacenter",
-                                            "Value": "Disk Space"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Datastore Space Utilization",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Space Utilization",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "vmware_vcenter_datastore_CL | where ${Type} and ${Datastore} | summarize avg(coalesce(columnifexists('space_utilization_d',0.0), 0.0)) by vmware_vcenter_datastore_name_s",
-                                        "Callout": {
-                                            "Title": "Average Space Utilization",
+                                            "Title": "Average CPU Utilization",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -436,13 +286,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_datastore_CL  | where ${Type} and ${Datastore} | summarize avg(coalesce(columnifexists('space_utilization_d',0.0), 0.0)) by vmware_vcenter_datastore_name_s | order by avg_ desc",
+                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Datastore",
-                                            "Value": "Space Utilization"
+                                            "Name": "Host System",
+                                            "Value": "CPU Utilization"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -483,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Datastore Total Space",
+                                        "title": "Host System Disk Read Latency",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Total Space",
+                                        "Title": "Disk Read Latency",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_datastore_CL | where ${Type} and ${Datastore} | summarize avg(coalesce(columnifexists('total_space_d',0.0), 0.0)) by vmware_vcenter_datastore_name_s",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
                                         "Callout": {
-                                            "Title": "Average Total Space",
+                                            "Title": "Average Disk Read Latency",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +356,168 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Bytes"
+                                            "customLabel": "Milliseconds"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_datastore_CL  | where ${Type} and ${Datastore} | summarize avg(coalesce(columnifexists('total_space_d',0.0), 0.0)) by vmware_vcenter_datastore_name_s | order by avg_ desc",
+                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Datastore",
-                                            "Value": "Total Space"
+                                            "Name": "Host System",
+                                            "Value": "Disk Read Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Host System Disk Write Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Write Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_write_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Write Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_write_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Host System",
+                                            "Value": "Disk Write Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Host System Disk Read Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Read Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_throughput_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Read Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_throughput_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Host System",
+                                            "Value": "Disk Read Throughput"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,34 +566,6 @@
                                     "queries": [
 
                                         {
-                                            "query": "vmware_vcenter_cluster_CL | summarize([\"Last Update Time\"], ['Available CPU'])=arg_max(TimeGenerated,columnifexists('available_cpu_d', '')) by Name=vmware_vcenter_cluster_name_s",
-                                            "displayName": "Cluster CPU"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_cluster_CL | summarize([\"Last Update Time\"], ['Available Memory'])=arg_max(TimeGenerated,columnifexists('available_memory_d', '')) by Name=vmware_vcenter_cluster_name_s",
-                                            "displayName": "Cluster Memory"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_cluster_CL | summarize([\"Last Update Time\"], ['CPU Cores'], ['Related Hosts'])=arg_max(TimeGenerated,columnifexists('cpu_cores_d', ''),columnifexists('related_hosts_s', '')) by Name=vmware_vcenter_cluster_name_s",
-                                            "displayName": "Cluster Properties"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_datacenter_CL | summarize([\"Last Update Time\"], ['Disk Space'])=arg_max(TimeGenerated,columnifexists('disk_space_d', '')) by Name=vmware_vcenter_datacenter_name_s",
-                                            "displayName": "Datacenter Disk"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_datacenter_CL | summarize([\"Last Update Time\"], ['CPUs'], ['Network Adapters'])=arg_max(TimeGenerated,columnifexists('cpus_d', ''),columnifexists('network_adapters_d', '')) by Name=vmware_vcenter_datacenter_name_s",
-                                            "displayName": "Datacenter Properties"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_datastore_CL | summarize([\"Last Update Time\"], ['Space Utilization'], ['Total Space'], ['Used Space'])=arg_max(TimeGenerated,columnifexists('space_utilization_d', ''),columnifexists('total_space_d', ''),columnifexists('used_space_d', '')) by Name=vmware_vcenter_datastore_name_s",
-                                            "displayName": "Datastore Disk"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_datastore_CL | summarize([\"Last Update Time\"], ['Accessible'], ['Disk Names'], ['Related Hosts'], ['Type'])=arg_max(TimeGenerated,columnifexists('accessible_d', ''),columnifexists('disk_names_s', ''),columnifexists('related_hosts_s', ''),columnifexists('type_s', '')) by Name=vmware_vcenter_datastore_name_s",
-                                            "displayName": "Datastore Properties"
-                                        }
-                                        ,{
                                             "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['Average CPU Speed'], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('average_cpu_speed_d', ''),columnifexists('cpu_utilization_d', '')) by Name=vmware_vcenter_host_system_name_s",
                                             "displayName": "Host System CPU"
                                         }
@@ -613,33 +585,49 @@
                                             "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['CPU Cores'], ['Model'], ['Product Type'], ['Product Version'], ['Total Memory'], ['Vendor'], ['VMotion Enabled'])=arg_max(TimeGenerated,columnifexists('cpu_cores_d', ''),columnifexists('model_s', ''),columnifexists('product_type_s', ''),columnifexists('product_version_s', ''),columnifexists('total_memory_d', ''),columnifexists('vendor_s', ''),columnifexists('vmotion_enabled_d', '')) by Name=vmware_vcenter_host_system_name_s",
                                             "displayName": "Host System Properties"
                                         }
+                                        ,{
+                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['CPU Used'])=arg_max(TimeGenerated,columnifexists('cpu_used_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine CPU"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Disk Space Used'], ['Disk Read Latency'], ['Disk Write Latency'], ['Disk Throughput'])=arg_max(TimeGenerated,columnifexists('disk_space_used_d', ''),columnifexists('disk_read_latency_d', ''),columnifexists('disk_write_latency_d', ''),columnifexists('disk_throughput_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Disk"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Network Throughput'])=arg_max(TimeGenerated,columnifexists('network_throughput_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Network"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Memory Used'])=arg_max(TimeGenerated,columnifexists('memory_used_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Memory"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Disk Space Capacity'], ['Guest OS Full Name'], ['Host Name'], ['IP Addresses'], ['Memory Capacity'], ['Virtual Machine Name'], ['VM Primary IP Address'])=arg_max(TimeGenerated,columnifexists('disk_space_capacity_d', ''),columnifexists('guest_os_full_name_s', ''),columnifexists('host_name_s', ''),columnifexists('ip_addresses_s', ''),columnifexists('memory_capacity_d', ''),columnifexists('virtual_machine_name_s', ''),columnifexists('vm_primary_ip_address_s', '')) by Name=vmware_vcenter_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Properties"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_cluster_CL | summarize([\"Last Update Time\"], ['Available CPU'])=arg_max(TimeGenerated,columnifexists('available_cpu_d', '')) by Name=vmware_vcenter_cluster_name_s",
+                                            "displayName": "Cluster CPU"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_cluster_CL | summarize([\"Last Update Time\"], ['Available Memory'])=arg_max(TimeGenerated,columnifexists('available_memory_d', '')) by Name=vmware_vcenter_cluster_name_s",
+                                            "displayName": "Cluster Memory"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_cluster_CL | summarize([\"Last Update Time\"], ['CPU Cores'], ['Related Hosts'])=arg_max(TimeGenerated,columnifexists('cpu_cores_d', ''),columnifexists('related_hosts_s', '')) by Name=vmware_vcenter_cluster_name_s",
+                                            "displayName": "Cluster Properties"
+                                        }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "vmware_vcenter_cluster_name_s",
-                            "QueryForValues": "vmware_vcenter_cluster_CL | distinct vmware_vcenter_cluster_name_s",
-                            "Title": "Cluster"
-                          },{
-                            "FieldName": "vmware_vcenter_datacenter_name_s",
-                            "QueryForValues": "vmware_vcenter_datacenter_CL | distinct vmware_vcenter_datacenter_name_s",
-                            "Title": "Datacenter"
-                          },{
-                            "FieldName": "type_s",
-                            "QueryForValues": "vmware_vcenter_datastore_CL | distinct type_s",
-                            "Title": "Type"
-                          },{
-                            "FieldName": "vmware_vcenter_datastore_name_s",
-                            "QueryForValues": "vmware_vcenter_datastore_CL | distinct vmware_vcenter_datastore_name_s",
-                            "Title": "Datastore"
-                          },{
                             "FieldName": "cluster_name_s",
                             "QueryForValues": "vmware_vcenter_host_system_CL | distinct cluster_name_s",
                             "Title": "Cluster Name"
                           },{
                             "FieldName": "datacenter_name_s",
-                            "QueryForValues": "vmware_vcenter_host_system_CL | distinct datacenter_name_s",
+                            "QueryForValues": "union vmware_vcenter_host_system_CL, vmware_vcenter_virtual_machine_CL | distinct datacenter_name_s",
                             "Title": "Datacenter Name"
                           },{
                             "FieldName": "vendor_s",
@@ -649,6 +637,22 @@
                             "FieldName": "vmware_vcenter_host_system_name_s",
                             "QueryForValues": "vmware_vcenter_host_system_CL | distinct vmware_vcenter_host_system_name_s",
                             "Title": "Host System"
+                          },{
+                            "FieldName": "guest_os_full_name_s",
+                            "QueryForValues": "vmware_vcenter_virtual_machine_CL | distinct guest_os_full_name_s",
+                            "Title": "Guest OS Full Name"
+                          },{
+                            "FieldName": "host_name_s",
+                            "QueryForValues": "vmware_vcenter_virtual_machine_CL | distinct host_name_s",
+                            "Title": "Host Name"
+                          },{
+                            "FieldName": "vmware_vcenter_virtual_machine_name_s",
+                            "QueryForValues": "vmware_vcenter_virtual_machine_CL | distinct vmware_vcenter_virtual_machine_name_s",
+                            "Title": "Virtual Machine"
+                          },{
+                            "FieldName": "vmware_vcenter_cluster_name_s",
+                            "QueryForValues": "vmware_vcenter_cluster_CL | distinct vmware_vcenter_cluster_name_s",
+                            "Title": "Cluster"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -656,9 +660,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "vmware_vcenter_cluster_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_cluster_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Cluster",
+                                        "Text": "Host System",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },
