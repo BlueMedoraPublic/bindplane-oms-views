@@ -408,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Virtual Machine Average Normalized IOPS",
+                                        "title": "Virtual Machine Average Normalized IO Rate",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Average Normalized IOPS",
+                                        "Title": "Average Normalized IO Rate",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_io_rate_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Normalized IOPS",
+                                            "Title": "Average Normalized IO Rate",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -436,13 +436,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_iops_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
+                                        "Query": "microsoft_hyperv_virtual_machine_CL  | where ${Host} and ${State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('average_normalized_io_rate_d',0.0), 0.0)) by microsoft_hyperv_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Virtual Machine",
-                                            "Value": "Average Normalized IOPS"
+                                            "Value": "Average Normalized IO Rate"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -574,7 +574,7 @@
                                             "displayName": "Virtual Machine Memory"
                                         }
                                         ,{
-                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['Average Disk Latency'], ['Average Normalized IOPS'], ['Total Disk Usage'])=arg_max(TimeGenerated,columnifexists('average_disk_latency_d', ''),columnifexists('average_normalized_iops_d', ''),columnifexists('total_disk_usage_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
+                                            "query": "microsoft_hyperv_virtual_machine_CL | summarize([\"Last Update Time\"], ['Average Disk Latency'], ['Average Normalized IO Rate'], ['Total Disk Usage'])=arg_max(TimeGenerated,columnifexists('average_disk_latency_d', ''),columnifexists('average_normalized_io_rate_d', ''),columnifexists('total_disk_usage_d', '')) by Name=microsoft_hyperv_virtual_machine_name_s",
                                             "displayName": "Virtual Machine Disk"
                                         }
                                         ,{
@@ -602,7 +602,7 @@
                                             "displayName": "Host Properties"
                                         }
                                         ,{
-                                            "query": "microsoft_hyperv_hard_disk_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Average Normalized IOPS'], ['Data Read'], ['Data Written'], ['Disk Usage'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('average_normalized_iops_d', ''),columnifexists('data_read_rate_d', ''),columnifexists('data_written_rate_d', ''),columnifexists('disk_usage_d', '')) by Name=microsoft_hyperv_hard_disk_name_s",
+                                            "query": "microsoft_hyperv_hard_disk_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Average Normalized IO Rate'], ['Data Read'], ['Data Written'], ['Disk Usage'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('average_normalized_io_rate_d', ''),columnifexists('data_read_rate_d', ''),columnifexists('data_written_rate_d', ''),columnifexists('disk_usage_d', '')) by Name=microsoft_hyperv_hard_disk_name_s",
                                             "displayName": "Hard Disk Utilization"
                                         }
                                         ,{

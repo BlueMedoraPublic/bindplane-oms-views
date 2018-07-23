@@ -566,7 +566,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "mongo_mongodb_mongod_CL | summarize([\"Last Update Time\"], ['Out Read Tickets'], ['Out Write Tickets'], ['Virtual Memory'], ['Resident Memory'], ['Heap Used'], ['Current Cache'], ['Dirty Cache'], ['Page Faults'], ['Global Lock Current Queue Readers'], ['Global Lock Current Queue Writers'])=arg_max(TimeGenerated,columnifexists('page_faults_rate_d', ''),columnifexists('global_lock_current_queue_readers_d', ''),columnifexists('global_lock_current_queue_writers_d', '')) by Name=mongo_mongodb_mongod_name_s",
+                                            "query": "mongo_mongodb_mongod_CL | summarize([\"Last Update Time\"], ['Network Requests'], ['Asserts: Message'], ['Asserts: Warning'], ['Current Connections'], ['Available Connections'], ['Cursors Open'], ['Cursor Timed Out'])=arg_max(TimeGenerated,columnifexists('network_requests_rate_d', ''),columnifexists('asserts_message_rate_d', ''),columnifexists('asserts_warning_rate_d', ''),columnifexists('current_connections_d', ''),columnifexists('available_connections_d', ''),columnifexists('cursors_open_d', ''),columnifexists('cursor_timed_out_rate_d', '')) by Name=mongo_mongodb_mongod_name_s",
                                             "displayName": "Mongod "
                                         }
                                         ,{
@@ -594,7 +594,7 @@
                                             "displayName": "Replica Set "
                                         }
                                         ,{
-                                            "query": "mongo_mongodb_replica_set_CL | summarize([\"Last Update Time\"], ['Chaining Allowed'], ['Election Timeout'], ['Heartbeat Timeout'], ['Primary Replication'], ['Protocol Version'], ['State'], ['Version'])=arg_max(TimeGenerated,columnifexists('chaining_allowed_d', ''),columnifexists('election_timeout_d', ''),columnifexists('heartbeat_timeout_d', ''),columnifexists('primary_replication_s', ''),columnifexists('protocol_version_d', ''),columnifexists('state_d', ''),columnifexists('version_s', '')) by Name=mongo_mongodb_replica_set_name_s",
+                                            "query": "mongo_mongodb_replica_set_CL | summarize([\"Last Update Time\"], ['Chaining Allowed'], ['Election Timeout'], ['Heartbeat Timeout'], ['Primary Replication'], ['Protocol Version'], ['State'], ['Version'])=arg_max(TimeGenerated,columnifexists('chaining_allowed_d', ''),columnifexists('election_timeout_d', ''),columnifexists('heartbeat_timeout_d', ''),columnifexists('primary_replication_s', ''),columnifexists('protocol_version_d', ''),columnifexists('state_s', ''),columnifexists('version_s', '')) by Name=mongo_mongodb_replica_set_name_s",
                                             "displayName": "Replica Set Properties"
                                         }
                                     ]

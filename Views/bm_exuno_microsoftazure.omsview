@@ -73,7 +73,7 @@
                                         },
                                         {
                                             "Title": "Key Performance Indicators",
-                                            "Content": "In Azure, it is important to measure CPU, storage, and disk for the operating servers to ensure the databases are functioning efficiently."
+                                            "Content": "In Azure, it is important to measure CPU utilization and disk for operating Virtual Machines to ensure the databases are functioning efficiently."
                                         }
                                     ]
                                 }
@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Elastic Pool Health",
+                                        "title": "Virtual Machine Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_virtual_machine_name_s  | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_virtual_machine_name_s  | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Elastic Pool Name",
+                                            "Name": "Virtual Machine Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "microsoft_azure_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null))",
+                                        "NavigationQuery": "microsoft_azure_virtual_machine_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_virtual_machine_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "microsoft_azure_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null))"
+                                            "NavigationQuery": "microsoft_azure_virtual_machine_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_virtual_machine_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Elastic Pool CPU Usage",
+                                        "title": "Virtual Machine CPU Usage",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s",
                                         "Callout": {
                                             "Title": "Average CPU Usage",
                                             "Series": "",
@@ -211,12 +211,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_virtual_machine_CL  | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Elastic Pool",
+                                            "Name": "Virtual Machine",
                                             "Value": "CPU Usage"
                                         },
                                         "Color": "#0072c6",
@@ -258,19 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Elastic Pool Storage Usage",
+                                        "title": "Virtual Machine Disk Read",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Storage Usage",
+                                        "Title": "Disk Read",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_read_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Storage Usage",
+                                            "Title": "Average Disk Read",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -281,168 +281,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Bytes per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_virtual_machine_CL  | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_read_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Elastic Pool",
-                                            "Value": "Storage Usage"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "80.0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "SQL Database CPU Usage",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "CPU Usage",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "microsoft_azure_sql_database_CL | where ${Elastic Pool} and ${Resource Group} and ${SQL Server} and ${Status} and ${SQL Database} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_sql_database_name_s",
-                                        "Callout": {
-                                            "Title": "Average CPU Usage",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "microsoft_azure_sql_database_CL  | where ${Elastic Pool} and ${Resource Group} and ${SQL Server} and ${Status} and ${SQL Database} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by microsoft_azure_sql_database_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "SQL Database",
-                                            "Value": "CPU Usage"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "85.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "75.0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "SQL Database Data IO",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Data IO",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "microsoft_azure_sql_database_CL | where ${Elastic Pool} and ${Resource Group} and ${SQL Server} and ${Status} and ${SQL Database} | summarize avg(coalesce(columnifexists('data_io_d',0.0), 0.0)) by microsoft_azure_sql_database_name_s",
-                                        "Callout": {
-                                            "Title": "Average Data IO",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "microsoft_azure_sql_database_CL  | where ${Elastic Pool} and ${Resource Group} and ${SQL Server} and ${Status} and ${SQL Database} | summarize avg(coalesce(columnifexists('data_io_d',0.0), 0.0)) by microsoft_azure_sql_database_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "SQL Database",
-                                            "Value": "Data IO"
+                                            "Name": "Virtual Machine",
+                                            "Value": "Disk Read"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -483,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Elastic Pool Data IO",
+                                        "title": "Virtual Machine Disk Read Operations",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Data IO",
+                                        "Title": "Disk Read Operations",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_elastic_pool_CL | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('data_io_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s",
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_read_operations_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Data IO",
+                                            "Title": "Average Disk Read Operations",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +356,168 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Operations per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_elastic_pool_CL  | where ${SQL Server} and ${Resource Group} and ${State} and ${Elastic Pool} | summarize avg(coalesce(columnifexists('data_io_d',0.0), 0.0)) by microsoft_azure_elastic_pool_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_virtual_machine_CL  | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_read_operations_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Elastic Pool",
-                                            "Value": "Data IO"
+                                            "Name": "Virtual Machine",
+                                            "Value": "Disk Read Operations"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Disk Write",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Write",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_write_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Write",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_virtual_machine_CL  | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_write_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Disk Write"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Disk Write Operations",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Write Operations",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_virtual_machine_CL | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_write_operations_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Write Operations",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_virtual_machine_CL  | where ${Resource Group} and ${Power State} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_write_operations_d',0.0), 0.0)) by microsoft_azure_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Disk Write Operations"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,69 +566,37 @@
                                     "queries": [
 
                                         {
-                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
-                                            "displayName": "Elastic Pool CPU"
+                                            "query": "microsoft_azure_virtual_machine_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine CPU"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['Storage Usage'], ['Data IO'], ['In-Memory OLTP Storage'])=arg_max(TimeGenerated,columnifexists('storage_usage_d', ''),columnifexists('data_io_d', ''),columnifexists('in_memory_oltp_storage_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
-                                            "displayName": "Elastic Pool Storage"
+                                            "query": "microsoft_azure_virtual_machine_CL | summarize([\"Last Update Time\"], ['Disk Read'], ['Disk Read Operations'], ['Disk Write'], ['Disk Write Operations'])=arg_max(TimeGenerated,columnifexists('disk_read_d', ''),columnifexists('disk_read_operations_d', ''),columnifexists('disk_write_d', ''),columnifexists('disk_write_operations_d', '')) by Name=microsoft_azure_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Disk"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['DTU Consumption'], ['Sessions'], ['Workers'])=arg_max(TimeGenerated,columnifexists('dtu_consumption_d', ''),columnifexists('sessions_d', ''),columnifexists('workers_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
-                                            "displayName": "Elastic Pool Workload"
+                                            "query": "microsoft_azure_virtual_machine_CL | summarize([\"Last Update Time\"], ['Network In'], ['Network Out'])=arg_max(TimeGenerated,columnifexists('network_in_d', ''),columnifexists('network_out_d', '')) by Name=microsoft_azure_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Network"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_elastic_pool_CL | summarize([\"Last Update Time\"], ['Database Count'], ['Elastic DTU Limit'], ['Storage Limit'])=arg_max(TimeGenerated,columnifexists('database_count_d', ''),columnifexists('elastic_dtu_limit_d', ''),columnifexists('storage_limit_d', '')) by Name=microsoft_azure_elastic_pool_name_s",
-                                            "displayName": "Elastic Pool Properties"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_sql_database_CL | summarize([\"Last Update Time\"], ['CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', '')) by Name=microsoft_azure_sql_database_name_s",
-                                            "displayName": "SQL Database CPU"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_sql_database_CL | summarize([\"Last Update Time\"], ['Data IO'], ['In-Memory OLTP Storage'])=arg_max(TimeGenerated,columnifexists('data_io_d', ''),columnifexists('in_memory_oltp_storage_d', '')) by Name=microsoft_azure_sql_database_name_s",
-                                            "displayName": "SQL Database Storage"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_sql_database_CL | summarize([\"Last Update Time\"], ['Database Size Usage'], ['DTU Consumption'], ['Sessions'], ['Workers'])=arg_max(TimeGenerated,columnifexists('database_size_usage_d', ''),columnifexists('dtu_consumption_d', ''),columnifexists('sessions_d', ''),columnifexists('workers_d', '')) by Name=microsoft_azure_sql_database_name_s",
-                                            "displayName": "SQL Database Workload"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_sql_database_CL | summarize([\"Last Update Time\"], ['Failed Connections'])=arg_max(TimeGenerated,columnifexists('failed_connections_d', '')) by Name=microsoft_azure_sql_database_name_s",
-                                            "displayName": "SQL Database Network"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_sql_database_CL | summarize([\"Last Update Time\"], ['Current Service Level Objective'], ['DTU Limit'], ['Max Database Size'], ['Service Tier Name'])=arg_max(TimeGenerated,columnifexists('current_service_level_objective_s', ''),columnifexists('dtu_limit_d', ''),columnifexists('maximum_database_size_d', ''),columnifexists('service_tier_name_s', '')) by Name=microsoft_azure_sql_database_name_s",
-                                            "displayName": "SQL Database Properties"
+                                            "query": "microsoft_azure_virtual_machine_CL | summarize([\"Last Update Time\"], ['Fully Qualified Domain Names'], ['IP Addresses'], ['Location'], ['OS Type'], ['OS Virtual Hard Disk'], ['Private IP Addresses'], ['Resource Group'], ['Service Tier'], ['Subnet Prefixes'], ['Subnets'], ['Tags'])=arg_max(TimeGenerated,columnifexists('service_tier_s', ''),columnifexists('subnet_prefixes_s', ''),columnifexists('subnets_s', ''),columnifexists('tags_s', '')) by Name=microsoft_azure_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Properties"
                                         }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "microsoft_azure_sql_server_name_s",
-                            "QueryForValues": "union microsoft_azure_elastic_pool_CL, microsoft_azure_sql_database_CL | distinct microsoft_azure_sql_server_name_s",
-                            "Title": "SQL Server"
-                          },{
                             "FieldName": "microsoft_azure_resource_group_name_s",
-                            "QueryForValues": "union microsoft_azure_elastic_pool_CL, microsoft_azure_sql_database_CL | distinct microsoft_azure_resource_group_name_s",
+                            "QueryForValues": "microsoft_azure_virtual_machine_CL | distinct microsoft_azure_resource_group_name_s",
                             "Title": "Resource Group"
                           },{
-                            "FieldName": "state_s",
-                            "QueryForValues": "microsoft_azure_elastic_pool_CL | distinct state_s",
-                            "Title": "State"
+                            "FieldName": "power_state_s",
+                            "QueryForValues": "microsoft_azure_virtual_machine_CL | distinct power_state_s",
+                            "Title": "Power State"
                           },{
-                            "FieldName": "microsoft_azure_elastic_pool_name_s",
-                            "QueryForValues": "union microsoft_azure_elastic_pool_CL, microsoft_azure_sql_database_CL | distinct microsoft_azure_elastic_pool_name_s",
-                            "Title": "Elastic Pool"
-                          },{
-                            "FieldName": "status_s",
-                            "QueryForValues": "microsoft_azure_sql_database_CL | distinct status_s",
-                            "Title": "Status"
-                          },{
-                            "FieldName": "microsoft_azure_sql_database_name_s",
-                            "QueryForValues": "microsoft_azure_sql_database_CL | distinct microsoft_azure_sql_database_name_s",
-                            "Title": "SQL Database"
+                            "FieldName": "microsoft_azure_virtual_machine_name_s",
+                            "QueryForValues": "microsoft_azure_virtual_machine_CL | distinct microsoft_azure_virtual_machine_name_s",
+                            "Title": "Virtual Machine"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -636,9 +604,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "microsoft_azure_elastic_pool_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_elastic_pool_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Storage Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])) and (['Storage Usage'] < 90.0 or isnull(['Storage Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "microsoft_azure_virtual_machine_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), TimeGenerated, Name=microsoft_azure_virtual_machine_name_s  | extend Healthy = case(isnotnull(['CPU Usage']), (['CPU Usage'] < 85.0 or isnull(['CPU Usage'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Elastic Pool",
+                                        "Text": "Virtual Machine",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

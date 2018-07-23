@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Domain Read IOPS",
+                                        "title": "Domain Read IO Rate",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Read IOPS",
+                                        "Title": "Read IO Rate",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
+                                        "Query": "amazon_elasticsearch_domain_CL | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('read_io_rate_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s",
                                         "Callout": {
-                                            "Title": "Average Read IOPS",
+                                            "Title": "Average Read IO Rate",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -511,13 +511,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
+                                        "Query": "amazon_elasticsearch_domain_CL  | where ${Region} and ${Version} and ${Instance Type} and ${Domain} | summarize avg(coalesce(columnifexists('read_io_rate_d',0.0), 0.0)) by amazon_elasticsearch_domain_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Domain",
-                                            "Value": "Read IOPS"
+                                            "Value": "Read IO Rate"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -578,7 +578,7 @@
                                             "displayName": "Domain Memory"
                                         }
                                         ,{
-                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['Read IOPS'], ['Read Latency'], ['Read Throughput'], ['Write IOPS'], ['Write Latency'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('read_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_d', '')) by Name=amazon_elasticsearch_domain_name_s",
+                                            "query": "amazon_elasticsearch_domain_CL | summarize([\"Last Update Time\"], ['Read IO Rate'], ['Read Latency'], ['Read Throughput'], ['Write IO Rate'], ['Write Latency'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('read_io_rate_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_io_rate_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_d', '')) by Name=amazon_elasticsearch_domain_name_s",
                                             "displayName": "Domain EBS Volumes"
                                         }
                                         ,{

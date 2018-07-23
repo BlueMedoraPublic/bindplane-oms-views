@@ -625,34 +625,13 @@
                                             "query": "cloudfoundryfoundation_cloudfoundry_diego_brain_CL | summarize([\"Last Update Time\"], ['CID'])=arg_max(TimeGenerated,columnifexists('cid_s', '')) by Name=cloudfoundryfoundation_cloudfoundry_diego_brain_name_s",
                                             "displayName": "Diego Brain Properties"
                                         }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['All Log Messages'], ['Completed Requests'], ['Outstanding Requests'], ['Total Users'])=arg_max(TimeGenerated,columnifexists('all_log_messages_rate_d', ''),columnifexists('completed_requests_rate_d', ''),columnifexists('outstanding_requests_rate_d', ''),columnifexists('total_users_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller Details"
-                                        }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['Thread Connections'], ['Thread Result Scheduled Tasks'], ['Thread Result Unscheduled Tasks'], ['Thread Scheduled Tasks'], ['Thread Unscheduled Tasks'], ['VM CPU Utilization'], ['VM User CPU Utilization'])=arg_max(TimeGenerated,columnifexists('thread_connections_d', ''),columnifexists('thread_result_scheduled_tasks_d', ''),columnifexists('thread_result_unscheduled_tasks_d', ''),columnifexists('thread_scheduled_tasks_d', ''),columnifexists('thread_unscheduled_tasks_d', ''),columnifexists('vm_cpu_utilization_d', ''),columnifexists('vm_user_cpu_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller CPU"
-                                        }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['Memory Usage'], ['Running Tasks Memory Usage'], ['VM Active Memory Utilization'], ['VM Swap Utilization'])=arg_max(TimeGenerated,columnifexists('memory_usage_d', ''),columnifexists('running_tasks_memory_usage_d', ''),columnifexists('vm_active_memory_utilization_d', ''),columnifexists('vm_swap_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller Memory"
-                                        }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['Running Tasks'], ['Total Delayed Jobs'], ['Total Failed Jobs'], ['Uptime'])=arg_max(TimeGenerated,columnifexists('running_tasks_d', ''),columnifexists('total_delayed_jobs_d', ''),columnifexists('total_failed_jobs_d', ''),columnifexists('uptime_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller Status"
-                                        }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['VM Ephemeral Disk Utilization'], ['VM Persistent Disk Utilization'], ['VM System Disk Utilization'])=arg_max(TimeGenerated,columnifexists('vm_ephemeral_disk_utilization_d', ''),columnifexists('vm_persistent_disk_utilization_d', ''),columnifexists('vm_system_disk_utilization_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller Disk"
-                                        }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['VM Load Average (15m)'])=arg_max(TimeGenerated,columnifexists('vm_load_average_15m_d', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller Performance"
-                                        }
-                                        ,{
-                                            "query": "cloudfoundryfoundation_cloudfoundry_cloud_controller_CL | summarize([\"Last Update Time\"], ['CID'])=arg_max(TimeGenerated,columnifexists('cid_s', '')) by Name=cloudfoundryfoundation_cloudfoundry_cloud_controller_name_s",
-                                            "displayName": "Cloud Controller Properties"
-                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                     ]
                                 }
                             }

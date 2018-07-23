@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Memory Health",
+                                        "title": "Servlet Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "apache_tomcat_memory_CL | where ${Server} and ${Memory}  | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet}  | project ['Error Count'] = columnifexists('error_count_d', double(null)), TimeGenerated, Name=apache_tomcat_servlet_name_s  | extend Healthy = case(isnotnull(['Error Count']), (['Error Count'] < 1 or isnull(['Error Count'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "apache_tomcat_memory_CL | where ${Server} and ${Memory}  | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet}  | project ['Error Count'] = columnifexists('error_count_d', double(null)), TimeGenerated, Name=apache_tomcat_servlet_name_s  | extend Healthy = case(isnotnull(['Error Count']), (['Error Count'] < 1 or isnull(['Error Count'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Memory Name",
+                                            "Name": "Servlet Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,89 +169,14 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "apache_tomcat_memory_CL | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null))",
+                                        "NavigationQuery": "apache_tomcat_servlet_CL | project ['Error Count'] = columnifexists('error_count_d', double(null)), TimeGenerated, Name=apache_tomcat_servlet_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Error Count']), (['Error Count'] < 1 or isnull(['Error Count'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "apache_tomcat_memory_CL | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null))"
+                                            "NavigationQuery": "apache_tomcat_servlet_CL | project ['Error Count'] = columnifexists('error_count_d', double(null)), TimeGenerated, Name=apache_tomcat_servlet_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Error Count']), (['Error Count'] < 1 or isnull(['Error Count'])), bool(null))"
                                         }
                                     }
                                 }
                             },
 
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Memory JVM Memory Usage Percent",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "JVM Memory Usage Percent",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "apache_tomcat_memory_CL | where ${Server} and ${Memory} | summarize avg(coalesce(columnifexists('jvm_memory_usage_percent_d',0.0), 0.0)) by apache_tomcat_memory_name_s",
-                                        "Callout": {
-                                            "Title": "Average JVM Memory Usage Percent",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "apache_tomcat_memory_CL  | where ${Server} and ${Memory} | summarize avg(coalesce(columnifexists('jvm_memory_usage_percent_d',0.0), 0.0)) by apache_tomcat_memory_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Memory",
-                                            "Value": "JVM Memory Usage Percent"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "80.0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
                             {
                                 "Id": "LineChartCalloutBuilderBlade",
                                 "Type": "Blade",
@@ -483,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Servlet Error Count",
+                                        "title": "Servlet Processing Time",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Error Count",
+                                        "Title": "Processing Time",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('error_count_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
+                                        "Query": "apache_tomcat_servlet_CL | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s",
                                         "Callout": {
-                                            "Title": "Average Error Count",
+                                            "Title": "Average Processing Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,32 +431,107 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Errors"
+                                            "customLabel": "Milliseconds"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('error_count_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
+                                        "Query": "apache_tomcat_servlet_CL  | where ${Web Module} and ${Servlet} | summarize avg(coalesce(columnifexists('processing_time_d',0.0), 0.0)) by apache_tomcat_servlet_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Servlet",
-                                            "Value": "Error Count"
+                                            "Value": "Processing Time"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": true,
+                                            "isEnabled": false,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "1.0",
+                                                    "threshold": "90",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0.9",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cache Desired Entry Access Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Desired Entry Access Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "apache_tomcat_cache_CL | where ${Server} and ${Cache} | summarize avg(coalesce(columnifexists('desired_entry_access_rate_d',0.0), 0.0)) by apache_tomcat_cache_name_s",
+                                        "Callout": {
+                                            "Title": "Average Desired Entry Access Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Desired Entry Access Rate"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "apache_tomcat_cache_CL  | where ${Server} and ${Cache} | summarize avg(coalesce(columnifexists('desired_entry_access_rate_d',0.0), 0.0)) by apache_tomcat_cache_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cache",
+                                            "Value": "Desired Entry Access Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -566,19 +566,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "apache_tomcat_memory_CL | summarize([\"Last Update Time\"], ['JVM Memory Usage Percent'])=arg_max(TimeGenerated,columnifexists('jvm_memory_usage_percent_d', '')) by Name=apache_tomcat_memory_name_s",
-                                            "displayName": "Memory Memory"
-                                        }
-                                        ,{
-                                            "query": "apache_tomcat_operating_system_CL | summarize([\"Last Update Time\"], ['Physical Memory Usage Percent'], ['Swap Space Usage Percent'])=arg_max(TimeGenerated,columnifexists('physical_memory_usage_percent_d', ''),columnifexists('swap_space_usage_percent_d', '')) by Name=apache_tomcat_operating_system_name_s",
-                                            "displayName": "Operating System Memory"
-                                        }
-                                        ,{
-                                            "query": "apache_tomcat_operating_system_CL | summarize([\"Last Update Time\"], ['Architecture'], ['Version'])=arg_max(TimeGenerated,columnifexists('architecture_s', ''),columnifexists('version_s', '')) by Name=apache_tomcat_operating_system_name_s",
-                                            "displayName": "Operating System Properties"
-                                        }
-                                        ,{
-                                            "query": "apache_tomcat_servlet_CL | summarize([\"Last Update Time\"], ['Class Load Time'], ['Error Count'], ['Load Time'], ['Error Count'], ['Processing Time'])=arg_max(TimeGenerated,columnifexists('class_load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('processing_time_d', '')) by Name=apache_tomcat_servlet_name_s",
+                                            "query": "apache_tomcat_servlet_CL | summarize([\"Last Update Time\"], ['Class Load Time'], ['Error Count'], ['Load Time'], ['Processing Time'])=arg_max(TimeGenerated,columnifexists('class_load_time_d', ''),columnifexists('error_count_d', ''),columnifexists('load_time_d', ''),columnifexists('processing_time_d', '')) by Name=apache_tomcat_servlet_name_s",
                                             "displayName": "Servlet Details"
                                         }
                                         ,{
@@ -586,30 +574,30 @@
                                             "displayName": "Servlet Properties"
                                         }
                                         ,{
-                                            "query": "apache_tomcat_cache_CL | summarize([\"Last Update Time\"], ['Access Count'], ['Desired Entry Access Rate'], ['Hit Count'])=arg_max(TimeGenerated,columnifexists('access_count_d', ''),columnifexists('desired_entry_access_rate_d', ''),columnifexists('hit_count_d', '')) by Name=apache_tomcat_cache_name_s",
+                                            "query": "apache_tomcat_cache_CL | summarize([\"Last Update Time\"], ['Desired Entry Access Rate'], ['Access Count'], ['Hit Count'])=arg_max(TimeGenerated,columnifexists('desired_entry_access_rate_d', ''),columnifexists('access_count_d', ''),columnifexists('hit_count_d', '')) by Name=apache_tomcat_cache_name_s",
                                             "displayName": "Cache Memory"
                                         }
                                         ,{
                                             "query": "apache_tomcat_cache_CL | summarize([\"Last Update Time\"], ['Desired Entry Access Rate'])=arg_max(TimeGenerated,columnifexists('desired_entry_access_rate_d', '')) by Name=apache_tomcat_cache_name_s",
                                             "displayName": "Cache Properties"
                                         }
+                                        ,{
+                                            "query": "apache_tomcat_memory_CL | summarize([\"Last Update Time\"], ['JVM Memory Utilization'])=arg_max(TimeGenerated,columnifexists('jvm_memory_utilization_d', '')) by Name=apache_tomcat_memory_name_s",
+                                            "displayName": "Memory Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_operating_system_CL | summarize([\"Last Update Time\"], ['Physical Memory Utilization'], ['Swap Space Utilization'])=arg_max(TimeGenerated,columnifexists('physical_memory_utilization_d', ''),columnifexists('swap_space_utilization_d', '')) by Name=apache_tomcat_operating_system_name_s",
+                                            "displayName": "Operating System Memory"
+                                        }
+                                        ,{
+                                            "query": "apache_tomcat_operating_system_CL | summarize([\"Last Update Time\"], ['Architecture'], ['Version'])=arg_max(TimeGenerated,columnifexists('architecture_s', ''),columnifexists('version_s', '')) by Name=apache_tomcat_operating_system_name_s",
+                                            "displayName": "Operating System Properties"
+                                        }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "apache_tomcat_server_name_s",
-                            "QueryForValues": "union apache_tomcat_memory_CL, apache_tomcat_operating_system_CL, apache_tomcat_cache_CL | distinct apache_tomcat_server_name_s",
-                            "Title": "Server"
-                          },{
-                            "FieldName": "apache_tomcat_memory_name_s",
-                            "QueryForValues": "apache_tomcat_memory_CL | distinct apache_tomcat_memory_name_s",
-                            "Title": "Memory"
-                          },{
-                            "FieldName": "apache_tomcat_operating_system_name_s",
-                            "QueryForValues": "apache_tomcat_operating_system_CL | distinct apache_tomcat_operating_system_name_s",
-                            "Title": "Operating System"
-                          },{
                             "FieldName": "apache_tomcat_web_module_name_s",
                             "QueryForValues": "apache_tomcat_servlet_CL | distinct apache_tomcat_web_module_name_s",
                             "Title": "Web Module"
@@ -618,9 +606,21 @@
                             "QueryForValues": "apache_tomcat_servlet_CL | distinct apache_tomcat_servlet_name_s",
                             "Title": "Servlet"
                           },{
+                            "FieldName": "apache_tomcat_server_name_s",
+                            "QueryForValues": "union apache_tomcat_cache_CL, apache_tomcat_memory_CL, apache_tomcat_operating_system_CL | distinct apache_tomcat_server_name_s",
+                            "Title": "Server"
+                          },{
                             "FieldName": "apache_tomcat_cache_name_s",
                             "QueryForValues": "apache_tomcat_cache_CL | distinct apache_tomcat_cache_name_s",
                             "Title": "Cache"
+                          },{
+                            "FieldName": "apache_tomcat_memory_name_s",
+                            "QueryForValues": "apache_tomcat_memory_CL | distinct apache_tomcat_memory_name_s",
+                            "Title": "Memory"
+                          },{
+                            "FieldName": "apache_tomcat_operating_system_name_s",
+                            "QueryForValues": "apache_tomcat_operating_system_CL | distinct apache_tomcat_operating_system_name_s",
+                            "Title": "Operating System"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -628,9 +628,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "apache_tomcat_memory_CL | project ['JVM Memory Usage Percent'] = columnifexists('jvm_memory_usage_percent_d', double(null)), TimeGenerated, Name=apache_tomcat_memory_name_s  | extend Healthy = case(isnotnull(['JVM Memory Usage Percent']), (['JVM Memory Usage Percent'] < 90 or isnull(['JVM Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "apache_tomcat_servlet_CL | project ['Error Count'] = columnifexists('error_count_d', double(null)), TimeGenerated, Name=apache_tomcat_servlet_name_s  | extend Healthy = case(isnotnull(['Error Count']), (['Error Count'] < 1 or isnull(['Error Count'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Memory",
+                                        "Text": "Servlet",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

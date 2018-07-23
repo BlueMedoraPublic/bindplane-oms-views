@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Search Service Health",
+                                        "title": "Service Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service}  | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Service}  | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service}  | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Service}  | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Search Service Name",
+                                            "Name": "Service Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Search Service Throttled Search Queries",
+                                        "title": "Service Throttled Search Queries",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('throttled_search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Service} | summarize avg(coalesce(columnifexists('throttled_search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
                                         "Callout": {
                                             "Title": "Average Throttled Search Queries",
                                             "Series": "",
@@ -211,12 +211,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('throttled_search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Service} | summarize avg(coalesce(columnifexists('throttled_search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Search Service",
+                                            "Name": "Service",
                                             "Value": "Throttled Search Queries"
                                         },
                                         "Color": "#0072c6",
@@ -258,7 +258,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Search Service Search Latency",
+                                        "title": "Service Search Latency",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -268,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_latency_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Service} | summarize avg(coalesce(columnifexists('search_latency_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
                                         "Callout": {
                                             "Title": "Average Search Latency",
                                             "Series": "",
@@ -286,12 +286,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_latency_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Service} | summarize avg(coalesce(columnifexists('search_latency_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Search Service",
+                                            "Name": "Service",
                                             "Value": "Search Latency"
                                         },
                                         "Color": "#0072c6",
@@ -333,7 +333,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Search Service Search Queries",
+                                        "title": "Service Search Queries",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -343,7 +343,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
+                                        "Query": "microsoft_azure_search_search_service_CL | where ${Resource Group} and ${Type} and ${Status} and ${Service} | summarize avg(coalesce(columnifexists('search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s",
                                         "Callout": {
                                             "Title": "Average Search Queries",
                                             "Series": "",
@@ -361,12 +361,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Search Service} | summarize avg(coalesce(columnifexists('search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_search_search_service_CL  | where ${Resource Group} and ${Type} and ${Status} and ${Service} | summarize avg(coalesce(columnifexists('search_queries_d',0.0), 0.0)) by microsoft_azure_search_search_service_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Search Service",
+                                            "Name": "Service",
                                             "Value": "Search Queries"
                                         },
                                         "Color": "#0072c6",
@@ -567,11 +567,11 @@
 
                                         {
                                             "query": "microsoft_azure_search_search_service_CL | summarize([\"Last Update Time\"], ['Throttled Search Queries'], ['Search Latency'], ['Search Queries'])=arg_max(TimeGenerated,columnifexists('throttled_search_queries_d', ''),columnifexists('search_latency_d', ''),columnifexists('search_queries_d', '')) by Name=microsoft_azure_search_search_service_name_s",
-                                            "displayName": "Search Service Performance"
+                                            "displayName": "Service Performance"
                                         }
                                         ,{
                                             "query": "microsoft_azure_search_search_service_CL | summarize([\"Last Update Time\"], ['Hosting Mode'], ['Partition Count'], ['Provisioning State'], ['Replica Count'], ['Resource Group'], ['SKU'])=arg_max(TimeGenerated,columnifexists('hosting_mode_s', ''),columnifexists('partition_count_d', ''),columnifexists('provisioning_state_s', ''),columnifexists('replica_count_d', ''),columnifexists('resource_group_s', ''),columnifexists('sku_s', '')) by Name=microsoft_azure_search_search_service_name_s",
-                                            "displayName": "Search Service Properties"
+                                            "displayName": "Service Properties"
                                         }
                                         ,{
                                             "query": "microsoft_azure_search_api_usage_CL | summarize([\"Last Update Time\"], ['Failed Requests'], ['Average Request Retries'], ['Successful Requests'], ['Total Requests'])=arg_max(TimeGenerated,columnifexists('failed_requests_d', ''),columnifexists('average_request_retries_d', ''),columnifexists('successful_requests_d', ''),columnifexists('total_requests_d', '')) by Name=microsoft_azure_search_api_usage_name_s",
@@ -596,7 +596,7 @@
                           },{
                             "FieldName": "microsoft_azure_search_search_service_name_s",
                             "QueryForValues": "union microsoft_azure_search_search_service_CL, microsoft_azure_search_query_key_CL | distinct microsoft_azure_search_search_service_name_s",
-                            "Title": "Search Service"
+                            "Title": "Service"
                           },{
                             "FieldName": "microsoft_azure_search_query_key_name_s",
                             "QueryForValues": "microsoft_azure_search_query_key_CL | distinct microsoft_azure_search_query_key_name_s",
@@ -614,7 +614,7 @@
                                 "Donut": {
                                     "Query": "microsoft_azure_search_search_service_CL | project ['Throttled Search Queries'] = columnifexists('throttled_search_queries_d', double(null)), TimeGenerated, Name=microsoft_azure_search_search_service_name_s  | extend Healthy = case(isnotnull(['Throttled Search Queries']), (['Throttled Search Queries'] < 10.0 or isnull(['Throttled Search Queries'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Search Service",
+                                        "Text": "Service",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

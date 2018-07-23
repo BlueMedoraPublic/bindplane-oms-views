@@ -56,7 +56,7 @@
                                     "General": {
                                         "Title": "VMware vCenter Overview",
                                         "NewGroup": false,
-                                        "Color": "#4423559"
+                                        "Color": "#0072c6"
                                     },
                                     "Header": {
                                         "Image": "data:image/png;base64,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",
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Utilization']), (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System}  | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Utilization']), (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -169,89 +169,14 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationQuery": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Utilization']), (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                            "NavigationQuery": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Utilization']), (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null))"
                                         }
                                     }
                                 }
                             },
 
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Host System Average CPU Speed",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Average CPU Speed",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('average_cpu_speed_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
-                                        "Callout": {
-                                            "Title": "Average CPU Speed",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Megahertz"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('average_cpu_speed_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Host System",
-                                            "Value": "Average CPU Speed"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
                             {
                                 "Id": "LineChartCalloutBuilderBlade",
                                 "Type": "Blade",
@@ -296,17 +221,17 @@
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "85.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "75.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -333,19 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Host System Disk Read Latency",
+                                        "title": "Host System Memory Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Disk Read Latency",
+                                        "Title": "Memory Utilization",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
+                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
                                         "Callout": {
-                                            "Title": "Average Disk Read Latency",
+                                            "Title": "Average Memory Utilization",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -356,18 +281,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Percent"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
+                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Host System",
-                                            "Value": "Disk Read Latency"
+                                            "Value": "Memory Utilization"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -408,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Host System Disk Write Latency",
+                                        "title": "Virtual Machine CPU Used",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Disk Write Latency",
+                                        "Title": "CPU Used",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_write_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
+                                        "Query": "vmware_vcenter_virtual_machine_CL | where ${Guest OS Full Name} and ${Datacenter Name} and ${Host Name} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_used_d',0.0), 0.0)) by vmware_vcenter_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Disk Write Latency",
+                                            "Title": "Average CPU Used",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -431,18 +356,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Percent"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_write_latency_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
+                                        "Query": "vmware_vcenter_virtual_machine_CL  | where ${Guest OS Full Name} and ${Datacenter Name} and ${Host Name} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('cpu_used_d',0.0), 0.0)) by vmware_vcenter_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Host System",
-                                            "Value": "Disk Write Latency"
+                                            "Name": "Virtual Machine",
+                                            "Value": "CPU Used"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -483,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Host System Disk Read Throughput",
+                                        "title": "Virtual Machine Memory Used",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Disk Read Throughput",
+                                        "Title": "Memory Used",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "vmware_vcenter_host_system_CL | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_throughput_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s",
+                                        "Query": "vmware_vcenter_virtual_machine_CL | where ${Guest OS Full Name} and ${Datacenter Name} and ${Host Name} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_used_d',0.0), 0.0)) by vmware_vcenter_virtual_machine_name_s",
                                         "Callout": {
-                                            "Title": "Average Disk Read Throughput",
+                                            "Title": "Average Memory Used",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +431,93 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Kilobytes per Second"
+                                            "customLabel": "Percent"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "vmware_vcenter_host_system_CL  | where ${Cluster Name} and ${Datacenter Name} and ${Vendor} and ${Host System} | summarize avg(coalesce(columnifexists('disk_read_throughput_d',0.0), 0.0)) by vmware_vcenter_host_system_name_s | order by avg_ desc",
+                                        "Query": "vmware_vcenter_virtual_machine_CL  | where ${Guest OS Full Name} and ${Datacenter Name} and ${Host Name} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('memory_used_d',0.0), 0.0)) by vmware_vcenter_virtual_machine_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Host System",
-                                            "Value": "Disk Read Throughput"
+                                            "Name": "Virtual Machine",
+                                            "Value": "Memory Used"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Machine Disk Space Used",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk Space Used",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "vmware_vcenter_virtual_machine_CL | where ${Guest OS Full Name} and ${Datacenter Name} and ${Host Name} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_space_used_d',0.0), 0.0)) by vmware_vcenter_virtual_machine_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk Space Used",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "vmware_vcenter_virtual_machine_CL  | where ${Guest OS Full Name} and ${Datacenter Name} and ${Host Name} and ${Virtual Machine} | summarize avg(coalesce(columnifexists('disk_space_used_d',0.0), 0.0)) by vmware_vcenter_virtual_machine_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Machine",
+                                            "Value": "Disk Space Used"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,8 +566,12 @@
                                     "queries": [
 
                                         {
-                                            "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['Average CPU Speed'], ['CPU Utilization'])=arg_max(TimeGenerated,columnifexists('average_cpu_speed_d', ''),columnifexists('cpu_utilization_d', '')) by Name=vmware_vcenter_host_system_name_s",
+                                            "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['CPU Utilization'], ['Average CPU Speed'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', ''),columnifexists('average_cpu_speed_d', '')) by Name=vmware_vcenter_host_system_name_s",
                                             "displayName": "Host System CPU"
+                                        }
+                                        ,{
+                                            "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['Memory Utilization'], ['Used Memory'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', ''),columnifexists('used_memory_d', '')) by Name=vmware_vcenter_host_system_name_s",
+                                            "displayName": "Host System Memory"
                                         }
                                         ,{
                                             "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['Disk Read Latency'], ['Disk Write Latency'], ['Disk Read Throughput'], ['Disk Write Throughput'])=arg_max(TimeGenerated,columnifexists('disk_read_latency_d', ''),columnifexists('disk_write_latency_d', ''),columnifexists('disk_read_throughput_d', ''),columnifexists('disk_write_throughput_d', '')) by Name=vmware_vcenter_host_system_name_s",
@@ -578,10 +582,6 @@
                                             "displayName": "Host System Network"
                                         }
                                         ,{
-                                            "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['Memory Utilization'], ['Used Memory'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', ''),columnifexists('used_memory_d', '')) by Name=vmware_vcenter_host_system_name_s",
-                                            "displayName": "Host System Memory"
-                                        }
-                                        ,{
                                             "query": "vmware_vcenter_host_system_CL | summarize([\"Last Update Time\"], ['CPU Cores'], ['Model'], ['Product Type'], ['Product Version'], ['Total Memory'], ['Vendor'], ['VMotion Enabled'])=arg_max(TimeGenerated,columnifexists('cpu_cores_d', ''),columnifexists('model_s', ''),columnifexists('product_type_s', ''),columnifexists('product_version_s', ''),columnifexists('total_memory_d', ''),columnifexists('vendor_s', ''),columnifexists('vmotion_enabled_d', '')) by Name=vmware_vcenter_host_system_name_s",
                                             "displayName": "Host System Properties"
                                         }
@@ -590,16 +590,16 @@
                                             "displayName": "Virtual Machine CPU"
                                         }
                                         ,{
+                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Memory Used'])=arg_max(TimeGenerated,columnifexists('memory_used_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine Memory"
+                                        }
+                                        ,{
                                             "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Disk Space Used'], ['Disk Read Latency'], ['Disk Write Latency'], ['Disk Throughput'])=arg_max(TimeGenerated,columnifexists('disk_space_used_d', ''),columnifexists('disk_read_latency_d', ''),columnifexists('disk_write_latency_d', ''),columnifexists('disk_throughput_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
                                             "displayName": "Virtual Machine Disk"
                                         }
                                         ,{
                                             "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Network Throughput'])=arg_max(TimeGenerated,columnifexists('network_throughput_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
                                             "displayName": "Virtual Machine Network"
-                                        }
-                                        ,{
-                                            "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Memory Used'])=arg_max(TimeGenerated,columnifexists('memory_used_d', '')) by Name=vmware_vcenter_virtual_machine_name_s",
-                                            "displayName": "Virtual Machine Memory"
                                         }
                                         ,{
                                             "query": "vmware_vcenter_virtual_machine_CL | summarize([\"Last Update Time\"], ['Disk Space Capacity'], ['Guest OS Full Name'], ['Host Name'], ['IP Addresses'], ['Memory Capacity'], ['Virtual Machine Name'], ['VM Primary IP Address'])=arg_max(TimeGenerated,columnifexists('disk_space_capacity_d', ''),columnifexists('guest_os_full_name_s', ''),columnifexists('host_name_s', ''),columnifexists('ip_addresses_s', ''),columnifexists('memory_capacity_d', ''),columnifexists('virtual_machine_name_s', ''),columnifexists('vm_primary_ip_address_s', '')) by Name=vmware_vcenter_virtual_machine_name_s",
@@ -660,7 +660,7 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE', (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "vmware_vcenter_host_system_CL | project ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), TimeGenerated, Name=vmware_vcenter_host_system_name_s  | extend Healthy = case(coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['CPU Utilization']), (['Status'] == 'green' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
                                         "Text": "Host System",
                                         "Operation": "Sum",

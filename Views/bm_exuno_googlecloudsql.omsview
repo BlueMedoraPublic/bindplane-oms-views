@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 1.0 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 1.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 1.0 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "google_cloudsql_instance_CL | where ${Tier} and ${ Data Disk Type } and ${Type Of Instance} and ${Instance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 1.0 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 1.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 1.0 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null))",
+                                        "NavigationQuery": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 1.0 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 1.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 1.0 or isnull(['Memory Utilization'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null))"
+                                            "NavigationQuery": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 1.0 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 1.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 1.0 or isnull(['Memory Utilization'])), bool(null))"
                                         }
                                     }
                                 }
@@ -206,7 +206,7 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "CPU Utilization"
                                         },
                                         "NavigationSelect": {}
                                     },
@@ -225,13 +225,13 @@
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "85.0",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "75.0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -281,7 +281,7 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Disk Utilization"
                                         },
                                         "NavigationSelect": {}
                                     },
@@ -300,13 +300,13 @@
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "85.0",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "75.0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -356,7 +356,7 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Memory Utilization"
                                         },
                                         "NavigationSelect": {}
                                     },
@@ -375,13 +375,13 @@
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90.0",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "80.0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -582,16 +582,16 @@
                                             "displayName": "Instance Properties"
                                         }
                                         ,{
-                                            "query": "google_cloudsql_backupRun_CL | summarize([\"Last Update Time\"], ['Description'], ['End Time'], ['Error Message'], ['Instance'], ['Kind'], ['Start Time'], ['Type'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('end_time_s', ''),columnifexists('error_message_s', ''),columnifexists('instance_s', ''),columnifexists('kind_s', ''),columnifexists('start_time_s', ''),columnifexists('type_s', '')) by Name=google_cloudsql_backupRun_name_s",
-                                            "displayName": "Backup Run Properties"
-                                        }
-                                        ,{
                                             "query": "google_cloudsql_flag_CL | summarize([\"Last Update Time\"], ['Value'])=arg_max(TimeGenerated,columnifexists('value_s', '')) by Name=google_cloudsql_flag_name_s",
                                             "displayName": "Flag Properties"
                                         }
                                         ,{
                                             "query": "google_cloudsql_label_CL | summarize([\"Last Update Time\"], ['Value'])=arg_max(TimeGenerated,columnifexists('value_s', '')) by Name=google_cloudsql_label_name_s",
                                             "displayName": "Label Properties"
+                                        }
+                                        ,{
+                                            "query": "google_cloudsql_backup_run_CL | summarize([\"Last Update Time\"], ['Description'], ['End Time'], ['Error Message'], ['Instance'], ['Kind'], ['Start Time'], ['Type'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('end_time_s', ''),columnifexists('error_message_s', ''),columnifexists('instance_s', ''),columnifexists('kind_s', ''),columnifexists('start_time_s', ''),columnifexists('type_s', '')) by Name=google_cloudsql_backup_run_name_s",
+                                            "displayName": "Backup Run Properties"
                                         }
                                     ]
                                 }
@@ -611,12 +611,8 @@
                             "Title": "Type Of Instance"
                           },{
                             "FieldName": "google_cloudsql_instance_name_s",
-                            "QueryForValues": "union google_cloudsql_instance_CL, google_cloudsql_backupRun_CL, google_cloudsql_flag_CL, google_cloudsql_label_CL | distinct google_cloudsql_instance_name_s",
+                            "QueryForValues": "union google_cloudsql_instance_CL, google_cloudsql_flag_CL, google_cloudsql_label_CL, google_cloudsql_backup_run_CL | distinct google_cloudsql_instance_name_s",
                             "Title": "Instance"
-                          },{
-                            "FieldName": "google_cloudsql_backupRun_name_s",
-                            "QueryForValues": "google_cloudsql_backupRun_CL | distinct google_cloudsql_backupRun_name_s",
-                            "Title": "Backup Run"
                           },{
                             "FieldName": "google_cloudsql_flag_name_s",
                             "QueryForValues": "google_cloudsql_flag_CL | distinct google_cloudsql_flag_name_s",
@@ -625,6 +621,10 @@
                             "FieldName": "google_cloudsql_label_name_s",
                             "QueryForValues": "google_cloudsql_label_CL | distinct google_cloudsql_label_name_s",
                             "Title": "Label"
+                          },{
+                            "FieldName": "google_cloudsql_backup_run_name_s",
+                            "QueryForValues": "google_cloudsql_backup_run_CL | distinct google_cloudsql_backup_run_name_s",
+                            "Title": "Backup Run"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -632,7 +632,7 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 85.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 90.0 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "google_cloudsql_instance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Utilization'] = columnifexists('disk_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=google_cloudsql_instance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 1.0 or isnull(['CPU Utilization'])) and (['Disk Utilization'] < 1.0 or isnull(['Disk Utilization'])) and (['Memory Utilization'] < 1.0 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
                                         "Text": "Instance",
                                         "Operation": "Sum",

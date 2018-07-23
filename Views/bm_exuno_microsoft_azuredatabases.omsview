@@ -625,30 +625,12 @@
                                             "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['I/O Consumption'])=arg_max(TimeGenerated,columnifexists('io_consumption_d', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
                                             "displayName": "PostgreSQL Server Performance"
                                         }
-                                        ,{
-                                            "query": "microsoft_azure_databases_postgresql_server_CL | summarize([\"Last Update Time\"], ['Backup Retention'], ['Geo-redundant Backup'], ['SKU Capacity'], ['SKU Name'], ['SSL Enforcement'], ['Storage Limit'], ['User Visible State'])=arg_max(TimeGenerated,columnifexists('backup_retention_d', ''),columnifexists('geo_redundant_backup_s', ''),columnifexists('sku_capacity_d', ''),columnifexists('sku_name_s', ''),columnifexists('ssl_enforcement_s', ''),columnifexists('storage_limit_d', ''),columnifexists('user_visible_state_s', '')) by Name=microsoft_azure_databases_postgresql_server_name_s",
-                                            "displayName": "PostgreSQL Server Properties"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['CPU Usage'], ['Data Warehouse Node Level CPU Usage'])=arg_max(TimeGenerated,columnifexists('cpu_usage_d', ''),columnifexists('data_warehouse_node_level_cpu_usage_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
-                                            "displayName": "SQL Database CPU"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Sessions Usage'], ['Deadlocks'], ['DTU Usage'], ['DWU Consumption Usage'])=arg_max(TimeGenerated,columnifexists('sessions_usage_d', ''),columnifexists('deadlocks_d', ''),columnifexists('dtu_usage_d', ''),columnifexists('dwu_consumption_usage_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
-                                            "displayName": "SQL Database Performance"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Successful Connections'], ['Failed Connections'])=arg_max(TimeGenerated,columnifexists('successful_connections_d', ''),columnifexists('failed_connections_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
-                                            "displayName": "SQL Database Network"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Physical Data Read Usage'], ['Data Warehouse Node Data Read Usage'])=arg_max(TimeGenerated,columnifexists('physical_data_read_usage_d', ''),columnifexists('data_warehouse_node_data_read_usage_d', '')) by Name=microsoft_azure_databases_sql_database_name_s",
-                                            "displayName": "SQL Database Disk"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_databases_sql_database_CL | summarize([\"Last Update Time\"], ['Collation'], ['Failover Group ID'], ['Kind'], ['Read Scale'], ['Requested Service Objective Name'], ['Sample Name'], ['Service Level Objective'])=arg_max(TimeGenerated,columnifexists('collation_s', ''),columnifexists('failover_group_id_s', ''),columnifexists('kind_s', ''),columnifexists('read_scale_s', ''),columnifexists('requested_service_objective_name_s', ''),columnifexists('sample_name_s', ''),columnifexists('service_level_objective_s', '')) by Name=microsoft_azure_databases_sql_database_name_s",
-                                            "displayName": "SQL Database Properties"
-                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                     ]
                                 }
                             }

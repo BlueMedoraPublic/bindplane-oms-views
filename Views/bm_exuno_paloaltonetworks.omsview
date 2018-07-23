@@ -590,7 +590,7 @@
                                             "displayName": "Application Details"
                                         }
                                         ,{
-                                            "query": "paloalto_networks_interface_CL | summarize([\"Last Update Time\"], ['Data Dropped'])=arg_max(TimeGenerated,columnifexists('data_dropped_rate_d', '')) by Name=paloalto_networks_interface_name_s",
+                                            "query": "paloalto_networks_interface_CL | summarize([\"Last Update Time\"], ['Physical Port Received Throughput'], ['Physical Port Sent Throughput'], ['Hardware Received Throughput'], ['Hardware Sent Throughput'], ['Logical Received Throughput'], ['Logical Sent Throughput'], ['Errors Received'])=arg_max(TimeGenerated,columnifexists('physical_port_received_throughput_rate_d', ''),columnifexists('physical_port_sent_throughput_rate_d', ''),columnifexists('hardware_received_throughput_rate_d', ''),columnifexists('hardware_sent_throughput_rate_d', ''),columnifexists('logical_received_throughput_rate_d', ''),columnifexists('logical_sent_throughput_rate_d', ''),columnifexists('errors_received_rate_d', '')) by Name=paloalto_networks_interface_name_s",
                                             "displayName": "Interface Network"
                                         }
                                         ,{

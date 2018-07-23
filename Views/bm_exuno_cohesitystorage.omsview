@@ -56,7 +56,7 @@
                                     "General": {
                                         "Title": "Cohesity Storage Overview",
                                         "NewGroup": false,
-                                        "Color": "#55d455"
+                                        "Color": "#008272"
                                     },
                                     "Header": {
                                         "Image": "data:image/png;base64,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",
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box}  | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box}  | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), ['Cloud and Local Read Latency'] = columnifexists('cloud_and_local_read_latency_d', double(null)), ['Cloud and Local Write Latency'] = columnifexists('cloud_and_local_write_latency_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']) or isnotnull(['Cloud and Local Read Latency']) or isnotnull(['Cloud and Local Write Latency']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])) and (['Cloud and Local Read Latency'] < 100 or isnull(['Cloud and Local Read Latency'])) and (['Cloud and Local Write Latency'] < 100 or isnull(['Cloud and Local Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box}  | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box}  | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), ['Cloud and Local Read Latency'] = columnifexists('cloud_and_local_read_latency_d', double(null)), ['Cloud and Local Write Latency'] = columnifexists('cloud_and_local_write_latency_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']) or isnotnull(['Cloud and Local Read Latency']) or isnotnull(['Cloud and Local Write Latency']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])) and (['Cloud and Local Read Latency'] < 100 or isnull(['Cloud and Local Read Latency'])) and (['Cloud and Local Write Latency'] < 100 or isnull(['Cloud and Local Write Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -169,239 +169,14 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "cohesity_storage_view_box_CL | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])), bool(null))",
+                                        "NavigationQuery": "cohesity_storage_view_box_CL | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), ['Cloud and Local Read Latency'] = columnifexists('cloud_and_local_read_latency_d', double(null)), ['Cloud and Local Write Latency'] = columnifexists('cloud_and_local_write_latency_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']) or isnotnull(['Cloud and Local Read Latency']) or isnotnull(['Cloud and Local Write Latency']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])) and (['Cloud and Local Read Latency'] < 100 or isnull(['Cloud and Local Read Latency'])) and (['Cloud and Local Write Latency'] < 100 or isnull(['Cloud and Local Write Latency'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "cohesity_storage_view_box_CL | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])), bool(null))"
+                                            "NavigationQuery": "cohesity_storage_view_box_CL | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), ['Cloud and Local Read Latency'] = columnifexists('cloud_and_local_read_latency_d', double(null)), ['Cloud and Local Write Latency'] = columnifexists('cloud_and_local_write_latency_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']) or isnotnull(['Cloud and Local Read Latency']) or isnotnull(['Cloud and Local Write Latency']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])) and (['Cloud and Local Read Latency'] < 100 or isnull(['Cloud and Local Read Latency'])) and (['Cloud and Local Write Latency'] < 100 or isnull(['Cloud and Local Write Latency'])), bool(null))"
                                         }
                                     }
                                 }
                             },
 
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Protection Job Current Logical Backup Size",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Current Logical Backup Size",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "cohesity_storage_protection_job_CL | where ${Protection Source} and ${Protection Policy} and ${View Box} and ${Environment} and ${Priority} and ${Protection Job} | summarize avg(coalesce(columnifexists('current_logical_backup_size_d',0.0), 0.0)) by cohesity_storage_protection_job_name_s",
-                                        "Callout": {
-                                            "Title": "Average Current Logical Backup Size",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Bytes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "cohesity_storage_protection_job_CL  | where ${Protection Source} and ${Protection Policy} and ${View Box} and ${Environment} and ${Priority} and ${Protection Job} | summarize avg(coalesce(columnifexists('current_logical_backup_size_d',0.0), 0.0)) by cohesity_storage_protection_job_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Protection Job",
-                                            "Value": "Current Logical Backup Size"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Protection Job Current Physical Backup Size",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Current Physical Backup Size",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "cohesity_storage_protection_job_CL | where ${Protection Source} and ${Protection Policy} and ${View Box} and ${Environment} and ${Priority} and ${Protection Job} | summarize avg(coalesce(columnifexists('current_physical_backup_size_d',0.0), 0.0)) by cohesity_storage_protection_job_name_s",
-                                        "Callout": {
-                                            "Title": "Average Current Physical Backup Size",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Bytes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "cohesity_storage_protection_job_CL  | where ${Protection Source} and ${Protection Policy} and ${View Box} and ${Environment} and ${Priority} and ${Protection Job} | summarize avg(coalesce(columnifexists('current_physical_backup_size_d',0.0), 0.0)) by cohesity_storage_protection_job_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Protection Job",
-                                            "Value": "Current Physical Backup Size"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Protection Job Current Source Size",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Current Source Size",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "cohesity_storage_protection_job_CL | where ${Protection Source} and ${Protection Policy} and ${View Box} and ${Environment} and ${Priority} and ${Protection Job} | summarize avg(coalesce(columnifexists('current_source_size_d',0.0), 0.0)) by cohesity_storage_protection_job_name_s",
-                                        "Callout": {
-                                            "Title": "Average Current Source Size",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Bytes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "cohesity_storage_protection_job_CL  | where ${Protection Source} and ${Protection Policy} and ${View Box} and ${Environment} and ${Priority} and ${Protection Job} | summarize avg(coalesce(columnifexists('current_source_size_d',0.0), 0.0)) by cohesity_storage_protection_job_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Protection Job",
-                                            "Value": "Current Source Size"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
                             {
                                 "Id": "LineChartCalloutBuilderBlade",
                                 "Type": "Blade",
@@ -553,6 +328,231 @@
                             }
 ,
                             {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "View Box Cloud and Local Read Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Cloud and Local Read Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box} | summarize avg(coalesce(columnifexists('cloud_and_local_read_latency_d',0.0), 0.0)) by cohesity_storage_view_box_name_s",
+                                        "Callout": {
+                                            "Title": "Average Cloud and Local Read Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cohesity_storage_view_box_CL  | where ${Partition} and ${View Box} | summarize avg(coalesce(columnifexists('cloud_and_local_read_latency_d',0.0), 0.0)) by cohesity_storage_view_box_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "View Box",
+                                            "Value": "Cloud and Local Read Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "100.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "90.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "View Box Cloud and Local Write Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Cloud and Local Write Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box} | summarize avg(coalesce(columnifexists('cloud_and_local_write_latency_d',0.0), 0.0)) by cohesity_storage_view_box_name_s",
+                                        "Callout": {
+                                            "Title": "Average Cloud and Local Write Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cohesity_storage_view_box_CL  | where ${Partition} and ${View Box} | summarize avg(coalesce(columnifexists('cloud_and_local_write_latency_d',0.0), 0.0)) by cohesity_storage_view_box_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "View Box",
+                                            "Value": "Cloud and Local Write Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "100.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "90.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "View Box Cloud and Local Reads",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Cloud and Local Reads",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cohesity_storage_view_box_CL | where ${Partition} and ${View Box} | summarize avg(coalesce(columnifexists('cloud_and_local_reads_d',0.0), 0.0)) by cohesity_storage_view_box_name_s",
+                                        "Callout": {
+                                            "Title": "Average Cloud and Local Reads",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cohesity_storage_view_box_CL  | where ${Partition} and ${View Box} | summarize avg(coalesce(columnifexists('cloud_and_local_reads_d',0.0), 0.0)) by cohesity_storage_view_box_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "View Box",
+                                            "Value": "Cloud and Local Reads"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
                                 "Id": "NotableQueriesBuilderBlade",
                                 "Type": "Blade",
                                 "Version": 0,
@@ -570,7 +570,7 @@
                                             "displayName": "View Box Disk"
                                         }
                                         ,{
-                                            "query": "cohesity_storage_view_box_CL | summarize([\"Last Update Time\"], ['Cloud and Local Data Read'], ['Cloud and Local Data Written'], ['Cloud and Local Read Latency'], ['Cloud and Local Write Latency'], ['Cloud and Local Reads'], ['Cloud and Local Writes'])=arg_max(TimeGenerated,columnifexists('cloud_and_local_data_read_d', ''),columnifexists('cloud_and_local_data_written_d', ''),columnifexists('cloud_and_local_read_latency_d', ''),columnifexists('cloud_and_local_write_latency_d', ''),columnifexists('cloud_and_local_reads_d', ''),columnifexists('cloud_and_local_writes_d', '')) by Name=cohesity_storage_view_box_name_s",
+                                            "query": "cohesity_storage_view_box_CL | summarize([\"Last Update Time\"], ['Cloud and Local Read Latency'], ['Cloud and Local Write Latency'], ['Cloud and Local Reads'], ['Cloud and Local Writes'], ['Cloud and Local Data Read'], ['Cloud and Local Data Written'])=arg_max(TimeGenerated,columnifexists('cloud_and_local_read_latency_d', ''),columnifexists('cloud_and_local_write_latency_d', ''),columnifexists('cloud_and_local_reads_d', ''),columnifexists('cloud_and_local_writes_d', ''),columnifexists('cloud_and_local_data_read_d', ''),columnifexists('cloud_and_local_data_written_d', '')) by Name=cohesity_storage_view_box_name_s",
                                             "displayName": "View Box Performance"
                                         }
                                         ,{
@@ -644,7 +644,7 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "cohesity_storage_view_box_CL | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "cohesity_storage_view_box_CL | project ['Cloud and Local Total Physical Usage'] = columnifexists('cloud_and_local_total_physical_usage_d', double(null)), ['Cloud and Local Physical Capacity'] = columnifexists('cloud_and_local_physical_capacity_d', double(null)), ['Cloud and Local System Usage'] = columnifexists('cloud_and_local_system_usage_d', double(null)), ['Cloud and Local System Capacity'] = columnifexists('cloud_and_local_system_capacity_d', double(null)), ['Cloud and Local Read Latency'] = columnifexists('cloud_and_local_read_latency_d', double(null)), ['Cloud and Local Write Latency'] = columnifexists('cloud_and_local_write_latency_d', double(null)), TimeGenerated, Name=cohesity_storage_view_box_name_s  | extend Healthy = case(isnotnull(['Cloud and Local Total Physical Usage']) or isnotnull(['Cloud and Local Physical Capacity']) or isnotnull(['Cloud and Local System Usage']) or isnotnull(['Cloud and Local System Capacity']) or isnotnull(['Cloud and Local Read Latency']) or isnotnull(['Cloud and Local Write Latency']), (['Cloud and Local Total Physical Usage'] < ['Cloud and Local Physical Capacity'] or isnull(['Cloud and Local Total Physical Usage']) or isnull(['Cloud and Local Physical Capacity'])) and (['Cloud and Local System Usage'] < ['Cloud and Local System Capacity'] or isnull(['Cloud and Local System Usage']) or isnull(['Cloud and Local System Capacity'])) and (['Cloud and Local Read Latency'] < 100 or isnull(['Cloud and Local Read Latency'])) and (['Cloud and Local Write Latency'] < 100 or isnull(['Cloud and Local Write Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
                                         "Text": "View Box",
                                         "Operation": "Sum",

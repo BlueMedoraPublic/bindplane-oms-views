@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Disk Health",
+                                        "title": "Virtual Volume Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk}  | project ['Chunklets Available Failed'] = columnifexists('chunklets_available_failed_d', double(null)), ['Chunklets Used Failed'] = columnifexists('chunklets_used_failed_d', double(null)), ['Spare Chunklets Available Failed'] = columnifexists('spare_chunklets_available_failed_d', double(null)), ['Spare Chunklets Used Failed'] = columnifexists('spare_chunklets_used_failed_d', double(null)), ['Temperature'] = columnifexists('temperature_d', double(null)), TimeGenerated, Name=hpe_3par_disk_name_s  | extend Healthy = case(isnotnull(['Chunklets Available Failed']) or isnotnull(['Chunklets Used Failed']) or isnotnull(['Spare Chunklets Available Failed']) or isnotnull(['Spare Chunklets Used Failed']) or isnotnull(['Temperature']), (['Chunklets Available Failed'] < 1 or isnull(['Chunklets Available Failed'])) and (['Chunklets Used Failed'] < 1 or isnull(['Chunklets Used Failed'])) and (['Spare Chunklets Available Failed'] < 1 or isnull(['Spare Chunklets Available Failed'])) and (['Spare Chunklets Used Failed'] < 1 or isnull(['Spare Chunklets Used Failed'])) and (['Temperature'] < 50 or isnull(['Temperature'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume}  | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Total Used Space'] = columnifexists('total_used_space_d', double(null)), TimeGenerated, Name=hpe_3par_virtual_volume_name_s  | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Total Used Space']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])) and (['Total Used Space'] > 0 or isnull(['Total Used Space'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk}  | project ['Chunklets Available Failed'] = columnifexists('chunklets_available_failed_d', double(null)), ['Chunklets Used Failed'] = columnifexists('chunklets_used_failed_d', double(null)), ['Spare Chunklets Available Failed'] = columnifexists('spare_chunklets_available_failed_d', double(null)), ['Spare Chunklets Used Failed'] = columnifexists('spare_chunklets_used_failed_d', double(null)), ['Temperature'] = columnifexists('temperature_d', double(null)), TimeGenerated, Name=hpe_3par_disk_name_s  | extend Healthy = case(isnotnull(['Chunklets Available Failed']) or isnotnull(['Chunklets Used Failed']) or isnotnull(['Spare Chunklets Available Failed']) or isnotnull(['Spare Chunklets Used Failed']) or isnotnull(['Temperature']), (['Chunklets Available Failed'] < 1 or isnull(['Chunklets Available Failed'])) and (['Chunklets Used Failed'] < 1 or isnull(['Chunklets Used Failed'])) and (['Spare Chunklets Available Failed'] < 1 or isnull(['Spare Chunklets Available Failed'])) and (['Spare Chunklets Used Failed'] < 1 or isnull(['Spare Chunklets Used Failed'])) and (['Temperature'] < 50 or isnull(['Temperature'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume}  | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Total Used Space'] = columnifexists('total_used_space_d', double(null)), TimeGenerated, Name=hpe_3par_virtual_volume_name_s  | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Total Used Space']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])) and (['Total Used Space'] > 0 or isnull(['Total Used Space'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Disk Name",
+                                            "Name": "Virtual Volume Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "hpe_3par_disk_CL | project ['Chunklets Available Failed'] = columnifexists('chunklets_available_failed_d', double(null)), ['Chunklets Used Failed'] = columnifexists('chunklets_used_failed_d', double(null)), ['Spare Chunklets Available Failed'] = columnifexists('spare_chunklets_available_failed_d', double(null)), ['Spare Chunklets Used Failed'] = columnifexists('spare_chunklets_used_failed_d', double(null)), ['Temperature'] = columnifexists('temperature_d', double(null)), TimeGenerated, Name=hpe_3par_disk_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Chunklets Available Failed']) or isnotnull(['Chunklets Used Failed']) or isnotnull(['Spare Chunklets Available Failed']) or isnotnull(['Spare Chunklets Used Failed']) or isnotnull(['Temperature']), (['Chunklets Available Failed'] < 1 or isnull(['Chunklets Available Failed'])) and (['Chunklets Used Failed'] < 1 or isnull(['Chunklets Used Failed'])) and (['Spare Chunklets Available Failed'] < 1 or isnull(['Spare Chunklets Available Failed'])) and (['Spare Chunklets Used Failed'] < 1 or isnull(['Spare Chunklets Used Failed'])) and (['Temperature'] < 50 or isnull(['Temperature'])), bool(null))",
+                                        "NavigationQuery": "hpe_3par_virtual_volume_CL | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Total Used Space'] = columnifexists('total_used_space_d', double(null)), TimeGenerated, Name=hpe_3par_virtual_volume_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Total Used Space']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])) and (['Total Used Space'] > 0 or isnull(['Total Used Space'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "hpe_3par_disk_CL | project ['Chunklets Available Failed'] = columnifexists('chunklets_available_failed_d', double(null)), ['Chunklets Used Failed'] = columnifexists('chunklets_used_failed_d', double(null)), ['Spare Chunklets Available Failed'] = columnifexists('spare_chunklets_available_failed_d', double(null)), ['Spare Chunklets Used Failed'] = columnifexists('spare_chunklets_used_failed_d', double(null)), ['Temperature'] = columnifexists('temperature_d', double(null)), TimeGenerated, Name=hpe_3par_disk_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Chunklets Available Failed']) or isnotnull(['Chunklets Used Failed']) or isnotnull(['Spare Chunklets Available Failed']) or isnotnull(['Spare Chunklets Used Failed']) or isnotnull(['Temperature']), (['Chunklets Available Failed'] < 1 or isnull(['Chunklets Available Failed'])) and (['Chunklets Used Failed'] < 1 or isnull(['Chunklets Used Failed'])) and (['Spare Chunklets Available Failed'] < 1 or isnull(['Spare Chunklets Available Failed'])) and (['Spare Chunklets Used Failed'] < 1 or isnull(['Spare Chunklets Used Failed'])) and (['Temperature'] < 50 or isnull(['Temperature'])), bool(null))"
+                                            "NavigationQuery": "hpe_3par_virtual_volume_CL | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Total Used Space'] = columnifexists('total_used_space_d', double(null)), TimeGenerated, Name=hpe_3par_virtual_volume_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Total Used Space']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])) and (['Total Used Space'] > 0 or isnull(['Total Used Space'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,157 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Disk Read I/O",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Read I/O",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('read_io_d',0.0), 0.0)) by hpe_3par_disk_name_s",
-                                        "Callout": {
-                                            "Title": "Average Read I/O",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Reads per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "hpe_3par_disk_CL  | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('read_io_d',0.0), 0.0)) by hpe_3par_disk_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Disk",
-                                            "Value": "Read I/O"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Disk Write I/O",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Write I/O",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('write_io_d',0.0), 0.0)) by hpe_3par_disk_name_s",
-                                        "Callout": {
-                                            "Title": "Average Write I/O",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Writes per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "hpe_3par_disk_CL  | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('write_io_d',0.0), 0.0)) by hpe_3par_disk_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Disk",
-                                            "Value": "Write I/O"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Disk Read Latency",
+                                        "title": "Virtual Volume Read Latency",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -343,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by hpe_3par_disk_name_s",
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s",
                                         "Callout": {
                                             "Title": "Average Read Latency",
                                             "Series": "",
@@ -361,27 +211,27 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "hpe_3par_disk_CL  | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by hpe_3par_disk_name_s | order by avg_ desc",
+                                        "Query": "hpe_3par_virtual_volume_CL  | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Disk",
+                                            "Name": "Virtual Volume",
                                             "Value": "Read Latency"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "100.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "90.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -408,7 +258,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Disk Write Latency",
+                                        "title": "Virtual Volume Write Latency",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -418,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by hpe_3par_disk_name_s",
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s",
                                         "Callout": {
                                             "Title": "Average Write Latency",
                                             "Series": "",
@@ -436,13 +286,88 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "hpe_3par_disk_CL  | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by hpe_3par_disk_name_s | order by avg_ desc",
+                                        "Query": "hpe_3par_virtual_volume_CL  | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Disk",
+                                            "Name": "Virtual Volume",
                                             "Value": "Write Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "100.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "90.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Volume Total Reserved Space",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Reserved Space",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('total_reserved_space_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Reserved Space",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Mebibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_3par_virtual_volume_CL  | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('total_reserved_space_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Volume",
+                                            "Value": "Total Reserved Space"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -483,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Disk Read Throughput",
+                                        "title": "Virtual Volume Total Used Space",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Read Throughput",
+                                        "Title": "Total Used Space",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "hpe_3par_disk_CL | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('read_throughput_d',0.0), 0.0)) by hpe_3par_disk_name_s",
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('total_used_space_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s",
                                         "Callout": {
-                                            "Title": "Average Read Throughput",
+                                            "Title": "Average Total Used Space",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +431,93 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Kilobytes per Second"
+                                            "customLabel": "Mebibytes"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "hpe_3par_disk_CL  | where ${Port} and ${Type} and ${Disk} | summarize avg(coalesce(columnifexists('read_throughput_d',0.0), 0.0)) by hpe_3par_disk_name_s | order by avg_ desc",
+                                        "Query": "hpe_3par_virtual_volume_CL  | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('total_used_space_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Disk",
-                                            "Value": "Read Throughput"
+                                            "Name": "Virtual Volume",
+                                            "Value": "Total Used Space"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "0.0",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "-1",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Virtual Volume Average Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "hpe_3par_virtual_volume_CL | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s",
+                                        "Callout": {
+                                            "Title": "Average Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "hpe_3par_virtual_volume_CL  | where ${Array} and ${State} and ${Virtual Volume} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by hpe_3par_virtual_volume_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Virtual Volume",
+                                            "Value": "Average Latency"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,7 +566,23 @@
                                     "queries": [
 
                                         {
-                                            "query": "hpe_3par_disk_CL | summarize([\"Last Update Time\"], ['Write Latency'], ['Read Throughput'], ['Write Throughput'], ['Average Latency'], ['Busy Time'], ['Total I/O'], ['Total Throughput'])=arg_max(TimeGenerated,columnifexists('write_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('average_latency_d', ''),columnifexists('busy_time_d', ''),columnifexists('total_io_d', ''),columnifexists('total_throughput_d', '')) by Name=hpe_3par_disk_name_s",
+                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Busy Time'], ['Read I/O'], ['Write I/O'], ['Read Throughput'], ['Write Throughput'], ['Total I/O'], ['Total Throughput'])=arg_max(TimeGenerated,columnifexists('busy_time_d', ''),columnifexists('read_io_d', ''),columnifexists('write_io_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('total_io_d', ''),columnifexists('total_throughput_d', '')) by Name=hpe_3par_virtual_volume_name_s",
+                                            "displayName": "Virtual Volume Performance"
+                                        }
+                                        ,{
+                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Total Reserved Space'], ['Total Used Space'])=arg_max(TimeGenerated,columnifexists('total_reserved_space_d', ''),columnifexists('total_used_space_d', '')) by Name=hpe_3par_virtual_volume_name_s",
+                                            "displayName": "Virtual Volume Capacity"
+                                        }
+                                        ,{
+                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Compaction Ratio'])=arg_max(TimeGenerated,columnifexists('compaction_ratio_d', '')) by Name=hpe_3par_virtual_volume_name_s",
+                                            "displayName": "Virtual Volume Capacity Efficiency"
+                                        }
+                                        ,{
+                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Additional States'], ['Creation Time'], ['Deduplication State'], ['Degraded States'], ['Failed States'], ['Provisioning Type'], ['WWN'])=arg_max(TimeGenerated,columnifexists('additional_states_s', ''),columnifexists('creation_time_s', ''),columnifexists('deduplication_state_s', ''),columnifexists('degraded_states_s', ''),columnifexists('failed_states_s', ''),columnifexists('provisioning_type_s', ''),columnifexists('wwn_s', '')) by Name=hpe_3par_virtual_volume_name_s",
+                                            "displayName": "Virtual Volume Properties"
+                                        }
+                                        ,{
+                                            "query": "hpe_3par_disk_CL | summarize([\"Last Update Time\"], ['Read I/O'], ['Write I/O'], ['Read Throughput'], ['Write Throughput'], ['Busy Time'], ['Total I/O'], ['Total Throughput'])=arg_max(TimeGenerated,columnifexists('read_io_d', ''),columnifexists('write_io_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('busy_time_d', ''),columnifexists('total_io_d', ''),columnifexists('total_throughput_d', '')) by Name=hpe_3par_disk_name_s",
                                             "displayName": "Disk Performance"
                                         }
                                         ,{
@@ -574,46 +590,18 @@
                                             "displayName": "Disk Capacity"
                                         }
                                         ,{
-                                            "query": "hpe_3par_disk_CL | summarize([\"Last Update Time\"], ['Life Left'])=arg_max(TimeGenerated,columnifexists('life_left_d', '')) by Name=hpe_3par_disk_name_s",
+                                            "query": "hpe_3par_disk_CL | summarize([\"Last Update Time\"], ['Temperature'], ['Life Left'])=arg_max(TimeGenerated,columnifexists('temperature_d', ''),columnifexists('life_left_d', '')) by Name=hpe_3par_disk_name_s",
                                             "displayName": "Disk Status"
                                         }
                                         ,{
                                             "query": "hpe_3par_disk_CL | summarize([\"Last Update Time\"], ['Cage ID'], ['Cage Side'], ['Magazine ID'], ['Position'], ['Speed'], ['Type'])=arg_max(TimeGenerated,columnifexists('cage_id_s', ''),columnifexists('cage_side_s', ''),columnifexists('magazine_id_s', ''),columnifexists('position_s', ''),columnifexists('speed_d', ''),columnifexists('type_s', '')) by Name=hpe_3par_disk_name_s",
                                             "displayName": "Disk Properties"
                                         }
-                                        ,{
-                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Busy Time'], ['Write Latency'], ['Read Throughput'], ['Write Throughput'], ['Total I/O'], ['Total Throughput'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('busy_time_d', ''),columnifexists('write_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('total_io_d', ''),columnifexists('total_throughput_d', '')) by Name=hpe_3par_virtual_volume_name_s",
-                                            "displayName": "Virtual Volume Performance"
-                                        }
-                                        ,{
-                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Compaction Ratio'])=arg_max(TimeGenerated,columnifexists('compaction_ratio_d', '')) by Name=hpe_3par_virtual_volume_name_s",
-                                            "displayName": "Virtual Volume Capacity Efficiency"
-                                        }
-                                        ,{
-                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Total Free Space'], ['Total Reserved Space'], ['Total Used Space'])=arg_max(TimeGenerated,columnifexists('total_free_space_d', ''),columnifexists('total_reserved_space_d', ''),columnifexists('total_used_space_d', '')) by Name=hpe_3par_virtual_volume_name_s",
-                                            "displayName": "Virtual Volume Capacity"
-                                        }
-                                        ,{
-                                            "query": "hpe_3par_virtual_volume_CL | summarize([\"Last Update Time\"], ['Additional States'], ['Creation Time'], ['Deduplication State'], ['Degraded States'], ['Failed States'], ['Provisioning Type'], ['WWN'])=arg_max(TimeGenerated,columnifexists('additional_states_s', ''),columnifexists('creation_time_s', ''),columnifexists('deduplication_state_s', ''),columnifexists('degraded_states_s', ''),columnifexists('failed_states_s', ''),columnifexists('provisioning_type_s', ''),columnifexists('wwn_s', '')) by Name=hpe_3par_virtual_volume_name_s",
-                                            "displayName": "Virtual Volume Properties"
-                                        }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "hpe_3par_port_name_s",
-                            "QueryForValues": "hpe_3par_disk_CL | distinct hpe_3par_port_name_s",
-                            "Title": "Port"
-                          },{
-                            "FieldName": "type_s",
-                            "QueryForValues": "hpe_3par_disk_CL | distinct type_s",
-                            "Title": "Type"
-                          },{
-                            "FieldName": "hpe_3par_disk_name_s",
-                            "QueryForValues": "hpe_3par_disk_CL | distinct hpe_3par_disk_name_s",
-                            "Title": "Disk"
-                          },{
                             "FieldName": "hpe_3par_array_name_s",
                             "QueryForValues": "hpe_3par_virtual_volume_CL | distinct hpe_3par_array_name_s",
                             "Title": "Array"
@@ -625,6 +613,18 @@
                             "FieldName": "hpe_3par_virtual_volume_name_s",
                             "QueryForValues": "hpe_3par_virtual_volume_CL | distinct hpe_3par_virtual_volume_name_s",
                             "Title": "Virtual Volume"
+                          },{
+                            "FieldName": "hpe_3par_port_name_s",
+                            "QueryForValues": "hpe_3par_disk_CL | distinct hpe_3par_port_name_s",
+                            "Title": "Port"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "hpe_3par_disk_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "hpe_3par_disk_name_s",
+                            "QueryForValues": "hpe_3par_disk_CL | distinct hpe_3par_disk_name_s",
+                            "Title": "Disk"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -632,9 +632,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "hpe_3par_disk_CL | project ['Chunklets Available Failed'] = columnifexists('chunklets_available_failed_d', double(null)), ['Chunklets Used Failed'] = columnifexists('chunklets_used_failed_d', double(null)), ['Spare Chunklets Available Failed'] = columnifexists('spare_chunklets_available_failed_d', double(null)), ['Spare Chunklets Used Failed'] = columnifexists('spare_chunklets_used_failed_d', double(null)), ['Temperature'] = columnifexists('temperature_d', double(null)), TimeGenerated, Name=hpe_3par_disk_name_s  | extend Healthy = case(isnotnull(['Chunklets Available Failed']) or isnotnull(['Chunklets Used Failed']) or isnotnull(['Spare Chunklets Available Failed']) or isnotnull(['Spare Chunklets Used Failed']) or isnotnull(['Temperature']), (['Chunklets Available Failed'] < 1 or isnull(['Chunklets Available Failed'])) and (['Chunklets Used Failed'] < 1 or isnull(['Chunklets Used Failed'])) and (['Spare Chunklets Available Failed'] < 1 or isnull(['Spare Chunklets Available Failed'])) and (['Spare Chunklets Used Failed'] < 1 or isnull(['Spare Chunklets Used Failed'])) and (['Temperature'] < 50 or isnull(['Temperature'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "hpe_3par_virtual_volume_CL | project ['Read Latency'] = columnifexists('read_latency_d', double(null)), ['Write Latency'] = columnifexists('write_latency_d', double(null)), ['Total Used Space'] = columnifexists('total_used_space_d', double(null)), TimeGenerated, Name=hpe_3par_virtual_volume_name_s  | extend Healthy = case(isnotnull(['Read Latency']) or isnotnull(['Write Latency']) or isnotnull(['Total Used Space']), (['Read Latency'] < 100 or isnull(['Read Latency'])) and (['Write Latency'] < 100 or isnull(['Write Latency'])) and (['Total Used Space'] > 0 or isnull(['Total Used Space'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Disk",
+                                        "Text": "Virtual Volume",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Container Health",
+                                        "title": "Storage Pool Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "nutanix_container_CL | where ${Container}  | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool}  | project ['Free Storage'] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_storage_pool_name_s  | extend Healthy = case(isnotnull(['Free Storage']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage'] > 1.0 or isnull(['Free Storage'])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "nutanix_container_CL | where ${Container}  | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool}  | project ['Free Storage'] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_storage_pool_name_s  | extend Healthy = case(isnotnull(['Free Storage']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage'] > 1.0 or isnull(['Free Storage'])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Container Name",
+                                            "Name": "Storage Pool Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "nutanix_container_CL | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null))",
+                                        "NavigationQuery": "nutanix_storage_pool_CL | project ['Free Storage'] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_storage_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Storage']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage'] > 1.0 or isnull(['Free Storage'])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "nutanix_container_CL | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null))"
+                                            "NavigationQuery": "nutanix_storage_pool_CL | project ['Free Storage'] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_storage_pool_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Storage']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage'] > 1.0 or isnull(['Free Storage'])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,19 +183,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Storage Pool Total Read IO Throughput",
+                                        "title": "Storage Pool Storage Usage",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Total Read IO Throughput",
+                                        "Title": "Storage Usage",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
                                         "Callout": {
-                                            "Title": "Average Total Read IO Throughput",
+                                            "Title": "Average Storage Usage",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -206,243 +206,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Kilobytes per Second"
+                                            "customLabel": "Kibibytes"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('storage_usage_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Storage Pool",
-                                            "Value": "Total Read IO Throughput"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Storage Pool Total Write IO Throughput",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Total Write IO Throughput",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
-                                        "Callout": {
-                                            "Title": "Average Total Write IO Throughput",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Kilobytes per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Storage Pool",
-                                            "Value": "Total Write IO Throughput"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Storage Pool Total Read IOPS",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Total Read IOPS",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
-                                        "Callout": {
-                                            "Title": "Average Total Read IOPS",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Operations per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Storage Pool",
-                                            "Value": "Total Read IOPS"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Storage Pool Total Write IOPS",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Total Write IOPS",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
-                                        "Callout": {
-                                            "Title": "Average Total Write IOPS",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Operations per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_write_iops_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Storage Pool",
-                                            "Value": "Total Write IOPS"
+                                            "Value": "Storage Usage"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -553,6 +328,231 @@
                             }
 ,
                             {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total IO Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total IO Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_io_rate_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total IO Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_io_rate_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total IO Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Average IO Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average IO Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('average_io_latency_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average IO Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('average_io_latency_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Average IO Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Total Read IO Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Read IO Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "nutanix_storage_pool_CL | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Read IO Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kilobytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "nutanix_storage_pool_CL  | where ${Storage Pool} | summarize avg(coalesce(columnifexists('total_read_io_throughput_d',0.0), 0.0)) by nutanix_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Total Read IO Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
                                 "Id": "NotableQueriesBuilderBlade",
                                 "Type": "Blade",
                                 "Version": 0,
@@ -566,34 +566,26 @@
                                     "queries": [
 
                                         {
-                                            "query": "nutanix_container_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IOPS'], ['Total Write IO Throughput'], ['Total Write IOPS'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_iops_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_write_iops_d', '')) by Name=nutanix_container_name_s",
-                                            "displayName": "Container "
-                                        }
-                                        ,{
-                                            "query": "nutanix_vm_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IOPS'], ['Total Read IOPS'], ['Total Write IOPS'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_iops_d', ''),columnifexists('total_read_iops_d', ''),columnifexists('total_write_iops_d', '')) by Name=nutanix_vm_name_s",
-                                            "displayName": "VM "
-                                        }
-                                        ,{
-                                            "query": "nutanix_storage_pool_CL | summarize([\"Last Update Time\"], ['Total Write IOPS'], ['Total IO Throughput'], ['Total IOPS'], ['Average IO Latency'], ['Storage Usage'], ['Average Read IO Latency'], ['Average Write IO Latency'])=arg_max(TimeGenerated,columnifexists('total_write_iops_d', ''),columnifexists('total_io_throughput_d', ''),columnifexists('total_iops_d', ''),columnifexists('average_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', '')) by Name=nutanix_storage_pool_name_s",
+                                            "query": "nutanix_storage_pool_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Total Read IO Throughput'], ['Total Write IO Throughput'], ['Total Read IO Rate'], ['Total Write IO Rate'], ['Average Read IO Latency'], ['Average Write IO Latency'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('total_read_io_throughput_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_read_io_rate_d', ''),columnifexists('total_write_io_rate_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', '')) by Name=nutanix_storage_pool_name_s",
                                             "displayName": "Storage Pool "
                                         }
                                         ,{
-                                            "query": "nutanix_cluster_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IOPS'], ['Total Write IO Throughput'], ['Total Write IOPS'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_iops_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_write_iops_d', '')) by Name=nutanix_cluster_name_s",
+                                            "query": "nutanix_cluster_CL | summarize([\"Last Update Time\"], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Total IO Rate'], ['Total Read IO Throughput'], ['Total Read IO Rate'], ['Total Write IO Throughput'], ['Total Write IO Rate'])=arg_max(TimeGenerated,columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('total_io_rate_d', ''),columnifexists('total_read_io_throughput_d', ''),columnifexists('total_read_io_rate_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_write_io_rate_d', '')) by Name=nutanix_cluster_name_s",
                                             "displayName": "Cluster "
+                                        }
+                                        ,{
+                                            "query": "nutanix_container_CL | summarize([\"Last Update Time\"], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Total IO Rate'], ['Total Read IO Throughput'], ['Total Read IO Rate'], ['Total Write IO Throughput'], ['Total Write IO Rate'])=arg_max(TimeGenerated,columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('total_io_rate_d', ''),columnifexists('total_read_io_throughput_d', ''),columnifexists('total_read_io_rate_d', ''),columnifexists('total_write_io_throughput_d', ''),columnifexists('total_write_io_rate_d', '')) by Name=nutanix_container_name_s",
+                                            "displayName": "Container "
+                                        }
+                                        ,{
+                                            "query": "nutanix_virtual_machine_CL | summarize([\"Last Update Time\"], ['Average IO Latency'], ['Average Read IO Latency'], ['Average Write IO Latency'], ['Storage Usage'], ['Total IO Rate'], ['Total Read IO Rate'], ['Total Write IO Rate'])=arg_max(TimeGenerated,columnifexists('average_io_latency_d', ''),columnifexists('average_read_io_latency_d', ''),columnifexists('average_write_io_latency_d', ''),columnifexists('storage_usage_d', ''),columnifexists('total_io_rate_d', ''),columnifexists('total_read_io_rate_d', ''),columnifexists('total_write_io_rate_d', '')) by Name=nutanix_virtual_machine_name_s",
+                                            "displayName": "Virtual Machine "
                                         }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "nutanix_container_name_s",
-                            "QueryForValues": "nutanix_container_CL | distinct nutanix_container_name_s",
-                            "Title": "Container"
-                          },{
-                            "FieldName": "nutanix_vm_name_s",
-                            "QueryForValues": "nutanix_vm_CL | distinct nutanix_vm_name_s",
-                            "Title": "VM"
-                          },{
                             "FieldName": "nutanix_storage_pool_name_s",
                             "QueryForValues": "nutanix_storage_pool_CL | distinct nutanix_storage_pool_name_s",
                             "Title": "Storage Pool"
@@ -601,6 +593,14 @@
                             "FieldName": "nutanix_cluster_name_s",
                             "QueryForValues": "nutanix_cluster_CL | distinct nutanix_cluster_name_s",
                             "Title": "Cluster"
+                          },{
+                            "FieldName": "nutanix_container_name_s",
+                            "QueryForValues": "nutanix_container_CL | distinct nutanix_container_name_s",
+                            "Title": "Container"
+                          },{
+                            "FieldName": "nutanix_virtual_machine_name_s",
+                            "QueryForValues": "nutanix_virtual_machine_CL | distinct nutanix_virtual_machine_name_s",
+                            "Title": "Virtual Machine"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -608,9 +608,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "nutanix_container_CL | project ['Free Storage '] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_container_name_s  | extend Healthy = case(isnotnull(['Free Storage ']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage '] > 1.0 or isnull(['Free Storage '])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "nutanix_storage_pool_CL | project ['Free Storage'] = columnifexists('free_storage_d', double(null)), ['Storage Usage'] = columnifexists('storage_usage_d', double(null)), ['Storage Capacity'] = columnifexists('storage_capacity_d', double(null)), TimeGenerated, Name=nutanix_storage_pool_name_s  | extend Healthy = case(isnotnull(['Free Storage']) or isnotnull(['Storage Usage']) or isnotnull(['Storage Capacity']), (['Free Storage'] > 1.0 or isnull(['Free Storage'])) and (['Storage Usage'] < ['Storage Capacity'] or isnull(['Storage Usage']) or isnull(['Storage Capacity'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Container",
+                                        "Text": "Storage Pool",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

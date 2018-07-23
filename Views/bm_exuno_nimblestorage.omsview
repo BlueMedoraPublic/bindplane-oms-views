@@ -469,7 +469,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "nimble_storage_volume_CL | summarize([\"Last Update Time\"], ['Combined IOPS'], ['Combined Latency'], ['Combined Throughput'], ['Read IOPS'], ['Read Throughput'], ['Write IOPS'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('combined_iops_d', ''),columnifexists('combined_latency_d', ''),columnifexists('combined_throughput_d', ''),columnifexists('read_iops_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_throughput_d', '')) by Name=nimble_storage_volume_name_s",
+                                            "query": "nimble_storage_volume_CL | summarize([\"Last Update Time\"], ['Combined IO Rate'], ['Combined Latency'], ['Combined Throughput'], ['Read IO Rate'], ['Read Throughput'], ['Write IO Rate'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('combined_io_rate_d', ''),columnifexists('combined_latency_d', ''),columnifexists('combined_throughput_d', ''),columnifexists('read_io_rate_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_io_rate_d', ''),columnifexists('write_throughput_d', '')) by Name=nimble_storage_volume_name_s",
                                             "displayName": "Volume "
                                         }
                                         ,{
@@ -497,21 +497,9 @@
                             "QueryForValues": "union nimble_storage_volume_CL, nimble_storage_pool_CL | distinct nimble_storage_pool_name_s",
                             "Title": "Pool"
                           },{
-                            "FieldName": "collection_id_s",
-                            "QueryForValues": "nimble_storage_volume_CL | distinct collection_id_s",
-                            "Title": "Collection ID"
-                          },{
-                            "FieldName": "folder_id_s",
-                            "QueryForValues": "nimble_storage_volume_CL | distinct folder_id_s",
-                            "Title": "Folder ID"
-                          },{
-                            "FieldName": "performance_policy_id_s",
-                            "QueryForValues": "nimble_storage_volume_CL | distinct performance_policy_id_s",
-                            "Title": "Performance Policy ID"
-                          },{
-                            "FieldName": "pool_id_s",
-                            "QueryForValues": "nimble_storage_volume_CL | distinct pool_id_s",
-                            "Title": "Pool ID"
+                            "FieldName": "state_s",
+                            "QueryForValues": "nimble_storage_volume_CL | distinct state_s",
+                            "Title": "State"
                           },{
                             "FieldName": "nimble_storage_volume_name_s",
                             "QueryForValues": "nimble_storage_volume_CL | distinct nimble_storage_volume_name_s",

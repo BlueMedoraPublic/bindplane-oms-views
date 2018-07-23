@@ -34,16 +34,16 @@
             "resources": [
                 {
                     "apiVersion": "2015-11-01-preview",
-                    "name": "Microsoft Internet Information Services Environment",
+                    "name": "Microsoft IIS Environment",
                     "type": "views",
                     "location": "[parameters('location')]",
-                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft Internet Information Services Environment')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Microsoft IIS Environment')]",
                     "dependson": [
                         "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
                     ],
                     "properties": {
-                        "Id": "Microsoft Internet Information Services Environment",
-                        "Name": "Microsoft Internet Information Services Environment",
+                        "Id": "Microsoft IIS Environment",
+                        "Name": "Microsoft IIS Environment",
                         "Author": "service.azure@bluemedora.com",
                         "Source": "Local",
                         "Version": 2,
@@ -54,13 +54,13 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "Title": "Microsoft Internet Information Services Overview",
+                                        "Title": "Microsoft IIS Overview",
                                         "NewGroup": false,
-                                        "Color": "#008272"
+                                        "Color": "#0072c6"
                                     },
                                     "Header": {
                                         "Image": "data:image/png;base64,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",
-                                        "Label": "Microsoft Internet Information Services",
+                                        "Label": "Microsoft IIS",
                                         "Link": {
                                             "Label": "More info",
                                             "Url": "https://bindplane.bluemedora.com"
@@ -626,53 +626,33 @@
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "microsoft_internetinformationservices_web_server_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_web_server_CL | distinct microsoft_internetinformationservices_web_server_name_s",
-                            "Title": "Web Server"
-                          },{
                             "FieldName": "status_s",
-                            "QueryForValues": "microsoft_internetinformationservices_web_server_CL | distinct status_s",
+                            "QueryForValues": "union microsoft_internetinformationservices_web_server_CL, microsoft_internetinformationservices_website_CL | distinct status_s",
                             "Title": "Status"
                           },{
                             "FieldName": "version_s",
                             "QueryForValues": "microsoft_internetinformationservices_web_server_CL | distinct version_s",
                             "Title": "Version"
                           },{
-                            "FieldName": "microsoft_internetinformationservices_website_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_website_CL | distinct microsoft_internetinformationservices_website_name_s",
-                            "Title": "Website"
-                          },{
                             "FieldName": "microsoft_internetinformationservices_web_server_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_website_CL | distinct microsoft_internetinformationservices_web_server_name_s",
+                            "QueryForValues": "union microsoft_internetinformationservices_web_server_CL, microsoft_internetinformationservices_website_CL, microsoft_internetinformationservices_application_pool_CL | distinct microsoft_internetinformationservices_web_server_name_s",
                             "Title": "Web Server"
                           },{
                             "FieldName": "enabled_protocols_s",
                             "QueryForValues": "microsoft_internetinformationservices_website_CL | distinct enabled_protocols_s",
                             "Title": "Enabled Protocols"
                           },{
-                            "FieldName": "status_s",
-                            "QueryForValues": "microsoft_internetinformationservices_website_CL | distinct status_s",
-                            "Title": "Status"
-                          },{
-                            "FieldName": "microsoft_internetinformationservices_application_pool_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_application_pool_CL | distinct microsoft_internetinformationservices_application_pool_name_s",
-                            "Title": "Application Pool"
-                          },{
-                            "FieldName": "microsoft_internetinformationservices_web_server_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_application_pool_CL | distinct microsoft_internetinformationservices_web_server_name_s",
-                            "Title": "Web Server"
+                            "FieldName": "microsoft_internetinformationservices_website_name_s",
+                            "QueryForValues": "union microsoft_internetinformationservices_website_CL, microsoft_internetinformationservices_application_CL | distinct microsoft_internetinformationservices_website_name_s",
+                            "Title": "Website"
                           },{
                             "FieldName": "manage_runtime_version_s",
                             "QueryForValues": "microsoft_internetinformationservices_application_pool_CL | distinct manage_runtime_version_s",
                             "Title": "Manage Runtime Version"
                           },{
-                            "FieldName": "microsoft_internetinformationservices_application_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_application_CL | distinct microsoft_internetinformationservices_application_name_s",
-                            "Title": "Application"
-                          },{
-                            "FieldName": "microsoft_internetinformationservices_website_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_application_CL | distinct microsoft_internetinformationservices_website_name_s",
-                            "Title": "Website"
+                            "FieldName": "microsoft_internetinformationservices_application_pool_name_s",
+                            "QueryForValues": "microsoft_internetinformationservices_application_pool_CL | distinct microsoft_internetinformationservices_application_pool_name_s",
+                            "Title": "Application Pool"
                           },{
                             "FieldName": "application_pool_status_s",
                             "QueryForValues": "microsoft_internetinformationservices_application_CL | distinct application_pool_status_s",
@@ -682,33 +662,9 @@
                             "QueryForValues": "microsoft_internetinformationservices_application_CL | distinct location_s",
                             "Title": "Location"
                           },{
-                            "FieldName": "microsoft_internetinformationservices_virtual_directory_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_virtual_directory_CL | distinct microsoft_internetinformationservices_virtual_directory_name_s",
-                            "Title": "Virtual Directory"
-                          },{
                             "FieldName": "microsoft_internetinformationservices_application_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_virtual_directory_CL | distinct microsoft_internetinformationservices_application_name_s",
+                            "QueryForValues": "microsoft_internetinformationservices_application_CL | distinct microsoft_internetinformationservices_application_name_s",
                             "Title": "Application"
-                          },{
-                            "FieldName": "location_s",
-                            "QueryForValues": "microsoft_internetinformationservices_virtual_directory_CL | distinct location_s",
-                            "Title": "Location"
-                          },{
-                            "FieldName": "microsoft_internetinformationservices_worker_process_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_worker_process_CL | distinct microsoft_internetinformationservices_worker_process_name_s",
-                            "Title": "Worker Process"
-                          },{
-                            "FieldName": "microsoft_internetinformationservices_application_pool_name_s",
-                            "QueryForValues": "microsoft_internetinformationservices_worker_process_CL | distinct microsoft_internetinformationservices_application_pool_name_s",
-                            "Title": "Application Pool"
-                          },{
-                            "FieldName": "application_pool_status_s",
-                            "QueryForValues": "microsoft_internetinformationservices_worker_process_CL | distinct application_pool_status_s",
-                            "Title": "Application Pool Status"
-                          },{
-                            "FieldName": "status_s",
-                            "QueryForValues": "microsoft_internetinformationservices_worker_process_CL | distinct status_s",
-                            "Title": "Status"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",

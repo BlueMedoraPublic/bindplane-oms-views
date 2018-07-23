@@ -408,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Fan Percent of Maximum Speed",
+                                        "title": "Fan Speed",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Percent of Maximum Speed",
+                                        "Title": "Speed",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "hpe_onboardadministrator_fan_CL | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('percent_of_maximum_speed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s",
+                                        "Query": "hpe_onboardadministrator_fan_CL | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('speed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s",
                                         "Callout": {
-                                            "Title": "Average Percent of Maximum Speed",
+                                            "Title": "Average Speed",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -436,13 +436,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "hpe_onboardadministrator_fan_CL  | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('percent_of_maximum_speed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s | order by avg_ desc",
+                                        "Query": "hpe_onboardadministrator_fan_CL  | where ${Enclosure} and ${Status} and ${Fan} | summarize avg(coalesce(columnifexists('speed_d',0.0), 0.0)) by hpe_onboardadministrator_fan_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Fan",
-                                            "Value": "Percent of Maximum Speed"
+                                            "Value": "Speed"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,7 +566,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "hpe_onboardadministrator_blade_CL | summarize([\"Last Update Time\"], ['System Zone Temperature Sensors Above Critical'], ['Virtual Fan'])=arg_max(TimeGenerated,columnifexists('system_zone_temperature_sensors_above_critical_d', ''),columnifexists('virtual_fan_d', '')) by Name=hpe_onboardadministrator_blade_name_s",
+                                            "query": "hpe_onboardadministrator_blade_CL | summarize([\"Last Update Time\"], ['Ambient Zone Temperature Sensors Above Critical'], ['Chassis Zone Temperature Sensors Above Critical'], ['CPU Zone Temperature Sensors Above Critical'], ['Disk Zone Temperature Sensors Above Critical'], ['I/O Board Zone Temperature Sensors Above Critical'], ['Memory Zone Temperature Sensors Above Critical'], ['Power Supply Zone Temperature Sensors Above Critical'])=arg_max(TimeGenerated,columnifexists('ambient_zone_temperature_sensors_above_critical_d', ''),columnifexists('chassis_zone_temperature_sensors_above_critical_d', ''),columnifexists('cpu_zone_temperature_sensors_above_critical_d', ''),columnifexists('disk_zone_temperature_sensors_above_critical_d', ''),columnifexists('io_board_zone_temperature_sensors_above_critical_d', ''),columnifexists('memory_zone_temperature_sensors_above_critical_d', ''),columnifexists('power_supply_zone_temperature_sensors_above_critical_d', '')) by Name=hpe_onboardadministrator_blade_name_s",
                                             "displayName": "Blade Details"
                                         }
                                         ,{
@@ -578,7 +578,7 @@
                                             "displayName": "Blade Properties"
                                         }
                                         ,{
-                                            "query": "hpe_onboardadministrator_fan_CL | summarize([\"Last Update Time\"], ['Percent of Maximum Speed'], ['Power Consumed'])=arg_max(TimeGenerated,columnifexists('percent_of_maximum_speed_d', ''),columnifexists('power_consumed_d', '')) by Name=hpe_onboardadministrator_fan_name_s",
+                                            "query": "hpe_onboardadministrator_fan_CL | summarize([\"Last Update Time\"], ['Speed'], ['Power Consumed'])=arg_max(TimeGenerated,columnifexists('speed_d', ''),columnifexists('power_consumed_d', '')) by Name=hpe_onboardadministrator_fan_name_s",
                                             "displayName": "Fan Details"
                                         }
                                         ,{

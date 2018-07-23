@@ -1,0 +1,701 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Dell EMC Isilon Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Dell EMC Isilon Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Dell EMC Isilon Environment",
+                        "Name": "Dell EMC Isilon Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Dell EMC Isilon Overview",
+                                        "NewGroup": false,
+                                        "Color": "#0072c6"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Dell EMC Isilon",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Dell EMC Isilon is a scale-out network attached storage system."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In EMC Isilon, it is important to monitor CPU utilization, disk usage and network traffic of clusters."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster}  | project ['System CPU Utilization'] = columnifexists('system_cpu_utilization_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['User CPU Utilization'] = columnifexists('user_cpu_utilization_d', double(null)), ['IFS Utilization'] = columnifexists('ifs_utilization_d', double(null)), TimeGenerated, Name=dellemc_isilon_cluster_name_s  | extend Healthy = case(isnotnull(['System CPU Utilization']) or isnotnull(['CPU Utilization']) or isnotnull(['User CPU Utilization']) or isnotnull(['IFS Utilization']), (['System CPU Utilization'] < 85 or isnull(['System CPU Utilization'])) and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['User CPU Utilization'] < 85 or isnull(['User CPU Utilization'])) and (['IFS Utilization'] < 85 or isnull(['IFS Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster}  | project ['System CPU Utilization'] = columnifexists('system_cpu_utilization_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['User CPU Utilization'] = columnifexists('user_cpu_utilization_d', double(null)), ['IFS Utilization'] = columnifexists('ifs_utilization_d', double(null)), TimeGenerated, Name=dellemc_isilon_cluster_name_s  | extend Healthy = case(isnotnull(['System CPU Utilization']) or isnotnull(['CPU Utilization']) or isnotnull(['User CPU Utilization']) or isnotnull(['IFS Utilization']), (['System CPU Utilization'] < 85 or isnull(['System CPU Utilization'])) and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['User CPU Utilization'] < 85 or isnull(['User CPU Utilization'])) and (['IFS Utilization'] < 85 or isnull(['IFS Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "dellemc_isilon_cluster_CL | project ['System CPU Utilization'] = columnifexists('system_cpu_utilization_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['User CPU Utilization'] = columnifexists('user_cpu_utilization_d', double(null)), ['IFS Utilization'] = columnifexists('ifs_utilization_d', double(null)), TimeGenerated, Name=dellemc_isilon_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['System CPU Utilization']) or isnotnull(['CPU Utilization']) or isnotnull(['User CPU Utilization']) or isnotnull(['IFS Utilization']), (['System CPU Utilization'] < 85 or isnull(['System CPU Utilization'])) and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['User CPU Utilization'] < 85 or isnull(['User CPU Utilization'])) and (['IFS Utilization'] < 85 or isnull(['IFS Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "dellemc_isilon_cluster_CL | project ['System CPU Utilization'] = columnifexists('system_cpu_utilization_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['User CPU Utilization'] = columnifexists('user_cpu_utilization_d', double(null)), ['IFS Utilization'] = columnifexists('ifs_utilization_d', double(null)), TimeGenerated, Name=dellemc_isilon_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['System CPU Utilization']) or isnotnull(['CPU Utilization']) or isnotnull(['User CPU Utilization']) or isnotnull(['IFS Utilization']), (['System CPU Utilization'] < 85 or isnull(['System CPU Utilization'])) and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['User CPU Utilization'] < 85 or isnull(['User CPU Utilization'])) and (['IFS Utilization'] < 85 or isnull(['IFS Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dellemc_isilon_cluster_CL  | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster System CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "System CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('system_cpu_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average System CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dellemc_isilon_cluster_CL  | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('system_cpu_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "System CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster User CPU Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "User CPU Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('user_cpu_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average User CPU Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dellemc_isilon_cluster_CL  | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('user_cpu_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "User CPU Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster IFS Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IFS Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('ifs_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average IFS Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dellemc_isilon_cluster_CL  | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('ifs_utilization_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "IFS Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Total Protocol Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Protocol Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dellemc_isilon_cluster_CL | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('total_protocol_throughput_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Protocol Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dellemc_isilon_cluster_CL  | where ${Release Version} and ${Type} and ${Cluster} | summarize avg(coalesce(columnifexists('total_protocol_throughput_d',0.0), 0.0)) by dellemc_isilon_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Total Protocol Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "dellemc_isilon_cluster_CL | summarize([\"Last Update Time\"], ['CPU Utilization'], ['System CPU Utilization'], ['User CPU Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', ''),columnifexists('system_cpu_utilization_d', ''),columnifexists('user_cpu_utilization_d', '')) by Name=dellemc_isilon_cluster_name_s",
+                                            "displayName": "Cluster CPU"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_cluster_CL | summarize([\"Last Update Time\"], ['IFS Utilization'], ['SSD Utilization'], ['Disk In'], ['Disk Out'])=arg_max(TimeGenerated,columnifexists('ifs_utilization_d', ''),columnifexists('ssd_utilization_d', ''),columnifexists('disk_in_d', ''),columnifexists('disk_out_d', '')) by Name=dellemc_isilon_cluster_name_s",
+                                            "displayName": "Cluster Disk"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_cluster_CL | summarize([\"Last Update Time\"], ['Total Protocol Throughput'], ['Network Traffic In'], ['Network Traffic Out'])=arg_max(TimeGenerated,columnifexists('total_protocol_throughput_d', ''),columnifexists('network_traffic_in_d', ''),columnifexists('network_traffic_out_d', '')) by Name=dellemc_isilon_cluster_name_s",
+                                            "displayName": "Cluster Network"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_cluster_CL | summarize([\"Last Update Time\"], ['Description'], ['Is Virtual'], ['Local Serial Number'], ['Path'], ['Release Version'], ['Revision'], ['Type'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('is_virtual_d', ''),columnifexists('local_serial_number_s', ''),columnifexists('path_s', ''),columnifexists('release_version_s', ''),columnifexists('revision_s', ''),columnifexists('type_s', '')) by Name=dellemc_isilon_cluster_name_s",
+                                            "displayName": "Cluster Properties"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_node_CL | summarize([\"Last Update Time\"], ['Memory Utilization'], ['Total Ram'])=arg_max(TimeGenerated,columnifexists('memory_utilization_d', ''),columnifexists('total_ram_d', '')) by Name=dellemc_isilon_node_name_s",
+                                            "displayName": "Node Memory"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_node_CL | summarize([\"Last Update Time\"], ['CPU Utilization'], ['System CPU Average'], ['User CPU Average'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', ''),columnifexists('system_cpu_average_d', ''),columnifexists('user_cpu_average_d', '')) by Name=dellemc_isilon_node_name_s",
+                                            "displayName": "Node CPU"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_node_CL | summarize([\"Last Update Time\"], ['Disk In'], ['Disk Out'], ['IFS Utilization'], ['IFS SSD Utilization'])=arg_max(TimeGenerated,columnifexists('disk_in_d', ''),columnifexists('disk_out_d', ''),columnifexists('ifs_utilization_d', ''),columnifexists('ifs_ssd_utilization_d', '')) by Name=dellemc_isilon_node_name_s",
+                                            "displayName": "Node Disk"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_node_CL | summarize([\"Last Update Time\"], ['Network Traffic In'], ['Network Traffic Out'], ['Total Protocol Throughput'])=arg_max(TimeGenerated,columnifexists('network_traffic_in_d', ''),columnifexists('network_traffic_out_d', ''),columnifexists('total_protocol_throughput_d', '')) by Name=dellemc_isilon_node_name_s",
+                                            "displayName": "Node Network"
+                                        }
+                                        ,{
+                                            "query": "dellemc_isilon_node_CL | summarize([\"Last Update Time\"], ['Class'], ['CPU Model'], ['Drive Bay Count'], ['Hardware Generation Name'], ['Is Read Only'], ['Is Up'], ['Product'])=arg_max(TimeGenerated,columnifexists('class_s', ''),columnifexists('cpu_model_s', ''),columnifexists('drive_bay_count_d', ''),columnifexists('hardware_generation_name_s', ''),columnifexists('is_read_only_d', ''),columnifexists('is_up_d', ''),columnifexists('product_s', '')) by Name=dellemc_isilon_node_name_s",
+                                            "displayName": "Node Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "release_version_s",
+                            "QueryForValues": "dellemc_isilon_cluster_CL | distinct release_version_s",
+                            "Title": "Release Version"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "dellemc_isilon_cluster_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "dellemc_isilon_cluster_name_s",
+                            "QueryForValues": "union dellemc_isilon_cluster_CL, dellemc_isilon_node_CL | distinct dellemc_isilon_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "chassis_s",
+                            "QueryForValues": "dellemc_isilon_node_CL | distinct chassis_s",
+                            "Title": "Chassis"
+                          },{
+                            "FieldName": "class_s",
+                            "QueryForValues": "dellemc_isilon_node_CL | distinct class_s",
+                            "Title": "Class"
+                          },{
+                            "FieldName": "is_up_d",
+                            "QueryForValues": "dellemc_isilon_node_CL | distinct is_up_d",
+                            "Title": "Is Up"
+                          },{
+                            "FieldName": "series_s",
+                            "QueryForValues": "dellemc_isilon_node_CL | distinct series_s",
+                            "Title": "Series"
+                          },{
+                            "FieldName": "tier_d",
+                            "QueryForValues": "dellemc_isilon_node_CL | distinct tier_d",
+                            "Title": "Tier"
+                          },{
+                            "FieldName": "dellemc_isilon_node_name_s",
+                            "QueryForValues": "dellemc_isilon_node_CL | distinct dellemc_isilon_node_name_s",
+                            "Title": "Node"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "dellemc_isilon_cluster_CL | project ['System CPU Utilization'] = columnifexists('system_cpu_utilization_d', double(null)), ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['User CPU Utilization'] = columnifexists('user_cpu_utilization_d', double(null)), ['IFS Utilization'] = columnifexists('ifs_utilization_d', double(null)), TimeGenerated, Name=dellemc_isilon_cluster_name_s  | extend Healthy = case(isnotnull(['System CPU Utilization']) or isnotnull(['CPU Utilization']) or isnotnull(['User CPU Utilization']) or isnotnull(['IFS Utilization']), (['System CPU Utilization'] < 85 or isnull(['System CPU Utilization'])) and (['CPU Utilization'] < 85 or isnull(['CPU Utilization'])) and (['User CPU Utilization'] < 85 or isnull(['User CPU Utilization'])) and (['IFS Utilization'] < 85 or isnull(['IFS Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Cluster",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

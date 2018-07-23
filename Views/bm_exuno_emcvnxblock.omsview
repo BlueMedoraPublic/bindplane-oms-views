@@ -1,0 +1,697 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "EMC VNX Block Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/EMC VNX Block Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "EMC VNX Block Environment",
+                        "Name": "EMC VNX Block Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "EMC VNX Block Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00188f"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "EMC VNX Block",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "EMC VNX Block is a scalable, tiered data storage system."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "With EMC VNX Block, it is important to monitor space utilization, IOPs, and throughput."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "LUN Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxblock_lun_CL | where ${Array} and ${LUN}  | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), ['SP A Utilization'] = columnifexists('sp_a_utilization_d', double(null)), ['SP B Utilization'] = columnifexists('sp_b_utilization_d', double(null)), TimeGenerated, Name=emc_vnxblock_lun_name_s  | extend Healthy = case(isnotnull(['Capacity Utilization']) or isnotnull(['SP A Utilization']) or isnotnull(['SP B Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])) and (['SP A Utilization'] < 85 or isnull(['SP A Utilization'])) and (['SP B Utilization'] < 85 or isnull(['SP B Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxblock_lun_CL | where ${Array} and ${LUN}  | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), ['SP A Utilization'] = columnifexists('sp_a_utilization_d', double(null)), ['SP B Utilization'] = columnifexists('sp_b_utilization_d', double(null)), TimeGenerated, Name=emc_vnxblock_lun_name_s  | extend Healthy = case(isnotnull(['Capacity Utilization']) or isnotnull(['SP A Utilization']) or isnotnull(['SP B Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])) and (['SP A Utilization'] < 85 or isnull(['SP A Utilization'])) and (['SP B Utilization'] < 85 or isnull(['SP B Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "LUN Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "emc_vnxblock_lun_CL | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), ['SP A Utilization'] = columnifexists('sp_a_utilization_d', double(null)), ['SP B Utilization'] = columnifexists('sp_b_utilization_d', double(null)), TimeGenerated, Name=emc_vnxblock_lun_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Capacity Utilization']) or isnotnull(['SP A Utilization']) or isnotnull(['SP B Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])) and (['SP A Utilization'] < 85 or isnull(['SP A Utilization'])) and (['SP B Utilization'] < 85 or isnull(['SP B Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "emc_vnxblock_lun_CL | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), ['SP A Utilization'] = columnifexists('sp_a_utilization_d', double(null)), ['SP B Utilization'] = columnifexists('sp_b_utilization_d', double(null)), TimeGenerated, Name=emc_vnxblock_lun_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Capacity Utilization']) or isnotnull(['SP A Utilization']) or isnotnull(['SP B Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])) and (['SP A Utilization'] < 85 or isnull(['SP A Utilization'])) and (['SP B Utilization'] < 85 or isnull(['SP B Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "LUN Capacity Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Capacity Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxblock_lun_CL | where ${Array} and ${LUN} | summarize avg(coalesce(columnifexists('capacity_utilization_d',0.0), 0.0)) by emc_vnxblock_lun_name_s",
+                                        "Callout": {
+                                            "Title": "Average Capacity Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxblock_lun_CL  | where ${Array} and ${LUN} | summarize avg(coalesce(columnifexists('capacity_utilization_d',0.0), 0.0)) by emc_vnxblock_lun_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "LUN",
+                                            "Value": "Capacity Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "LUN FAST Cache Read Hit Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "FAST Cache Read Hit Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxblock_lun_CL | where ${Array} and ${LUN} | summarize avg(coalesce(columnifexists('fast_cache_read_hit_ratio_d',0.0), 0.0)) by emc_vnxblock_lun_name_s",
+                                        "Callout": {
+                                            "Title": "Average FAST Cache Read Hit Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxblock_lun_CL  | where ${Array} and ${LUN} | summarize avg(coalesce(columnifexists('fast_cache_read_hit_ratio_d',0.0), 0.0)) by emc_vnxblock_lun_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "LUN",
+                                            "Value": "FAST Cache Read Hit Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "LUN FAST Cache Write Hit Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "FAST Cache Write Hit Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxblock_lun_CL | where ${Array} and ${LUN} | summarize avg(coalesce(columnifexists('fast_cache_write_hit_ratio_d',0.0), 0.0)) by emc_vnxblock_lun_name_s",
+                                        "Callout": {
+                                            "Title": "Average FAST Cache Write Hit Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxblock_lun_CL  | where ${Array} and ${LUN} | summarize avg(coalesce(columnifexists('fast_cache_write_hit_ratio_d',0.0), 0.0)) by emc_vnxblock_lun_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "LUN",
+                                            "Value": "FAST Cache Write Hit Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Pool Capacity Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Capacity Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxblock_storage_pool_CL | where ${LUN} and ${Auto-Tiering} and ${RAID Type} and ${Status} and ${Storage Pool} | summarize avg(coalesce(columnifexists('capacity_utilization_d',0.0), 0.0)) by emc_vnxblock_storage_pool_name_s",
+                                        "Callout": {
+                                            "Title": "Average Capacity Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxblock_storage_pool_CL  | where ${LUN} and ${Auto-Tiering} and ${RAID Type} and ${Status} and ${Storage Pool} | summarize avg(coalesce(columnifexists('capacity_utilization_d',0.0), 0.0)) by emc_vnxblock_storage_pool_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Pool",
+                                            "Value": "Capacity Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Disk Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxblock_disk_CL | where ${FAST Cache} and ${RAID Group} and ${Tier} and ${Drive Type} and ${State} and ${Disk} | summarize avg(coalesce(columnifexists('utilization_d',0.0), 0.0)) by emc_vnxblock_disk_name_s",
+                                        "Callout": {
+                                            "Title": "Average Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxblock_disk_CL  | where ${FAST Cache} and ${RAID Group} and ${Tier} and ${Drive Type} and ${State} and ${Disk} | summarize avg(coalesce(columnifexists('utilization_d',0.0), 0.0)) by emc_vnxblock_disk_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Disk",
+                                            "Value": "Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "emc_vnxblock_lun_CL | summarize([\"Last Update Time\"], ['Capacity Utilization'], ['FAST Cache Read Hit Ratio'], ['FAST Cache Write Hit Ratio'], ['SP A Utilization'], ['SP B Utilization'])=arg_max(TimeGenerated,columnifexists('capacity_utilization_d', ''),columnifexists('fast_cache_read_hit_ratio_d', ''),columnifexists('fast_cache_write_hit_ratio_d', ''),columnifexists('sp_a_utilization_d', ''),columnifexists('sp_b_utilization_d', '')) by Name=emc_vnxblock_lun_name_s",
+                                            "displayName": "LUN "
+                                        }
+                                        ,{
+                                            "query": "emc_vnxblock_storage_pool_CL | summarize([\"Last Update Time\"], ['Capacity Utilization'])=arg_max(TimeGenerated,columnifexists('capacity_utilization_d', '')) by Name=emc_vnxblock_storage_pool_name_s",
+                                            "displayName": "Storage Pool "
+                                        }
+                                        ,{
+                                            "query": "emc_vnxblock_disk_CL | summarize([\"Last Update Time\"], ['Utilization'], ['IO Request Rate'], ['Throughput'])=arg_max(TimeGenerated,columnifexists('utilization_d', ''),columnifexists('io_request_rate_d', ''),columnifexists('throughput_d', '')) by Name=emc_vnxblock_disk_name_s",
+                                            "displayName": "Disk "
+                                        }
+                                        ,{
+                                            "query": "emc_vnxblock_array_CL | summarize([\"Last Update Time\"], ['Average LUN Utilization'], ['Total LUN Throughput'], ['Read Miss Ratio'], ['Write Miss Ratio'])=arg_max(TimeGenerated,columnifexists('average_lun_utilization_d', ''),columnifexists('total_lun_throughput_d', ''),columnifexists('read_miss_ratio_d', ''),columnifexists('write_miss_ratio_d', '')) by Name=emc_vnxblock_array_name_s",
+                                            "displayName": "Array "
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "emc_vnxblock_array_name_s",
+                            "QueryForValues": "union emc_vnxblock_lun_CL, emc_vnxblock_array_CL | distinct emc_vnxblock_array_name_s",
+                            "Title": "Array"
+                          },{
+                            "FieldName": "emc_vnxblock_lun_name_s",
+                            "QueryForValues": "union emc_vnxblock_lun_CL, emc_vnxblock_storage_pool_CL | distinct emc_vnxblock_lun_name_s",
+                            "Title": "LUN"
+                          },{
+                            "FieldName": "auto_tiering_s",
+                            "QueryForValues": "emc_vnxblock_storage_pool_CL | distinct auto_tiering_s",
+                            "Title": "Auto-Tiering"
+                          },{
+                            "FieldName": "raid_type_s",
+                            "QueryForValues": "emc_vnxblock_storage_pool_CL | distinct raid_type_s",
+                            "Title": "RAID Type"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "emc_vnxblock_storage_pool_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "emc_vnxblock_storage_pool_name_s",
+                            "QueryForValues": "emc_vnxblock_storage_pool_CL | distinct emc_vnxblock_storage_pool_name_s",
+                            "Title": "Storage Pool"
+                          },{
+                            "FieldName": "emc_vnxblock_fast_cache_name_s",
+                            "QueryForValues": "emc_vnxblock_disk_CL | distinct emc_vnxblock_fast_cache_name_s",
+                            "Title": "FAST Cache"
+                          },{
+                            "FieldName": "emc_vnxblock_raid_group_name_s",
+                            "QueryForValues": "emc_vnxblock_disk_CL | distinct emc_vnxblock_raid_group_name_s",
+                            "Title": "RAID Group"
+                          },{
+                            "FieldName": "emc_vnxblock_tier_name_s",
+                            "QueryForValues": "emc_vnxblock_disk_CL | distinct emc_vnxblock_tier_name_s",
+                            "Title": "Tier"
+                          },{
+                            "FieldName": "drive_type_s",
+                            "QueryForValues": "emc_vnxblock_disk_CL | distinct drive_type_s",
+                            "Title": "Drive Type"
+                          },{
+                            "FieldName": "state_s",
+                            "QueryForValues": "emc_vnxblock_disk_CL | distinct state_s",
+                            "Title": "State"
+                          },{
+                            "FieldName": "emc_vnxblock_disk_name_s",
+                            "QueryForValues": "emc_vnxblock_disk_CL | distinct emc_vnxblock_disk_name_s",
+                            "Title": "Disk"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "emc_vnxblock_array_CL | distinct model_s",
+                            "Title": "Model"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "emc_vnxblock_lun_CL | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), ['SP A Utilization'] = columnifexists('sp_a_utilization_d', double(null)), ['SP B Utilization'] = columnifexists('sp_b_utilization_d', double(null)), TimeGenerated, Name=emc_vnxblock_lun_name_s  | extend Healthy = case(isnotnull(['Capacity Utilization']) or isnotnull(['SP A Utilization']) or isnotnull(['SP B Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])) and (['SP A Utilization'] < 85 or isnull(['SP A Utilization'])) and (['SP B Utilization'] < 85 or isnull(['SP B Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "LUN",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

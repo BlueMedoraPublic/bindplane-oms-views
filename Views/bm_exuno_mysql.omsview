@@ -268,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "mysql_query_CL | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by mysql_query_name_g",
+                                        "Query": "mysql_query_CL | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by sql_text_s",
                                         "Callout": {
                                             "Title": "Average Latency",
                                             "Series": "",
@@ -286,7 +286,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "mysql_query_CL  | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by mysql_query_name_g | order by avg_ desc",
+                                        "Query": "mysql_query_CL  | where ${Instance} and ${Database} and ${Query} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by sql_text_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -590,7 +590,7 @@
                                             "displayName": "Instance Locking"
                                         }
                                         ,{
-                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Buffer Pool Pages Total'], ['Buffer Pool Read Requests'], ['Buffer Flush Percent For Dirty'], ['Buffer Flush Percent For LSN'])=arg_max(TimeGenerated,columnifexists('buffer_pool_pages_total_d', ''),columnifexists('buffer_pool_read_requests_rate_d', ''),columnifexists('buffer_flush_percent_for_dirty_d', ''),columnifexists('buffer_flush_percent_for_lsn_d', '')) by Name=mysql_instance_name_s",
+                                            "query": "mysql_instance_CL | summarize([\"Last Update Time\"], ['Buffer Pool Pages Total'], ['Buffer Pool Read Requests'], ['Buffer Flush For Dirty'], ['Buffer Flush For LSN'])=arg_max(TimeGenerated,columnifexists('buffer_pool_pages_total_d', ''),columnifexists('buffer_pool_read_requests_rate_d', ''),columnifexists('buffer_flush_for_dirty_d', ''),columnifexists('buffer_flush_for_lsn_d', '')) by Name=mysql_instance_name_s",
                                             "displayName": "Instance Buffer"
                                         }
                                         ,{
@@ -606,15 +606,15 @@
                                             "displayName": "Instance Properties"
                                         }
                                         ,{
-                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Average Lock Latency'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('average_lock_latency_d', '')) by Name=mysql_query_name_g",
+                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['Average Latency'], ['Average Lock Latency'])=arg_max(TimeGenerated,columnifexists('average_latency_d', ''),columnifexists('average_lock_latency_d', '')) by Name=sql_text_s",
                                             "displayName": "Query Wait Time"
                                         }
                                         ,{
-                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['Average Temporary Tables Created In-Memory'], ['Average Temporary Tables Created On-Disk'], ['Average Errors'], ['Average Warnings'], ['Warning Count'])=arg_max(TimeGenerated,columnifexists('average_temporary_tables_created_in_memory_d', ''),columnifexists('average_temporary_tables_created_on_disk_d', ''),columnifexists('average_errors_d', ''),columnifexists('average_warnings_d', ''),columnifexists('warning_count_rate_d', '')) by Name=mysql_query_name_g",
+                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['Average Temporary Tables Created In-Memory'], ['Average Temporary Tables Created On-Disk'], ['Average Errors'], ['Average Warnings'], ['Warning Count'])=arg_max(TimeGenerated,columnifexists('average_temporary_tables_created_in_memory_d', ''),columnifexists('average_temporary_tables_created_on_disk_d', ''),columnifexists('average_errors_d', ''),columnifexists('average_warnings_d', ''),columnifexists('warning_count_rate_d', '')) by Name=sql_text_s",
                                             "displayName": "Query Activity"
                                         }
                                         ,{
-                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['SQL Text'])=arg_max(TimeGenerated,columnifexists('sql_text_s', '')) by Name=mysql_query_name_g",
+                                            "query": "mysql_query_CL | summarize([\"Last Update Time\"], ['SQL Text'])=arg_max(TimeGenerated,columnifexists('sql_text_s', '')) by Name=sql_text_s",
                                             "displayName": "Query Properties"
                                         }
                                     ]
@@ -646,8 +646,8 @@
                             "QueryForValues": "mysql_instance_CL | distinct mysql_replication_master_name_s",
                             "Title": "Replication Master"
                           },{
-                            "FieldName": "mysql_query_name_g",
-                            "QueryForValues": "mysql_query_CL | distinct mysql_query_name_g",
+                            "FieldName": "sql_text_s",
+                            "QueryForValues": "mysql_query_CL | distinct sql_text_s",
                             "Title": "Query"
                           }],
                         "OverviewTile": {

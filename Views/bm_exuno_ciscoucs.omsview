@@ -183,19 +183,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Blade Available Memory",
+                                        "title": "Blade Total Memory",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Available Memory",
+                                        "Title": "Total Memory",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s",
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('total_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s",
                                         "Callout": {
-                                            "Title": "Average Available Memory",
+                                            "Title": "Average Total Memory",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -211,13 +211,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "cisco_ucs_blade_CL  | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s | order by avg_ desc",
+                                        "Query": "cisco_ucs_blade_CL  | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('total_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Blade",
-                                            "Value": "Available Memory"
+                                            "Value": "Total Memory"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -333,6 +333,156 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
+                                        "title": "Blade Available Memory",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Available Memory",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s",
+                                        "Callout": {
+                                            "Title": "Average Available Memory",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Mebibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_blade_CL  | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('available_memory_d',0.0), 0.0)) by cisco_ucs_blade_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade",
+                                            "Value": "Available Memory"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Memory Speed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Speed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "cisco_ucs_blade_CL | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('memory_speed_d',0.0), 0.0)) by cisco_ucs_blade_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Speed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Megahertz"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "cisco_ucs_blade_CL  | where ${Chassis} and ${Fabric Interconnect} and ${Operating State} and ${Blade} | summarize avg(coalesce(columnifexists('memory_speed_d',0.0), 0.0)) by cisco_ucs_blade_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade",
+                                            "Value": "Memory Speed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
                                         "title": "Rack Unit Available Memory",
                                         "newGroup": false,
                                         "icon": "",
@@ -403,156 +553,6 @@
                             }
 ,
                             {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Rack Unit Memory Usage",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Memory Usage",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "cisco_ucs_rack_unit_CL | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s",
-                                        "Callout": {
-                                            "Title": "Average Memory Usage",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "cisco_ucs_rack_unit_CL  | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('memory_usage_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Rack Unit",
-                                            "Value": "Memory Usage"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "80.0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Rack Unit Ambient Temperature",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Ambient Temperature",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "cisco_ucs_rack_unit_CL | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('ambient_temperature_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s",
-                                        "Callout": {
-                                            "Title": "Average Ambient Temperature",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Celsius"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "cisco_ucs_rack_unit_CL  | where ${UCS Domain} and ${Fabric Interconnect} and ${Model} and ${Operating State} and ${Rack Unit} | summarize avg(coalesce(columnifexists('ambient_temperature_d',0.0), 0.0)) by cisco_ucs_rack_unit_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Rack Unit",
-                                            "Value": "Ambient Temperature"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "35.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "31.5",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
                                 "Id": "NotableQueriesBuilderBlade",
                                 "Type": "Blade",
                                 "Version": 0,
@@ -566,7 +566,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "cisco_ucs_blade_CL | summarize([\"Last Update Time\"], ['Available Memory'], ['Memory Usage'])=arg_max(TimeGenerated,columnifexists('available_memory_d', ''),columnifexists('memory_usage_d', '')) by Name=cisco_ucs_blade_name_s",
+                                            "query": "cisco_ucs_blade_CL | summarize([\"Last Update Time\"], ['Total Memory'], ['Memory Usage'], ['Available Memory'], ['Memory Speed'])=arg_max(TimeGenerated,columnifexists('total_memory_d', ''),columnifexists('memory_usage_d', ''),columnifexists('available_memory_d', ''),columnifexists('memory_speed_d', '')) by Name=cisco_ucs_blade_name_s",
                                             "displayName": "Blade Blade"
                                         }
                                         ,{

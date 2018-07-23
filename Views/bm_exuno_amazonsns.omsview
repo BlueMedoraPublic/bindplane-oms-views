@@ -56,7 +56,7 @@
                                     "General": {
                                         "Title": "Amazon SNS Overview",
                                         "NewGroup": false,
-                                        "Color": "#fcd116"
+                                        "Color": "#ffb900"
                                     },
                                     "Header": {
                                         "Image": "data:image/png;base64,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",
@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "SNS Topic Health",
+                                        "title": "Topic Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic}  | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] == 0 or isnull(['Failed Notifications'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic}  | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] < 1 or isnull(['Failed Notifications'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic}  | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] == 0 or isnull(['Failed Notifications'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic}  | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] < 1 or isnull(['Failed Notifications'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "SNS Topic Name",
+                                            "Name": "Topic Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "amazon_sns_sns_topic_CL | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] == 0 or isnull(['Failed Notifications'])), bool(null))",
+                                        "NavigationQuery": "amazon_sns_sns_topic_CL | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] < 1 or isnull(['Failed Notifications'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "amazon_sns_sns_topic_CL | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] == 0 or isnull(['Failed Notifications'])), bool(null))"
+                                            "NavigationQuery": "amazon_sns_sns_topic_CL | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] < 1 or isnull(['Failed Notifications'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,7 +183,82 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "SNS Topic Average Size of Messages Published",
+                                        "title": "Topic Failed Notifications",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Failed Notifications",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('failed_notifications_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
+                                        "Callout": {
+                                            "Title": "Average Failed Notifications",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Failed Notifications"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('failed_notifications_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Topic",
+                                            "Value": "Failed Notifications"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0.9",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Topic Average Size of Messages Published",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -193,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('average_size_of_messages_published_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('average_size_of_messages_published_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
                                         "Callout": {
                                             "Title": "Average Size of Messages Published",
                                             "Series": "",
@@ -211,12 +286,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('average_size_of_messages_published_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
+                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('average_size_of_messages_published_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "SNS Topic",
+                                            "Name": "Topic",
                                             "Value": "Average Size of Messages Published"
                                         },
                                         "Color": "#0072c6",
@@ -258,7 +333,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "SNS Topic SMS Success Rate",
+                                        "title": "Topic SMS Success Rate",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -268,7 +343,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('sms_success_rate_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('sms_success_rate_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
                                         "Callout": {
                                             "Title": "Average SMS Success Rate",
                                             "Series": "",
@@ -286,12 +361,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('sms_success_rate_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ asc",
+                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('sms_success_rate_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "SNS Topic",
+                                            "Name": "Topic",
                                             "Value": "SMS Success Rate"
                                         },
                                         "Color": "#0072c6",
@@ -333,7 +408,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "SNS Topic Confirmed Subscriptions",
+                                        "title": "Topic Confirmed Subscriptions",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -343,7 +418,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('confirmed_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('confirmed_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
                                         "Callout": {
                                             "Title": "Average Confirmed Subscriptions",
                                             "Series": "",
@@ -361,12 +436,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('confirmed_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
+                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('confirmed_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "SNS Topic",
+                                            "Name": "Topic",
                                             "Value": "Confirmed Subscriptions"
                                         },
                                         "Color": "#0072c6",
@@ -408,7 +483,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "SNS Topic Deleted Subscriptions",
+                                        "title": "Topic Deleted Subscriptions",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -418,7 +493,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('deleted_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
+                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('deleted_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
                                         "Callout": {
                                             "Title": "Average Deleted Subscriptions",
                                             "Series": "",
@@ -436,88 +511,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('deleted_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
+                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${Topic} | summarize avg(coalesce(columnifexists('deleted_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "SNS Topic",
+                                            "Name": "Topic",
                                             "Value": "Deleted Subscriptions"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "SNS Topic Pending Subscriptions",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Pending Subscriptions",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "amazon_sns_sns_topic_CL | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('pending_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s",
-                                        "Callout": {
-                                            "Title": "Average Pending Subscriptions",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Pending Subscriptions"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "amazon_sns_sns_topic_CL  | where ${Region} and ${SNS Topic} | summarize avg(coalesce(columnifexists('pending_subscriptions_d',0.0), 0.0)) by amazon_sns_sns_topic_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "SNS Topic",
-                                            "Value": "Pending Subscriptions"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,16 +566,16 @@
                                     "queries": [
 
                                         {
-                                            "query": "amazon_sns_sns_topic_CL | summarize([\"Last Update Time\"], ['Average Size of Messages Published'], ['Delivered Notifications'], ['Failed Notifications'])=arg_max(TimeGenerated,columnifexists('average_size_of_messages_published_d', ''),columnifexists('delivered_notifications_d', ''),columnifexists('failed_notifications_d', '')) by Name=amazon_sns_sns_topic_name_s",
-                                            "displayName": "SNS Topic Details"
+                                            "query": "amazon_sns_sns_topic_CL | summarize([\"Last Update Time\"], ['Failed Notifications'], ['Average Size of Messages Published'], ['Delivered Notifications'])=arg_max(TimeGenerated,columnifexists('failed_notifications_d', ''),columnifexists('average_size_of_messages_published_d', ''),columnifexists('delivered_notifications_d', '')) by Name=amazon_sns_sns_topic_name_s",
+                                            "displayName": "Topic Details"
                                         }
                                         ,{
                                             "query": "amazon_sns_sns_topic_CL | summarize([\"Last Update Time\"], ['SMS Success Rate'], ['Confirmed Subscriptions'], ['Deleted Subscriptions'], ['Pending Subscriptions'])=arg_max(TimeGenerated,columnifexists('sms_success_rate_d', ''),columnifexists('confirmed_subscriptions_d', ''),columnifexists('deleted_subscriptions_d', ''),columnifexists('pending_subscriptions_d', '')) by Name=amazon_sns_sns_topic_name_s",
-                                            "displayName": "SNS Topic Status"
+                                            "displayName": "Topic Status"
                                         }
                                         ,{
                                             "query": "amazon_sns_sns_topic_CL | summarize([\"Last Update Time\"], ['Owner'])=arg_max(TimeGenerated,columnifexists('owner_d', '')) by Name=amazon_sns_sns_topic_name_s",
-                                            "displayName": "SNS Topic Properties"
+                                            "displayName": "Topic Properties"
                                         }
                                     ]
                                 }
@@ -588,7 +588,7 @@
                           },{
                             "FieldName": "amazon_sns_sns_topic_name_s",
                             "QueryForValues": "amazon_sns_sns_topic_CL | distinct amazon_sns_sns_topic_name_s",
-                            "Title": "SNS Topic"
+                            "Title": "Topic"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -596,9 +596,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "amazon_sns_sns_topic_CL | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] == 0 or isnull(['Failed Notifications'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "amazon_sns_sns_topic_CL | project ['Failed Notifications'] = columnifexists('failed_notifications_d', double(null)), TimeGenerated, Name=amazon_sns_sns_topic_name_s  | extend Healthy = case(isnotnull(['Failed Notifications']), (['Failed Notifications'] < 1 or isnull(['Failed Notifications'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "SNS Topic",
+                                        "Text": "Topic",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

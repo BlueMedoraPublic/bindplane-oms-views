@@ -1,0 +1,717 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Dell Compute Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Dell Compute Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Dell Compute Environment",
+                        "Name": "Dell Compute Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Dell Compute Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00188f"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Dell Compute",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "Dell Compute is made up of high-end Dell PowerEdge blade servers and rack servers."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In Dell Compute, it is important to monitor the capacity, temperature, and reported health of the servers and chassis and their related components."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Server Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dell_compute_blade_server_CL | where ${Chassis} and ${Model Name} and ${Operating System Name} and ${Version} and ${Version} and ${Version} and ${Blade Server}  | project ['Amperage Probe Relatives in Healthy State'] = columnifexists('amperage_probe_relatives_in_healthy_state_d', double(null)), ['Global Storage Status'] = columnifexists('global_storage_status_s', 'NULL_VALUE'), ['LCD Status'] = columnifexists('lcd_status_s', 'NULL_VALUE'), ['Memory Device Relatives in Healthy State'] = columnifexists('memory_device_relatives_in_healthy_state_d', double(null)), ['Physical Disk Relatives in Healthy State'] = columnifexists('physical_disk_relatives_in_healthy_state_d', double(null)), ['Processor Device Relatives in Healthy State'] = columnifexists('processor_device_relatives_in_healthy_state_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['System Battery Relatives in Healthy State'] = columnifexists('system_battery_relatives_in_healthy_state_d', double(null)), ['Temperature Probe Relatives in Healthy State'] = columnifexists('temperature_probe_relatives_in_healthy_state_d', double(null)), ['Virtual Disk Relatives in Healthy State'] = columnifexists('virtual_disk_relatives_in_healthy_state_d', double(null)), ['Voltage Probe Relatives in Healthy State'] = columnifexists('voltage_probe_relatives_in_healthy_state_d', double(null)), TimeGenerated, Name=dell_compute_blade_server_name_s  | extend Healthy = case(isnotnull(['Amperage Probe Relatives in Healthy State']) or coalesce(['Global Storage Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['LCD Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Device Relatives in Healthy State']) or isnotnull(['Physical Disk Relatives in Healthy State']) or isnotnull(['Processor Device Relatives in Healthy State']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['System Battery Relatives in Healthy State']) or isnotnull(['Temperature Probe Relatives in Healthy State']) or isnotnull(['Virtual Disk Relatives in Healthy State']) or isnotnull(['Voltage Probe Relatives in Healthy State']), (['Amperage Probe Relatives in Healthy State'] > 95 or isnull(['Amperage Probe Relatives in Healthy State'])) and (['Global Storage Status'] == 'OK' or coalesce(['Global Storage Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['LCD Status'] == 'OK' or coalesce(['LCD Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Device Relatives in Healthy State'] > 95 or isnull(['Memory Device Relatives in Healthy State'])) and (['Physical Disk Relatives in Healthy State'] > 95 or isnull(['Physical Disk Relatives in Healthy State'])) and (['Processor Device Relatives in Healthy State'] > 95 or isnull(['Processor Device Relatives in Healthy State'])) and (['Status'] == 'OK' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['System Battery Relatives in Healthy State'] > 95 or isnull(['System Battery Relatives in Healthy State'])) and (['Temperature Probe Relatives in Healthy State'] > 95 or isnull(['Temperature Probe Relatives in Healthy State'])) and (['Virtual Disk Relatives in Healthy State'] > 95 or isnull(['Virtual Disk Relatives in Healthy State'])) and (['Voltage Probe Relatives in Healthy State'] > 95 or isnull(['Voltage Probe Relatives in Healthy State'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dell_compute_blade_server_CL | where ${Chassis} and ${Model Name} and ${Operating System Name} and ${Version} and ${Version} and ${Version} and ${Blade Server}  | project ['Amperage Probe Relatives in Healthy State'] = columnifexists('amperage_probe_relatives_in_healthy_state_d', double(null)), ['Global Storage Status'] = columnifexists('global_storage_status_s', 'NULL_VALUE'), ['LCD Status'] = columnifexists('lcd_status_s', 'NULL_VALUE'), ['Memory Device Relatives in Healthy State'] = columnifexists('memory_device_relatives_in_healthy_state_d', double(null)), ['Physical Disk Relatives in Healthy State'] = columnifexists('physical_disk_relatives_in_healthy_state_d', double(null)), ['Processor Device Relatives in Healthy State'] = columnifexists('processor_device_relatives_in_healthy_state_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['System Battery Relatives in Healthy State'] = columnifexists('system_battery_relatives_in_healthy_state_d', double(null)), ['Temperature Probe Relatives in Healthy State'] = columnifexists('temperature_probe_relatives_in_healthy_state_d', double(null)), ['Virtual Disk Relatives in Healthy State'] = columnifexists('virtual_disk_relatives_in_healthy_state_d', double(null)), ['Voltage Probe Relatives in Healthy State'] = columnifexists('voltage_probe_relatives_in_healthy_state_d', double(null)), TimeGenerated, Name=dell_compute_blade_server_name_s  | extend Healthy = case(isnotnull(['Amperage Probe Relatives in Healthy State']) or coalesce(['Global Storage Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['LCD Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Device Relatives in Healthy State']) or isnotnull(['Physical Disk Relatives in Healthy State']) or isnotnull(['Processor Device Relatives in Healthy State']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['System Battery Relatives in Healthy State']) or isnotnull(['Temperature Probe Relatives in Healthy State']) or isnotnull(['Virtual Disk Relatives in Healthy State']) or isnotnull(['Voltage Probe Relatives in Healthy State']), (['Amperage Probe Relatives in Healthy State'] > 95 or isnull(['Amperage Probe Relatives in Healthy State'])) and (['Global Storage Status'] == 'OK' or coalesce(['Global Storage Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['LCD Status'] == 'OK' or coalesce(['LCD Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Device Relatives in Healthy State'] > 95 or isnull(['Memory Device Relatives in Healthy State'])) and (['Physical Disk Relatives in Healthy State'] > 95 or isnull(['Physical Disk Relatives in Healthy State'])) and (['Processor Device Relatives in Healthy State'] > 95 or isnull(['Processor Device Relatives in Healthy State'])) and (['Status'] == 'OK' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['System Battery Relatives in Healthy State'] > 95 or isnull(['System Battery Relatives in Healthy State'])) and (['Temperature Probe Relatives in Healthy State'] > 95 or isnull(['Temperature Probe Relatives in Healthy State'])) and (['Virtual Disk Relatives in Healthy State'] > 95 or isnull(['Virtual Disk Relatives in Healthy State'])) and (['Voltage Probe Relatives in Healthy State'] > 95 or isnull(['Voltage Probe Relatives in Healthy State'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade Server Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "dell_compute_blade_server_CL | project ['Amperage Probe Relatives in Healthy State'] = columnifexists('amperage_probe_relatives_in_healthy_state_d', double(null)), ['Global Storage Status'] = columnifexists('global_storage_status_s', 'NULL_VALUE'), ['LCD Status'] = columnifexists('lcd_status_s', 'NULL_VALUE'), ['Memory Device Relatives in Healthy State'] = columnifexists('memory_device_relatives_in_healthy_state_d', double(null)), ['Physical Disk Relatives in Healthy State'] = columnifexists('physical_disk_relatives_in_healthy_state_d', double(null)), ['Processor Device Relatives in Healthy State'] = columnifexists('processor_device_relatives_in_healthy_state_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['System Battery Relatives in Healthy State'] = columnifexists('system_battery_relatives_in_healthy_state_d', double(null)), ['Temperature Probe Relatives in Healthy State'] = columnifexists('temperature_probe_relatives_in_healthy_state_d', double(null)), ['Virtual Disk Relatives in Healthy State'] = columnifexists('virtual_disk_relatives_in_healthy_state_d', double(null)), ['Voltage Probe Relatives in Healthy State'] = columnifexists('voltage_probe_relatives_in_healthy_state_d', double(null)), TimeGenerated, Name=dell_compute_blade_server_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Amperage Probe Relatives in Healthy State']) or coalesce(['Global Storage Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['LCD Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Device Relatives in Healthy State']) or isnotnull(['Physical Disk Relatives in Healthy State']) or isnotnull(['Processor Device Relatives in Healthy State']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['System Battery Relatives in Healthy State']) or isnotnull(['Temperature Probe Relatives in Healthy State']) or isnotnull(['Virtual Disk Relatives in Healthy State']) or isnotnull(['Voltage Probe Relatives in Healthy State']), (['Amperage Probe Relatives in Healthy State'] > 95 or isnull(['Amperage Probe Relatives in Healthy State'])) and (['Global Storage Status'] == 'OK' or coalesce(['Global Storage Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['LCD Status'] == 'OK' or coalesce(['LCD Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Device Relatives in Healthy State'] > 95 or isnull(['Memory Device Relatives in Healthy State'])) and (['Physical Disk Relatives in Healthy State'] > 95 or isnull(['Physical Disk Relatives in Healthy State'])) and (['Processor Device Relatives in Healthy State'] > 95 or isnull(['Processor Device Relatives in Healthy State'])) and (['Status'] == 'OK' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['System Battery Relatives in Healthy State'] > 95 or isnull(['System Battery Relatives in Healthy State'])) and (['Temperature Probe Relatives in Healthy State'] > 95 or isnull(['Temperature Probe Relatives in Healthy State'])) and (['Virtual Disk Relatives in Healthy State'] > 95 or isnull(['Virtual Disk Relatives in Healthy State'])) and (['Voltage Probe Relatives in Healthy State'] > 95 or isnull(['Voltage Probe Relatives in Healthy State'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "dell_compute_blade_server_CL | project ['Amperage Probe Relatives in Healthy State'] = columnifexists('amperage_probe_relatives_in_healthy_state_d', double(null)), ['Global Storage Status'] = columnifexists('global_storage_status_s', 'NULL_VALUE'), ['LCD Status'] = columnifexists('lcd_status_s', 'NULL_VALUE'), ['Memory Device Relatives in Healthy State'] = columnifexists('memory_device_relatives_in_healthy_state_d', double(null)), ['Physical Disk Relatives in Healthy State'] = columnifexists('physical_disk_relatives_in_healthy_state_d', double(null)), ['Processor Device Relatives in Healthy State'] = columnifexists('processor_device_relatives_in_healthy_state_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['System Battery Relatives in Healthy State'] = columnifexists('system_battery_relatives_in_healthy_state_d', double(null)), ['Temperature Probe Relatives in Healthy State'] = columnifexists('temperature_probe_relatives_in_healthy_state_d', double(null)), ['Virtual Disk Relatives in Healthy State'] = columnifexists('virtual_disk_relatives_in_healthy_state_d', double(null)), ['Voltage Probe Relatives in Healthy State'] = columnifexists('voltage_probe_relatives_in_healthy_state_d', double(null)), TimeGenerated, Name=dell_compute_blade_server_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Amperage Probe Relatives in Healthy State']) or coalesce(['Global Storage Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['LCD Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Device Relatives in Healthy State']) or isnotnull(['Physical Disk Relatives in Healthy State']) or isnotnull(['Processor Device Relatives in Healthy State']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['System Battery Relatives in Healthy State']) or isnotnull(['Temperature Probe Relatives in Healthy State']) or isnotnull(['Virtual Disk Relatives in Healthy State']) or isnotnull(['Voltage Probe Relatives in Healthy State']), (['Amperage Probe Relatives in Healthy State'] > 95 or isnull(['Amperage Probe Relatives in Healthy State'])) and (['Global Storage Status'] == 'OK' or coalesce(['Global Storage Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['LCD Status'] == 'OK' or coalesce(['LCD Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Device Relatives in Healthy State'] > 95 or isnull(['Memory Device Relatives in Healthy State'])) and (['Physical Disk Relatives in Healthy State'] > 95 or isnull(['Physical Disk Relatives in Healthy State'])) and (['Processor Device Relatives in Healthy State'] > 95 or isnull(['Processor Device Relatives in Healthy State'])) and (['Status'] == 'OK' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['System Battery Relatives in Healthy State'] > 95 or isnull(['System Battery Relatives in Healthy State'])) and (['Temperature Probe Relatives in Healthy State'] > 95 or isnull(['Temperature Probe Relatives in Healthy State'])) and (['Virtual Disk Relatives in Healthy State'] > 95 or isnull(['Virtual Disk Relatives in Healthy State'])) and (['Voltage Probe Relatives in Healthy State'] > 95 or isnull(['Voltage Probe Relatives in Healthy State'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Server Total Memory Device Size",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Memory Device Size",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dell_compute_blade_server_CL | where ${Chassis} and ${Model Name} and ${Operating System Name} and ${Version} and ${Version} and ${Version} and ${Blade Server} | summarize avg(coalesce(columnifexists('total_memory_device_size_d',0.0), 0.0)) by dell_compute_blade_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Memory Device Size",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Gibibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dell_compute_blade_server_CL  | where ${Chassis} and ${Model Name} and ${Operating System Name} and ${Version} and ${Version} and ${Version} and ${Blade Server} | summarize avg(coalesce(columnifexists('total_memory_device_size_d',0.0), 0.0)) by dell_compute_blade_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade Server",
+                                            "Value": "Total Memory Device Size"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Server Total Memory Device Size",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Memory Device Size",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dell_compute_rack_server_CL | where ${Model Name} and ${Version} and ${LCD Status} and ${Status} and ${Operating System Name} and ${Rack Server} | summarize avg(coalesce(columnifexists('total_memory_device_size_d',0.0), 0.0)) by dell_compute_rack_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Memory Device Size",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Gibibytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dell_compute_rack_server_CL  | where ${Model Name} and ${Version} and ${LCD Status} and ${Status} and ${Operating System Name} and ${Rack Server} | summarize avg(coalesce(columnifexists('total_memory_device_size_d',0.0), 0.0)) by dell_compute_rack_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack Server",
+                                            "Value": "Total Memory Device Size"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Blade Server Average Temperature Probe Reading",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Temperature Probe Reading",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dell_compute_blade_server_CL | where ${Chassis} and ${Model Name} and ${Operating System Name} and ${Version} and ${Version} and ${Version} and ${Blade Server} | summarize avg(coalesce(columnifexists('average_temperature_probe_reading_d',0.0), 0.0)) by dell_compute_blade_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Temperature Probe Reading",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Celsius"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dell_compute_blade_server_CL  | where ${Chassis} and ${Model Name} and ${Operating System Name} and ${Version} and ${Version} and ${Version} and ${Blade Server} | summarize avg(coalesce(columnifexists('average_temperature_probe_reading_d',0.0), 0.0)) by dell_compute_blade_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Blade Server",
+                                            "Value": "Average Temperature Probe Reading"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Rack Server Average Temperature Probe Reading",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Temperature Probe Reading",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dell_compute_rack_server_CL | where ${Model Name} and ${Version} and ${LCD Status} and ${Status} and ${Operating System Name} and ${Rack Server} | summarize avg(coalesce(columnifexists('average_temperature_probe_reading_d',0.0), 0.0)) by dell_compute_rack_server_name_s",
+                                        "Callout": {
+                                            "Title": "Average Temperature Probe Reading",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Celsius"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dell_compute_rack_server_CL  | where ${Model Name} and ${Version} and ${LCD Status} and ${Status} and ${Operating System Name} and ${Rack Server} | summarize avg(coalesce(columnifexists('average_temperature_probe_reading_d',0.0), 0.0)) by dell_compute_rack_server_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Rack Server",
+                                            "Value": "Average Temperature Probe Reading"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Chassis Front Panel Temperature",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Front Panel Temperature",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "dell_compute_chassis_CL | where ${Model} and ${Chassis} | summarize avg(coalesce(columnifexists('front_panel_temperature_d',0.0), 0.0)) by dell_compute_chassis_name_s",
+                                        "Callout": {
+                                            "Title": "Average Front Panel Temperature",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Celsius"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "dell_compute_chassis_CL  | where ${Model} and ${Chassis} | summarize avg(coalesce(columnifexists('front_panel_temperature_d',0.0), 0.0)) by dell_compute_chassis_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Chassis",
+                                            "Value": "Front Panel Temperature"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "dell_compute_blade_server_CL | summarize([\"Last Update Time\"], ['Total Memory Device Size'])=arg_max(TimeGenerated,columnifexists('total_memory_device_size_d', '')) by Name=dell_compute_blade_server_name_s",
+                                            "displayName": "Blade Server Memory"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_blade_server_CL | summarize([\"Last Update Time\"], ['Average Temperature Probe Reading'], ['Average Server Power'], ['Average Server Current'], ['Average Processor Voltage'])=arg_max(TimeGenerated,columnifexists('average_temperature_probe_reading_d', ''),columnifexists('average_server_power_d', ''),columnifexists('average_server_current_d', ''),columnifexists('average_processor_voltage_d', '')) by Name=dell_compute_blade_server_name_s",
+                                            "displayName": "Blade Server Details"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_blade_server_CL | summarize([\"Last Update Time\"], ['Total Physical Disk Available RAID'])=arg_max(TimeGenerated,columnifexists('total_physical_disk_available_raid_d', '')) by Name=dell_compute_blade_server_name_s",
+                                            "displayName": "Blade Server Disk"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_blade_server_CL | summarize([\"Last Update Time\"], ['Average Processor Speed'])=arg_max(TimeGenerated,columnifexists('average_processor_speed_d', '')) by Name=dell_compute_blade_server_name_s",
+                                            "displayName": "Blade Server Performance"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_blade_server_CL | summarize([\"Last Update Time\"], ['Amperage Probe Relatives in Healthy State'], ['Memory Device Relatives in Healthy State'], ['Physical Disk Relatives in Healthy State'], ['Processor Device Relatives in Healthy State'], ['System Battery Relatives in Healthy State'], ['Temperature Probe Relatives in Healthy State'], ['Virtual Disk Relatives in Healthy State'])=arg_max(TimeGenerated,columnifexists('amperage_probe_relatives_in_healthy_state_d', ''),columnifexists('memory_device_relatives_in_healthy_state_d', ''),columnifexists('physical_disk_relatives_in_healthy_state_d', ''),columnifexists('processor_device_relatives_in_healthy_state_d', ''),columnifexists('system_battery_relatives_in_healthy_state_d', ''),columnifexists('temperature_probe_relatives_in_healthy_state_d', ''),columnifexists('virtual_disk_relatives_in_healthy_state_d', '')) by Name=dell_compute_blade_server_name_s",
+                                            "displayName": "Blade Server Status"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_blade_server_CL | summarize([\"Last Update Time\"], ['Blade Slot Number'], ['Express Service Code'], ['FQDN'], ['Model Name'], ['Operating System Name'], ['RAC Description'])=arg_max(TimeGenerated,columnifexists('blade_slot_number_s', ''),columnifexists('express_service_code_s', ''),columnifexists('fqdn_s', ''),columnifexists('model_name_s', ''),columnifexists('operating_system_name_s', ''),columnifexists('rac_description_s', '')) by Name=dell_compute_blade_server_name_s",
+                                            "displayName": "Blade Server Properties"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_rack_server_CL | summarize([\"Last Update Time\"], ['Total Memory Device Size'])=arg_max(TimeGenerated,columnifexists('total_memory_device_size_d', '')) by Name=dell_compute_rack_server_name_s",
+                                            "displayName": "Rack Server Memory"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_rack_server_CL | summarize([\"Last Update Time\"], ['Average Temperature Probe Reading'], ['Average Voltage Probe Reading'], ['Average Power Supply'], ['Average Server Power'], ['Average Processor Voltage'])=arg_max(TimeGenerated,columnifexists('average_temperature_probe_reading_d', ''),columnifexists('average_voltage_probe_reading_d', ''),columnifexists('average_power_supply_d', ''),columnifexists('average_server_power_d', ''),columnifexists('average_processor_voltage_d', '')) by Name=dell_compute_rack_server_name_s",
+                                            "displayName": "Rack Server Details"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_rack_server_CL | summarize([\"Last Update Time\"], ['Average Processor Speed'])=arg_max(TimeGenerated,columnifexists('average_processor_speed_d', '')) by Name=dell_compute_rack_server_name_s",
+                                            "displayName": "Rack Server Performance"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_rack_server_CL | summarize([\"Last Update Time\"], ['Amperage Probe Relatives in Healthy State'], ['Cooling Device Relatives in Healthy State'], ['Intrusion Probe Relatives in Healthy State'], ['Memory Device Relatives in Healthy State'], ['Physical Disk Relatives in Healthy State'], ['Power Unit Relatives in Healthy State'], ['Processor Device Relatives in Healthy State'])=arg_max(TimeGenerated,columnifexists('amperage_probe_relatives_in_healthy_state_d', ''),columnifexists('cooling_device_relatives_in_healthy_state_d', ''),columnifexists('intrusion_probe_relatives_in_healthy_state_d', ''),columnifexists('memory_device_relatives_in_healthy_state_d', ''),columnifexists('physical_disk_relatives_in_healthy_state_d', ''),columnifexists('power_unit_relatives_in_healthy_state_d', ''),columnifexists('processor_device_relatives_in_healthy_state_d', '')) by Name=dell_compute_rack_server_name_s",
+                                            "displayName": "Rack Server Status"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_rack_server_CL | summarize([\"Last Update Time\"], ['Express Service Code'], ['FQDN'], ['Model Name'], ['Operating System Name'], ['RAC Description'], ['RAC Type'], ['Rack Slot'])=arg_max(TimeGenerated,columnifexists('express_service_code_s', ''),columnifexists('fqdn_s', ''),columnifexists('model_name_s', ''),columnifexists('operating_system_name_s', ''),columnifexists('rac_description_s', ''),columnifexists('rac_type_s', ''),columnifexists('rack_slot_s', '')) by Name=dell_compute_rack_server_name_s",
+                                            "displayName": "Rack Server Properties"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_chassis_CL | summarize([\"Last Update Time\"], ['Front Panel Temperature'], ['Instantaneous Current Usage'], ['Instantaneous Power Usage'], ['CMC Card Temperature'], ['CMC Processor Temperature'])=arg_max(TimeGenerated,columnifexists('front_panel_temperature_d', ''),columnifexists('instantaneous_current_usage_d', ''),columnifexists('instantaneous_power_usage_d', ''),columnifexists('cmc_card_temperature_d', ''),columnifexists('cmc_processor_temperature_d', '')) by Name=dell_compute_chassis_name_s",
+                                            "displayName": "Chassis Details"
+                                        }
+                                        ,{
+                                            "query": "dell_compute_chassis_CL | summarize([\"Last Update Time\"], ['Express Service Code'], ['Last Minimum Usage Reset'], ['Last Peak Usage Reset'], ['Last Power Usage Reset'], ['Location'], ['Management IP'], ['Model'])=arg_max(TimeGenerated,columnifexists('express_service_code_s', ''),columnifexists('last_minimum_usage_reset_s', ''),columnifexists('last_peak_usage_reset_s', ''),columnifexists('last_power_usage_reset_s', ''),columnifexists('location_s', ''),columnifexists('management_ip_s', ''),columnifexists('model_s', '')) by Name=dell_compute_chassis_name_s",
+                                            "displayName": "Chassis Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "dell_compute_chassis_name_s",
+                            "QueryForValues": "union dell_compute_blade_server_CL, dell_compute_chassis_CL | distinct dell_compute_chassis_name_s",
+                            "Title": "Chassis"
+                          },{
+                            "FieldName": "model_name_s",
+                            "QueryForValues": "union dell_compute_blade_server_CL, dell_compute_rack_server_CL | distinct model_name_s",
+                            "Title": "Model Name"
+                          },{
+                            "FieldName": "operating_system_name_s",
+                            "QueryForValues": "union dell_compute_blade_server_CL, dell_compute_rack_server_CL | distinct operating_system_name_s",
+                            "Title": "Operating System Name"
+                          },{
+                            "FieldName": "version_s",
+                            "QueryForValues": "union dell_compute_blade_server_CL, dell_compute_rack_server_CL | distinct version_s",
+                            "Title": "Version"
+                          },{
+                            "FieldName": "dell_compute_blade_server_name_s",
+                            "QueryForValues": "dell_compute_blade_server_CL | distinct dell_compute_blade_server_name_s",
+                            "Title": "Blade Server"
+                          },{
+                            "FieldName": "lcd_status_s",
+                            "QueryForValues": "dell_compute_rack_server_CL | distinct lcd_status_s",
+                            "Title": "LCD Status"
+                          },{
+                            "FieldName": "status_s",
+                            "QueryForValues": "dell_compute_rack_server_CL | distinct status_s",
+                            "Title": "Status"
+                          },{
+                            "FieldName": "dell_compute_rack_server_name_s",
+                            "QueryForValues": "dell_compute_rack_server_CL | distinct dell_compute_rack_server_name_s",
+                            "Title": "Rack Server"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "dell_compute_chassis_CL | distinct model_s",
+                            "Title": "Model"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "dell_compute_blade_server_CL | project ['Amperage Probe Relatives in Healthy State'] = columnifexists('amperage_probe_relatives_in_healthy_state_d', double(null)), ['Global Storage Status'] = columnifexists('global_storage_status_s', 'NULL_VALUE'), ['LCD Status'] = columnifexists('lcd_status_s', 'NULL_VALUE'), ['Memory Device Relatives in Healthy State'] = columnifexists('memory_device_relatives_in_healthy_state_d', double(null)), ['Physical Disk Relatives in Healthy State'] = columnifexists('physical_disk_relatives_in_healthy_state_d', double(null)), ['Processor Device Relatives in Healthy State'] = columnifexists('processor_device_relatives_in_healthy_state_d', double(null)), ['Status'] = columnifexists('status_s', 'NULL_VALUE'), ['System Battery Relatives in Healthy State'] = columnifexists('system_battery_relatives_in_healthy_state_d', double(null)), ['Temperature Probe Relatives in Healthy State'] = columnifexists('temperature_probe_relatives_in_healthy_state_d', double(null)), ['Virtual Disk Relatives in Healthy State'] = columnifexists('virtual_disk_relatives_in_healthy_state_d', double(null)), ['Voltage Probe Relatives in Healthy State'] = columnifexists('voltage_probe_relatives_in_healthy_state_d', double(null)), TimeGenerated, Name=dell_compute_blade_server_name_s  | extend Healthy = case(isnotnull(['Amperage Probe Relatives in Healthy State']) or coalesce(['Global Storage Status'], 'NULL_VALUE') != 'NULL_VALUE' or coalesce(['LCD Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['Memory Device Relatives in Healthy State']) or isnotnull(['Physical Disk Relatives in Healthy State']) or isnotnull(['Processor Device Relatives in Healthy State']) or coalesce(['Status'], 'NULL_VALUE') != 'NULL_VALUE' or isnotnull(['System Battery Relatives in Healthy State']) or isnotnull(['Temperature Probe Relatives in Healthy State']) or isnotnull(['Virtual Disk Relatives in Healthy State']) or isnotnull(['Voltage Probe Relatives in Healthy State']), (['Amperage Probe Relatives in Healthy State'] > 95 or isnull(['Amperage Probe Relatives in Healthy State'])) and (['Global Storage Status'] == 'OK' or coalesce(['Global Storage Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['LCD Status'] == 'OK' or coalesce(['LCD Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['Memory Device Relatives in Healthy State'] > 95 or isnull(['Memory Device Relatives in Healthy State'])) and (['Physical Disk Relatives in Healthy State'] > 95 or isnull(['Physical Disk Relatives in Healthy State'])) and (['Processor Device Relatives in Healthy State'] > 95 or isnull(['Processor Device Relatives in Healthy State'])) and (['Status'] == 'OK' or coalesce(['Status'], 'NULL_VALUE') == 'NULL_VALUE') and (['System Battery Relatives in Healthy State'] > 95 or isnull(['System Battery Relatives in Healthy State'])) and (['Temperature Probe Relatives in Healthy State'] > 95 or isnull(['Temperature Probe Relatives in Healthy State'])) and (['Virtual Disk Relatives in Healthy State'] > 95 or isnull(['Virtual Disk Relatives in Healthy State'])) and (['Voltage Probe Relatives in Healthy State'] > 95 or isnull(['Voltage Probe Relatives in Healthy State'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Blade Server",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

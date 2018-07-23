@@ -73,7 +73,7 @@
                                         },
                                         {
                                             "Title": "Key Performance Indicators",
-                                            "Content": "In Citrix Netscalar, it is important to monitor the response rate of the load balancers. This assists in tracking performance and cost of the NetScaler instance."
+                                            "Content": "In Citrix Netscalar, it is important to monitor the CPU, disk, and memory utilization of appliances."
                                         }
                                     ]
                                 }
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance}  | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk 0 Utilization'] = columnifexists('disk_0_utilization_d', double(null)), ['Disk 1 Utilization'] = columnifexists('disk_1_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk 0 Utilization']) or isnotnull(['Disk 1 Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk 0 Utilization'] < 90 or isnull(['Disk 0 Utilization'])) and (['Disk 1 Utilization'] < 90 or isnull(['Disk 1 Utilization'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance}  | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk 0 Utilization'] = columnifexists('disk_0_utilization_d', double(null)), ['Disk 1 Utilization'] = columnifexists('disk_1_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk 0 Utilization']) or isnotnull(['Disk 1 Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk 0 Utilization'] < 90 or isnull(['Disk 0 Utilization'])) and (['Disk 1 Utilization'] < 90 or isnull(['Disk 1 Utilization'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "citrix_netscaler_appliance_CL | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null))",
+                                        "NavigationQuery": "citrix_netscaler_appliance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk 0 Utilization'] = columnifexists('disk_0_utilization_d', double(null)), ['Disk 1 Utilization'] = columnifexists('disk_1_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk 0 Utilization']) or isnotnull(['Disk 1 Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk 0 Utilization'] < 90 or isnull(['Disk 0 Utilization'])) and (['Disk 1 Utilization'] < 90 or isnull(['Disk 1 Utilization'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "citrix_netscaler_appliance_CL | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null))"
+                                            "NavigationQuery": "citrix_netscaler_appliance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk 0 Utilization'] = columnifexists('disk_0_utilization_d', double(null)), ['Disk 1 Utilization'] = columnifexists('disk_1_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk 0 Utilization']) or isnotnull(['Disk 1 Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk 0 Utilization'] < 90 or isnull(['Disk 0 Utilization'])) and (['Disk 1 Utilization'] < 90 or isnull(['Disk 1 Utilization'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,19 +183,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Appliance CPU Usage Percent",
+                                        "title": "Appliance CPU Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "CPU Usage Percent",
+                                        "Title": "CPU Utilization",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('cpu_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
                                         "Callout": {
-                                            "Title": "Average CPU Usage Percent",
+                                            "Title": "Average CPU Utilization",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -211,13 +211,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('cpu_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Appliance",
-                                            "Value": "CPU Usage Percent"
+                                            "Value": "CPU Utilization"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -232,156 +232,6 @@
                                                 {
                                                     "name": "Warning",
                                                     "threshold": "75.0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Appliance Disk 0 Percent Usage",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Disk 0 Percent Usage",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_0_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
-                                        "Callout": {
-                                            "Title": "Average Disk 0 Percent Usage",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_0_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Appliance",
-                                            "Value": "Disk 0 Percent Usage"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "80.0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Appliance Disk 1 Percent Usage",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Disk 1 Percent Usage",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_1_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
-                                        "Callout": {
-                                            "Title": "Average Disk 1 Percent Usage",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_1_percent_usage_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Appliance",
-                                            "Value": "Disk 1 Percent Usage"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90.0",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "80.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -483,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Appliance Memory Usage Percent",
+                                        "title": "Appliance Disk 0 Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Memory Usage Percent",
+                                        "Title": "Disk 0 Utilization",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('memory_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_0_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
                                         "Callout": {
-                                            "Title": "Average Memory Usage Percent",
+                                            "Title": "Average Disk 0 Utilization",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -511,13 +361,163 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('memory_usage_percent_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_0_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Appliance",
-                                            "Value": "Memory Usage Percent"
+                                            "Value": "Disk 0 Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Disk 1 Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Disk 1 Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_1_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Disk 1 Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('disk_1_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "Disk 1 Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "80.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Appliance Memory Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Memory Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "citrix_netscaler_appliance_CL | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s",
+                                        "Callout": {
+                                            "Title": "Average Memory Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "citrix_netscaler_appliance_CL  | where ${System Type} and ${Appliance} | summarize avg(coalesce(columnifexists('memory_utilization_d',0.0), 0.0)) by citrix_netscaler_appliance_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Appliance",
+                                            "Value": "Memory Utilization"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,7 +566,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "citrix_netscaler_appliance_CL | summarize([\"Last Update Time\"], ['CPU Usage Percent'], ['Disk 0 Percent Usage'], ['Disk 1 Percent Usage'], ['Management CPU Usage'], ['Memory Usage Percent'])=arg_max(TimeGenerated,columnifexists('cpu_usage_percent_d', ''),columnifexists('disk_0_percent_usage_d', ''),columnifexists('disk_1_percent_usage_d', ''),columnifexists('management_cpu_usage_d', ''),columnifexists('memory_usage_percent_d', '')) by Name=citrix_netscaler_appliance_name_s",
+                                            "query": "citrix_netscaler_appliance_CL | summarize([\"Last Update Time\"], ['CPU Utilization'], ['Management CPU Usage'], ['Disk 0 Utilization'], ['Disk 1 Utilization'], ['Memory Utilization'])=arg_max(TimeGenerated,columnifexists('cpu_utilization_d', ''),columnifexists('management_cpu_usage_d', ''),columnifexists('disk_0_utilization_d', ''),columnifexists('disk_1_utilization_d', ''),columnifexists('memory_utilization_d', '')) by Name=citrix_netscaler_appliance_name_s",
                                             "displayName": "Appliance "
                                         }
                                         ,{
@@ -620,7 +620,7 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "citrix_netscaler_appliance_CL | project ['CPU Usage Percent'] = columnifexists('cpu_usage_percent_d', double(null)), ['Disk 0 Percent Usage'] = columnifexists('disk_0_percent_usage_d', double(null)), ['Disk 1 Percent Usage'] = columnifexists('disk_1_percent_usage_d', double(null)), ['Memory Usage Percent'] = columnifexists('memory_usage_percent_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Usage Percent']) or isnotnull(['Disk 0 Percent Usage']) or isnotnull(['Disk 1 Percent Usage']) or isnotnull(['Memory Usage Percent']), (['CPU Usage Percent'] < 85.0 or isnull(['CPU Usage Percent'])) and (['Disk 0 Percent Usage'] < 90 or isnull(['Disk 0 Percent Usage'])) and (['Disk 1 Percent Usage'] < 90 or isnull(['Disk 1 Percent Usage'])) and (['Memory Usage Percent'] < 90 or isnull(['Memory Usage Percent'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "citrix_netscaler_appliance_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk 0 Utilization'] = columnifexists('disk_0_utilization_d', double(null)), ['Disk 1 Utilization'] = columnifexists('disk_1_utilization_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=citrix_netscaler_appliance_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk 0 Utilization']) or isnotnull(['Disk 1 Utilization']) or isnotnull(['Memory Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk 0 Utilization'] < 90 or isnull(['Disk 0 Utilization'])) and (['Disk 1 Utilization'] < 90 or isnull(['Disk 1 Utilization'])) and (['Memory Utilization'] < 90 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
                                         "Text": "Appliance",
                                         "Operation": "Sum",

@@ -73,7 +73,7 @@
                                         },
                                         {
                                             "Title": "Key Performance Indicators",
-                                            "Content": "In Amazon Redshift, receiving information about the flow of data (throughput, latency, etc) is essential to managing the flow of data."
+                                            "Content": "In Amazon Redshift, it's important to monitor throughput, latency, CPU utilization and memory utilization."
                                         }
                                     ]
                                 }
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Space Utilization'] = columnifexists('disk_space_utilization_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Space Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk Space Utilization'] < 95.0 or isnull(['Disk Space Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,7 +112,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster}  | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Space Utilization'] = columnifexists('disk_space_utilization_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Space Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk Space Utilization'] < 95.0 or isnull(['Disk Space Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null))",
+                                        "NavigationQuery": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Space Utilization'] = columnifexists('disk_space_utilization_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Space Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk Space Utilization'] < 95.0 or isnull(['Disk Space Utilization'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null))"
+                                            "NavigationQuery": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Space Utilization'] = columnifexists('disk_space_utilization_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Space Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk Space Utilization'] < 95.0 or isnull(['Disk Space Utilization'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Node CPU Utilization",
+                                        "title": "Cluster CPU Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_redshift_cluster_name_s",
                                         "Callout": {
                                             "Title": "Average CPU Utilization",
                                             "Series": "",
@@ -211,12 +211,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "Query": "amazon_redshift_cluster_CL  | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('cpu_utilization_d',0.0), 0.0)) by amazon_redshift_cluster_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Node",
+                                            "Name": "Cluster",
                                             "Value": "CPU Utilization"
                                         },
                                         "Color": "#0072c6",
@@ -258,19 +258,94 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Node Read IOPS",
+                                        "title": "Cluster Disk Space Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Read IOPS",
+                                        "Title": "Disk Space Utilization",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('disk_space_utilization_d',0.0), 0.0)) by amazon_redshift_cluster_name_s",
                                         "Callout": {
-                                            "Title": "Average Read IOPS",
+                                            "Title": "Average Disk Space Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "amazon_redshift_cluster_CL  | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('disk_space_utilization_d',0.0), 0.0)) by amazon_redshift_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Disk Space Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "95.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "85.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Read IO Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read IO Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('read_io_rate_d',0.0), 0.0)) by amazon_redshift_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read IO Rate",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -286,13 +361,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "Query": "amazon_redshift_cluster_CL  | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('read_io_rate_d',0.0), 0.0)) by amazon_redshift_cluster_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Node",
-                                            "Value": "Read IOPS"
+                                            "Name": "Cluster",
+                                            "Value": "Read IO Rate"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -333,82 +408,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Node Write IOPS",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Write IOPS",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s",
-                                        "Callout": {
-                                            "Title": "Average Write IOPS",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Operations per Second"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_iops_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "Node",
-                                            "Value": "Write IOPS"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Node Read Latency",
+                                        "title": "Cluster Read Latency",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -418,7 +418,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by amazon_redshift_cluster_name_s",
                                         "Callout": {
                                             "Title": "Average Read Latency",
                                             "Series": "",
@@ -436,12 +436,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "Query": "amazon_redshift_cluster_CL  | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('read_latency_d',0.0), 0.0)) by amazon_redshift_cluster_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Node",
+                                            "Name": "Cluster",
                                             "Value": "Read Latency"
                                         },
                                         "Color": "#0072c6",
@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Node Write Latency",
+                                        "title": "Cluster Read Throughput",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Write Latency",
+                                        "Title": "Read Throughput",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "amazon_redshift_node_CL | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s",
+                                        "Query": "amazon_redshift_cluster_CL | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('read_throughput_d',0.0), 0.0)) by amazon_redshift_cluster_name_s",
                                         "Callout": {
-                                            "Title": "Average Write Latency",
+                                            "Title": "Average Read Throughput",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +506,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Seconds"
+                                            "customLabel": "Bytes per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "amazon_redshift_node_CL  | where ${Region} and ${Node Role} and ${Node} | summarize avg(coalesce(columnifexists('write_latency_d',0.0), 0.0)) by amazon_redshift_node_name_s | order by avg_ desc",
+                                        "Query": "amazon_redshift_cluster_CL  | where ${Region} and ${Cluster Status} and ${Cluster} | summarize avg(coalesce(columnifexists('read_throughput_d',0.0), 0.0)) by amazon_redshift_cluster_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Node",
-                                            "Value": "Write Latency"
+                                            "Name": "Cluster",
+                                            "Value": "Read Throughput"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -570,7 +570,7 @@
                                             "displayName": "Cluster CPU"
                                         }
                                         ,{
-                                            "query": "amazon_redshift_cluster_CL | summarize([\"Last Update Time\"], ['Percentage Disk Space Used'], ['Read IOPS'], ['Read Latency'], ['Read Throughput'], ['Write IOPS'], ['Write Latency'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('percentage_disk_space_used_d', ''),columnifexists('read_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_iops_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_d', '')) by Name=amazon_redshift_cluster_name_s",
+                                            "query": "amazon_redshift_cluster_CL | summarize([\"Last Update Time\"], ['Disk Space Utilization'], ['Read IO Rate'], ['Read Latency'], ['Read Throughput'], ['Write IO Rate'], ['Write Latency'], ['Write Throughput'])=arg_max(TimeGenerated,columnifexists('disk_space_utilization_d', ''),columnifexists('read_io_rate_d', ''),columnifexists('read_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_io_rate_d', ''),columnifexists('write_latency_d', ''),columnifexists('write_throughput_d', '')) by Name=amazon_redshift_cluster_name_s",
                                             "displayName": "Cluster Disk"
                                         }
                                         ,{
@@ -582,7 +582,7 @@
                                             "displayName": "Node CPU"
                                         }
                                         ,{
-                                            "query": "amazon_redshift_node_CL | summarize([\"Last Update Time\"], ['Read IOPS'], ['Write IOPS'], ['Read Latency'], ['Write Latency'], ['Read Throughput'], ['Write Throughput'], ['Percentage Disk Space Used'])=arg_max(TimeGenerated,columnifexists('read_iops_d', ''),columnifexists('write_iops_d', ''),columnifexists('read_latency_d', ''),columnifexists('write_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('percentage_disk_space_used_d', '')) by Name=amazon_redshift_node_name_s",
+                                            "query": "amazon_redshift_node_CL | summarize([\"Last Update Time\"], ['Read IO Rate'], ['Write IO Rate'], ['Read Latency'], ['Write Latency'], ['Read Throughput'], ['Write Throughput'], ['Disk Space Utilization'])=arg_max(TimeGenerated,columnifexists('read_io_rate_d', ''),columnifexists('write_io_rate_d', ''),columnifexists('read_latency_d', ''),columnifexists('write_latency_d', ''),columnifexists('read_throughput_d', ''),columnifexists('write_throughput_d', ''),columnifexists('disk_space_utilization_d', '')) by Name=amazon_redshift_node_name_s",
                                             "displayName": "Node Disk"
                                         }
                                         ,{
@@ -620,7 +620,7 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Percentage Disk Space Used'] = columnifexists('percentage_disk_space_used_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Percentage Disk Space Used']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Percentage Disk Space Used'] < 95.0 or isnull(['Percentage Disk Space Used'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "amazon_redshift_cluster_CL | project ['CPU Utilization'] = columnifexists('cpu_utilization_d', double(null)), ['Disk Space Utilization'] = columnifexists('disk_space_utilization_d', double(null)), TimeGenerated, Name=amazon_redshift_cluster_name_s  | extend Healthy = case(isnotnull(['CPU Utilization']) or isnotnull(['Disk Space Utilization']), (['CPU Utilization'] < 85.0 or isnull(['CPU Utilization'])) and (['Disk Space Utilization'] < 95.0 or isnull(['Disk Space Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
                                         "Text": "Cluster",
                                         "Operation": "Sum",

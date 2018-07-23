@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Switch Health",
+                                        "title": "Port Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "lenovo_network_switch_CL | where ${Switch}  | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Port}  | project ['Errors with Inbound Packets'] = columnifexists('errors_with_inbound_packets_d', double(null)), ['Outbound Packet Errors'] = columnifexists('outbound_packet_errors_d', double(null)), TimeGenerated, Name=lenovo_network_port_name_s  | extend Healthy = case(isnotnull(['Errors with Inbound Packets']) or isnotnull(['Outbound Packet Errors']), (['Errors with Inbound Packets'] < 1 or isnull(['Errors with Inbound Packets'])) and (['Outbound Packet Errors'] < 1 or isnull(['Outbound Packet Errors'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "lenovo_network_switch_CL | where ${Switch}  | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Port}  | project ['Errors with Inbound Packets'] = columnifexists('errors_with_inbound_packets_d', double(null)), ['Outbound Packet Errors'] = columnifexists('outbound_packet_errors_d', double(null)), TimeGenerated, Name=lenovo_network_port_name_s  | extend Healthy = case(isnotnull(['Errors with Inbound Packets']) or isnotnull(['Outbound Packet Errors']), (['Errors with Inbound Packets'] < 1 or isnull(['Errors with Inbound Packets'])) and (['Outbound Packet Errors'] < 1 or isnull(['Outbound Packet Errors'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Switch Name",
+                                            "Name": "Port Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "lenovo_network_switch_CL | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null))",
+                                        "NavigationQuery": "lenovo_network_port_CL | project ['Errors with Inbound Packets'] = columnifexists('errors_with_inbound_packets_d', double(null)), ['Outbound Packet Errors'] = columnifexists('outbound_packet_errors_d', double(null)), TimeGenerated, Name=lenovo_network_port_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Errors with Inbound Packets']) or isnotnull(['Outbound Packet Errors']), (['Errors with Inbound Packets'] < 1 or isnull(['Errors with Inbound Packets'])) and (['Outbound Packet Errors'] < 1 or isnull(['Outbound Packet Errors'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "lenovo_network_switch_CL | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null))"
+                                            "NavigationQuery": "lenovo_network_port_CL | project ['Errors with Inbound Packets'] = columnifexists('errors_with_inbound_packets_d', double(null)), ['Outbound Packet Errors'] = columnifexists('outbound_packet_errors_d', double(null)), TimeGenerated, Name=lenovo_network_port_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Errors with Inbound Packets']) or isnotnull(['Outbound Packet Errors']), (['Errors with Inbound Packets'] < 1 or isnull(['Errors with Inbound Packets'])) and (['Outbound Packet Errors'] < 1 or isnull(['Outbound Packet Errors'])), bool(null))"
                                         }
                                     }
                                 }
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('errors_with_inbound_packets_d',0.0), 0.0)) by lenovo_network_port_name_s",
+                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Port} | summarize avg(coalesce(columnifexists('errors_with_inbound_packets_d',0.0), 0.0)) by lenovo_network_port_name_s",
                                         "Callout": {
                                             "Title": "Average Errors with Inbound Packets",
                                             "Series": "",
@@ -211,7 +211,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "lenovo_network_port_CL  | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('errors_with_inbound_packets_d',0.0), 0.0)) by lenovo_network_port_name_s | order by avg_ desc",
+                                        "Query": "lenovo_network_port_CL  | where ${Switch} and ${Port} | summarize avg(coalesce(columnifexists('errors_with_inbound_packets_d',0.0), 0.0)) by lenovo_network_port_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -268,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('outbound_packet_errors_d',0.0), 0.0)) by lenovo_network_port_name_s",
+                                        "Query": "lenovo_network_port_CL | where ${Switch} and ${Port} | summarize avg(coalesce(columnifexists('outbound_packet_errors_d',0.0), 0.0)) by lenovo_network_port_name_s",
                                         "Callout": {
                                             "Title": "Average Outbound Packet Errors",
                                             "Series": "",
@@ -286,7 +286,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "lenovo_network_port_CL  | where ${Switch} and ${Operational State} and ${Type} and ${Port} | summarize avg(coalesce(columnifexists('outbound_packet_errors_d',0.0), 0.0)) by lenovo_network_port_name_s | order by avg_ desc",
+                                        "Query": "lenovo_network_port_CL  | where ${Switch} and ${Port} | summarize avg(coalesce(columnifexists('outbound_packet_errors_d',0.0), 0.0)) by lenovo_network_port_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -416,14 +416,6 @@
                                     "queries": [
 
                                         {
-                                            "query": "lenovo_network_switch_CL | summarize([\"Last Update Time\"], ['Number of Processes'])=arg_max(TimeGenerated,columnifexists('number_of_processes_d', '')) by Name=lenovo_network_switch_name_s",
-                                            "displayName": "Switch Details"
-                                        }
-                                        ,{
-                                            "query": "lenovo_network_switch_CL | summarize([\"Last Update Time\"], ['Description'], ['Management IP'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('management_ip_s', '')) by Name=lenovo_network_switch_name_s",
-                                            "displayName": "Switch Properties"
-                                        }
-                                        ,{
                                             "query": "lenovo_network_port_CL | summarize([\"Last Update Time\"], ['Errors with Inbound Packets'], ['Outbound Packet Errors'])=arg_max(TimeGenerated,columnifexists('errors_with_inbound_packets_d', ''),columnifexists('outbound_packet_errors_d', '')) by Name=lenovo_network_port_name_s",
                                             "displayName": "Port Details"
                                         }
@@ -431,22 +423,22 @@
                                             "query": "lenovo_network_port_CL | summarize([\"Last Update Time\"], ['Address'], ['Description'], ['MTU'], ['Type'])=arg_max(TimeGenerated,columnifexists('address_s', ''),columnifexists('description_s', ''),columnifexists('mtu_d', ''),columnifexists('type_s', '')) by Name=lenovo_network_port_name_s",
                                             "displayName": "Port Properties"
                                         }
+                                        ,{
+                                            "query": "lenovo_network_switch_CL | summarize([\"Last Update Time\"], ['Number of Processes'])=arg_max(TimeGenerated,columnifexists('number_of_processes_d', '')) by Name=lenovo_network_switch_name_s",
+                                            "displayName": "Switch Details"
+                                        }
+                                        ,{
+                                            "query": "lenovo_network_switch_CL | summarize([\"Last Update Time\"], ['Description'], ['Management IP'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('management_ip_s', '')) by Name=lenovo_network_switch_name_s",
+                                            "displayName": "Switch Properties"
+                                        }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
                             "FieldName": "lenovo_network_switch_name_s",
-                            "QueryForValues": "union lenovo_network_switch_CL, lenovo_network_port_CL | distinct lenovo_network_switch_name_s",
+                            "QueryForValues": "union lenovo_network_port_CL, lenovo_network_switch_CL | distinct lenovo_network_switch_name_s",
                             "Title": "Switch"
-                          },{
-                            "FieldName": "operational_state_d",
-                            "QueryForValues": "lenovo_network_port_CL | distinct operational_state_d",
-                            "Title": "Operational State"
-                          },{
-                            "FieldName": "type_s",
-                            "QueryForValues": "lenovo_network_port_CL | distinct type_s",
-                            "Title": "Type"
                           },{
                             "FieldName": "lenovo_network_port_name_s",
                             "QueryForValues": "lenovo_network_port_CL | distinct lenovo_network_port_name_s",
@@ -458,9 +450,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "lenovo_network_switch_CL | project ['Number of Processes'] = columnifexists('number_of_processes_d', double(null)), ['Maximum Processes'] = columnifexists('maximum_processes_d', double(null)), TimeGenerated, Name=lenovo_network_switch_name_s  | extend Healthy = case(isnotnull(['Number of Processes']) or isnotnull(['Maximum Processes']), (['Number of Processes'] < ['Maximum Processes'] or isnull(['Number of Processes']) or isnull(['Maximum Processes'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "lenovo_network_port_CL | project ['Errors with Inbound Packets'] = columnifexists('errors_with_inbound_packets_d', double(null)), ['Outbound Packet Errors'] = columnifexists('outbound_packet_errors_d', double(null)), TimeGenerated, Name=lenovo_network_port_name_s  | extend Healthy = case(isnotnull(['Errors with Inbound Packets']) or isnotnull(['Outbound Packet Errors']), (['Errors with Inbound Packets'] < 1 or isnull(['Errors with Inbound Packets'])) and (['Outbound Packet Errors'] < 1 or isnull(['Outbound Packet Errors'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Switch",
+                                        "Text": "Port",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

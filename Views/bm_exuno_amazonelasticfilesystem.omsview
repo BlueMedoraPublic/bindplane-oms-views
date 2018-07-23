@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Health",
+                                        "title": "File System Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -117,7 +117,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": " Name",
+                                            "Name": "File System Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " I/O Limit",
+                                        "title": "File System I/O Limit",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -216,7 +216,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "File System",
                                             "Value": "I/O Limit"
                                         },
                                         "Color": "#0072c6",
@@ -258,7 +258,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Total I/O",
+                                        "title": "File System Total I/O",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -291,7 +291,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "File System",
                                             "Value": "Total I/O"
                                         },
                                         "Color": "#0072c6",
@@ -333,7 +333,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Read I/O",
+                                        "title": "File System Read I/O",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -366,7 +366,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "File System",
                                             "Value": "Read I/O"
                                         },
                                         "Color": "#0072c6",
@@ -408,7 +408,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Write I/O",
+                                        "title": "File System Write I/O",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -441,7 +441,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "File System",
                                             "Value": "Write I/O"
                                         },
                                         "Color": "#0072c6",
@@ -492,15 +492,15 @@
 
                                         {
                                             "query": "amazon_elasticfilesystem_file_system_CL | summarize([\"Last Update Time\"], ['I/O Limit'])=arg_max(TimeGenerated,columnifexists('io_limit_d', '')) by Name=amazon_elasticfilesystem_file_system_name_s",
-                                            "displayName": " Status"
+                                            "displayName": "File System Status"
                                         }
                                         ,{
                                             "query": "amazon_elasticfilesystem_file_system_CL | summarize([\"Last Update Time\"], ['Total I/O'], ['Read I/O'], ['Write I/O'])=arg_max(TimeGenerated,columnifexists('total_io_d', ''),columnifexists('read_io_d', ''),columnifexists('write_io_d', '')) by Name=amazon_elasticfilesystem_file_system_name_s",
-                                            "displayName": " Network"
+                                            "displayName": "File System Network"
                                         }
                                         ,{
                                             "query": "amazon_elasticfilesystem_file_system_CL | summarize([\"Last Update Time\"], ['Encrypted'], ['KMS Key ID'], ['Owner ID'])=arg_max(TimeGenerated,columnifexists('encrypted_d', ''),columnifexists('kms_key_id_s', ''),columnifexists('owner_id_s', '')) by Name=amazon_elasticfilesystem_file_system_name_s",
-                                            "displayName": " Properties"
+                                            "displayName": "File System Properties"
                                         }
                                     ]
                                 }
@@ -527,7 +527,7 @@
                                 "Donut": {
                                     "Query": "amazon_elasticfilesystem_file_system_CL | project ['I/O Limit'] = columnifexists('io_limit_d', double(null)), TimeGenerated, Name=amazon_elasticfilesystem_file_system_name_s  | extend Healthy = case(isnotnull(['I/O Limit']), (['I/O Limit'] < 90.00 or isnull(['I/O Limit'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "",
+                                        "Text": "File System",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

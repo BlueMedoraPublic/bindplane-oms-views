@@ -78,7 +78,104 @@
                                     ]
                                 }
                             },
-                            
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Instance Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Executions'] = columnifexists('executions_d', double(null)), ['User Calls'] = columnifexists('user_calls_d', double(null)), TimeGenerated, Name=oracle_database_instance_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Executions']) or isnotnull(['User Calls']), (['CPU Usage'] < 75 or isnull(['CPU Usage'])) and (['Executions'] < 2000 or isnull(['Executions'])) and (['User Calls'] < 1000 or isnull(['User Calls'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance}  | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Executions'] = columnifexists('executions_d', double(null)), ['User Calls'] = columnifexists('user_calls_d', double(null)), TimeGenerated, Name=oracle_database_instance_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Executions']) or isnotnull(['User Calls']), (['CPU Usage'] < 75 or isnull(['CPU Usage'])) and (['Executions'] < 2000 or isnull(['Executions'])) and (['User Calls'] < 1000 or isnull(['User Calls'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Instance Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "oracle_database_instance_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Executions'] = columnifexists('executions_d', double(null)), ['User Calls'] = columnifexists('user_calls_d', double(null)), TimeGenerated, Name=oracle_database_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Executions']) or isnotnull(['User Calls']), (['CPU Usage'] < 75 or isnull(['CPU Usage'])) and (['Executions'] < 2000 or isnull(['Executions'])) and (['User Calls'] < 1000 or isnull(['User Calls'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "oracle_database_instance_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Executions'] = columnifexists('executions_d', double(null)), ['User Calls'] = columnifexists('user_calls_d', double(null)), TimeGenerated, Name=oracle_database_instance_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Executions']) or isnotnull(['User Calls']), (['CPU Usage'] < 75 or isnull(['CPU Usage'])) and (['Executions'] < 2000 or isnull(['Executions'])) and (['User Calls'] < 1000 or isnull(['User Calls'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
 
                             {
                                 "Id": "LineChartCalloutBuilderBlade",
@@ -86,19 +183,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "file Average Read Time",
+                                        "title": "Instance CPU Usage",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Average Read Time",
+                                        "Title": "CPU Usage",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by oracle_database_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average Read Time",
+                                            "Title": "Average CPU Usage",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -109,32 +206,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "Centiseconds per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "oracle_database_database_file_CL  | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('cpu_usage_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "file",
-                                            "Value": "Average Read Time"
+                                            "Name": "Instance",
+                                            "Value": "CPU Usage"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "75.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "67.5",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -161,19 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "file Average Write Time",
+                                        "title": "Instance Executions",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Average Write Time",
+                                        "Title": "Executions",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_write_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('executions_d',0.0), 0.0)) by oracle_database_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average Write Time",
+                                            "Title": "Average Executions",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -184,32 +281,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "oracle_database_database_file_CL  | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_write_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('executions_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "file",
-                                            "Value": "Average Write Time"
+                                            "Name": "Instance",
+                                            "Value": "Executions"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "2000.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "1800.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -236,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "file Average I/O Time",
+                                        "title": "Instance User Calls",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Average I/O Time",
+                                        "Title": "User Calls",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "oracle_database_database_file_CL | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_database_file_name_s",
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('user_calls_d',0.0), 0.0)) by oracle_database_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average I/O Time",
+                                            "Title": "Average User Calls",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -259,32 +356,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Milliseconds"
+                                            "customLabel": "per Second"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "oracle_database_database_file_CL  | where ${Database} and ${Status} and ${file} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
+                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('user_calls_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "file",
-                                            "Value": "Average I/O Time"
+                                            "Name": "Instance",
+                                            "Value": "User Calls"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1000.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "900.0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -386,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Instance Executions",
+                                        "title": "Instance Average I/O Time",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Executions",
+                                        "Title": "Average I/O Time",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('executions_d',0.0), 0.0)) by oracle_database_instance_name_s",
+                                        "Query": "oracle_database_instance_CL | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_instance_name_s",
                                         "Callout": {
-                                            "Title": "Average Executions",
+                                            "Title": "Average I/O Time",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -409,32 +506,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "per Second"
+                                            "customLabel": "Milliseconds"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('executions_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
+                                        "Query": "oracle_database_instance_CL  | where ${Database} and ${Status} and ${Instance} | summarize avg(coalesce(columnifexists('average_io_time_d',0.0), 0.0)) by oracle_database_instance_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Instance",
-                                            "Value": "Executions"
+                                            "Value": "Average I/O Time"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": true,
+                                            "isEnabled": false,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "2000.0",
+                                                    "threshold": "90",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "1800.0",
+                                                    "threshold": "0",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -469,20 +566,28 @@
                                     "queries": [
 
                                         {
-                                            "query": "oracle_database_database_file_CL | summarize([\"Last Update Time\"], ['Average Read Time'], ['Average Write Time'], ['Average I/O Time'])=arg_max(TimeGenerated,columnifexists('average_read_time_d', ''),columnifexists('average_write_time_d', ''),columnifexists('average_io_time_d', '')) by Name=oracle_database_database_file_name_s",
-                                            "displayName": "file "
-                                        }
-                                        ,{
-                                            "query": "oracle_database_database_file_CL | summarize([\"Last Update Time\"], ['Max Size'], ['Tablespace Name'])=arg_max(TimeGenerated,columnifexists('maximum_size_d', ''),columnifexists('tablespace_name_s', '')) by Name=oracle_database_database_file_name_s",
-                                            "displayName": "file Properties"
-                                        }
-                                        ,{
-                                            "query": "oracle_database_instance_CL | summarize([\"Last Update Time\"], ['User Calls'])=arg_max(TimeGenerated,columnifexists('user_calls_d', '')) by Name=oracle_database_instance_name_s",
+                                            "query": "oracle_database_instance_CL | summarize([\"Last Update Time\"], ['I/O Throughput'], ['Average Read Time'], ['Average Write Time'], ['Free System Global Area Memory Available'], ['Host CPU Utilization'], ['Physical Read I/O Requests'], ['Physical Write Total I/O Requests'])=arg_max(TimeGenerated,columnifexists('io_throughput_d', ''),columnifexists('average_read_time_d', ''),columnifexists('average_write_time_d', ''),columnifexists('free_system_global_area_memory_available_d', ''),columnifexists('host_cpu_utilization_d', ''),columnifexists('physical_read_io_requests_d', ''),columnifexists('physical_write_total_io_requests_d', '')) by Name=oracle_database_instance_name_s",
                                             "displayName": "Instance "
                                         }
                                         ,{
                                             "query": "oracle_database_instance_CL | summarize([\"Last Update Time\"], ['Host Name'], ['Instance Name'], ['Instance Role'], ['Login Mode'], ['Parallel'], ['Startup Time'], ['Version'])=arg_max(TimeGenerated,columnifexists('host_name_s', ''),columnifexists('instance_name_s', ''),columnifexists('instance_role_s', ''),columnifexists('login_mode_s', ''),columnifexists('parallel_s', ''),columnifexists('startup_time_s', ''),columnifexists('version_s', '')) by Name=oracle_database_instance_name_s",
                                             "displayName": "Instance Properties"
+                                        }
+                                        ,{
+                                            "query": "oracle_database_database_file_CL | summarize([\"Last Update Time\"], ['Average Read Time'], ['Average Write Time'], ['Average I/O Time'])=arg_max(TimeGenerated,columnifexists('average_read_time_d', ''),columnifexists('average_write_time_d', ''),columnifexists('average_io_time_d', '')) by Name=oracle_database_database_file_name_s",
+                                            "displayName": "File "
+                                        }
+                                        ,{
+                                            "query": "oracle_database_database_file_CL | summarize([\"Last Update Time\"], ['Max Size'], ['Tablespace Name'])=arg_max(TimeGenerated,columnifexists('maximum_size_d', ''),columnifexists('tablespace_name_s', '')) by Name=oracle_database_database_file_name_s",
+                                            "displayName": "File Properties"
+                                        }
+                                        ,{
+                                            "query": "oracle_database_query_CL | summarize([\"Last Update Time\"], ['Average Time'], ['Executions'], ['Runtime Memory Used'])=arg_max(TimeGenerated,columnifexists('average_time_d', ''),columnifexists('executions_rate_d', ''),columnifexists('runtime_memory_used_rate_d', '')) by Name=oracle_database_query_name_s",
+                                            "displayName": "Query "
+                                        }
+                                        ,{
+                                            "query": "oracle_database_query_CL | summarize([\"Last Update Time\"], ['Last Active Time'], ['Last Load Time'], ['Rank'])=arg_max(TimeGenerated,columnifexists('last_active_time_s', ''),columnifexists('last_load_time_s', ''),columnifexists('rank_d', '')) by Name=oracle_database_query_name_s",
+                                            "displayName": "Query Properties"
                                         }
                                     ]
                                 }
@@ -490,43 +595,66 @@
                         ],
                         "Filters": [{
                             "FieldName": "oracle_database_database_name_s",
-                            "QueryForValues": "union oracle_database_database_file_CL, oracle_database_instance_CL | distinct oracle_database_database_name_s",
+                            "QueryForValues": "union oracle_database_instance_CL, oracle_database_database_file_CL | distinct oracle_database_database_name_s",
                             "Title": "Database"
                           },{
                             "FieldName": "status_s",
-                            "QueryForValues": "union oracle_database_database_file_CL, oracle_database_instance_CL | distinct status_s",
+                            "QueryForValues": "union oracle_database_instance_CL, oracle_database_database_file_CL | distinct status_s",
                             "Title": "Status"
+                          },{
+                            "FieldName": "oracle_database_instance_name_s",
+                            "QueryForValues": "union oracle_database_instance_CL, oracle_database_query_CL | distinct oracle_database_instance_name_s",
+                            "Title": "Instance"
                           },{
                             "FieldName": "oracle_database_database_file_name_s",
                             "QueryForValues": "oracle_database_database_file_CL | distinct oracle_database_database_file_name_s",
-                            "Title": "file"
+                            "Title": "File"
                           },{
-                            "FieldName": "oracle_database_instance_name_s",
-                            "QueryForValues": "oracle_database_instance_CL | distinct oracle_database_instance_name_s",
-                            "Title": "Instance"
+                            "FieldName": "oracle_database_query_name_s",
+                            "QueryForValues": "oracle_database_query_CL | distinct oracle_database_query_name_s",
+                            "Title": "Query"
                           }],
                         "OverviewTile": {
-                            "Id": "LineChartCalloutBuilderTile",
+                            "Id": "SingleQueryDonutBuilderTileV1",
                             "Type": "OverviewTile",
                             "Version": 2,
                             "Configuration": {
-                                "LineChart": {
-                                    "Query": "oracle_database_database_file_CL  | summarize avg(coalesce(columnifexists('average_read_time_d',0.0), 0.0)) by oracle_database_database_file_name_s | order by avg_ desc",
-                                    "Callout": {
-                                        "Title": "Average Read Time",
-                                        "Series": "",
-                                        "Operation": "Average"
+                                "Donut": {
+                                    "Query": "oracle_database_instance_CL | project ['CPU Usage'] = columnifexists('cpu_usage_d', double(null)), ['Executions'] = columnifexists('executions_d', double(null)), ['User Calls'] = columnifexists('user_calls_d', double(null)), TimeGenerated, Name=oracle_database_instance_name_s  | extend Healthy = case(isnotnull(['CPU Usage']) or isnotnull(['Executions']) or isnotnull(['User Calls']), (['CPU Usage'] < 75 or isnull(['CPU Usage'])) and (['Executions'] < 2000 or isnull(['Executions'])) and (['User Calls'] < 1000 or isnull(['User Calls'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Instance",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
                                     },
-                                    "yAxis": {
-                                        "isLogarithmic": false,
-                                        "units": {
-                                            "baseUnitType": "",
-                                            "baseUnit": "",
-                                            "displayUnit": ""
-                                        },
-                                        "customLabel": "Milliseconds"
-                                    }
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
                                 },
+
                                 "Advanced": {
                                     "DataFlowVerification": {
                                         "Enabled": false,
@@ -535,6 +663,7 @@
                                     }
                                 }
                             }
+
                         }
                     }
                 }

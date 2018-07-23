@@ -1,0 +1,681 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "EMC XtremIO Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/EMC XtremIO Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "EMC XtremIO Environment",
+                        "Name": "EMC XtremIO Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "EMC XtremIO Overview",
+                                        "NewGroup": false,
+                                        "Color": "#002050"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "EMC XtremIO",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "EMC XtremIO is Dell EMC's all-flash enterprise storage system."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "In EMC XtremIO, it is important to monitor space, capacity, CPU, throughput, IOPs and latency."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster}  | project ['Free Physical Space'] = columnifexists('free_physical_space_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=emc_xtremio_cluster_name_s  | extend Healthy = case(isnotnull(['Free Physical Space']) or isnotnull(['Memory Utilization']), (['Free Physical Space'] > 15 or isnull(['Free Physical Space'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster}  | project ['Free Physical Space'] = columnifexists('free_physical_space_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=emc_xtremio_cluster_name_s  | extend Healthy = case(isnotnull(['Free Physical Space']) or isnotnull(['Memory Utilization']), (['Free Physical Space'] > 15 or isnull(['Free Physical Space'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "emc_xtremio_cluster_CL | project ['Free Physical Space'] = columnifexists('free_physical_space_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=emc_xtremio_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Physical Space']) or isnotnull(['Memory Utilization']), (['Free Physical Space'] > 15 or isnull(['Free Physical Space'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "emc_xtremio_cluster_CL | project ['Free Physical Space'] = columnifexists('free_physical_space_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=emc_xtremio_cluster_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Free Physical Space']) or isnotnull(['Memory Utilization']), (['Free Physical Space'] > 15 or isnull(['Free Physical Space'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Average Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Average Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by emc_xtremio_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_xtremio_cluster_CL  | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('average_latency_d',0.0), 0.0)) by emc_xtremio_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Average Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Compression Factor",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Compression Factor",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('compression_factor_d',0.0), 0.0)) by emc_xtremio_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Compression Factor",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Compression Factor"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_xtremio_cluster_CL  | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('compression_factor_d',0.0), 0.0)) by emc_xtremio_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Compression Factor"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Deduplication Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Deduplication Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('deduplication_ratio_d',0.0), 0.0)) by emc_xtremio_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Deduplication Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Deduplication Ratio"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_xtremio_cluster_CL  | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('deduplication_ratio_d',0.0), 0.0)) by emc_xtremio_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Deduplication Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster Free Physical Space",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Free Physical Space",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('free_physical_space_d',0.0), 0.0)) by emc_xtremio_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average Free Physical Space",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_xtremio_cluster_CL  | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('free_physical_space_d',0.0), 0.0)) by emc_xtremio_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "Free Physical Space"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "25.0",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "15.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "Default",
+                                                    "color": "#ba141a",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Cluster IO Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IO Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_xtremio_cluster_CL | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('io_rate_d',0.0), 0.0)) by emc_xtremio_cluster_name_s",
+                                        "Callout": {
+                                            "Title": "Average IO Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_xtremio_cluster_CL  | where ${Management Server} and ${System Software Version} and ${Cluster} | summarize avg(coalesce(columnifexists('io_rate_d',0.0), 0.0)) by emc_xtremio_cluster_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Cluster",
+                                            "Value": "IO Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "emc_xtremio_cluster_CL | summarize([\"Last Update Time\"], ['IO Rate'], ['Logical Space'], ['Logical Space In Use'], ['Read / Write Ratio'], ['Space Saving Ratio'], ['Thin Provisioning Ratio'], ['Throughput'])=arg_max(TimeGenerated,columnifexists('io_rate_d', ''),columnifexists('logical_space_d', ''),columnifexists('logical_space_in_use_d', ''),columnifexists('read_write_ratio_d', ''),columnifexists('space_saving_ratio_d', ''),columnifexists('thin_provisioning_ratio_d', ''),columnifexists('throughput_d', '')) by Name=emc_xtremio_cluster_name_s",
+                                            "displayName": "Cluster Disk"
+                                        }
+                                        ,{
+                                            "query": "emc_xtremio_cluster_CL | summarize([\"Last Update Time\"], ['Free Physical Space'])=arg_max(TimeGenerated,columnifexists('free_physical_space_d', '')) by Name=emc_xtremio_cluster_name_s",
+                                            "displayName": "Cluster Details"
+                                        }
+                                        ,{
+                                            "query": "emc_xtremio_cluster_CL | summarize([\"Last Update Time\"], ['Object Severity'])=arg_max(TimeGenerated,columnifexists('object_severity_s', '')) by Name=emc_xtremio_cluster_name_s",
+                                            "displayName": "Cluster Status"
+                                        }
+                                        ,{
+                                            "query": "emc_xtremio_cluster_CL | summarize([\"Last Update Time\"], ['Shared Memory In Use'])=arg_max(TimeGenerated,columnifexists('shared_memory_in_use_d', '')) by Name=emc_xtremio_cluster_name_s",
+                                            "displayName": "Cluster Memory"
+                                        }
+                                        ,{
+                                            "query": "emc_xtremio_volume_CL | summarize([\"Last Update Time\"], ['Accumulated Read Operation Count'], ['Accumulated Write Operation Count'], ['Average Latency'], ['IO Rate'], ['Logical Space In Use'], ['Read / Write Ratio'], ['Throughput'])=arg_max(TimeGenerated,columnifexists('accumulated_read_operation_count_d', ''),columnifexists('accumulated_write_operation_count_d', ''),columnifexists('average_latency_d', ''),columnifexists('io_rate_d', ''),columnifexists('logical_space_in_use_d', ''),columnifexists('read_write_ratio_d', ''),columnifexists('throughput_d', '')) by Name=emc_xtremio_volume_name_s",
+                                            "displayName": "Volume Disk"
+                                        }
+                                        ,{
+                                            "query": "emc_xtremio_volume_CL | summarize([\"Last Update Time\"], ['Object Severity'])=arg_max(TimeGenerated,columnifexists('object_severity_s', '')) by Name=emc_xtremio_volume_name_s",
+                                            "displayName": "Volume Status"
+                                        }
+                                        ,{
+                                            "query": "emc_xtremio_volume_CL | summarize([\"Last Update Time\"], ['Size'])=arg_max(TimeGenerated,columnifexists('size_d', '')) by Name=emc_xtremio_volume_name_s",
+                                            "displayName": "Volume Details"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "emc_xtremio_management_server_name_s",
+                            "QueryForValues": "emc_xtremio_cluster_CL | distinct emc_xtremio_management_server_name_s",
+                            "Title": "Management Server"
+                          },{
+                            "FieldName": "system_software_version_s",
+                            "QueryForValues": "emc_xtremio_cluster_CL | distinct system_software_version_s",
+                            "Title": "System Software Version"
+                          },{
+                            "FieldName": "emc_xtremio_cluster_name_s",
+                            "QueryForValues": "union emc_xtremio_cluster_CL, emc_xtremio_volume_CL | distinct emc_xtremio_cluster_name_s",
+                            "Title": "Cluster"
+                          },{
+                            "FieldName": "snapshot_type_s",
+                            "QueryForValues": "emc_xtremio_volume_CL | distinct snapshot_type_s",
+                            "Title": "Snapshot Type"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "emc_xtremio_volume_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "emc_xtremio_volume_name_s",
+                            "QueryForValues": "emc_xtremio_volume_CL | distinct emc_xtremio_volume_name_s",
+                            "Title": "Volume"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "emc_xtremio_cluster_CL | project ['Free Physical Space'] = columnifexists('free_physical_space_d', double(null)), ['Memory Utilization'] = columnifexists('memory_utilization_d', double(null)), TimeGenerated, Name=emc_xtremio_cluster_name_s  | extend Healthy = case(isnotnull(['Free Physical Space']) or isnotnull(['Memory Utilization']), (['Free Physical Space'] > 15 or isnull(['Free Physical Space'])) and (['Memory Utilization'] < 85 or isnull(['Memory Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Cluster",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

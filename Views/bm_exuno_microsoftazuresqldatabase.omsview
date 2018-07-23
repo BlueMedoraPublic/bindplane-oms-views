@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Health",
+                                        "title": "Database Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -117,7 +117,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": " Name",
+                                            "Name": "Database Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Average CPU Utilization",
+                                        "title": "Database Average CPU Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -216,7 +216,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "Database",
                                             "Value": "Average CPU Utilization"
                                         },
                                         "Color": "#0072c6",
@@ -258,7 +258,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Average Memory Usage",
+                                        "title": "Database Average Memory Usage",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -291,7 +291,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "Database",
                                             "Value": "Average Memory Usage"
                                         },
                                         "Color": "#0072c6",
@@ -333,7 +333,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Read Delay",
+                                        "title": "Database Read Delay",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -366,7 +366,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "Database",
                                             "Value": "Read Delay"
                                         },
                                         "Color": "#0072c6",
@@ -408,7 +408,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " Write Delay",
+                                        "title": "Database Write Delay",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -441,7 +441,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "Database",
                                             "Value": "Write Delay"
                                         },
                                         "Color": "#0072c6",
@@ -483,7 +483,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": " IOPS",
+                                        "title": "Database IOPS",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -516,7 +516,7 @@
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "",
+                                            "Name": "Database",
                                             "Value": "IOPS"
                                         },
                                         "Color": "#0072c6",
@@ -567,27 +567,27 @@
 
                                         {
                                             "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Average CPU Utilization'], ['Average Memory Usage'], ['In-Memory OLTP Storage Utilization'], ['Average Log Write Resource Utilization'], ['Maximum Concurrent Sessions'], ['Maximum Concurrent Workers'])=arg_max(TimeGenerated,columnifexists('average_cpu_utilization_d', ''),columnifexists('average_memory_usage_d', ''),columnifexists('in_memory_oltp_storage_utilization_d', ''),columnifexists('average_log_write_resource_utilization_d', ''),columnifexists('maximum_concurrent_sessions_d', ''),columnifexists('maximum_concurrent_workers_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
-                                            "displayName": " Utilization"
+                                            "displayName": "Database Utilization"
                                         }
                                         ,{
                                             "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Read Delay'], ['Write Delay'], ['IOPS'])=arg_max(TimeGenerated,columnifexists('read_delay_rate_d', ''),columnifexists('write_delay_rate_d', ''),columnifexists('iops_rate_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
-                                            "displayName": " Disk Access"
+                                            "displayName": "Database Disk Access"
                                         }
                                         ,{
                                             "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Data Space Usage'], ['Index Space Usage'])=arg_max(TimeGenerated,columnifexists('data_space_usage_d', ''),columnifexists('index_space_usage_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
-                                            "displayName": " Capacity"
+                                            "displayName": "Database Capacity"
                                         }
                                         ,{
                                             "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Active Connections'])=arg_max(TimeGenerated,columnifexists('active_connections_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
-                                            "displayName": " Connection Capacity"
+                                            "displayName": "Database Connection Capacity"
                                         }
                                         ,{
                                             "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Active Transactions'])=arg_max(TimeGenerated,columnifexists('active_transactions_d', '')) by Name=microsoft_azuresqldatabase_database_name_s",
-                                            "displayName": " Active Processes"
+                                            "displayName": "Database Active Processes"
                                         }
                                         ,{
                                             "query": "microsoft_azuresqldatabase_database_CL | summarize([\"Last Update Time\"], ['Auto Close'], ['Auto Shrink'], ['ID'], ['Read Only'], ['Service Tier'], ['Single User Mode'])=arg_max(TimeGenerated,columnifexists('auto_close_s', ''),columnifexists('auto_shrink_s', ''),columnifexists('id_d', ''),columnifexists('read_only_s', ''),columnifexists('service_tier_s', ''),columnifexists('single_user_mode_s', '')) by Name=microsoft_azuresqldatabase_database_name_s",
-                                            "displayName": " Properties"
+                                            "displayName": "Database Properties"
                                         }
                                         ,{
                                             "query": "microsoft_azuresqldatabase_object_CL | summarize([\"Last Update Time\"], ['Average Page Lock Wait Duration'], ['Average Row Lock Wait Duration'])=arg_max(TimeGenerated,columnifexists('average_page_lock_wait_duration_d', ''),columnifexists('average_row_lock_wait_duration_d', '')) by Name=microsoft_azuresqldatabase_object_name_s",
@@ -603,12 +603,8 @@
                         ],
                         "Filters": [{
                             "FieldName": "microsoft_azuresqldatabase_database_name_s",
-                            "QueryForValues": "microsoft_azuresqldatabase_database_CL | distinct microsoft_azuresqldatabase_database_name_s",
+                            "QueryForValues": "union microsoft_azuresqldatabase_database_CL, microsoft_azuresqldatabase_object_CL | distinct microsoft_azuresqldatabase_database_name_s",
                             "Title": "Database"
-                          },{
-                            "FieldName": "microsoft_azuresqldatabase_database_name_s",
-                            "QueryForValues": "microsoft_azuresqldatabase_object_CL | distinct microsoft_azuresqldatabase_database_name_s",
-                            "Title": ""
                           },{
                             "FieldName": "microsoft_azuresqldatabase_object_name_s",
                             "QueryForValues": "microsoft_azuresqldatabase_object_CL | distinct microsoft_azuresqldatabase_object_name_s",
@@ -622,7 +618,7 @@
                                 "Donut": {
                                     "Query": "microsoft_azuresqldatabase_database_CL | project ['Average CPU Utilization'] = columnifexists('average_cpu_utilization_d', double(null)), ['Average Log Write Resource Utilization'] = columnifexists('average_log_write_resource_utilization_d', double(null)), ['Average Memory Usage'] = columnifexists('average_memory_usage_d', double(null)), ['In-Memory OLTP Storage Utilization'] = columnifexists('in_memory_oltp_storage_utilization_d', double(null)), ['Maximum Concurrent Sessions'] = columnifexists('maximum_concurrent_sessions_d', double(null)), ['Maximum Concurrent Workers'] = columnifexists('maximum_concurrent_workers_d', double(null)), ['Read Delay'] = columnifexists('read_delay_rate_d', double(null)), ['Write Delay'] = columnifexists('write_delay_rate_d', double(null)), TimeGenerated, Name=microsoft_azuresqldatabase_database_name_s  | extend Healthy = case(isnotnull(['Average CPU Utilization']) or isnotnull(['Average Log Write Resource Utilization']) or isnotnull(['Average Memory Usage']) or isnotnull(['In-Memory OLTP Storage Utilization']) or isnotnull(['Maximum Concurrent Sessions']) or isnotnull(['Maximum Concurrent Workers']) or isnotnull(['Read Delay']) or isnotnull(['Write Delay']), (['Average CPU Utilization'] < 85 or isnull(['Average CPU Utilization'])) and (['Average Log Write Resource Utilization'] < 85 or isnull(['Average Log Write Resource Utilization'])) and (['Average Memory Usage'] < 85 or isnull(['Average Memory Usage'])) and (['In-Memory OLTP Storage Utilization'] < 85 or isnull(['In-Memory OLTP Storage Utilization'])) and (['Maximum Concurrent Sessions'] < 85 or isnull(['Maximum Concurrent Sessions'])) and (['Maximum Concurrent Workers'] < 85 or isnull(['Maximum Concurrent Workers'])) and (['Read Delay'] < 1000 or isnull(['Read Delay'])) and (['Write Delay'] < 1000 or isnull(['Write Delay'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "",
+                                        "Text": "Database",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

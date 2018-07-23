@@ -78,104 +78,7 @@
                                     ]
                                 }
                             },
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "API Usage Health",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Health Score",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL | where ${API Usage}  | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
-                                        "Callout": {
-                                            "Title": "Average Health",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Percent"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL | where ${API Usage}  | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "API Usage Name",
-                                            "Value": "Health Score"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": true,
-                                            "values": [
-                                                {
-                                                    "name": "Unknown",
-                                                    "threshold": "Default",
-                                                    "color": "#002050",
-                                                    "isDefault": true
-                                                },
-                                                {
-                                                    "name": "A",
-                                                    "threshold": "90",
-                                                    "color": "#009e49",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "B",
-                                                    "threshold": "80",
-                                                    "color": "#55d455",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "C",
-                                                    "threshold": "70",
-                                                    "color": "#bad80a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "D",
-                                                    "threshold": "60",
-                                                    "color": "#fff100",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "E",
-                                                    "threshold": "50",
-                                                    "color": "#ff8c00",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "F",
-                                                    "threshold": "-1",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "microsoft_azure_loadbalancer_api_usage_CL | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null))",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "microsoft_azure_loadbalancer_api_usage_CL | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null))"
-                                        }
-                                    }
-                                }
-                            },
+                            
 
                             {
                                 "Id": "LineChartCalloutBuilderBlade",
@@ -183,19 +86,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "API Usage Total Requests",
+                                        "title": "Load Balancer Virtual IP Availability",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Total Requests",
+                                        "Title": "Virtual IP Availability",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL | where ${API Usage} | summarize avg(coalesce(columnifexists('total_requests_d',0.0), 0.0)) by microsoft_azure_loadbalancer_api_usage_name_s",
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
                                         "Callout": {
-                                            "Title": "Average Total Requests",
+                                            "Title": "Average Virtual IP Availability",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -206,93 +109,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Total Requests"
+                                            "customLabel": "Virtual IP Availability"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_loadbalancer_api_usage_CL  | where ${API Usage} | summarize avg(coalesce(columnifexists('total_requests_d',0.0), 0.0)) by microsoft_azure_loadbalancer_api_usage_name_s | order by avg_ desc",
-                                        "HideGraph": false,
-                                        "enableSparklines": true,
-                                        "operation": "Last Sample",
-                                        "ColumnsTitle": {
-                                            "Name": "API Usage",
-                                            "Value": "Total Requests"
-                                        },
-                                        "Color": "#0072c6",
-                                        "thresholds": {
-                                            "isEnabled": false,
-                                            "values": [
-                                                {
-                                                    "name": "Error",
-                                                    "threshold": "90",
-                                                    "color": "#ba141a",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Warning",
-                                                    "threshold": "0",
-                                                    "color": "#fcd116",
-                                                    "isDefault": false
-                                                },
-                                                {
-                                                    "name": "Normal",
-                                                    "threshold": "Default",
-                                                    "color": "#009e49",
-                                                    "isDefault": true
-                                                }
-                                            ]
-                                        },
-                                        "NameDSVSeparator": "",
-                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
-                                        "NavigationSelect": {
-                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
-                                        }
-                                    }
-                                }
-                            }
-,
-                            {
-                                "Id": "LineChartCalloutBuilderBlade",
-                                "Type": "Blade",
-                                "Version": 0,
-                                "Configuration": {
-                                    "General": {
-                                        "title": "Load Balancer Total Data Throughput",
-                                        "newGroup": false,
-                                        "icon": "",
-                                        "useIcon": false
-                                    },
-                                    "Header": {
-                                        "Title": "Total Data Throughput",
-                                        "Subtitle": ""
-                                    },
-                                    "LineChart": {
-                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_data_throughput_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
-                                        "Callout": {
-                                            "Title": "Average Total Data Throughput",
-                                            "Series": "",
-                                            "Operation": "Average"
-                                        },
-                                        "yAxis": {
-                                            "isLogarithmic": false,
-                                            "units": {
-                                                "baseUnitType": "",
-                                                "baseUnit": "",
-                                                "displayUnit": ""
-                                            },
-                                            "customLabel": "Bytes"
-                                        },
-                                        "NavigationSelect": {}
-                                    },
-                                    "List": {
-                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_data_throughput_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Load Balancer",
-                                            "Value": "Total Data Throughput"
+                                            "Value": "Virtual IP Availability"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -408,19 +236,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Load Balancer Virtual IP Availability",
+                                        "title": "Load Balancer Total Data Throughput",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Virtual IP Availability",
+                                        "Title": "Total Data Throughput",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_data_throughput_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
                                         "Callout": {
-                                            "Title": "Average Virtual IP Availability",
+                                            "Title": "Average Total Data Throughput",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -431,18 +259,18 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Virtual IP Availability"
+                                            "customLabel": "Bytes"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('total_data_throughput_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Load Balancer",
-                                            "Value": "Virtual IP Availability"
+                                            "Value": "Total Data Throughput"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -483,19 +311,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Frontend Server Virtual IP Availability",
+                                        "title": "Load Balancer Data Throughput In",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Virtual IP Availability",
+                                        "Title": "Data Throughput In",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_loadbalancer_frontend_server_CL | where ${Frontend IP Configuration} and ${Frontend Server} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_frontend_server_name_s",
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('data_throughput_in_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
                                         "Callout": {
-                                            "Title": "Average Virtual IP Availability",
+                                            "Title": "Average Data Throughput In",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,18 +334,93 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Virtual IP Availability"
+                                            "customLabel": "Bytes"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_loadbalancer_frontend_server_CL  | where ${Frontend IP Configuration} and ${Frontend Server} | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_frontend_server_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('data_throughput_in_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Frontend Server",
-                                            "Value": "Virtual IP Availability"
+                                            "Name": "Load Balancer",
+                                            "Value": "Data Throughput In"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Load Balancer Data Throughput Out",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Data Throughput Out",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('data_throughput_out_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s",
+                                        "Callout": {
+                                            "Title": "Average Data Throughput Out",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Bytes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | where ${Resource Group} and ${Load Balancer} | summarize avg(coalesce(columnifexists('data_throughput_out_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Load Balancer",
+                                            "Value": "Data Throughput Out"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -566,16 +469,12 @@
                                     "queries": [
 
                                         {
-                                            "query": "microsoft_azure_loadbalancer_api_usage_CL | summarize([\"Last Update Time\"], ['Total Requests'])=arg_max(TimeGenerated,columnifexists('total_requests_d', '')) by Name=microsoft_azure_loadbalancer_api_usage_name_s",
-                                            "displayName": "API Usage Network"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Total Data Throughput'], ['Total Packets Routed'], ['Data Throughput In'], ['Data Throughput Out'], ['Packets Routed In'], ['Packets Routed Out'])=arg_max(TimeGenerated,columnifexists('total_data_throughput_d', ''),columnifexists('total_packets_routed_d', ''),columnifexists('data_throughput_in_d', ''),columnifexists('data_throughput_out_d', ''),columnifexists('packets_routed_in_d', ''),columnifexists('packets_routed_out_d', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
-                                            "displayName": "Load Balancer Network"
-                                        }
-                                        ,{
                                             "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Virtual IP Availability'])=arg_max(TimeGenerated,columnifexists('virtual_ip_availability_d', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
                                             "displayName": "Load Balancer Status"
+                                        }
+                                        ,{
+                                            "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Total Packets Routed'], ['Total Data Throughput'], ['Data Throughput In'], ['Data Throughput Out'], ['Packets Routed In'], ['Packets Routed Out'])=arg_max(TimeGenerated,columnifexists('total_packets_routed_d', ''),columnifexists('total_data_throughput_d', ''),columnifexists('data_throughput_in_d', ''),columnifexists('data_throughput_out_d', ''),columnifexists('packets_routed_in_d', ''),columnifexists('packets_routed_out_d', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
+                                            "displayName": "Load Balancer Network"
                                         }
                                         ,{
                                             "query": "microsoft_azure_loadbalancer_load_balancer_CL | summarize([\"Last Update Time\"], ['Location'], ['Provisioning State'], ['Resource Group'], ['SKU Name'], ['SKU Tier'], ['Tags'], ['Type'])=arg_max(TimeGenerated,columnifexists('location_s', ''),columnifexists('provisioning_state_s', ''),columnifexists('resource_group_s', ''),columnifexists('sku_name_s', ''),columnifexists('sku_tier_s', ''),columnifexists('tags_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_loadbalancer_load_balancer_name_s",
@@ -602,10 +501,6 @@
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "microsoft_azure_loadbalancer_api_usage_name_s",
-                            "QueryForValues": "microsoft_azure_loadbalancer_api_usage_CL | distinct microsoft_azure_loadbalancer_api_usage_name_s",
-                            "Title": "API Usage"
-                          },{
                             "FieldName": "resource_group_s",
                             "QueryForValues": "microsoft_azure_loadbalancer_load_balancer_CL | distinct resource_group_s",
                             "Title": "Resource Group"
@@ -631,46 +526,27 @@
                             "Title": "Frontend Application"
                           }],
                         "OverviewTile": {
-                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Id": "LineChartCalloutBuilderTile",
                             "Type": "OverviewTile",
                             "Version": 2,
                             "Configuration": {
-                                "Donut": {
-                                    "Query": "microsoft_azure_loadbalancer_api_usage_CL | project ['Failed Requests'] = columnifexists('failed_requests_d', double(null)), TimeGenerated, Name=microsoft_azure_loadbalancer_api_usage_name_s  | extend Healthy = case(isnotnull(['Failed Requests']), (['Failed Requests'] < 1 or isnull(['Failed Requests'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
-                                    "CenterLegend": {
-                                        "Text": "API Usage",
-                                        "Operation": "Sum",
-                                        "ArcsToSelect": []
+                                "LineChart": {
+                                    "Query": "microsoft_azure_loadbalancer_load_balancer_CL  | summarize avg(coalesce(columnifexists('virtual_ip_availability_d',0.0), 0.0)) by microsoft_azure_loadbalancer_load_balancer_name_s | order by avg_ desc",
+                                    "Callout": {
+                                        "Title": "Average Virtual IP Availability",
+                                        "Series": "",
+                                        "Operation": "Average"
                                     },
-                                    "Options": {
-                                        "colors": [
-                                            "#00188f",
-                                            "#00188f",
-                                            "#00188f"
-                                        ],
-                                        "valueColorMapping": [
-                                            {
-                                                "value": "Healthy",
-                                                "color": "#009e49"
-                                            },
-                                            {
-                                                "value": "Warning",
-                                                "color": "#fff100"
-                                            },
-                                            {
-                                                "value": "Critical",
-                                                "color": "#ba141a"
-                                            }
-                                        ],
-                                        "legend": true,
-                                        "skipLegendPositioning": true,
-                                        "center": true,
-                                        "unitType": "Count",
-                                        "fromUnit": "Ones"
-                                    },
-                                    "HideOtherLegend": true
+                                    "yAxis": {
+                                        "isLogarithmic": false,
+                                        "units": {
+                                            "baseUnitType": "",
+                                            "baseUnit": "",
+                                            "displayUnit": ""
+                                        },
+                                        "customLabel": "Virtual IP Availability"
+                                    }
                                 },
-
                                 "Advanced": {
                                     "DataFlowVerification": {
                                         "Enabled": false,
@@ -679,7 +555,6 @@
                                     }
                                 }
                             }
-
                         }
                     }
                 }

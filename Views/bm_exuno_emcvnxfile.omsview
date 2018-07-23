@@ -1,0 +1,673 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "EMC VNX File Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/EMC VNX File Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "EMC VNX File Environment",
+                        "Name": "EMC VNX File Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "EMC VNX File Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00bcf2"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABIAAAASABGyWs+AAAAB3RJTUUH4gYLBDQeiTUEwAAAPZRJREFUeNrt3XmcFOWZB/Df+1ZVn3OfMAzXcN8gEUVRFDQJYFwwHshmg8dq4pFsDIlRV7PxTGJWJcdmQ/xo4kE0rtFolOEQiIKcIsgpzAznwDD31dNHVb3vs39UzzAgCOh018zwfvPBaNNd9XZ1vW+95/MCiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqIoiqJ0XcztBCjJlZmZCcuy2MiRI70+n08HQK1/J4SgioqKaCAQkFu3bnU7qUoSqAKgG8rKyoIQgvXs2dN34403ZowcObIgJycnPyMjo3dKSkquEEJLTU3tbxhGOo4VAIyIzMbGxjIALeFwuK6+vv5AbW1t1YEDB6qKi4vrli5d2pKbm0vV1dVuf0Wlg6gCoJu47rrrsH79euOWW27JveCCCwb369dvQkZGxqhAIFDk9XoLdV1P55z7GWNG/COn+u0JAIjIklJGbdtutG27pqWlpaSurm5zRUXFJ1u2bNn11FNPHbn77rvN+++/3+2vrnwJqgDowjweD0zTZPfcc0/2VVdddf6AAQOuzMzMvNDv9xfpup7DGNM68nxEJIQQTZFIpKyurm7NoUOH/rl69eoN999//xGv10uxWMztS6Io5wz2X//1Xz03btx4S21t7WLTNKuJSFLySNu2G+vr61du3br1B3/605+GZ2dn61dccYXb10VRui8iwoMPPpi7cePGm+vq6t6zbbs5iZn+5CWBlGYoFNq6ffv2Hz3xxBO9ALBevXq5fakUpftYuHAh5syZE1y+fPn0o0ePvt4ZMv6JhBDh2trapStXrpz1H//xHxlE9OW/uKKcy772ta8BgPbyyy+P2b9//29M0zzqdkY/Hcuyag4fPvzCG2+8cfG//Mu/+B566CG3L6OidC39+vUDAParX/2qz44dO+5tbm7+hIiE25n7LIhoNLq/pKTkiWeffXZY3759tRkzZrh9WRWl8yMi3HnnnZnr16//t7q6uuVSyqjbufmLivcPbN68efNdjz32WA8iAmNq8ElRPuOuu+7CxRdf7Fu6dOmVFRUVf7Ftu97tDNxRhBCh6urqt1esWPGNO++8M7W4uNjty60oncPYsWMBQFuwYMHQvXv3/ioajR5yO8MmimmaVQcPHvzDG2+8ceGUKVM83/ve99y+/IrijpycHABgDzzwQM9t27b9oKmpaZOU0nI7kyaBiEQipbt27XroN7/5TX8ALDc31+2fQ1GSh4hw7bXXpn744YfX19bWLhFCtLidK5NNShmrr69/f+PGjTfNmzcvh9SwodLd/eAHP8Do0aM9r7766oTy8vLn4jP4zmm2bTcdPXr0tffee2/a9OnTA/Pnz3f7Z1KUjjVixAgA4PPnzx9YUlLySDgcLqGuNayXcLFY7Mi+ffvm//nPfx4FQJswYYLbP5uidIwf//jHeR9//PF3mpqaNkgpY25ntk7Mbm5u3rJjx44fP/7444UAmMfjcfvnU5Szt2jRInzrW98Krlix4hs1NTXv2rbd5Hbu6iqEEJHa2tr31q1b96+33nqrmlasdB1z587FpEmTjIULF5534MCB33WF6budlWVZdRUVFQuXLFky9fzzz/f+9Kc/dfvnVZSTmzx5MuC08/vv3Lnz/nA4vFtKabudibqDaDR6oKys7Je///3vh+i6rqllx0qnQkS47777statW/ftxsbGNUKILjt9t7OSUppNTU0fbd269fv3339/DwBswIABbv/0yrns6aefxpw5c/zFxcVT49N3G9zOKN2dECJUW1u7eNWqVdfOnj07ldT6AiXZZs2ahUGDBukLFy4cU1ZW9qtYLFZOyY3Ic84zTbOqvLz82VdeeeX8CRMmeO6++263bwulu8vOzgYANn/+/L5bt269p6WlZbtq57tKhMPhkt27d/9s/vz5AwBw1SxQEiIUCuGWW25JW7169Q319fUrhRARt+9+xSGljDU1Na3/6KOP/v3+++/PISJoWofGRFXOVXPmzMGoUaM877777uTy8vLnLcuqdfuGV07Otu2mysrK14uLi6/89re/Hfz73//u9u2jdFW9e/cGAP7iiy+OKCkpeTwaje4j1c7vCqRpmhX79+//zV/+8pdxEyZMMG699Va3byelq7n33nvzNm/efEdzc/Mm1c7veqSUdjgc/nT79u0/iS875hdddJHbt5XSma1fvx5XX3118P33359ZVVX1VmeMvqucHSFEtLGxcfXatWu/NW/evExS04qVE82ePRt5eXnGm2++OfHQoUN/NE2z0u0bV+lYtm03HDly5KXi4uIps2bN8j355JNu33aK28aPHw8AbMGCBYP37NnzcDgc3kOqnd+dyVgsdqi0tPTJv/zlL2NycnK0KVOmuH0bKskWH8/HnXfembVx48abGxsb10opTbfvTiU5pJR2KBTa+sknn/zHI4880hMACgoK3L4tlWRYvHgxpk6d6l+6dOnXq6qq3rAsS03fPUcJIVqqq6vfXb169bX/9m//lrpx40a3b08lUaZNm4ZAIKAvXLjwvIMHD/4+Pn1XUciyrJry8vLn3nnnnUsHDBjgmTlzptu3q9JR0tLSAIA9+uijhdu2bZvX0tKyg1Q4LuWzZCQS2btnz55HnnnmmQEAeFZWltu3r/Jl3XbbbZmrV6+eXV9f/08hRNjtu0zp3KSUsYaGhjUff/zxd77//e/nAADn3O3bWDkbL7zwAi6//HL/22+/fdnRo0f/qqbvKmfLtu2mqqqqt1auXHn1FVdcEVT9A13AzJkzUVBQoD3//PMj9u/f/0w0Gj1IalhP+RJisVjFoUOHFrz++usXpKam6rNnz3b7NldONGjQIABgP//5z3t9/PHHd4ZCoc3nyC47SnLIcDj86a5du+7/xS9+0QcAHzx4sNu3/ZfWLdZLEhFKS0vTf/GLX0ybPn36Y/369bvV6/X2ZoyphpvSUZhhGDlZWVkXjx49euKsWbNEKBQ6tHHjxojbCfsyunQBcNttt8Hr9RpZWVkXzp49+6Fhw4bNCwaDIxljhttpU7onxpju8/n65OfnX3bBBReMmjp1an1DQ0PFXXfdZS9evNjt5J3993E7AV/EoEGDUFJSwp977rmBF1100Q39+vWb6/P5+gNQT3wlqWKxWPmRI0deXbly5Z+ffPLJ3YMGDbLfeecdt5N1xrpUDcDn88GyLIRCoR6/+MUvbrj00ksfKygouMEwjBx00cJM6dp0XU/LyMiYMGTIkMlXXHGFEY1Gy5cvX948evRoVFZWup280+oyBcDKlSvh8XhS/X7/V6dPn/6zoqKiO3w+X3/GWJf5Dkr3xBjjHo8nPzc399LRo0dfcNVVV4VbWlrKX3/99dgzzzzjdvI+V6fPPOPHj0dFRYU+Y8aM82688cb7RowYcV9qauo4xpjaME7pVBhjhs/n61dQUDB17NixfTdt2lTb1NRUdd1114lVq1a5nbyT0t1OwKn4/X5EIhF29dVXF7z44otz+vXrd3MgEBgC1c5XOjld17N69ep1U05OzpRhw4a9tGLFipcAlKakpFAoFHI7ecfplDWAO++8E0eOHDFef/31K2fOnPnLwsLCuR6PpydUO1/pOpiu6xlZWVkXDR48+PwZM2Y01dTU7Js7d6793nvvuZ22Np3uabpnzx74/f6st99++65Jkyb9b2Zm5pWcc7/b6VKUL4IxZqSnp198wQUX/O6JJ564T0rZo6Wlxe1kHUuf2wlob/Xq1SguLs67/fbbH+zVq9fNmqaluJ0mRekoRBQ7fPjwiy+++OJjDzzwwMH09HQ0NTW5nSz3eb1eAMDTTz/d78CBA79XG24o3ZWUMlZTU/POX//613FEhNzcXFfzXqeoAZSVlWHZsmVF11577fysrKyvq5l8SjdHDQ0N/1yyZMm8G264YXNBQQEqKipcSYjrBcAHH3yAxYsX533nO995uHfv3v/OGOu0IxOK0oGorq5u6UsvvXTH17/+9X1Dhw51JRGudgK+8sorWLJkSfZ3vvOdBwsLC29SmV85h7DMzMwp3/zmNx/429/+1nPr1q1upye57rnnHowdO9a3bdu2HwshQm63zRTFDVLKaGlp6c8nT54cvP/++93OlskxceJEAGCrVq26zjTNI27/CIriJsuyajdv3vwdANqkSZOSmhdd6QMgIrz66qtjr7rqqudSUlLOcyMNitKZhMPhnYsWLbr12muvXZeVlYX6+vqknDfpfQBPPvkkbrrppoxLLrnkeykpKWOTfX5F6YwCgcCwyZMn3/fEE08UvPjii0k7b1JrAMOGDcOuXbv4xo0bbxo3btzTmqalJ/P8itKZSSmjO3fufHDUqFHzx4wZIz755JOEnzOpNYB169bhxRdfHD506NDvqcyvKMfjnPuKiopu+etf/zpmy5YtyTlnsr7c3XffjenTpwcuueSSW4LB4KhknVdRupJAIDD0wgsvvO2aa65JScaoQNKaAESExYsXXz5lypSXPB5Pr2SdV1G6GsuyKletWnXTlClTFhuGAdu2E3aupNQAbrvtNkyaNCk4cuTIOSrzK8rnMwwjf9iwYf96zTXXpN11110JPVdSagCtT//LL7/8Ja/XqwoARTkNy7IqP/jgg5um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",
+                                        "Label": "EMC VNX File",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "EMC VNX File is a file-level storage solution that supports NFS and CIFS."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "With EMC VNX File, it is important to monitor capacity utilization and network and disk throughput and latency."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "File System Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxfile_file_system_CL | where ${NFS Export} and ${Thin Provisioned} and ${File System}  | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), TimeGenerated, Name=emc_vnxfile_file_system_name_s  | extend Healthy = case(isnotnull(['Capacity Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxfile_file_system_CL | where ${NFS Export} and ${Thin Provisioned} and ${File System}  | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), TimeGenerated, Name=emc_vnxfile_file_system_name_s  | extend Healthy = case(isnotnull(['Capacity Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "File System Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "emc_vnxfile_file_system_CL | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), TimeGenerated, Name=emc_vnxfile_file_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Capacity Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "emc_vnxfile_file_system_CL | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), TimeGenerated, Name=emc_vnxfile_file_system_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Capacity Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "File System Capacity Utilization",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Capacity Utilization",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxfile_file_system_CL | where ${NFS Export} and ${Thin Provisioned} and ${File System} | summarize avg(coalesce(columnifexists('capacity_utilization_d',0.0), 0.0)) by emc_vnxfile_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Capacity Utilization",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxfile_file_system_CL  | where ${NFS Export} and ${Thin Provisioned} and ${File System} | summarize avg(coalesce(columnifexists('capacity_utilization_d',0.0), 0.0)) by emc_vnxfile_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "File System",
+                                            "Value": "Capacity Utilization"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "85.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "75.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "File System Total IO Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total IO Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxfile_file_system_CL | where ${NFS Export} and ${Thin Provisioned} and ${File System} | summarize avg(coalesce(columnifexists('total_io_rate_d',0.0), 0.0)) by emc_vnxfile_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total IO Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxfile_file_system_CL  | where ${NFS Export} and ${Thin Provisioned} and ${File System} | summarize avg(coalesce(columnifexists('total_io_rate_d',0.0), 0.0)) by emc_vnxfile_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "File System",
+                                            "Value": "Total IO Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "File System Total Throughput",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total Throughput",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxfile_file_system_CL | where ${NFS Export} and ${Thin Provisioned} and ${File System} | summarize avg(coalesce(columnifexists('total_throughput_d',0.0), 0.0)) by emc_vnxfile_file_system_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total Throughput",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Kibibytes per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxfile_file_system_CL  | where ${NFS Export} and ${Thin Provisioned} and ${File System} | summarize avg(coalesce(columnifexists('total_throughput_d',0.0), 0.0)) by emc_vnxfile_file_system_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "File System",
+                                            "Value": "Total Throughput"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NFS Export Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxfile_nfs_export_CL | where ${VNX File} and ${NFS Export} | summarize avg(coalesce(columnifexists('latency_d',0.0), 0.0)) by emc_vnxfile_nfs_export_name_s",
+                                        "Callout": {
+                                            "Title": "Average Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Microseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxfile_nfs_export_CL  | where ${VNX File} and ${NFS Export} | summarize avg(coalesce(columnifexists('latency_d',0.0), 0.0)) by emc_vnxfile_nfs_export_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NFS Export",
+                                            "Value": "Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "100000.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "90000.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "NFS Export Total IO Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Total IO Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vnxfile_nfs_export_CL | where ${VNX File} and ${NFS Export} | summarize avg(coalesce(columnifexists('total_io_rate_d',0.0), 0.0)) by emc_vnxfile_nfs_export_name_s",
+                                        "Callout": {
+                                            "Title": "Average Total IO Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vnxfile_nfs_export_CL  | where ${VNX File} and ${NFS Export} | summarize avg(coalesce(columnifexists('total_io_rate_d',0.0), 0.0)) by emc_vnxfile_nfs_export_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "NFS Export",
+                                            "Value": "Total IO Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "emc_vnxfile_file_system_CL | summarize([\"Last Update Time\"], ['Capacity Utilization'], ['Total IO Rate'], ['Total Throughput'])=arg_max(TimeGenerated,columnifexists('capacity_utilization_d', ''),columnifexists('total_io_rate_d', ''),columnifexists('total_throughput_d', '')) by Name=emc_vnxfile_file_system_name_s",
+                                            "displayName": "File System "
+                                        }
+                                        ,{
+                                            "query": "emc_vnxfile_file_system_CL | summarize([\"Last Update Time\"], ['Data Mover'], ['Pool Name'], ['Volume Name'])=arg_max(TimeGenerated,columnifexists('data_mover_s', ''),columnifexists('pool_name_s', ''),columnifexists('volume_name_s', '')) by Name=emc_vnxfile_file_system_name_s",
+                                            "displayName": "File System Properties"
+                                        }
+                                        ,{
+                                            "query": "emc_vnxfile_vnx_file_CL | summarize([\"Last Update Time\"], ['Average Disk Latency'], ['CPU Utilization'], ['Memory Utilization'], ['Total Disk IO Rate'], ['Total Disk Throughput'], ['Total Network Throughput'])=arg_max(TimeGenerated,columnifexists('average_disk_latency_d', ''),columnifexists('cpu_utilization_d', ''),columnifexists('memory_utilization_d', ''),columnifexists('total_disk_io_rate_d', ''),columnifexists('total_disk_throughput_d', ''),columnifexists('total_network_throughput_d', '')) by Name=emc_vnxfile_vnx_file_name_s",
+                                            "displayName": "VNX File "
+                                        }
+                                        ,{
+                                            "query": "emc_vnxfile_vnx_file_CL | summarize([\"Last Update Time\"], ['Celerra Type'], ['Model'])=arg_max(TimeGenerated,columnifexists('celerra_type_s', ''),columnifexists('model_s', '')) by Name=emc_vnxfile_vnx_file_name_s",
+                                            "displayName": "VNX File Properties"
+                                        }
+                                        ,{
+                                            "query": "emc_vnxfile_nfs_export_CL | summarize([\"Last Update Time\"], ['Latency'], ['Total IO Rate'], ['Total Throughput'])=arg_max(TimeGenerated,columnifexists('latency_d', ''),columnifexists('total_io_rate_d', ''),columnifexists('total_throughput_d', '')) by Name=emc_vnxfile_nfs_export_name_s",
+                                            "displayName": "NFS Export "
+                                        }
+                                        ,{
+                                            "query": "emc_vnxfile_nfs_export_CL | summarize([\"Last Update Time\"], ['Access Hosts'], ['Access Mode'], ['Anonymous User ID or Name'], ['Read-Only Hosts'], ['Read/Write Hosts'], ['Root Hosts'])=arg_max(TimeGenerated,columnifexists('access_hosts_s', ''),columnifexists('access_mode_s', ''),columnifexists('anonymous_user_id_or_name_s', ''),columnifexists('read_only_hosts_s', ''),columnifexists('read_write_hosts_s', ''),columnifexists('root_hosts_s', '')) by Name=emc_vnxfile_nfs_export_name_s",
+                                            "displayName": "NFS Export Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "emc_vnxfile_nfs_export_name_s",
+                            "QueryForValues": "union emc_vnxfile_file_system_CL, emc_vnxfile_nfs_export_CL | distinct emc_vnxfile_nfs_export_name_s",
+                            "Title": "NFS Export"
+                          },{
+                            "FieldName": "thin_provisioned_d",
+                            "QueryForValues": "emc_vnxfile_file_system_CL | distinct thin_provisioned_d",
+                            "Title": "Thin Provisioned"
+                          },{
+                            "FieldName": "emc_vnxfile_file_system_name_s",
+                            "QueryForValues": "emc_vnxfile_file_system_CL | distinct emc_vnxfile_file_system_name_s",
+                            "Title": "File System"
+                          },{
+                            "FieldName": "emc_vnxfile_control_station_name_s",
+                            "QueryForValues": "emc_vnxfile_vnx_file_CL | distinct emc_vnxfile_control_station_name_s",
+                            "Title": "Control Station"
+                          },{
+                            "FieldName": "emc_vnxfile_vnx_file_name_s",
+                            "QueryForValues": "union emc_vnxfile_vnx_file_CL, emc_vnxfile_nfs_export_CL | distinct emc_vnxfile_vnx_file_name_s",
+                            "Title": "VNX File"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "emc_vnxfile_file_system_CL | project ['Capacity Utilization'] = columnifexists('capacity_utilization_d', double(null)), TimeGenerated, Name=emc_vnxfile_file_system_name_s  | extend Healthy = case(isnotnull(['Capacity Utilization']), (['Capacity Utilization'] < 85 or isnull(['Capacity Utilization'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "File System",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

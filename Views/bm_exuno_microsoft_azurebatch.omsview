@@ -56,7 +56,7 @@
                                     "General": {
                                         "Title": "Microsoft Azure Batch Overview",
                                         "NewGroup": false,
-                                        "Color": "#4423559"
+                                        "Color": "#0072c6"
                                     },
                                     "Header": {
                                         "Image": "data:image/png;base64,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",
@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Batch Account Health",
+                                        "title": "Account Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL | where ${Resource Group} and ${Batch Account}  | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_batch_account_name_s  | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "microsoft_azure_batch_account_CL | where ${Resource Group} and ${Account}  | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_account_name_s  | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL | where ${Resource Group} and ${Batch Account}  | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_batch_account_name_s  | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "microsoft_azure_batch_account_CL | where ${Resource Group} and ${Account}  | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_account_name_s  | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Batch Account Name",
+                                            "Name": "Account Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "microsoft_azure_batch_batch_account_CL | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_batch_account_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null))",
+                                        "NavigationQuery": "microsoft_azure_batch_account_CL | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_account_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "microsoft_azure_batch_batch_account_CL | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_batch_account_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null))"
+                                            "NavigationQuery": "microsoft_azure_batch_account_CL | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_account_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Batch Account Dedicated Core Count",
+                                        "title": "Account Dedicated Core Count",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('dedicated_core_count_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s",
+                                        "Query": "microsoft_azure_batch_account_CL | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('dedicated_core_count_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s",
                                         "Callout": {
                                             "Title": "Average Dedicated Core Count",
                                             "Series": "",
@@ -211,12 +211,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL  | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('dedicated_core_count_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_batch_account_CL  | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('dedicated_core_count_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Batch Account",
+                                            "Name": "Account",
                                             "Value": "Dedicated Core Count"
                                         },
                                         "Color": "#0072c6",
@@ -268,7 +268,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_batch_pool_CL | where ${Batch Account} and ${Pool} | summarize avg(coalesce(columnifexists('current_dedicated_nodes_d',0.0), 0.0)) by microsoft_azure_batch_pool_name_s",
+                                        "Query": "microsoft_azure_batch_pool_CL | where ${Account} and ${Pool} | summarize avg(coalesce(columnifexists('current_dedicated_nodes_d',0.0), 0.0)) by microsoft_azure_batch_pool_name_s",
                                         "Callout": {
                                             "Title": "Average Current Dedicated Nodes",
                                             "Series": "",
@@ -286,7 +286,7 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_batch_pool_CL  | where ${Batch Account} and ${Pool} | summarize avg(coalesce(columnifexists('current_dedicated_nodes_d',0.0), 0.0)) by microsoft_azure_batch_pool_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_batch_pool_CL  | where ${Account} and ${Pool} | summarize avg(coalesce(columnifexists('current_dedicated_nodes_d',0.0), 0.0)) by microsoft_azure_batch_pool_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
@@ -333,7 +333,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Batch Account Start Task Failed Node Count",
+                                        "title": "Account Start Task Failed Node Count",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -343,7 +343,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('start_task_failed_node_count_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s",
+                                        "Query": "microsoft_azure_batch_account_CL | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('start_task_failed_node_count_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s",
                                         "Callout": {
                                             "Title": "Average Start Task Failed Node Count",
                                             "Series": "",
@@ -361,12 +361,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL  | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('start_task_failed_node_count_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_batch_account_CL  | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('start_task_failed_node_count_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Batch Account",
+                                            "Name": "Account",
                                             "Value": "Start Task Failed Node Count"
                                         },
                                         "Color": "#0072c6",
@@ -408,7 +408,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Batch Account Task Fail Events",
+                                        "title": "Account Task Fail Events",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -418,7 +418,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('task_fail_events_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s",
+                                        "Query": "microsoft_azure_batch_account_CL | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('task_fail_events_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s",
                                         "Callout": {
                                             "Title": "Average Task Fail Events",
                                             "Series": "",
@@ -436,12 +436,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL  | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('task_fail_events_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_batch_account_CL  | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('task_fail_events_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Batch Account",
+                                            "Name": "Account",
                                             "Value": "Task Fail Events"
                                         },
                                         "Color": "#0072c6",
@@ -483,7 +483,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Batch Account Unusable Node Count",
+                                        "title": "Account Unusable Node Count",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -493,7 +493,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('unusable_node_count_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s",
+                                        "Query": "microsoft_azure_batch_account_CL | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('unusable_node_count_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s",
                                         "Callout": {
                                             "Title": "Average Unusable Node Count",
                                             "Series": "",
@@ -511,12 +511,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_batch_batch_account_CL  | where ${Resource Group} and ${Batch Account} | summarize avg(coalesce(columnifexists('unusable_node_count_d',0.0), 0.0)) by microsoft_azure_batch_batch_account_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_batch_account_CL  | where ${Resource Group} and ${Account} | summarize avg(coalesce(columnifexists('unusable_node_count_d',0.0), 0.0)) by microsoft_azure_batch_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Batch Account",
+                                            "Name": "Account",
                                             "Value": "Unusable Node Count"
                                         },
                                         "Color": "#0072c6",
@@ -566,24 +566,24 @@
                                     "queries": [
 
                                         {
-                                            "query": "microsoft_azure_batch_batch_account_CL | summarize([\"Last Update Time\"], ['Dedicated Core Count'])=arg_max(TimeGenerated,columnifexists('dedicated_core_count_d', '')) by Name=microsoft_azure_batch_batch_account_name_s",
-                                            "displayName": "Batch Account CPU"
+                                            "query": "microsoft_azure_batch_account_CL | summarize([\"Last Update Time\"], ['Dedicated Core Count'])=arg_max(TimeGenerated,columnifexists('dedicated_core_count_d', '')) by Name=microsoft_azure_batch_account_name_s",
+                                            "displayName": "Account CPU"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_batch_batch_account_CL | summarize([\"Last Update Time\"], ['Start Task Failed Node Count'], ['Unusable Node Count'], ['Dedicated Node Count'], ['Running Node Count'], ['Offline Node Count'], ['Waiting For Start Task Node Count'])=arg_max(TimeGenerated,columnifexists('start_task_failed_node_count_d', ''),columnifexists('unusable_node_count_d', ''),columnifexists('dedicated_node_count_d', ''),columnifexists('running_node_count_d', ''),columnifexists('offline_node_count_d', ''),columnifexists('waiting_for_start_task_node_count_d', '')) by Name=microsoft_azure_batch_batch_account_name_s",
-                                            "displayName": "Batch Account Node"
+                                            "query": "microsoft_azure_batch_account_CL | summarize([\"Last Update Time\"], ['Start Task Failed Node Count'], ['Unusable Node Count'], ['Dedicated Node Count'], ['Running Node Count'], ['Offline Node Count'], ['Waiting For Start Task Node Count'])=arg_max(TimeGenerated,columnifexists('start_task_failed_node_count_d', ''),columnifexists('unusable_node_count_d', ''),columnifexists('dedicated_node_count_d', ''),columnifexists('running_node_count_d', ''),columnifexists('offline_node_count_d', ''),columnifexists('waiting_for_start_task_node_count_d', '')) by Name=microsoft_azure_batch_account_name_s",
+                                            "displayName": "Account Node"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_batch_batch_account_CL | summarize([\"Last Update Time\"], ['Task Fail Events'])=arg_max(TimeGenerated,columnifexists('task_fail_events_d', '')) by Name=microsoft_azure_batch_batch_account_name_s",
-                                            "displayName": "Batch Account Task"
+                                            "query": "microsoft_azure_batch_account_CL | summarize([\"Last Update Time\"], ['Task Fail Events'])=arg_max(TimeGenerated,columnifexists('task_fail_events_d', '')) by Name=microsoft_azure_batch_account_name_s",
+                                            "displayName": "Account Task"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_batch_batch_account_CL | summarize([\"Last Update Time\"], ['Pool Create Events'], ['Pool Delete Complete Events'])=arg_max(TimeGenerated,columnifexists('pool_create_events_d', ''),columnifexists('pool_delete_complete_events_d', '')) by Name=microsoft_azure_batch_batch_account_name_s",
-                                            "displayName": "Batch Account Pool"
+                                            "query": "microsoft_azure_batch_account_CL | summarize([\"Last Update Time\"], ['Pool Create Events'], ['Pool Delete Complete Events'])=arg_max(TimeGenerated,columnifexists('pool_create_events_d', ''),columnifexists('pool_delete_complete_events_d', '')) by Name=microsoft_azure_batch_account_name_s",
+                                            "displayName": "Account Pool"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_batch_batch_account_CL | summarize([\"Last Update Time\"], ['Account Endpoint'], ['Active Job And Job Schedule Quota'], ['Dedicated Core Quota'], ['Low Priority Core Quota'], ['Pool Quota'], ['Resource Group'], ['Type'])=arg_max(TimeGenerated,columnifexists('account_endpoint_s', ''),columnifexists('active_job_and_job_schedule_quota_d', ''),columnifexists('dedicated_core_quota_d', ''),columnifexists('low_priority_core_quota_d', ''),columnifexists('pool_quota_d', ''),columnifexists('resource_group_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_batch_batch_account_name_s",
-                                            "displayName": "Batch Account Properties"
+                                            "query": "microsoft_azure_batch_account_CL | summarize([\"Last Update Time\"], ['Active Job And Job Schedule Quota'], ['Dedicated Core Quota'], ['Endpoint'], ['Low Priority Core Quota'], ['Pool Quota'], ['Resource Group'], ['Type'])=arg_max(TimeGenerated,columnifexists('active_job_and_job_schedule_quota_d', ''),columnifexists('dedicated_core_quota_d', ''),columnifexists('endpoint_s', ''),columnifexists('low_priority_core_quota_d', ''),columnifexists('pool_quota_d', ''),columnifexists('resource_group_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_batch_account_name_s",
+                                            "displayName": "Account Properties"
                                         }
                                         ,{
                                             "query": "microsoft_azure_batch_application_CL | summarize([\"Last Update Time\"], ['Allow Updates'], ['Default Version'], ['Display Name'])=arg_max(TimeGenerated,columnifexists('allow_updates_d', ''),columnifexists('default_version_s', ''),columnifexists('display_name_s', '')) by Name=microsoft_azure_batch_application_name_s",
@@ -607,12 +607,12 @@
                         ],
                         "Filters": [{
                             "FieldName": "resource_group_s",
-                            "QueryForValues": "microsoft_azure_batch_batch_account_CL | distinct resource_group_s",
+                            "QueryForValues": "microsoft_azure_batch_account_CL | distinct resource_group_s",
                             "Title": "Resource Group"
                           },{
-                            "FieldName": "microsoft_azure_batch_batch_account_name_s",
-                            "QueryForValues": "union microsoft_azure_batch_batch_account_CL, microsoft_azure_batch_application_CL, microsoft_azure_batch_pool_CL | distinct microsoft_azure_batch_batch_account_name_s",
-                            "Title": "Batch Account"
+                            "FieldName": "microsoft_azure_batch_account_name_s",
+                            "QueryForValues": "union microsoft_azure_batch_account_CL, microsoft_azure_batch_application_CL, microsoft_azure_batch_pool_CL | distinct microsoft_azure_batch_account_name_s",
+                            "Title": "Account"
                           },{
                             "FieldName": "microsoft_azure_batch_application_name_s",
                             "QueryForValues": "microsoft_azure_batch_application_CL | distinct microsoft_azure_batch_application_name_s",
@@ -632,9 +632,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "microsoft_azure_batch_batch_account_CL | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_batch_account_name_s  | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "microsoft_azure_batch_account_CL | project ['Start Task Failed Node Count'] = columnifexists('start_task_failed_node_count_d', double(null)), ['Task Fail Events'] = columnifexists('task_fail_events_d', double(null)), TimeGenerated, Name=microsoft_azure_batch_account_name_s  | extend Healthy = case(isnotnull(['Start Task Failed Node Count']) or isnotnull(['Task Fail Events']), (['Start Task Failed Node Count'] < 1 or isnull(['Start Task Failed Node Count'])) and (['Task Fail Events'] < 1 or isnull(['Task Fail Events'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Batch Account",
+                                        "Text": "Account",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

@@ -84,7 +84,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Queue Service Health",
+                                        "title": "Account Health",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -94,7 +94,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_storage_queue_service_CL | where ${Queue Service}  | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account}  | project ['Availability'] = columnifexists('availability_d', double(null)), ['Transactions Authorization Error'] = columnifexists('transactions_authorization_error_d', double(null)), ['Transactions Network Error'] = columnifexists('transactions_network_error_d', double(null)), ['Transactions Server Busy Error'] = columnifexists('transactions_server_busy_error_d', double(null)), ['Transactions Server Other Error'] = columnifexists('transactions_server_other_error_d', double(null)), ['Transactions Server Timeout Error'] = columnifexists('transactions_server_timeout_error_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_storage_account_name_s  | extend Healthy = case(isnotnull(['Availability']) or isnotnull(['Transactions Authorization Error']) or isnotnull(['Transactions Network Error']) or isnotnull(['Transactions Server Busy Error']) or isnotnull(['Transactions Server Other Error']) or isnotnull(['Transactions Server Timeout Error']), (['Availability'] > 95 or isnull(['Availability'])) and (['Transactions Authorization Error'] < 1 or isnull(['Transactions Authorization Error'])) and (['Transactions Network Error'] < 1 or isnull(['Transactions Network Error'])) and (['Transactions Server Busy Error'] < 1 or isnull(['Transactions Server Busy Error'])) and (['Transactions Server Other Error'] < 1 or isnull(['Transactions Server Other Error'])) and (['Transactions Server Timeout Error'] < 1 or isnull(['Transactions Server Timeout Error'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
                                         "Callout": {
                                             "Title": "Average Health",
                                             "Series": "",
@@ -112,12 +112,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_storage_queue_service_CL | where ${Queue Service}  | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account}  | project ['Availability'] = columnifexists('availability_d', double(null)), ['Transactions Authorization Error'] = columnifexists('transactions_authorization_error_d', double(null)), ['Transactions Network Error'] = columnifexists('transactions_network_error_d', double(null)), ['Transactions Server Busy Error'] = columnifexists('transactions_server_busy_error_d', double(null)), ['Transactions Server Other Error'] = columnifexists('transactions_server_other_error_d', double(null)), ['Transactions Server Timeout Error'] = columnifexists('transactions_server_timeout_error_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_storage_account_name_s  | extend Healthy = case(isnotnull(['Availability']) or isnotnull(['Transactions Authorization Error']) or isnotnull(['Transactions Network Error']) or isnotnull(['Transactions Server Busy Error']) or isnotnull(['Transactions Server Other Error']) or isnotnull(['Transactions Server Timeout Error']), (['Availability'] > 95 or isnull(['Availability'])) and (['Transactions Authorization Error'] < 1 or isnull(['Transactions Authorization Error'])) and (['Transactions Network Error'] < 1 or isnull(['Transactions Network Error'])) and (['Transactions Server Busy Error'] < 1 or isnull(['Transactions Server Busy Error'])) and (['Transactions Server Other Error'] < 1 or isnull(['Transactions Server Other Error'])) and (['Transactions Server Timeout Error'] < 1 or isnull(['Transactions Server Timeout Error'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Queue Service Name",
+                                            "Name": "Account Name",
                                             "Value": "Health Score"
                                         },
                                         "Color": "#0072c6",
@@ -169,9 +169,9 @@
                                             ]
                                         },
                                         "NameDSVSeparator": "",
-                                        "NavigationQuery": "microsoft_azure_storage_queue_service_CL | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null))",
+                                        "NavigationQuery": "microsoft_azure_storage_storage_account_CL | project ['Availability'] = columnifexists('availability_d', double(null)), ['Transactions Authorization Error'] = columnifexists('transactions_authorization_error_d', double(null)), ['Transactions Network Error'] = columnifexists('transactions_network_error_d', double(null)), ['Transactions Server Busy Error'] = columnifexists('transactions_server_busy_error_d', double(null)), ['Transactions Server Other Error'] = columnifexists('transactions_server_other_error_d', double(null)), ['Transactions Server Timeout Error'] = columnifexists('transactions_server_timeout_error_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_storage_account_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Availability']) or isnotnull(['Transactions Authorization Error']) or isnotnull(['Transactions Network Error']) or isnotnull(['Transactions Server Busy Error']) or isnotnull(['Transactions Server Other Error']) or isnotnull(['Transactions Server Timeout Error']), (['Availability'] > 95 or isnull(['Availability'])) and (['Transactions Authorization Error'] < 1 or isnull(['Transactions Authorization Error'])) and (['Transactions Network Error'] < 1 or isnull(['Transactions Network Error'])) and (['Transactions Server Busy Error'] < 1 or isnull(['Transactions Server Busy Error'])) and (['Transactions Server Other Error'] < 1 or isnull(['Transactions Server Other Error'])) and (['Transactions Server Timeout Error'] < 1 or isnull(['Transactions Server Timeout Error'])), bool(null))",
                                         "NavigationSelect": {
-                                            "NavigationQuery": "microsoft_azure_storage_queue_service_CL | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null))"
+                                            "NavigationQuery": "microsoft_azure_storage_storage_account_CL | project ['Availability'] = columnifexists('availability_d', double(null)), ['Transactions Authorization Error'] = columnifexists('transactions_authorization_error_d', double(null)), ['Transactions Network Error'] = columnifexists('transactions_network_error_d', double(null)), ['Transactions Server Busy Error'] = columnifexists('transactions_server_busy_error_d', double(null)), ['Transactions Server Other Error'] = columnifexists('transactions_server_other_error_d', double(null)), ['Transactions Server Timeout Error'] = columnifexists('transactions_server_timeout_error_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_storage_account_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Availability']) or isnotnull(['Transactions Authorization Error']) or isnotnull(['Transactions Network Error']) or isnotnull(['Transactions Server Busy Error']) or isnotnull(['Transactions Server Other Error']) or isnotnull(['Transactions Server Timeout Error']), (['Availability'] > 95 or isnull(['Availability'])) and (['Transactions Authorization Error'] < 1 or isnull(['Transactions Authorization Error'])) and (['Transactions Network Error'] < 1 or isnull(['Transactions Network Error'])) and (['Transactions Server Busy Error'] < 1 or isnull(['Transactions Server Busy Error'])) and (['Transactions Server Other Error'] < 1 or isnull(['Transactions Server Other Error'])) and (['Transactions Server Timeout Error'] < 1 or isnull(['Transactions Server Timeout Error'])), bool(null))"
                                         }
                                     }
                                 }
@@ -183,7 +183,7 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Blob Service Availability",
+                                        "title": "Account Availability",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
@@ -193,7 +193,7 @@
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_storage_blob_service_CL | where ${Blob Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s",
                                         "Callout": {
                                             "Title": "Average Availability",
                                             "Series": "",
@@ -211,12 +211,12 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_storage_blob_service_CL  | where ${Blob Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_storage_storage_account_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Blob Service",
+                                            "Name": "Account",
                                             "Value": "Availability"
                                         },
                                         "Color": "#0072c6",
@@ -258,19 +258,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "File Service Availability",
+                                        "title": "Account Transactions Authorization Error",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Availability",
+                                        "Title": "Transactions Authorization Error",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_storage_file_service_CL | where ${File Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_file_service_name_s",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_authorization_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s",
                                         "Callout": {
-                                            "Title": "Average Availability",
+                                            "Title": "Average Transactions Authorization Error",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -281,39 +281,39 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Requests"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_storage_file_service_CL  | where ${File Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_file_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_storage_storage_account_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_authorization_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "File Service",
-                                            "Value": "Availability"
+                                            "Name": "Account",
+                                            "Value": "Transactions Authorization Error"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
                                             "isEnabled": true,
                                             "values": [
                                                 {
-                                                    "name": "Normal",
-                                                    "threshold": "97.5",
-                                                    "color": "#009e49",
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "95.0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
                                                 {
-                                                    "name": "Error",
+                                                    "name": "Normal",
                                                     "threshold": "Default",
-                                                    "color": "#ba141a",
+                                                    "color": "#009e49",
                                                     "isDefault": true
                                                 }
                                             ]
@@ -333,19 +333,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Queue Service Availability",
+                                        "title": "Account Transactions Network Error",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Availability",
+                                        "Title": "Transactions Network Error",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_storage_queue_service_CL | where ${Queue Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_queue_service_name_s",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_network_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s",
                                         "Callout": {
-                                            "Title": "Average Availability",
+                                            "Title": "Average Transactions Network Error",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -356,39 +356,39 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Requests"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_storage_queue_service_CL  | where ${Queue Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_queue_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_storage_storage_account_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_network_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Queue Service",
-                                            "Value": "Availability"
+                                            "Name": "Account",
+                                            "Value": "Transactions Network Error"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
                                             "isEnabled": true,
                                             "values": [
                                                 {
-                                                    "name": "Normal",
-                                                    "threshold": "97.5",
-                                                    "color": "#009e49",
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "95.0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
                                                 {
-                                                    "name": "Error",
+                                                    "name": "Normal",
                                                     "threshold": "Default",
-                                                    "color": "#ba141a",
+                                                    "color": "#009e49",
                                                     "isDefault": true
                                                 }
                                             ]
@@ -408,19 +408,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Table Service Availability",
+                                        "title": "Account Transactions Server Busy Error",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Availability",
+                                        "Title": "Transactions Server Busy Error",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_storage_table_service_CL | where ${Table Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_table_service_name_s",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_server_busy_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s",
                                         "Callout": {
-                                            "Title": "Average Availability",
+                                            "Title": "Average Transactions Server Busy Error",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -431,39 +431,39 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Percent"
+                                            "customLabel": "Requests"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_storage_table_service_CL  | where ${Table Service} | summarize avg(coalesce(columnifexists('availability_d',0.0), 0.0)) by microsoft_azure_storage_table_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_storage_storage_account_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_server_busy_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Table Service",
-                                            "Value": "Availability"
+                                            "Name": "Account",
+                                            "Value": "Transactions Server Busy Error"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
                                             "isEnabled": true,
                                             "values": [
                                                 {
-                                                    "name": "Normal",
-                                                    "threshold": "97.5",
-                                                    "color": "#009e49",
+                                                    "name": "Error",
+                                                    "threshold": "1.0",
+                                                    "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "95.0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
                                                 {
-                                                    "name": "Error",
+                                                    "name": "Normal",
                                                     "threshold": "Default",
-                                                    "color": "#ba141a",
+                                                    "color": "#009e49",
                                                     "isDefault": true
                                                 }
                                             ]
@@ -483,19 +483,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Blob Service Transactions",
+                                        "title": "Account Transactions Server Other Error",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Transactions",
+                                        "Title": "Transactions Server Other Error",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "microsoft_azure_storage_blob_service_CL | where ${Blob Service} | summarize avg(coalesce(columnifexists('transactions_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s",
+                                        "Query": "microsoft_azure_storage_storage_account_CL | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_server_other_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s",
                                         "Callout": {
-                                            "Title": "Average Transactions",
+                                            "Title": "Average Transactions Server Other Error",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -506,32 +506,32 @@
                                                 "baseUnit": "",
                                                 "displayUnit": ""
                                             },
-                                            "customLabel": "Transactions"
+                                            "customLabel": "Requests"
                                         },
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "microsoft_azure_storage_blob_service_CL  | where ${Blob Service} | summarize avg(coalesce(columnifexists('transactions_d',0.0), 0.0)) by microsoft_azure_storage_blob_service_name_s | order by avg_ desc",
+                                        "Query": "microsoft_azure_storage_storage_account_CL  | where ${Location} and ${Resource Group} and ${SKU Tier} and ${Kind} and ${Account} | summarize avg(coalesce(columnifexists('transactions_server_other_error_d',0.0), 0.0)) by microsoft_azure_storage_storage_account_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
-                                            "Name": "Blob Service",
-                                            "Value": "Transactions"
+                                            "Name": "Account",
+                                            "Value": "Transactions Server Other Error"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
-                                            "isEnabled": false,
+                                            "isEnabled": true,
                                             "values": [
                                                 {
                                                     "name": "Error",
-                                                    "threshold": "90",
+                                                    "threshold": "1.0",
                                                     "color": "#ba141a",
                                                     "isDefault": false
                                                 },
                                                 {
                                                     "name": "Warning",
-                                                    "threshold": "0",
+                                                    "threshold": "0.9",
                                                     "color": "#fcd116",
                                                     "isDefault": false
                                                 },
@@ -566,89 +566,49 @@
                                     "queries": [
 
                                         {
-                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Availability'], ['Queue Message Count'])=arg_max(TimeGenerated,columnifexists('availability_d', ''),columnifexists('queue_message_count_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
-                                            "displayName": "Queue Service Status"
+                                            "query": "microsoft_azure_storage_storage_account_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_storage_account_name_s",
+                                            "displayName": "Account Status"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
-                                            "displayName": "Queue Service Network"
+                                            "query": "microsoft_azure_storage_storage_account_CL | summarize([\"Last Update Time\"], ['Transactions Network Error'], ['Transactions Server Busy Error'], ['Transactions Server Other Error'], ['Transactions Server Timeout Error'], ['Ingress'], ['Egress'], ['Transactions'])=arg_max(TimeGenerated,columnifexists('transactions_network_error_d', ''),columnifexists('transactions_server_busy_error_d', ''),columnifexists('transactions_server_other_error_d', ''),columnifexists('transactions_server_timeout_error_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', ''),columnifexists('transactions_d', '')) by Name=microsoft_azure_storage_storage_account_name_s",
+                                            "displayName": "Account Network"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Queue Capacity'])=arg_max(TimeGenerated,columnifexists('queue_capacity_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
-                                            "displayName": "Queue Service Capacity"
+                                            "query": "microsoft_azure_storage_storage_account_CL | summarize([\"Last Update Time\"], ['Used Capacity'])=arg_max(TimeGenerated,columnifexists('used_capacity_d', '')) by Name=microsoft_azure_storage_storage_account_name_s",
+                                            "displayName": "Account Capacity"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_storage_queue_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_queue_service_name_s",
-                                            "displayName": "Queue Service Performance"
+                                            "query": "microsoft_azure_storage_storage_account_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_storage_account_name_s",
+                                            "displayName": "Account Performance"
                                         }
                                         ,{
-                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
-                                            "displayName": "File Service Status"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
-                                            "displayName": "File Service Network"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
-                                            "displayName": "File Service Performance"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_file_service_CL | summarize([\"Last Update Time\"], ['File Capacity'])=arg_max(TimeGenerated,columnifexists('file_capacity_d', '')) by Name=microsoft_azure_storage_file_service_name_s",
-                                            "displayName": "File Service Capacity"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
-                                            "displayName": "Blob Service Status"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
-                                            "displayName": "Blob Service Network"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Blob Capacity'])=arg_max(TimeGenerated,columnifexists('blob_capacity_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
-                                            "displayName": "Blob Service Capacity"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_blob_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_blob_service_name_s",
-                                            "displayName": "Blob Service Performance"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Availability'])=arg_max(TimeGenerated,columnifexists('availability_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
-                                            "displayName": "Table Service Status"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Transactions'], ['Ingress'], ['Egress'])=arg_max(TimeGenerated,columnifexists('transactions_d', ''),columnifexists('ingress_d', ''),columnifexists('egress_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
-                                            "displayName": "Table Service Network"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Success E2E Latency'], ['Success Server Latency'])=arg_max(TimeGenerated,columnifexists('success_e2e_latency_d', ''),columnifexists('success_server_latency_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
-                                            "displayName": "Table Service Performance"
-                                        }
-                                        ,{
-                                            "query": "microsoft_azure_storage_table_service_CL | summarize([\"Last Update Time\"], ['Table Capacity'])=arg_max(TimeGenerated,columnifexists('table_capacity_d', '')) by Name=microsoft_azure_storage_table_service_name_s",
-                                            "displayName": "Table Service Capacity"
+                                            "query": "microsoft_azure_storage_storage_account_CL | summarize([\"Last Update Time\"], ['Creation Time'], ['Kind'], ['Location'], ['Primary Endpoints'], ['Primary Location'], ['Resource Group'], ['Secondary Endpoints'], ['Secondary Location'], ['SKU Name'], ['SKU Tier'], ['Supports HTTPS Traffic Only'], ['Tags'], ['Trusted Directories'], ['Type'])=arg_max(TimeGenerated,columnifexists('secondary_location_s', ''),columnifexists('sku_name_s', ''),columnifexists('sku_tier_s', ''),columnifexists('supports_https_traffic_only_d', ''),columnifexists('tags_s', ''),columnifexists('trusted_directories_s', ''),columnifexists('type_s', '')) by Name=microsoft_azure_storage_storage_account_name_s",
+                                            "displayName": "Account Properties"
                                         }
                                     ]
                                 }
                             }
                         ],
                         "Filters": [{
-                            "FieldName": "microsoft_azure_storage_queue_service_name_s",
-                            "QueryForValues": "microsoft_azure_storage_queue_service_CL | distinct microsoft_azure_storage_queue_service_name_s",
-                            "Title": "Queue Service"
+                            "FieldName": "location_s",
+                            "QueryForValues": "microsoft_azure_storage_storage_account_CL | distinct location_s",
+                            "Title": "Location"
                           },{
-                            "FieldName": "microsoft_azure_storage_file_service_name_s",
-                            "QueryForValues": "microsoft_azure_storage_file_service_CL | distinct microsoft_azure_storage_file_service_name_s",
-                            "Title": "File Service"
+                            "FieldName": "resource_group_s",
+                            "QueryForValues": "microsoft_azure_storage_storage_account_CL | distinct resource_group_s",
+                            "Title": "Resource Group"
                           },{
-                            "FieldName": "microsoft_azure_storage_blob_service_name_s",
-                            "QueryForValues": "microsoft_azure_storage_blob_service_CL | distinct microsoft_azure_storage_blob_service_name_s",
-                            "Title": "Blob Service"
+                            "FieldName": "sku_tier_s",
+                            "QueryForValues": "microsoft_azure_storage_storage_account_CL | distinct sku_tier_s",
+                            "Title": "SKU Tier"
                           },{
-                            "FieldName": "microsoft_azure_storage_table_service_name_s",
-                            "QueryForValues": "microsoft_azure_storage_table_service_CL | distinct microsoft_azure_storage_table_service_name_s",
-                            "Title": "Table Service"
+                            "FieldName": "kind_s",
+                            "QueryForValues": "microsoft_azure_storage_storage_account_CL | distinct kind_s",
+                            "Title": "Kind"
+                          },{
+                            "FieldName": "microsoft_azure_storage_storage_account_name_s",
+                            "QueryForValues": "microsoft_azure_storage_storage_account_CL | distinct microsoft_azure_storage_storage_account_name_s",
+                            "Title": "Account"
                           }],
                         "OverviewTile": {
                             "Id": "SingleQueryDonutBuilderTileV1",
@@ -656,9 +616,9 @@
                             "Version": 2,
                             "Configuration": {
                                 "Donut": {
-                                    "Query": "microsoft_azure_storage_queue_service_CL | project ['Availability'] = columnifexists('availability_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_queue_service_name_s  | extend Healthy = case(isnotnull(['Availability']), (['Availability'] > 95 or isnull(['Availability'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "Query": "microsoft_azure_storage_storage_account_CL | project ['Availability'] = columnifexists('availability_d', double(null)), ['Transactions Authorization Error'] = columnifexists('transactions_authorization_error_d', double(null)), ['Transactions Network Error'] = columnifexists('transactions_network_error_d', double(null)), ['Transactions Server Busy Error'] = columnifexists('transactions_server_busy_error_d', double(null)), ['Transactions Server Other Error'] = columnifexists('transactions_server_other_error_d', double(null)), ['Transactions Server Timeout Error'] = columnifexists('transactions_server_timeout_error_d', double(null)), TimeGenerated, Name=microsoft_azure_storage_storage_account_name_s  | extend Healthy = case(isnotnull(['Availability']) or isnotnull(['Transactions Authorization Error']) or isnotnull(['Transactions Network Error']) or isnotnull(['Transactions Server Busy Error']) or isnotnull(['Transactions Server Other Error']) or isnotnull(['Transactions Server Timeout Error']), (['Availability'] > 95 or isnull(['Availability'])) and (['Transactions Authorization Error'] < 1 or isnull(['Transactions Authorization Error'])) and (['Transactions Network Error'] < 1 or isnull(['Transactions Network Error'])) and (['Transactions Server Busy Error'] < 1 or isnull(['Transactions Server Busy Error'])) and (['Transactions Server Other Error'] < 1 or isnull(['Transactions Server Other Error'])) and (['Transactions Server Timeout Error'] < 1 or isnull(['Transactions Server Timeout Error'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
                                     "CenterLegend": {
-                                        "Text": "Queue Service",
+                                        "Text": "Account",
                                         "Operation": "Sum",
                                         "ArcsToSelect": []
                                     },

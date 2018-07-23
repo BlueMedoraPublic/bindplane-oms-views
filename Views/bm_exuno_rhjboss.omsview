@@ -161,19 +161,19 @@
                                 "Version": 0,
                                 "Configuration": {
                                     "General": {
-                                        "title": "Datasource Percent In Use",
+                                        "title": "Datasource Connections Utilization",
                                         "newGroup": false,
                                         "icon": "",
                                         "useIcon": false
                                     },
                                     "Header": {
-                                        "Title": "Percent In Use",
+                                        "Title": "Connections Utilization",
                                         "Subtitle": ""
                                     },
                                     "LineChart": {
-                                        "Query": "rh_jboss_datasource_CL | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('percent_in_use_d',0.0), 0.0)) by rh_jboss_datasource_name_s",
+                                        "Query": "rh_jboss_datasource_CL | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('connections_utilization_d',0.0), 0.0)) by rh_jboss_datasource_name_s",
                                         "Callout": {
-                                            "Title": "Average Percent In Use",
+                                            "Title": "Average Connections Utilization",
                                             "Series": "",
                                             "Operation": "Average"
                                         },
@@ -189,13 +189,13 @@
                                         "NavigationSelect": {}
                                     },
                                     "List": {
-                                        "Query": "rh_jboss_datasource_CL  | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('percent_in_use_d',0.0), 0.0)) by rh_jboss_datasource_name_s | order by avg_ desc",
+                                        "Query": "rh_jboss_datasource_CL  | where ${Server} and ${Datasource} | summarize avg(coalesce(columnifexists('connections_utilization_d',0.0), 0.0)) by rh_jboss_datasource_name_s | order by avg_ desc",
                                         "HideGraph": false,
                                         "enableSparklines": true,
                                         "operation": "Last Sample",
                                         "ColumnsTitle": {
                                             "Name": "Datasource",
-                                            "Value": "Percent In Use"
+                                            "Value": "Connections Utilization"
                                         },
                                         "Color": "#0072c6",
                                         "thresholds": {
@@ -469,7 +469,7 @@
                                     "queries": [
 
                                         {
-                                            "query": "rh_jboss_datasource_CL | summarize([\"Last Update Time\"], ['Active Connection Count'], ['Percent In Use'])=arg_max(TimeGenerated,columnifexists('active_connection_count_d', ''),columnifexists('percent_in_use_d', '')) by Name=rh_jboss_datasource_name_s",
+                                            "query": "rh_jboss_datasource_CL | summarize([\"Last Update Time\"], ['Active Connection Count'], ['Connections Utilization'])=arg_max(TimeGenerated,columnifexists('active_connection_count_d', ''),columnifexists('connections_utilization_d', '')) by Name=rh_jboss_datasource_name_s",
                                             "displayName": "Datasource Network"
                                         }
                                         ,{

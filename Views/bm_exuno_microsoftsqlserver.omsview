@@ -625,22 +625,10 @@
                                             "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['Log Cache Hit Ratio'], ['Transactions'])=arg_max(TimeGenerated,columnifexists('log_cache_hit_ratio_d', ''),columnifexists('transactions_rate_d', '')) by Name=microsoft_sqlserver_database_name_s",
                                             "displayName": "Database Performance"
                                         }
-                                        ,{
-                                            "query": "microsoft_sqlserver_database_CL | summarize([\"Last Update Time\"], ['Auto Close'], ['Auto Create Statistics'], ['Auto Shrink'], ['Auto Update Statistics'], ['Availability Group Name'], ['Synchronization Health'], ['Synchronization State'])=arg_max(TimeGenerated,columnifexists('auto_close_s', ''),columnifexists('auto_create_statistics_s', ''),columnifexists('auto_shrink_s', ''),columnifexists('auto_update_statistics_s', ''),columnifexists('availability_group_name_s', ''),columnifexists('synchronization_health_s', ''),columnifexists('synchronization_state_s', '')) by Name=microsoft_sqlserver_database_name_s",
-                                            "displayName": "Database Properties"
-                                        }
-                                        ,{
-                                            "query": "microsoft_sqlserver_query_CL | summarize([\"Last Update Time\"], ['Average Execution Time'])=arg_max(TimeGenerated,columnifexists('average_execution_time_d', '')) by Name=microsoft_sqlserver_query_name_s",
-                                            "displayName": "Query General"
-                                        }
-                                        ,{
-                                            "query": "microsoft_sqlserver_query_CL | summarize([\"Last Update Time\"], ['Text'])=arg_max(TimeGenerated,columnifexists('text_s', '')) by Name=microsoft_sqlserver_query_name_s",
-                                            "displayName": "Query Properties"
-                                        }
-                                        ,{
-                                            "query": "microsoft_sqlserver_always_on_availability_group_CL | summarize([\"Last Update Time\"], ['Primary Recovery Health Description'], ['Primary Replica'], ['Replica ID'], ['Replicas'], ['Resource Name'], ['Secondary Recovery Health Description'], ['Synchronization Health Description Property'])=arg_max(TimeGenerated,columnifexists('primary_recovery_health_description_s', ''),columnifexists('primary_replica_s', ''),columnifexists('replica_id_s', ''),columnifexists('replicas_s', ''),columnifexists('resource_name_s', ''),columnifexists('secondary_recovery_health_description_s', ''),columnifexists('synchronization_health_description_property_s', '')) by Name=microsoft_sqlserver_always_on_availability_group_name_s",
-                                            "displayName": "Always On Availability Group Properties"
-                                        }
+                                        
+                                        
+                                        
+                                        
                                     ]
                                 }
                             }
