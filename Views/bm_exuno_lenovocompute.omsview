@@ -1,0 +1,551 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "Lenovo Compute Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/Lenovo Compute Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "Lenovo Compute Environment",
+                        "Name": "Lenovo Compute Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "Lenovo Compute Overview",
+                                        "NewGroup": false,
+                                        "Color": "#00188f"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "Lenovo Compute",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "It is important to monitor the health status of each level of hardware to ensure optimal performance."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "Lenovo Compute servers are flex system blade servers designed to keep operating costs down without sacrificing efficiency, reliability, or security."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Chassis Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_compute_chassis_CL | where ${Machine Type} and ${System Health State} and ${Chassis}  | project ['System Health State'] = columnifexists('system_health_state_s', 'NULL_VALUE'), TimeGenerated, Name=lenovo_compute_chassis_name_s  | extend Healthy = case(coalesce(['System Health State'], 'NULL_VALUE') != 'NULL_VALUE', (['System Health State'] == 'Normal' or coalesce(['System Health State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_compute_chassis_CL | where ${Machine Type} and ${System Health State} and ${Chassis}  | project ['System Health State'] = columnifexists('system_health_state_s', 'NULL_VALUE'), TimeGenerated, Name=lenovo_compute_chassis_name_s  | extend Healthy = case(coalesce(['System Health State'], 'NULL_VALUE') != 'NULL_VALUE', (['System Health State'] == 'Normal' or coalesce(['System Health State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Chassis Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "lenovo_compute_chassis_CL | project ['System Health State'] = columnifexists('system_health_state_s', 'NULL_VALUE'), TimeGenerated, Name=lenovo_compute_chassis_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['System Health State'], 'NULL_VALUE') != 'NULL_VALUE', (['System Health State'] == 'Normal' or coalesce(['System Health State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "lenovo_compute_chassis_CL | project ['System Health State'] = columnifexists('system_health_state_s', 'NULL_VALUE'), TimeGenerated, Name=lenovo_compute_chassis_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(coalesce(['System Health State'], 'NULL_VALUE') != 'NULL_VALUE', (['System Health State'] == 'Normal' or coalesce(['System Health State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Flex Switch Maximum Processes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Maximum Processes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_compute_flex_switch_CL | where ${Chassis} and ${Model} and ${Type} and ${Flex Switch} | summarize avg(coalesce(columnifexists('maximum_processes_d',0.0), 0.0)) by lenovo_compute_flex_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Maximum Processes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Maximum Processes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_compute_flex_switch_CL  | where ${Chassis} and ${Model} and ${Type} and ${Flex Switch} | summarize avg(coalesce(columnifexists('maximum_processes_d',0.0), 0.0)) by lenovo_compute_flex_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Flex Switch",
+                                            "Value": "Maximum Processes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Flex Switch Processes",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Processes",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_compute_flex_switch_CL | where ${Chassis} and ${Model} and ${Type} and ${Flex Switch} | summarize avg(coalesce(columnifexists('processes_d',0.0), 0.0)) by lenovo_compute_flex_switch_name_s",
+                                        "Callout": {
+                                            "Title": "Average Processes",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Processes"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_compute_flex_switch_CL  | where ${Chassis} and ${Model} and ${Type} and ${Flex Switch} | summarize avg(coalesce(columnifexists('processes_d',0.0), 0.0)) by lenovo_compute_flex_switch_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Flex Switch",
+                                            "Value": "Processes"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Processor Speed",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Speed",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "lenovo_compute_processor_CL | where ${Server} and ${Family} and ${Processor} | summarize avg(coalesce(columnifexists('speed_d',0.0), 0.0)) by lenovo_compute_processor_name_s",
+                                        "Callout": {
+                                            "Title": "Average Speed",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Speed"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "lenovo_compute_processor_CL  | where ${Server} and ${Family} and ${Processor} | summarize avg(coalesce(columnifexists('speed_d',0.0), 0.0)) by lenovo_compute_processor_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Processor",
+                                            "Value": "Speed"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "lenovo_compute_chassis_CL | summarize([\"Last Update Time\"], ['System Health State'])=arg_max(TimeGenerated,columnifexists('system_health_state_s', '')) by Name=lenovo_compute_chassis_name_s",
+                                            "displayName": "Chassis Status"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_chassis_CL | summarize([\"Last Update Time\"], ['Bays Supported'], ['Fans Supported'], ['Machine Type'], ['Management Modules Supported'], ['Power Modules Supported'], ['Serial Number'], ['Switch Modules Supported'])=arg_max(TimeGenerated,columnifexists('bays_supported_d', ''),columnifexists('fans_supported_d', ''),columnifexists('machine_type_s', ''),columnifexists('management_modules_supported_d', ''),columnifexists('power_modules_supported_d', ''),columnifexists('serial_number_s', ''),columnifexists('switch_modules_supported_d', '')) by Name=lenovo_compute_chassis_name_s",
+                                            "displayName": "Chassis Properties"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_compute_server_CL | summarize([\"Last Update Time\"], ['Access State'], ['Health Status'], ['Power Status'])=arg_max(TimeGenerated,columnifexists('access_state_s', ''),columnifexists('health_status_s', ''),columnifexists('power_status_s', '')) by Name=lenovo_compute_compute_server_name_s",
+                                            "displayName": "Server Status"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_compute_server_CL | summarize([\"Last Update Time\"], ['MAC Addresses'], ['Model'], ['Product Name'], ['Serial Number'], ['Type'])=arg_max(TimeGenerated,columnifexists('mac_addresses_s', ''),columnifexists('model_s', ''),columnifexists('product_name_s', ''),columnifexists('serial_number_s', ''),columnifexists('type_s', '')) by Name=lenovo_compute_compute_server_name_s",
+                                            "displayName": "Server Properties"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_flex_switch_CL | summarize([\"Last Update Time\"], ['Access State'], ['Health State'])=arg_max(TimeGenerated,columnifexists('access_state_s', ''),columnifexists('health_state_s', '')) by Name=lenovo_compute_flex_switch_name_s",
+                                            "displayName": "Flex Switch Status"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_flex_switch_CL | summarize([\"Last Update Time\"], ['Maximum Processes'], ['Processes'])=arg_max(TimeGenerated,columnifexists('maximum_processes_d', ''),columnifexists('processes_d', '')) by Name=lenovo_compute_flex_switch_name_s",
+                                            "displayName": "Flex Switch Details"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_flex_switch_CL | summarize([\"Last Update Time\"], ['Description'], ['Model'], ['Serial Number'], ['Type'])=arg_max(TimeGenerated,columnifexists('description_s', ''),columnifexists('model_s', ''),columnifexists('serial_number_s', ''),columnifexists('type_s', '')) by Name=lenovo_compute_flex_switch_name_s",
+                                            "displayName": "Flex Switch Properties"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_processor_CL | summarize([\"Last Update Time\"], ['Speed'])=arg_max(TimeGenerated,columnifexists('speed_d', '')) by Name=lenovo_compute_processor_name_s",
+                                            "displayName": "Processor Performance"
+                                        }
+                                        ,{
+                                            "query": "lenovo_compute_processor_CL | summarize([\"Last Update Time\"], ['Cores'], ['Family'])=arg_max(TimeGenerated,columnifexists('cores_s', ''),columnifexists('family_s', '')) by Name=lenovo_compute_processor_name_s",
+                                            "displayName": "Processor Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "machine_type_s",
+                            "QueryForValues": "lenovo_compute_chassis_CL | distinct machine_type_s",
+                            "Title": "Machine Type"
+                          },{
+                            "FieldName": "system_health_state_s",
+                            "QueryForValues": "lenovo_compute_chassis_CL | distinct system_health_state_s",
+                            "Title": "System Health State"
+                          },{
+                            "FieldName": "lenovo_compute_chassis_name_s",
+                            "QueryForValues": "union lenovo_compute_chassis_CL, lenovo_compute_compute_server_CL, lenovo_compute_flex_switch_CL | distinct lenovo_compute_chassis_name_s",
+                            "Title": "Chassis"
+                          },{
+                            "FieldName": "model_s",
+                            "QueryForValues": "union lenovo_compute_compute_server_CL, lenovo_compute_flex_switch_CL | distinct model_s",
+                            "Title": "Model"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "union lenovo_compute_compute_server_CL, lenovo_compute_flex_switch_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "lenovo_compute_compute_server_name_s",
+                            "QueryForValues": "union lenovo_compute_compute_server_CL, lenovo_compute_processor_CL | distinct lenovo_compute_compute_server_name_s",
+                            "Title": "Server"
+                          },{
+                            "FieldName": "lenovo_compute_flex_switch_name_s",
+                            "QueryForValues": "lenovo_compute_flex_switch_CL | distinct lenovo_compute_flex_switch_name_s",
+                            "Title": "Flex Switch"
+                          },{
+                            "FieldName": "family_s",
+                            "QueryForValues": "lenovo_compute_processor_CL | distinct family_s",
+                            "Title": "Family"
+                          },{
+                            "FieldName": "lenovo_compute_processor_name_s",
+                            "QueryForValues": "lenovo_compute_processor_CL | distinct lenovo_compute_processor_name_s",
+                            "Title": "Processor"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "lenovo_compute_chassis_CL | project ['System Health State'] = columnifexists('system_health_state_s', 'NULL_VALUE'), TimeGenerated, Name=lenovo_compute_chassis_name_s  | extend Healthy = case(coalesce(['System Health State'], 'NULL_VALUE') != 'NULL_VALUE', (['System Health State'] == 'Normal' or coalesce(['System Health State'], 'NULL_VALUE') == 'NULL_VALUE'), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Chassis",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
