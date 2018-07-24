@@ -1,0 +1,689 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "EMC VMAX Environment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/EMC VMAX Environment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "EMC VMAX Environment",
+                        "Name": "EMC VMAX Environment",
+                        "Author": "service.azure@bluemedora.com",
+                        "Source": "Local",
+                        "Version": 2,
+                        "Dashboard": [
+                            {
+                                "Id": "InformationBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "Title": "EMC VMAX Overview",
+                                        "NewGroup": false,
+                                        "Color": "#b4009e"
+                                    },
+                                    "Header": {
+                                        "Image": "data:image/png;base64,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",
+                                        "Label": "EMC VMAX",
+                                        "Link": {
+                                            "Label": "More info",
+                                            "Url": "https://bindplane.bluemedora.com"
+                                        }
+                                    },
+                                    "List": [
+                                        {
+                                            "Title": "Overview",
+                                            "Content": "It is important to monitor read/write ratio, IOPS, latency, and disk capacity of each Dell EMC VMAX resource in order to optimize performance."
+                                        },
+                                        {
+                                            "Title": "Key Performance Indicators",
+                                            "Content": "Dell EMC VMAX is a family of enterprise storage arrays that provide high performace and storage efficiency to run applications."
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Group Health",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Health Score",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group}  | project ['Average Back End Disk Time'] = columnifexists('average_back_end_disk_time_d', double(null)), ['Average Back End Request Time'] = columnifexists('average_back_end_request_time_d', double(null)), ['Average Back End Task Time'] = columnifexists('average_back_end_task_time_d', double(null)), ['IO Latency'] = columnifexists('io_latency_d', double(null)), ['Sampled RDF Write Latency'] = columnifexists('sampled_rdf_write_latency_d', double(null)), ['Sampled Read Latency'] = columnifexists('sampled_read_latency_d', double(null)), ['Sampled Read Miss Latency'] = columnifexists('sampled_read_miss_latency_d', double(null)), ['Sampled Write Latency'] = columnifexists('sampled_write_latency_d', double(null)), ['Sampled Write Pending Disconnect Latency'] = columnifexists('sampled_write_pending_disconnect_latency_d', double(null)), ['Write Paced Latency'] = columnifexists('write_paced_latency_d', double(null)), TimeGenerated, Name=emc_vmax_storage_group_name_s  | extend Healthy = case(isnotnull(['Average Back End Disk Time']) or isnotnull(['Average Back End Request Time']) or isnotnull(['Average Back End Task Time']) or isnotnull(['IO Latency']) or isnotnull(['Sampled RDF Write Latency']) or isnotnull(['Sampled Read Latency']) or isnotnull(['Sampled Read Miss Latency']) or isnotnull(['Sampled Write Latency']) or isnotnull(['Sampled Write Pending Disconnect Latency']) or isnotnull(['Write Paced Latency']), (['Average Back End Disk Time'] < 1000 or isnull(['Average Back End Disk Time'])) and (['Average Back End Request Time'] < 1000 or isnull(['Average Back End Request Time'])) and (['Average Back End Task Time'] < 1000 or isnull(['Average Back End Task Time'])) and (['IO Latency'] < 1000 or isnull(['IO Latency'])) and (['Sampled RDF Write Latency'] < 1000 or isnull(['Sampled RDF Write Latency'])) and (['Sampled Read Latency'] < 1000 or isnull(['Sampled Read Latency'])) and (['Sampled Read Miss Latency'] < 1000 or isnull(['Sampled Read Miss Latency'])) and (['Sampled Write Latency'] < 1000 or isnull(['Sampled Write Latency'])) and (['Sampled Write Pending Disconnect Latency'] < 1000 or isnull(['Sampled Write Pending Disconnect Latency'])) and (['Write Paced Latency'] < 1000 or isnull(['Write Paced Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name",
+                                        "Callout": {
+                                            "Title": "Average Health",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group}  | project ['Average Back End Disk Time'] = columnifexists('average_back_end_disk_time_d', double(null)), ['Average Back End Request Time'] = columnifexists('average_back_end_request_time_d', double(null)), ['Average Back End Task Time'] = columnifexists('average_back_end_task_time_d', double(null)), ['IO Latency'] = columnifexists('io_latency_d', double(null)), ['Sampled RDF Write Latency'] = columnifexists('sampled_rdf_write_latency_d', double(null)), ['Sampled Read Latency'] = columnifexists('sampled_read_latency_d', double(null)), ['Sampled Read Miss Latency'] = columnifexists('sampled_read_miss_latency_d', double(null)), ['Sampled Write Latency'] = columnifexists('sampled_write_latency_d', double(null)), ['Sampled Write Pending Disconnect Latency'] = columnifexists('sampled_write_pending_disconnect_latency_d', double(null)), ['Write Paced Latency'] = columnifexists('write_paced_latency_d', double(null)), TimeGenerated, Name=emc_vmax_storage_group_name_s  | extend Healthy = case(isnotnull(['Average Back End Disk Time']) or isnotnull(['Average Back End Request Time']) or isnotnull(['Average Back End Task Time']) or isnotnull(['IO Latency']) or isnotnull(['Sampled RDF Write Latency']) or isnotnull(['Sampled Read Latency']) or isnotnull(['Sampled Read Miss Latency']) or isnotnull(['Sampled Write Latency']) or isnotnull(['Sampled Write Pending Disconnect Latency']) or isnotnull(['Write Paced Latency']), (['Average Back End Disk Time'] < 1000 or isnull(['Average Back End Disk Time'])) and (['Average Back End Request Time'] < 1000 or isnull(['Average Back End Request Time'])) and (['Average Back End Task Time'] < 1000 or isnull(['Average Back End Task Time'])) and (['IO Latency'] < 1000 or isnull(['IO Latency'])) and (['Sampled RDF Write Latency'] < 1000 or isnull(['Sampled RDF Write Latency'])) and (['Sampled Read Latency'] < 1000 or isnull(['Sampled Read Latency'])) and (['Sampled Read Miss Latency'] < 1000 or isnull(['Sampled Read Miss Latency'])) and (['Sampled Write Latency'] < 1000 or isnull(['Sampled Write Latency'])) and (['Sampled Write Pending Disconnect Latency'] < 1000 or isnull(['Sampled Write Pending Disconnect Latency'])) and (['Write Paced Latency'] < 1000 or isnull(['Write Paced Latency'])), bool(null)) | summarize HealthScore = case(isnan(avg(Healthy)), -1.0, avg(Healthy) * 100) by Name | order by HealthScore asc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Group Name",
+                                            "Value": "Health Score"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Unknown",
+                                                    "threshold": "Default",
+                                                    "color": "#002050",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "A",
+                                                    "threshold": "90",
+                                                    "color": "#009e49",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "B",
+                                                    "threshold": "80",
+                                                    "color": "#55d455",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "C",
+                                                    "threshold": "70",
+                                                    "color": "#bad80a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "D",
+                                                    "threshold": "60",
+                                                    "color": "#fff100",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "E",
+                                                    "threshold": "50",
+                                                    "color": "#ff8c00",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "F",
+                                                    "threshold": "-1",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "emc_vmax_storage_group_CL | project ['Average Back End Disk Time'] = columnifexists('average_back_end_disk_time_d', double(null)), ['Average Back End Request Time'] = columnifexists('average_back_end_request_time_d', double(null)), ['Average Back End Task Time'] = columnifexists('average_back_end_task_time_d', double(null)), ['IO Latency'] = columnifexists('io_latency_d', double(null)), ['Sampled RDF Write Latency'] = columnifexists('sampled_rdf_write_latency_d', double(null)), ['Sampled Read Latency'] = columnifexists('sampled_read_latency_d', double(null)), ['Sampled Read Miss Latency'] = columnifexists('sampled_read_miss_latency_d', double(null)), ['Sampled Write Latency'] = columnifexists('sampled_write_latency_d', double(null)), ['Sampled Write Pending Disconnect Latency'] = columnifexists('sampled_write_pending_disconnect_latency_d', double(null)), ['Write Paced Latency'] = columnifexists('write_paced_latency_d', double(null)), TimeGenerated, Name=emc_vmax_storage_group_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average Back End Disk Time']) or isnotnull(['Average Back End Request Time']) or isnotnull(['Average Back End Task Time']) or isnotnull(['IO Latency']) or isnotnull(['Sampled RDF Write Latency']) or isnotnull(['Sampled Read Latency']) or isnotnull(['Sampled Read Miss Latency']) or isnotnull(['Sampled Write Latency']) or isnotnull(['Sampled Write Pending Disconnect Latency']) or isnotnull(['Write Paced Latency']), (['Average Back End Disk Time'] < 1000 or isnull(['Average Back End Disk Time'])) and (['Average Back End Request Time'] < 1000 or isnull(['Average Back End Request Time'])) and (['Average Back End Task Time'] < 1000 or isnull(['Average Back End Task Time'])) and (['IO Latency'] < 1000 or isnull(['IO Latency'])) and (['Sampled RDF Write Latency'] < 1000 or isnull(['Sampled RDF Write Latency'])) and (['Sampled Read Latency'] < 1000 or isnull(['Sampled Read Latency'])) and (['Sampled Read Miss Latency'] < 1000 or isnull(['Sampled Read Miss Latency'])) and (['Sampled Write Latency'] < 1000 or isnull(['Sampled Write Latency'])) and (['Sampled Write Pending Disconnect Latency'] < 1000 or isnull(['Sampled Write Pending Disconnect Latency'])) and (['Write Paced Latency'] < 1000 or isnull(['Write Paced Latency'])), bool(null))",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "emc_vmax_storage_group_CL | project ['Average Back End Disk Time'] = columnifexists('average_back_end_disk_time_d', double(null)), ['Average Back End Request Time'] = columnifexists('average_back_end_request_time_d', double(null)), ['Average Back End Task Time'] = columnifexists('average_back_end_task_time_d', double(null)), ['IO Latency'] = columnifexists('io_latency_d', double(null)), ['Sampled RDF Write Latency'] = columnifexists('sampled_rdf_write_latency_d', double(null)), ['Sampled Read Latency'] = columnifexists('sampled_read_latency_d', double(null)), ['Sampled Read Miss Latency'] = columnifexists('sampled_read_miss_latency_d', double(null)), ['Sampled Write Latency'] = columnifexists('sampled_write_latency_d', double(null)), ['Sampled Write Pending Disconnect Latency'] = columnifexists('sampled_write_pending_disconnect_latency_d', double(null)), ['Write Paced Latency'] = columnifexists('write_paced_latency_d', double(null)), TimeGenerated, Name=emc_vmax_storage_group_name_s  | where {selected item}  | summarize arg_max(TimeGenerated, *) by Name | extend Healthy = case(isnotnull(['Average Back End Disk Time']) or isnotnull(['Average Back End Request Time']) or isnotnull(['Average Back End Task Time']) or isnotnull(['IO Latency']) or isnotnull(['Sampled RDF Write Latency']) or isnotnull(['Sampled Read Latency']) or isnotnull(['Sampled Read Miss Latency']) or isnotnull(['Sampled Write Latency']) or isnotnull(['Sampled Write Pending Disconnect Latency']) or isnotnull(['Write Paced Latency']), (['Average Back End Disk Time'] < 1000 or isnull(['Average Back End Disk Time'])) and (['Average Back End Request Time'] < 1000 or isnull(['Average Back End Request Time'])) and (['Average Back End Task Time'] < 1000 or isnull(['Average Back End Task Time'])) and (['IO Latency'] < 1000 or isnull(['IO Latency'])) and (['Sampled RDF Write Latency'] < 1000 or isnull(['Sampled RDF Write Latency'])) and (['Sampled Read Latency'] < 1000 or isnull(['Sampled Read Latency'])) and (['Sampled Read Miss Latency'] < 1000 or isnull(['Sampled Read Miss Latency'])) and (['Sampled Write Latency'] < 1000 or isnull(['Sampled Write Latency'])) and (['Sampled Write Pending Disconnect Latency'] < 1000 or isnull(['Sampled Write Pending Disconnect Latency'])) and (['Write Paced Latency'] < 1000 or isnull(['Write Paced Latency'])), bool(null))"
+                                        }
+                                    }
+                                }
+                            },
+
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Group IO Latency",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IO Latency",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('io_latency_d',0.0), 0.0)) by emc_vmax_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average IO Latency",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Milliseconds"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vmax_storage_group_CL  | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('io_latency_d',0.0), 0.0)) by emc_vmax_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Group",
+                                            "Value": "IO Latency"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": true,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "1000.0",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "900.0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Group IO Rate",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "IO Rate",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('io_rate_d',0.0), 0.0)) by emc_vmax_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average IO Rate",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Operations per Second"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vmax_storage_group_CL  | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('io_rate_d',0.0), 0.0)) by emc_vmax_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Group",
+                                            "Value": "IO Rate"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Group Read Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Read Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('read_ratio_d',0.0), 0.0)) by emc_vmax_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Read Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vmax_storage_group_CL  | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('read_ratio_d',0.0), 0.0)) by emc_vmax_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Group",
+                                            "Value": "Read Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Group Write Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Write Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('write_ratio_d',0.0), 0.0)) by emc_vmax_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Write Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vmax_storage_group_CL  | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('write_ratio_d',0.0), 0.0)) by emc_vmax_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Group",
+                                            "Value": "Write Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "LineChartCalloutBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Storage Group Cache Hit Ratio",
+                                        "newGroup": false,
+                                        "icon": "",
+                                        "useIcon": false
+                                    },
+                                    "Header": {
+                                        "Title": "Cache Hit Ratio",
+                                        "Subtitle": ""
+                                    },
+                                    "LineChart": {
+                                        "Query": "emc_vmax_storage_group_CL | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('cache_hit_ratio_d',0.0), 0.0)) by emc_vmax_storage_group_name_s",
+                                        "Callout": {
+                                            "Title": "Average Cache Hit Ratio",
+                                            "Series": "",
+                                            "Operation": "Average"
+                                        },
+                                        "yAxis": {
+                                            "isLogarithmic": false,
+                                            "units": {
+                                                "baseUnitType": "",
+                                                "baseUnit": "",
+                                                "displayUnit": ""
+                                            },
+                                            "customLabel": "Percent"
+                                        },
+                                        "NavigationSelect": {}
+                                    },
+                                    "List": {
+                                        "Query": "emc_vmax_storage_group_CL  | where ${Masking View} and ${Array} and ${Type} and ${Storage Group} | summarize avg(coalesce(columnifexists('cache_hit_ratio_d',0.0), 0.0)) by emc_vmax_storage_group_name_s | order by avg_ desc",
+                                        "HideGraph": false,
+                                        "enableSparklines": true,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Storage Group",
+                                            "Value": "Cache Hit Ratio"
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "0",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "search {selected item} | sort by TimeGenerated desc",
+                                        "NavigationSelect": {
+                                            "NavigationQuery": "search {selected item} | sort by TimeGenerated desc"
+                                        }
+                                    }
+                                }
+                            }
+,
+                            {
+                                "Id": "NotableQueriesBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Additional Info",
+                                        "newGroup": false,
+                                        "preselectedFilters": "Type, Computer",
+                                        "renderMode": "grid"
+                                    },
+                                    "queries": [
+
+                                        {
+                                            "query": "emc_vmax_storage_group_CL | summarize([\"Last Update Time\"], ['Compressed Track Ratio'], ['IO Density'], ['Sampled Read Latency'], ['Sampled Write Latency'], ['ORM Rate'], ['ORM Throughput'], ['Back End IO Throughput'])=arg_max(TimeGenerated,columnifexists('compressed_track_ratio_d', ''),columnifexists('io_density_d', ''),columnifexists('sampled_read_latency_d', ''),columnifexists('sampled_write_latency_d', ''),columnifexists('orm_rate_d', ''),columnifexists('orm_throughput_d', ''),columnifexists('back_end_io_throughput_d', '')) by Name=emc_vmax_storage_group_name_s",
+                                            "displayName": "Storage Group "
+                                        }
+                                        ,{
+                                            "query": "emc_vmax_storage_group_CL | summarize([\"Last Update Time\"], ['Capacity'], ['Device Emulation'], ['Type'], ['Volumes'], ['Workload'])=arg_max(TimeGenerated,columnifexists('capacity_d', ''),columnifexists('device_emulation_s', ''),columnifexists('type_s', ''),columnifexists('volumes_d', ''),columnifexists('workload_s', '')) by Name=emc_vmax_storage_group_name_s",
+                                            "displayName": "Storage Group Properties"
+                                        }
+                                        ,{
+                                            "query": "emc_vmax_thin_pool_CL | summarize([\"Last Update Time\"], ['Allocated Ratio'], ['Back End IO Latency'], ['Back End IO Throughput'], ['Back End Read Ratio'], ['Back End Write Ratio'], ['Compressed Track Ratio'], ['ORM Throughput'])=arg_max(TimeGenerated,columnifexists('allocated_ratio_d', ''),columnifexists('back_end_io_latency_d', ''),columnifexists('back_end_io_throughput_d', ''),columnifexists('back_end_read_ratio_d', ''),columnifexists('back_end_write_ratio_d', ''),columnifexists('compressed_track_ratio_d', ''),columnifexists('orm_throughput_d', '')) by Name=emc_vmax_thin_pool_name_s",
+                                            "displayName": "Thin Pool "
+                                        }
+                                        ,{
+                                            "query": "emc_vmax_thin_pool_CL | summarize([\"Last Update Time\"], ['Allocated Ratio'], ['Emulation'], ['Enabled Space'], ['Free Space'], ['RAID'], ['Total Space'], ['Used Space'])=arg_max(TimeGenerated,columnifexists('allocated_ratio_d', ''),columnifexists('emulation_s', ''),columnifexists('enabled_space_d', ''),columnifexists('free_space_d', ''),columnifexists('raid_s', ''),columnifexists('total_space_d', ''),columnifexists('used_space_d', '')) by Name=emc_vmax_thin_pool_name_s",
+                                            "displayName": "Thin Pool Properties"
+                                        }
+                                        ,{
+                                            "query": "emc_vmax_array_CL | summarize([\"Last Update Time\"], ['Back End IO Rate'], ['Device IO Rate'], ['Device Read Ratio'], ['Device Write Ratio'], ['Host IO Rate'], ['Host IO Throughput'], ['ORM Throughput'])=arg_max(TimeGenerated,columnifexists('back_end_io_rate_d', ''),columnifexists('device_io_rate_d', ''),columnifexists('device_read_ratio_d', ''),columnifexists('device_write_ratio_d', ''),columnifexists('host_io_rate_d', ''),columnifexists('host_io_throughput_d', ''),columnifexists('orm_throughput_d', '')) by Name=emc_vmax_array_name_s",
+                                            "displayName": "Array "
+                                        }
+                                        ,{
+                                            "query": "emc_vmax_array_CL | summarize([\"Last Update Time\"], ['Device Count'], ['Local'], ['Microcode'], ['Model'])=arg_max(TimeGenerated,columnifexists('device_count_d', ''),columnifexists('local_d', ''),columnifexists('microcode_s', ''),columnifexists('model_s', '')) by Name=emc_vmax_array_name_s",
+                                            "displayName": "Array Properties"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "Filters": [{
+                            "FieldName": "emc_vmax_masking_view_name_s",
+                            "QueryForValues": "emc_vmax_storage_group_CL | distinct emc_vmax_masking_view_name_s",
+                            "Title": "Masking View"
+                          },{
+                            "FieldName": "emc_vmax_array_name_s",
+                            "QueryForValues": "union emc_vmax_storage_group_CL, emc_vmax_array_CL | distinct emc_vmax_array_name_s",
+                            "Title": "Array"
+                          },{
+                            "FieldName": "type_s",
+                            "QueryForValues": "emc_vmax_storage_group_CL | distinct type_s",
+                            "Title": "Type"
+                          },{
+                            "FieldName": "emc_vmax_storage_group_name_s",
+                            "QueryForValues": "emc_vmax_storage_group_CL | distinct emc_vmax_storage_group_name_s",
+                            "Title": "Storage Group"
+                          },{
+                            "FieldName": "emc_vmax_tier_name_s",
+                            "QueryForValues": "emc_vmax_thin_pool_CL | distinct emc_vmax_tier_name_s",
+                            "Title": "Tier"
+                          },{
+                            "FieldName": "disk_group_s",
+                            "QueryForValues": "emc_vmax_thin_pool_CL | distinct disk_group_s",
+                            "Title": "Disk Group"
+                          },{
+                            "FieldName": "disk_technology_s",
+                            "QueryForValues": "emc_vmax_thin_pool_CL | distinct disk_technology_s",
+                            "Title": "Disk Technology"
+                          },{
+                            "FieldName": "emc_vmax_thin_pool_name_s",
+                            "QueryForValues": "emc_vmax_thin_pool_CL | distinct emc_vmax_thin_pool_name_s",
+                            "Title": "Thin Pool"
+                          },{
+                            "FieldName": "emc_vmax_unisphere_for_vmax_connection_name_s",
+                            "QueryForValues": "emc_vmax_array_CL | distinct emc_vmax_unisphere_for_vmax_connection_name_s",
+                            "Title": "Unisphere for VMAX Connection"
+                          }],
+                        "OverviewTile": {
+                            "Id": "SingleQueryDonutBuilderTileV1",
+                            "Type": "OverviewTile",
+                            "Version": 2,
+                            "Configuration": {
+                                "Donut": {
+                                    "Query": "emc_vmax_storage_group_CL | project ['Average Back End Disk Time'] = columnifexists('average_back_end_disk_time_d', double(null)), ['Average Back End Request Time'] = columnifexists('average_back_end_request_time_d', double(null)), ['Average Back End Task Time'] = columnifexists('average_back_end_task_time_d', double(null)), ['IO Latency'] = columnifexists('io_latency_d', double(null)), ['Sampled RDF Write Latency'] = columnifexists('sampled_rdf_write_latency_d', double(null)), ['Sampled Read Latency'] = columnifexists('sampled_read_latency_d', double(null)), ['Sampled Read Miss Latency'] = columnifexists('sampled_read_miss_latency_d', double(null)), ['Sampled Write Latency'] = columnifexists('sampled_write_latency_d', double(null)), ['Sampled Write Pending Disconnect Latency'] = columnifexists('sampled_write_pending_disconnect_latency_d', double(null)), ['Write Paced Latency'] = columnifexists('write_paced_latency_d', double(null)), TimeGenerated, Name=emc_vmax_storage_group_name_s  | extend Healthy = case(isnotnull(['Average Back End Disk Time']) or isnotnull(['Average Back End Request Time']) or isnotnull(['Average Back End Task Time']) or isnotnull(['IO Latency']) or isnotnull(['Sampled RDF Write Latency']) or isnotnull(['Sampled Read Latency']) or isnotnull(['Sampled Read Miss Latency']) or isnotnull(['Sampled Write Latency']) or isnotnull(['Sampled Write Pending Disconnect Latency']) or isnotnull(['Write Paced Latency']), (['Average Back End Disk Time'] < 1000 or isnull(['Average Back End Disk Time'])) and (['Average Back End Request Time'] < 1000 or isnull(['Average Back End Request Time'])) and (['Average Back End Task Time'] < 1000 or isnull(['Average Back End Task Time'])) and (['IO Latency'] < 1000 or isnull(['IO Latency'])) and (['Sampled RDF Write Latency'] < 1000 or isnull(['Sampled RDF Write Latency'])) and (['Sampled Read Latency'] < 1000 or isnull(['Sampled Read Latency'])) and (['Sampled Read Miss Latency'] < 1000 or isnull(['Sampled Read Miss Latency'])) and (['Sampled Write Latency'] < 1000 or isnull(['Sampled Write Latency'])) and (['Sampled Write Pending Disconnect Latency'] < 1000 or isnull(['Sampled Write Pending Disconnect Latency'])) and (['Write Paced Latency'] < 1000 or isnull(['Write Paced Latency'])), bool(null)) | where isnotnull(Healthy) | summarize HealthScore = avg(Healthy) * 100 by Name | summarize count() by case(HealthScore < 50, 'Critical', HealthScore < 70, 'Warning', isnull(HealthScore) or isnan(HealthScore), 'Unknown', 'Healthy')",
+                                    "CenterLegend": {
+                                        "Text": "Storage Group",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": []
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#00188f",
+                                            "#00188f",
+                                            "#00188f"
+                                        ],
+                                        "valueColorMapping": [
+                                            {
+                                                "value": "Healthy",
+                                                "color": "#009e49"
+                                            },
+                                            {
+                                                "value": "Warning",
+                                                "color": "#fff100"
+                                            },
+                                            {
+                                                "value": "Critical",
+                                                "color": "#ba141a"
+                                            }
+                                        ],
+                                        "legend": true,
+                                        "skipLegendPositioning": true,
+                                        "center": true,
+                                        "unitType": "Count",
+                                        "fromUnit": "Ones"
+                                    },
+                                    "HideOtherLegend": true
+                                },
+
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "search * | limit 1 | project TimeGenerated",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
